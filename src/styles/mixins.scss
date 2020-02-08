@@ -1,0 +1,28 @@
+@import './palette.scss';
+@import './typography.scss';
+
+@mixin col {
+  display: flex;
+  flex-flow: column;
+}
+
+@mixin row {
+  display: flex;
+  align-items: center;
+}
+
+@mixin centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin rowBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin clickable {
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+@import 'styles/mixins';
+
+.root {
+  @include centered;
+  background: $gradient;
+  min-height: 100vh;
+
+  .container {
+    @include col;
+    max-width: 1020px;
+    min-width: 420px;
+
+    & > h5 {
+      margin-bottom: 12px;
+    }
+
+    & > nav {
+      @include rowBetween;
+      margin: 32px 0 88px 0;
+    }
+  }
+}
