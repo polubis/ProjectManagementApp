@@ -1,0 +1,27 @@
+@import 'styles/mixins';
+
+.root {
+  @include clickable;
+  padding: 12px 24px;
+  border-radius: 4px;
+
+  &.filled {
+    background: $primaryDark;
+    color: $primary;
+    border: none;
+    font-size: 14px;
+    font-weight: $medium;
+    font-family: $font;
+    text-transform: uppercase;
+
+    &:hover {
+      background: $secondaryDark;
+    }
+  }
+
+  &.outlined {
+    padding: 10px 24px;
+    background: $primary;
+    color: $primary;
+  }
+}

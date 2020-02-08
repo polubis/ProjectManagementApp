@@ -1,26 +1,21 @@
-// EXAMPLE VARS
+$primary: #3381e1;
+$secondary: #65ffcb;
 
-$app-background: #fffcf9;
+$primaryDark: #0F183E;
+$secondaryDark: #121c47;
+
+$app-bg: linear-gradient(to top right, #04060e, $secondaryDark);
+
+$error: #ff395b;
+
 $white: #fff;
-$main: #3f3d56;
-$dark-main: #2d2b46;
-$black: #1e1e1e;
-$red: #b61d23;
-$light-red: #de656a;
-$orange: #ffb974;
-$grey: #707070;
-$light-blue: #f9f9f9;
-$medium-blue: #e3e8f4;
-$disabled-font: #a1a1a1;
-$disabled-bg: #919194;
-$overlay: rgba(0, 0, 0, 0.32);
-$dark-overlay: rgba(0, 0, 0, 0.44);
+$black: #000;
 
-$bold-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
-$text-shadow: 0 3px 6px rgb(0, 0, 0);
-$thin-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+$thinShadow: 0 6px 24px rgba(0, 0, 0, 0.14);
 
-$desktop-only: '(min-width: 1280px)';
-$not-desktop: '(max-width: 1279px)';
-$tablet-and-mobile: '(max-width: 1000px)';
-$mobile-only: '(max-width: 768px)';
+$font: 'Montserrat', 'sans-serif';
+
+$thin: 300;
+$regular: 400;
+$medium: 500;
+$bold: 700;

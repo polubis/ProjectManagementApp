@@ -1,0 +1,39 @@
+@import 'styles/mixins';
+
+.root {
+  @include rowBetween;
+  margin: 32px 0 52px 0;
+
+  .step {
+    @include centered;
+    @include clickable;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 5px solid $secondaryDark;
+    background: $primary;
+    color: $black;
+    flex-shrink: 0;
+
+    &.active {
+      background: $secondary;
+    }
+  }
+
+  .marker {
+    position: relative;
+    height: 5px;
+    width: 100%;
+    background: $secondaryDark;
+    overflow: hidden;
+
+    .progress {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: 0.3s transform ease-in; 
+      will-change: transform;
+      background: $secondary;
+    }
+  }
+}

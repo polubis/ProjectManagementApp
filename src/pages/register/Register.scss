@@ -1,0 +1,14 @@
+@import 'styles/vars';
+@import 'styles/mixins';
+
+.root {
+  @include centered;
+  background: $app-bg;
+  min-height: 100vh;
+
+  .container {
+    @include col;
+    min-width: 420px;
+    max-width: 1020px;
+  }
+}
