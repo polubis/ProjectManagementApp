@@ -29,7 +29,13 @@
     "paths": {
       "pages/*": ["src/pages/*"],
       "libs/*": ["src/libs/*"],
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "configFile": "../tslint.json"
+      }
+    ]
   },
   "include": ["src", "typings", "config/setup.jest.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]
