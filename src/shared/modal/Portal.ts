@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, memo } from 'react';
 import ReactDOM from 'react-dom';
 import { PortalProps } from './models';
 
-export const Portal = ({ id, children}: PortalProps) => {
+const Portal = ({ id, children}: PortalProps) => {
     const element = useRef(document.getElementById(id) || document.createElement('div'));
     const [current] = useState(!element.current.parentElement);
     useEffect(() => {

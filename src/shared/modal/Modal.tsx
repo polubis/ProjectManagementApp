@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 
 import { ModalProps } from './models';
 
 import classes from './Modal.scss';
-import { Portal } from './Portal';
 
-const Modal = ({ handleClose, children, open, size, title }: ModalProps) => {
-  const [overlayClasses, setOverlayClasses] = useState(
-    [classes.overlay, classes.overlayClosed].join(' ')
-  );
+import { useEscapeAction } from './useEscapeAction';
+import Portal from './Portal';
+
+const cssTransitionTime = 300;
+const overlayClosed = [classes.overlay, classes.overlayClosed].join(' ');
+const overlayWillOpen = [classes.overlay, classes.overlayWillOpen].join(' ');
+
+const Modal = ({ handleClose, children, open, size }: ModalProps) => {
+  const [overlayClasses, setOverlayClasses] = useState(overlayClosed);
+
+  const closeModal = () => {
+    setOverlayClasses(overlayClosed);
+    setTimeout(() => handleClose(), cssTransitionTime);
+  };
+
+  useEscapeAction({ open: open, callback: closeModal, key: 'Escape' });
 
   useEffect(() => {
     if (open) {
-      setTimeout(
-        () =>
-          setOverlayClasses(
-            [classes.overlay, classes.overlayWillOpen].join(' ')
-          ),
-        50
-      );
+      setTimeout(() => setOverlayClasses(overlayWillOpen), 10);
     } else {
-      setOverlayClasses([classes.overlay, classes.overlayClosed].join(' '));
+      setOverlayClasses(overlayClosed);
     }
   }, [open]);
-
-  const closeModal = () => {
-    setOverlayClasses([classes.overlay, classes.overlayClosed].join(' '));
-    setTimeout(() => handleClose(), 300);
-  };
 
   if (!open) return null;
 
@@ -39,15 +38,12 @@ const Modal = ({ handleClose, children, open, size, title }: ModalProps) => {
       <div className={overlayClasses}>
         <div className={classes.modalContainer}>
           <div className={classes.modalHeader}>
-            <h1 className={classes.modalHeaderTitle}>{title}</h1>
-            <button onClick={closeModal}>X</button>
+            <button onClick={closeModal} className={classes.buttonClose}>
+              X
+            </button>
           </div>
-          <div className={contentClasses}>{children}</div>
 
-          <div className={classes.modalActions}>
-            <button onClick={closeModal}>close</button>
-            <button onClick={() => console.log('action')}>additional action</button>
-          </div>
+          <div className={contentClasses}>{children}</div>
         </div>
       </div>
     </Portal>

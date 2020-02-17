@@ -1,11 +1,18 @@
 @import 'styles/vars';
 @import 'styles/mixins';
 
-
+$CSS_TRANSITION: 0.3s;
+$modalPadding: 15px;
+$modalBg: white;
+$separatorBorder: 1px solid rgba(0, 0, 0, 0.1);
+$modalSizes: (
+  small: 400px,
+  medium: 600px,
+  large: 800px
+);
 
 .overlayWillOpen {
   opacity: 1;
- 
 }
 
 .overlayClosed {
@@ -13,61 +20,76 @@
 }
 
 .overlay {
-  height: 100vh;
+  @include centered;
+  // height: 100vh;
+  height: 100%;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  transition: 0.3s opacity ease-in-out;
+  transition: $CSS_TRANSITION opacity ease-in-out;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
   overflow-x: hidden;
-  overflow-y: auto;
-  @include centered;
 }
 
 .modalContainer {
-  background-color: white;
-  padding: 20px;
+  background-color: $modalBg;
   border-radius: 10px;
   position: absolute;
-  top: 50%;
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.35);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.35);
   max-width: 90%;
+  max-height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  z-index: 3;
 }
 
 .modalHeader {
   display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0,0,0, 0.1);
-  padding: 5px 0;
-}
-
-.modalHeaderTitle {
-  color: black;
+  justify-content: flex-end;
+  border-bottom: $separatorBorder;
+  padding: $modalPadding;
 }
 
 .modalContent {
   display: flex;
   flex-flow: column;
-  padding: 10px 0;
+  padding: $modalPadding;
   color: black;
-}
-
-.modalActions {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 0;
+  position: relative;
 }
 
 .small {
-  width: 400px;
+  width: map-get($modalSizes, "small");
 }
 
 .medium {
-  width: 600px;
+  width: map-get($modalSizes, "medium");
 }
 
 .large {
-  width: 800px;
+  width: map-get($modalSizes, "large");
+}
+
+
+.button {
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.buttonClose {
+  @extend .button;
+  color: black;
+  font-size: 20px;
+  border-radius: 50%;
+  font-weight: bold;
+  transition: 0.3s color ease-in-out;
+}
+
+.buttonClose:hover {
+  color: red;
 }

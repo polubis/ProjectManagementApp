@@ -43,8 +43,20 @@ const Login = () => {
       </form>
       <button onClick={() => setModal(!modal)}>toggle modal</button>
       <button onClick={signInViaGithub}>Log in via github account</button>
-      <Modal handleClose={toggleModal} open={modal} size="medium" title="Modal title">
+      <Modal handleClose={toggleModal} open={modal} size="large">
         modal content
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+        <p style={{padding: "20px"}}>test</p>
+
       </Modal>
     </React.Fragment>
   );
