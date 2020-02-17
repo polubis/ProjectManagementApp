@@ -1,12 +1,15 @@
 @import 'styles/vars';
 @import 'styles/mixins';
 
+
+
 .overlayWillOpen {
-    opacity: 1;
+  opacity: 1;
+ 
 }
 
 .overlayClosed {
-    opacity: 0;
+  opacity: 0;
 }
 
 .overlay {
@@ -17,25 +20,44 @@
   left: 0;
   transition: 0.3s opacity ease-in-out;
   background: rgba(0, 0, 0, 0.6);
+  overflow-x: hidden;
+  overflow-y: auto;
   @include centered;
 }
 
 .modalContainer {
   background-color: white;
-  position: relative;
-  transition: 5s transform ease-in-out;
   padding: 20px;
   border-radius: 10px;
+  position: absolute;
+  top: 50%;
   box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.35);
+  max-width: 90%;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0, 0.1);
+  padding: 5px 0;
+}
+
+.modalHeaderTitle {
+  color: black;
 }
 
 .modalContent {
   display: flex;
   flex-flow: column;
+  padding: 10px 0;
+  color: black;
 }
 
 .modalActions {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
 }
 
 .small {

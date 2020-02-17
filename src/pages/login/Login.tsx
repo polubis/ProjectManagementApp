@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { FormSubmitEvent } from 'shared/forms';
 import { signInViaCredentials, signInViaGithub } from 'api/auth';
+import Modal from 'shared/modal/Modal';
 
 const Login = () => {
   const [login, setLogin] = useState('');
@@ -20,6 +21,10 @@ const Login = () => {
       });
   };
 
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  }
   return (
     <React.Fragment>
       <form onSubmit={handleSignInViaCredentials}>
@@ -36,8 +41,11 @@ const Login = () => {
 
         <button type="submit">Log in via credentials</button>
       </form>
-
+      <button onClick={() => setModal(!modal)}>toggle modal</button>
       <button onClick={signInViaGithub}>Log in via github account</button>
+      <Modal handleClose={toggleModal} open={modal} size="medium" title="Modal title">
+        modal content
+      </Modal>
     </React.Fragment>
   );
 };
