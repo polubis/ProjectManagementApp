@@ -1,0 +1,21 @@
+@import 'styles/mixins';
+
+.root {
+  width: 100%;
+  background: $secondary;
+
+  & > input {
+    width: 100%;
+    height: 42px;
+    padding: 0 22px;
+    color: $primary;
+    background: none;
+    border: unset;
+    font-family: inherit;
+
+    &::placeholder {
+      color: $primary;
+      opacity: 0.88;
+    }
+  }
+}

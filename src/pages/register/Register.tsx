@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { REGISTER_STEPS } from '.';
 
-import { Stepper, Step, Title, SubTitle } from 'shared/ui';
+import { Stepper, Step, Title, SubTitle, Input } from 'shared/ui';
 
 import classes from './Register.scss';
 import RegisterStepNavItem from './register-step-nav-item/RegisterStepNavItem';
@@ -24,7 +24,10 @@ const Register = () => {
             </Step>
           ))}
           <Step content>
-            <div>Content 0</div>
+            <div>
+              {' '}
+              <Input placeholder="siema..." />
+            </div>
           </Step>
           <Step content>
             <div>{`Content 1`}</div>
