@@ -11,6 +11,11 @@
   align-items: center;
 }
 
+@mixin rowCenter {
+  display: flex;
+  justify-content: center;
+}
+
 @mixin centered {
   display: flex;
   align-items: center;

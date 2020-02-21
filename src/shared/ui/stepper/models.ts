@@ -10,7 +10,7 @@ export interface StepProps {
 }
 
 export interface StepperProps {
-  step: number;
+  activeIdx: number;
   children: React.ReactNode;
   onStepChange: (idx: number) => void;
 }

@@ -2,7 +2,7 @@ import React, { ReactElement, cloneElement, Children } from 'react';
 
 import { InjectedStepProps, StepperProps, StepProps } from '.';
 
-export const Stepper = ({ step, onStepChange, children }: StepperProps) => {
+export const Stepper = ({ activeIdx, onStepChange, children }: StepperProps) => {
   const renderChildren = () => {
     if (!children || Children.count(children) % 2 !== 0) {
       return null;
@@ -20,7 +20,7 @@ export const Stepper = ({ step, onStepChange, children }: StepperProps) => {
         const injectedStepProps: InjectedStepProps = {
           onStepChange,
           idx,
-          isActive: idx === step
+          isActive: idx === activeIdx
         };
 
         const clonedChild = cloneElement(child, {
@@ -34,7 +34,7 @@ export const Stepper = ({ step, onStepChange, children }: StepperProps) => {
     return (
       <>
         <nav>{headerItems}</nav>
-        <section>{contentItems.filter((_, idx) => idx === step)}</section>
+        <section>{contentItems.filter((_, idx) => idx === activeIdx)}</section>
       </>
     );
   };

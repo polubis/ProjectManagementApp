@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 
 import { REGISTER_STEPS } from '.';
 
-import { Stepper, Step, Title, SubTitle, Input } from 'shared/ui';
+import { Stepper, Step, Title, SubTitle } from 'shared/ui';
+
+import StepNavItem from './step-nav-item';
+import AuthStep from './auth-step';
 
 import classes from './Register.scss';
-import RegisterStepNavItem from './register-step-nav-item/RegisterStepNavItem';
 
 const Register = () => {
   const [activeStepIdx, setActiveStepIdx] = useState(0);
@@ -17,17 +19,14 @@ const Register = () => {
         <Title>{step.title}</Title>
         <SubTitle>{step.subTitle}</SubTitle>
 
-        <Stepper step={activeStepIdx} onStepChange={setActiveStepIdx}>
+        <Stepper activeIdx={activeStepIdx} onStepChange={setActiveStepIdx}>
           {REGISTER_STEPS.map((step, idx) => (
             <Step key={idx}>
-              <RegisterStepNavItem step={step} />
+              <StepNavItem step={step} />
             </Step>
           ))}
           <Step content>
-            <div>
-              {' '}
-              <Input placeholder="siema..." />
-            </div>
+            <AuthStep />
           </Step>
           <Step content>
             <div>{`Content 1`}</div>

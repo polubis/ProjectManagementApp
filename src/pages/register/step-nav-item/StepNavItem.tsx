@@ -1,16 +1,12 @@
 import React from 'react';
 
-import { RegisterStep } from '..';
+import { StepNavItemProps } from '.';
 
 import { Description, InjectedStepProps } from 'shared/ui';
 
-import classes from './RegisterStepNavItem.scss';
+import classes from './StepNavItem.scss';
 
-interface RegisterStepNavItemProps {
-  step: RegisterStep;
-}
-
-const RegisterStepNavItem = ({ step, ...rest }: RegisterStepNavItemProps) => {
+const StepNavItem = ({ step, ...rest }: StepNavItemProps) => {
   const { isActive, onStepChange, idx } = rest as InjectedStepProps;
 
   const rootClasses = [
@@ -27,10 +23,8 @@ const RegisterStepNavItem = ({ step, ...rest }: RegisterStepNavItemProps) => {
 
         <Description>{step.title}</Description>
       </button>
-
-      {/* <span className={classes.progress} /> */}
     </div>
   );
 };
 
-export default RegisterStepNavItem;
+export default StepNavItem;
