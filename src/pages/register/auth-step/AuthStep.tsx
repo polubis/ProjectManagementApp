@@ -1,15 +1,23 @@
 import React from 'react';
 
-import { Button, Input, Label } from 'shared/ui';
+import { Button, Input, Label, InjectedStepProps } from 'shared/ui';
 
 import classes from './AuthStep.scss';
 
-const AuthStep = () => {
+const AuthStep = ({ ...rest }) => {
+  const { onStepChange, idx } = rest as InjectedStepProps;
+
   return (
-    <form className={classes.root}>
+    <form
+      className={classes.root}
+      onSubmit={e => {
+        e.preventDefault();
+        onStepChange(idx + 1);
+      }}
+    >
       <div>
         <Label color="primary">Email *</Label>
-        <Input placeholder="Email *" type="email" />
+        <Input autoFocus placeholder="Email *" type="email" />
       </div>
       <div>
         <Label color="primary">Password *</Label>

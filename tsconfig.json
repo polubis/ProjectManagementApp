@@ -30,8 +30,14 @@
       "pages/*": ["src/pages/*"],
       "shared/*": ["src/shared/*"],
       "api/*": ["src/api/*"],
-      "styles": ["src/styles"],
-    }
+      "styles": ["src/styles"]
+    },
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "configFile": "../tslint.json"
+      }
+    ]
   },
   "include": ["src", "typings", "config/setup.jest.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]

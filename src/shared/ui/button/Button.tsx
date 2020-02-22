@@ -4,12 +4,7 @@ import { ButtonProps } from '.';
 
 import classes from './Button.scss';
 
-export const Button = ({
-  children,
-  variant,
-  bg: background,
-  color
-}: ButtonProps) => {
+export const Button = ({ children, variant, bg: background, color }: ButtonProps) => {
   const className = [classes.root, classes[variant]].join(' ');
 
   return (

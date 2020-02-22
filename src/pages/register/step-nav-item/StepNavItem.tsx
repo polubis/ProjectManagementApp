@@ -8,8 +8,8 @@ import classes from './StepNavItem.scss';
 
 const StepNavItem = ({ step, ...rest }: StepNavItemProps) => {
   const { isActive, onStepChange, idx } = rest as InjectedStepProps;
-
-  const rootClasses = [
+  
+  const rootClasses = [ 
     classes.root,
     isActive ? classes.active : classes.unactive
   ].join(' ');

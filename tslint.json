@@ -1,0 +1,14 @@
+{
+    "rules": {
+        "no-any": false,
+        "no-empty": true,
+        "no-empty-interface": true,
+        "no-duplicate-imports": true,
+        "no-duplicate-variable": true,
+        "no-unused-variable": true,
+        "triple-equals": true,
+        "prefer-const": true,
+        "arrow-return-shorthand": true,
+        "no-invalid-template-strings": true
+    }
+}
