@@ -1,0 +1,35 @@
+@import 'styles/mixins';
+
+.root {
+  &.active {
+    & > button {
+      background: $ok;
+      color: $ok;
+    }
+  }
+
+  &.unactive {
+    & > button {
+      background: $primary;
+      color: $primary;
+    }
+  }
+
+  & > button {
+    @include clickable;
+    @include centered;
+    position: relative;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    color: $white;
+    border: 5px solid $secondaryDark;
+    flex-shrink: 0;
+
+    & > span {
+      position: absolute;
+      bottom: -100%;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
+    }
+  }
+}
