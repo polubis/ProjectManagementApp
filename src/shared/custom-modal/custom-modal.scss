@@ -1,0 +1,38 @@
+@import 'styles/vars';
+
+.overlay {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,.14);
+}
+
+.modal {
+  position: absolute;
+  min-height: 90vh;
+  width: 350px;
+  left: 0;
+  right: 0;
+  margin: 100px auto;
+  background: white;
+  display: flex;
+  flex-flow: column;
+  z-index: 2;
+
+  header {
+    margin-bottom: 35px;
+    color: black;
+  }
+
+  ul {
+    display: flex;
+    flex-flow: column;
+
+    li {
+      color: black;
+    }
+  }
+}
