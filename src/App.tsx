@@ -3,7 +3,10 @@ import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
 import Login from 'pages/login';
-import Register from 'pages/register';
+
+import { withLazy } from 'shared/utils';
+
+const Register = withLazy(() => import('pages/register'));
 
 const App = () => {
   return (

@@ -3,13 +3,13 @@ import React, { lazy, Suspense } from 'react';
 export const withLazy = Component => {
   const LazyComponent = lazy(Component);
 
-  const SuspenedComponent = props => (
+  const SuspendedComponent = props => (
     <Suspense fallback={null}>
       <LazyComponent {...props} />
     </Suspense>
   );
 
-  SuspenedComponent.preload = Component;
+  SuspendedComponent.preload = Component;
 
-  return SuspenedComponent;
+  return SuspendedComponent;
 };

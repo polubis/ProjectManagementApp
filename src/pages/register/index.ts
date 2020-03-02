@@ -1,5 +1,5 @@
-import { withLazy } from 'shared/utils';
+import Register from './Register';
 
 export * from './models';
 export * from './config';
-export default withLazy(() => import('./Register'));
+export default Register;

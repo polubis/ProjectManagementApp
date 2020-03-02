@@ -7,50 +7,30 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = (env, { mode }) => {
   const [PROD] = ['production'];
+
   console.log(`App is running in ${mode} mode`);
 
-  const optimization =
-    mode === PROD
-      ? {
-          runtimeChunk: 'single',
-          splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-              default: false,
-              
-              vendor: {
-                test: /[\\/]node_modules[\\/]/,
-                name(module) {
-                  // We creating here node_modules single package name
-                  // We replacing @ with '' because some servers don't like @ - for ex. in @babel
-                  return `npm.${module.context
-                    .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                    .replace('@', '')}`;
-                }
-              }
-            }
-          }
-        }
-      : {};
+  const config = {
+    mode,
 
-  return {
-    devtool: mode !== PROD && 'eval-source-map',
+    devtool: mode === PROD ? false : 'inline-source-map',
+
     entry: path.resolve(__dirname, 'src/index.tsx'),
+
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', 'json'],
+      extensions: ['.ts', '.tsx', '.js'],
       alias: {
         styles: path.resolve(__dirname, 'src/styles')
       },
       plugins: [new TsConfigPathsPlugin()]
     },
+
     output: {
       path: __dirname + '/dist',
       filename: '[name].[hash].js',
       publicPath: '/'
     },
-    optimization,
+
     module: {
       rules: [
         {
@@ -104,11 +84,13 @@ module.exports = (env, { mode }) => {
         }
       ]
     },
+
     plugins: [
       new HtmlWebPackPlugin({
         template: './public/index.html',
         favicon: './public/favicon.ico',
-        inject: 'body'
+        inject: 'body',
+        hash: true
       }),
       new InterpolateHtmlPlugin({
         PUBLIC_URL: 'public'
@@ -117,9 +99,36 @@ module.exports = (env, { mode }) => {
         openAnalyzer: false
       })
     ],
+
     devServer: {
       historyApiFallback: true,
       port: 3000
     }
   };
+
+  if (mode === PROD) {
+    config.optimization = {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        cacheGroups: {
+          default: false, // Removes default config
+
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // We creating here node_modules single package name
+              return `npm.${module.context
+                .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+                .replace('@', '')}`;
+            },
+            minSize: 0
+          }
+        }
+      }
+    };
+  }
+
+  return config;
 };
