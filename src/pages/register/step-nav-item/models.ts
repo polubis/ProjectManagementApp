@@ -1,5 +1,5 @@
-import { RegisterStep } from '..';
+import { RegisterStepConfig } from '..';
 
 export interface StepNavItemProps {
-  step: RegisterStep;
+  step: RegisterStepConfig;
 }

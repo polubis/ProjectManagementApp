@@ -1,8 +1,8 @@
 import { FormConfig } from 'shared/forms';
 
-export interface RegisterStep {
-  title: string;
-  subTitle: string;
-  path: string;
+export interface RegisterStepConfig {
+  headingText: string;
+  subHeadingText: string;
+  iconPath: string;
   formConfig: FormConfig;
 }

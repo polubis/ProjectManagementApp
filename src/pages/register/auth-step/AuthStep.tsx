@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Input, Label, InjectedStepProps } from 'shared/ui';
+import { Button, Input, InjectedStepProps, Text } from 'shared/ui';
 
 import classes from './AuthStep.scss';
 
@@ -16,15 +16,21 @@ const AuthStep = ({ ...rest }) => {
       }}
     >
       <div>
-        <Label color="primary">Email *</Label>
+        <Text variant="label" color="primary">
+          Email *
+        </Text>
         <Input autoFocus placeholder="Email *" type="email" />
       </div>
       <div>
-        <Label color="primary">Password *</Label>
+        <Text variant="label" color="primary">
+          Password *
+        </Text>
         <Input placeholder="Password *" type="password" />
       </div>
       <div>
-        <Label color="primary">Repeated password *</Label>
+        <Text variant="label" color="primary">
+          Repeated password *
+        </Text>
         <Input placeholder="Repeated password *" type="password" />
       </div>
 

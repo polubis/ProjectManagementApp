@@ -1,8 +1,14 @@
 import React, { cloneElement, Children, ReactElement } from 'react';
 
-import { InjectedStepperProps, StepperProps } from '.';
+import {
+  InjectedStepperProps,
+  StepperProps,
+  StepperNavProps,
+  StepperContentProps,
+  injectStepProps
+} from '.';
 
-export const Stepper = ({ activeIdx, onStepChange, children }: StepperProps) => {
+const Stepper = ({ activeIdx, onStepChange, children }: StepperProps) => {
   if (!children || Children.count(children) !== 2) {
     return null;
   }
@@ -20,3 +26,19 @@ export const Stepper = ({ activeIdx, onStepChange, children }: StepperProps) => 
 
   return <>{content}</>;
 };
+
+const StepperNav = ({ children, ...rest }: StepperNavProps) => {
+  return <nav>{injectStepProps(children, rest as InjectedStepperProps)}</nav>;
+};
+
+const StepperContent = ({ children, ...rest }: StepperContentProps) => {
+  const injectedProps = rest as InjectedStepperProps;
+
+  return (
+    <section>
+      {injectStepProps(children, injectedProps, idx => idx === injectedProps.activeIdx)}
+    </section>
+  );
+};
+
+export { Stepper, StepperNav, StepperContent };

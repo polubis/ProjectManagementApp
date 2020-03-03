@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
-import { REGISTER_STEPS } from '.';
+import { registerStepsConfig } from '.';
 
-import { Stepper, StepperNav, StepperContent, Title, SubTitle } from 'shared/ui';
+import { Stepper, StepperNav, StepperContent, Text } from 'shared/ui';
 
 import AuthStep from './auth-step';
-import PersonalInfoStep from './personal-info-step';
 import StepNavItem from './step-nav-item';
+import { withLazy } from 'shared/utils';
 
 import classes from './Register.scss';
+
+const PersonalInfoStep = withLazy(() => import('./personal-info-step'));
+
+const steps = [{ preload: void 0 }, PersonalInfoStep];
 
 const Register = () => {
   const [activeStepIdx, setActiveStepIdx] = useState(0);
 
-  const step = REGISTER_STEPS[activeStepIdx];
+  const activeStep = registerStepsConfig[activeStepIdx];
+
+  const handleStepChange = useCallback((stepIdx: number) => {
+    setActiveStepIdx(stepIdx);
+    steps[stepIdx].preload();
+  }, []);
 
   return (
     <main className={classes.root}>
       <div className={classes.container}>
-        <Title>{step.title}</Title>
-        <SubTitle>{step.subTitle}</SubTitle>
+        <Text variant="heading">{activeStep.headingText}</Text>
+        <Text variant="subHeading">{activeStep.subHeadingText}</Text>
 
-        <Stepper activeIdx={activeStepIdx} onStepChange={setActiveStepIdx}>
+        <Stepper activeIdx={activeStepIdx} onStepChange={handleStepChange}>
           <StepperNav>
-            {REGISTER_STEPS.map((step, idx) => (
+            {registerStepsConfig.map((step, idx) => (
               <StepNavItem key={idx} step={step} />
             ))}
           </StepperNav>
