@@ -30,7 +30,9 @@
       "pages/*": ["src/pages/*"],
       "shared/*": ["src/shared/*"],
       "api/*": ["src/api/*"],
-      "styles": ["src/styles"]
+      "components*": ["src/components/*"],
+      "views*": ["src/views/*"],
+      "styles": ["src/styles"],
     },
     "plugins": [
       {

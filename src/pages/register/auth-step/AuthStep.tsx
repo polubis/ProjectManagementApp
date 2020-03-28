@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Input, InjectedStepProps, Text } from 'shared/ui';
+import { Input, InjectedStepProps, Text } from 'shared/ui';
 
 import classes from './AuthStep.scss';
 
@@ -34,9 +34,9 @@ const AuthStep = ({ ...rest }) => {
         <Input placeholder="Repeated password *" type="password" />
       </div>
 
-      <Button type="submit" variant="filled">
+      {/* <Button type="submit" variant="filled">
         NEXT
-      </Button>
+      </Button> */}
     </form>
   );
 };

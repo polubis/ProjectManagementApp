@@ -1,0 +1,19 @@
+@import 'styles/mixins';
+
+.mainView {
+    display: grid;
+    grid-template-columns: 99px 1fr;
+    grid-template-rows: 99px 1fr;
+    grid-template-areas: "sidebar nav" "sidebar main";
+    min-height: 100vh;
+    background: $surface;
+
+    nav {
+        grid-area: nav;
+        border-bottom: 1px solid $primaryBlured;
+    }
+
+    main {
+        grid-area: main;
+    }
+}

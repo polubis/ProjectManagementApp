@@ -1,5 +1,6 @@
 @import './palette.scss';
-@import './typography.scss';
+
+// GENERAL
 
 @mixin col {
   display: flex;
@@ -31,3 +32,19 @@
 @mixin clickable {
   cursor: pointer;
 }
+
+// END GENERAL
+
+// TEXT
+
+@mixin text {
+  font-family: $fontPrimary;
+  text-transform: none;
+}
+
+@mixin linkSmall {
+  @include text;
+  font-size: 10px;
+}
+
+// END TEXT

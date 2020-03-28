@@ -1,7 +1,10 @@
 $primary: #3381e1;
+$primaryBlured: rgba($primary, 0.43);
 
-$secondary: #0f183e;
+$secondary: #65ffcb;
 $secondaryDark: #121c47;
+
+$surface: #101b48;
 
 $error: #ff395b;
 
@@ -11,3 +14,10 @@ $white: #fff;
 $black: #000;
 
 $gradient: linear-gradient(to top right, #04060e, #121c47);
+
+$thin: 300;
+$regular: 400;
+$medium: 500;
+$bold: 700;
+
+$fontPrimary: 'Montserrat', 'sans-serif';
