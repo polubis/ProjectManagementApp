@@ -1,0 +1,21 @@
+@import 'styles/mixins';
+
+.searchCategories {
+    @include rowCenter;
+
+    .category {
+        @include link;
+        color: $primary;
+        padding: 14px 20px;
+        text-transform: capitalize;
+
+        &:not(:last-of-type) {
+            margin-right: 30px;
+        }
+
+        &.active {
+            background: $secondary;
+            color: $black;
+        }
+    }
+}

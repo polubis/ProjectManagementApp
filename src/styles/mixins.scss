@@ -47,4 +47,10 @@
   font-size: 10px;
 }
 
+@mixin link {
+  @include text;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 // END TEXT
