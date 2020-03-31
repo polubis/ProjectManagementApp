@@ -1,8 +1,6 @@
 @import 'styles/mixins';
 
 .searchCategories {
-    @include rowCenter;
-
     .category {
         @include link;
         color: $primary;
