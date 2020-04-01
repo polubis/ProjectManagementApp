@@ -2,7 +2,7 @@
 
 .templateSearch {
   @include row;
-  min-width: 840px;
+  width: 840px;
   height: 60px;
   background: $surfacePrimary;
   border-radius: 4px;
@@ -27,14 +27,15 @@
   .confirmSearchBtn {
     @include text;
     height: 100%;
+    flex-shrink: 0;
     border-radius: 0;
     color: $primary;
   }
 
   .technologiesBtn {
     @include rowBetween;
-    min-width: 300px;
-    padding: 0 20px 0 24px;
+    padding: 0 18px 0 24px;
+    width: 300px;
     font-size: 16px;
     font-weight: $bold;
     border-left: 1px solid $primary;
@@ -44,9 +45,56 @@
       transform: rotate(-90deg);
       font-size: 32px;
     }
+
+    &.technologiesBtnActive {
+      background: $primaryDark;
+      border-left-color: $primaryDark;
+      border-right-color: $primaryDark;
+      color: $white;
+    }
   }
 
   .confirmSearchBtn svg {
     font-size: 28px;
+  }
+}
+
+.technologiesMenu {
+  width: 300px;
+  border-radius: 0;
+  box-shadow: $shadowPrimary;
+  background: $surfacePrimary;
+  color: $primary;
+  margin-top: 1px;
+
+  ul {
+    @include col;
+    padding: 6px 0;
+
+    label {
+      @include noSelect;
+      margin: 0;
+      padding: 0 6px;
+
+      &:focus {
+        outline: none;
+      }
+
+      & > span:first-of-type {
+        padding: 12px;
+      }
+
+      & > span:last-of-type {
+        @include text;
+      }
+
+      .technologyCheckbox {
+        color: $primary !important;
+      }
+
+      .technologyCheckboxChecked {
+        color: $primary !important;
+      }
+    }
   }
 }

@@ -1,11 +1,12 @@
 $primary: #3381e1;
+$primaryDark: #003577;
 $primaryBlured: rgba($primary, 0.43);
 
 $secondary: #65ffcb;
 $secondaryDark: #121c47;
 
 $surface: #101b48;
-$surfacePrimary: #0F183E;
+$surfacePrimary: #0f183e;
 
 $error: #ff395b;
 
@@ -15,6 +16,8 @@ $white: #fff;
 $black: #000;
 
 $gradient: linear-gradient(to top right, #04060e, #121c47);
+
+$shadowPrimary: 0 3px 6px rgba(0, 0, 0, 0.16);
 
 $thin: 300;
 $regular: 400;
