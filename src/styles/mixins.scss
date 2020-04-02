@@ -61,4 +61,9 @@
   font-weight: bold;
 }
 
+@mixin label {
+  @include text;
+  font-size: 14px;
+}
+
 // END TEXT

@@ -85,7 +85,7 @@
       }
 
       & > span:last-of-type {
-        @include text;
+        @include label;
       }
 
       .technologyCheckbox {
