@@ -34,34 +34,36 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
 
   return (
     <aside className={csx.sidebar}>
-      <figure className={csx.logo}>
-        <Logo />
-      </figure>
+      <div className={csx.sidebarContent}>
+        <figure className={csx.logo}>
+          <Logo />
+        </figure>
 
-      <div className={csx.links}>
-        {sidebarLinks.map(({ path, label, icon }) => (
-          <NavLink
-            exact
-            key={label}
-            to={`${basePath}${path}`}
-            className={csx.link}
-            style={{ height: `${LINK_HEIGHT}px` }}
-            activeClassName={csx.active}
-          >
-            <Button>
-              {icon}
-              <span>{label}</span>
-            </Button>
-          </NavLink>
-        ))}
-        <span
-          className={csx.marker}
-          style={{
-            height: `${MARKER_HEIGHT}px`,
-            top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
-            transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
-          }}
-        />
+        <div className={csx.links}>
+          {sidebarLinks.map(({ path, label, icon }) => (
+            <NavLink
+              exact
+              key={label}
+              to={`${basePath}${path}`}
+              className={csx.link}
+              style={{ height: `${LINK_HEIGHT}px` }}
+              activeClassName={csx.active}
+            >
+              <Button>
+                {icon}
+                <span>{label}</span>
+              </Button>
+            </NavLink>
+          ))}
+          <span
+            className={csx.marker}
+            style={{
+              height: `${MARKER_HEIGHT}px`,
+              top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
+              transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
+            }}
+          />
+        </div>
       </div>
     </aside>
   );

@@ -3,46 +3,52 @@
 .sidebar {
   grid-area: sidebar;
   border-right: 1px solid $primaryBlured;
-  @include col;
+  background: $surface;
 
-  .logo {
-    margin: 30px auto 78px auto;
-  }
+  .sidebarContent {
+    @include col;
+    position: sticky;
+    top: 0;
 
-  .links {
-    position: relative;
+    .logo {
+      margin: 30px auto 78px auto;
+    }
 
-    .link {
-      @include rowCenter;
+    .links {
+      position: relative;
 
-      button {
-        width: 100%;
-        padding: 0;
-        border-radius: 0;
-        color: $primary;
+      .link {
+        @include rowCenter;
 
-        & > span {
-          @include col;
+        button {
+          width: 100%;
+          padding: 0;
+          border-radius: 0;
+          color: $primary;
 
           & > span {
-            margin-top: 6px;
-            @include linkSmall;
+            @include col;
+
+            & > span {
+              margin-top: 6px;
+              @include linkSmall;
+            }
           }
+        }
+
+        &.active button {
+          color: $secondary;
         }
       }
 
-      &.active button {
-        color: $secondary;
+      .marker {
+        position: absolute;
+        right: -2px;
+        width: 4px;
+        background: $secondary;
+        border-radius: 39px;
+        transition: transform 0.3s;
       }
-    }
-
-    .marker {
-      position: absolute;
-      right: -2px;
-      width: 4px;
-      background: $secondary;
-      border-radius: 39px;
-      transition: transform 0.3s;
     }
   }
 }
