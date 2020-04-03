@@ -22,15 +22,10 @@ export const TemplateTile = () => {
         </div>
       </header>
 
-      <div className={csx.technologies}>
-        <figure>
-          <img src={window.location.origin + '/public/images/ReactLogo.png'} />
-        </figure>
-        <figure>
-          <img src={window.location.origin + '/public/images/AngularLogo.png'} />
-        </figure>
-      </div>
-
+      <figure className={csx.mainTechnology}>
+        <img src={window.location.origin + '/public/images/ReactLogo.png'} />
+      </figure>
+      
       <h5 className={csx.templateName}>React with Model View Provider architecture</h5>
 
       <span className={csx.templateDescription}>
