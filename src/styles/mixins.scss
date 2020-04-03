@@ -61,9 +61,33 @@
   font-weight: bold;
 }
 
+@mixin labelExtraSmall {
+  @include text;
+  font-size: 10px;
+}
+
+@mixin labelSmall {
+  @include text;
+  font-size: 12px;
+}
+
 @mixin label {
   @include text;
   font-size: 14px;
+}
+
+@mixin heading {
+  @include text;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: $medium;
+}
+
+@mixin description {
+  @include text;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: $thin;
 }
 
 // END TEXT
