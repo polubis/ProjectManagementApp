@@ -1,6 +1,7 @@
 @import 'styles/mixins';
 
 .mainView {
+    position: relative;
     display: grid;
     grid-template-columns: 99px 1fr;
     grid-template-rows: 99px 1fr;
@@ -9,8 +10,12 @@
     background: $surface;
 
     nav {
+        position: sticky;
         grid-area: nav;
         border-bottom: 1px solid $primaryBlured;
+        background: $surface;
+        top: 0;
+        z-index: 10;
     }
 
     main {
