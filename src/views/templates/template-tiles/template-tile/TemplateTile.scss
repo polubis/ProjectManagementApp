@@ -4,6 +4,7 @@
   padding: 28px 25px;
   background: $surfacePrimary;
   width: 320px;
+  cursor: pointer;
 
   .toolbar {
     @include row;
