@@ -1,0 +1,39 @@
+@import 'styles/mixins';
+
+.navbar {
+  @include row;
+  position: sticky;
+  grid-area: nav;
+  border-bottom: 1px solid $primaryBlured;
+  background: $surface;
+  top: 0;
+  padding: 0 40px;
+  z-index: 10;
+
+  .breadcrumbs {
+    @include row;
+
+    .breadcrumb {
+      @include headingSmall;
+      color: $primary;
+      text-transform: capitalize !important;
+
+      &:first-of-type {
+        @include headingMedium;
+      }
+
+      &:last-of-type {
+        color: $secondary;
+      }
+    }
+
+    .divider {
+      color: $primary;
+      margin: 0 6px;
+
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+}

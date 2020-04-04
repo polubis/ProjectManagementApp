@@ -72,9 +72,23 @@
   font-size: 14px;
 }
 
+@mixin headingSmall {
+  @include text;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: $medium;
+}
+
 @mixin heading {
   @include text;
   font-size: 18px;
+  line-height: 26px;
+  font-weight: $medium;
+}
+
+@mixin headingMedium {
+  @include text;
+  font-size: 22px;
   line-height: 26px;
   font-weight: $medium;
 }

@@ -1,38 +1,24 @@
-import React, { useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React from 'react';
 
 import { Button } from '@material-ui/core';
 
-import { useQuery } from 'shared/utils';
-
 import csx from './SearchCategories.scss';
 
-const categories = ['all', 'recommended', 'top', 'recent', 'yours'];
+export interface SearchCategoriesProps {
+  activeCategory: string;
+  categories: string[];
+  onCategoryClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+}
 
-export const SearchCategories = () => {
-  const history = useHistory();
-
-  const activeCategory = useQuery().get('category');
-
-  const setCategoryParam = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const category = e.currentTarget.getAttribute('data-category');
-    history.push({ search: `category=${category}` });
-  }, []);
-
-  useEffect(() => {
-    if (!activeCategory) {
-      history.replace({ search: `category=${categories[0]}` });
-    }
-  }, []);
-
+export const SearchCategories = ({ activeCategory, categories, onCategoryClick }: SearchCategoriesProps) => {
   return (
     <section className={csx.searchCategories}>
-      {categories.map(category => (
+      {categories.map((category) => (
         <Button
           key={category}
           data-category={category}
           className={`${csx.category} ${category === activeCategory ? csx.active : ''}`}
-          onClick={setCategoryParam}
+          onClick={onCategoryClick}
         >
           {category}
         </Button>

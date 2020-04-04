@@ -17,7 +17,7 @@ const LINK_HEIGHT = 80;
 const MARKER_HEIGHT = 30;
 
 const sidebarLinks: SidebarLink[] = [
-  { label: 'Dashboard', path: '', icon: <DashboardIcon />, exact: true },
+  { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
   { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
   { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> }
 ];

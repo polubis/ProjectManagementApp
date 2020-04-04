@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route, RouteChildrenProps } from 'react-router';
+import { Route, RouteChildrenProps, Redirect } from 'react-router';
 
 import { withLazy } from 'shared/utils';
 
-import { Sidebar } from '.';
+import { Navbar, Sidebar } from '.';
 
 import csx from './MainView.scss';
 
@@ -14,13 +14,18 @@ interface MainViewProps extends RouteChildrenProps {}
 const MainView = ({ match }: MainViewProps) => {
   return (
     <div className={csx.mainView}>
-      <nav></nav>
+      <Navbar basePath={match.path} />
 
       <Sidebar basePath={match.path} />
 
       <main>
-        <Route exact path={match.path} render={() => <div>dashboard</div>} />
-        <Route exact path={`${match.path}/templates`} component={TemplatesView} />
+        <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
+        <Route
+          exact
+          path={`${match.path}/templates`}
+          render={() => <Redirect to={`${match.path}/templates/all`} />}
+        />
+        <Route exact path={`${match.path}/templates/:category`} component={TemplatesView} />
       </main>
     </div>
   );
