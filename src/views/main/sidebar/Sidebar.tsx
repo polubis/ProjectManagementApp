@@ -6,7 +6,9 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
-import { Logo, SidebarProps, SidebarLink } from 'shared/ui';
+import { Logo } from 'shared/ui';
+
+import { SidebarProps, SidebarLink } from '.';
 
 import csx from './Sidebar.scss';
 

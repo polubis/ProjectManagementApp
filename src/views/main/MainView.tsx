@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, RouteChildrenProps } from 'react-router';
 
-import { Sidebar } from 'shared/ui';
 import { withLazy } from 'shared/utils';
+
+import { Sidebar } from '.';
 
 import csx from './MainView.scss';
 
