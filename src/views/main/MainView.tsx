@@ -20,12 +20,24 @@ const MainView = ({ match }: MainViewProps) => {
 
       <main>
         <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
+
         <Route
           exact
           path={`${match.path}/templates`}
           render={() => <Redirect to={`${match.path}/templates/all`} />}
         />
+
+        <Route
+          exact
+          path={`${match.path}/templates/:category/:id`}
+          component={() => <div>details</div>}
+        />
+
         <Route exact path={`${match.path}/templates/:category`} component={TemplatesView} />
+
+        <Route path="*">
+          <Redirect to={`${match.path}/dashboard`} />
+        </Route>
       </main>
     </div>
   );

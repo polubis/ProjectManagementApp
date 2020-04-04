@@ -21,10 +21,6 @@
       &:first-of-type {
         @include headingMedium;
       }
-
-      &:last-of-type {
-        color: $secondary;
-      }
     }
 
     .divider {
