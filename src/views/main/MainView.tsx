@@ -19,6 +19,8 @@ const MainView = ({ match }: MainViewProps) => {
       <Sidebar basePath={match.path} />
 
       <main>
+        <Route exact path={match.path} render={() => <Redirect to={`${match.path}/dashboard`} />} />
+
         <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
         <Route
