@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { Button, Checkbox, FormControlLabel, Menu } from '@material-ui/core';
+import { Button, Menu } from '@material-ui/core';
+
+import { Checkbox } from 'shared/ui';
 
 import ChevronIcon from '@material-ui/icons/ChevronLeft';
 import SearchIcon from '@material-ui/icons/Search';
@@ -17,7 +19,7 @@ const technologies = [
 export const TemplateSearch = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -52,16 +54,8 @@ export const TemplateSearch = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {technologies.map(tech => (
-          <FormControlLabel
-            key={tech.id}
-            control={
-              <Checkbox
-                classes={{ root: csx.technologyCheckbox, checked: csx.technologyCheckboxChecked }}
-              />
-            }
-            label={tech.name}
-          />
+        {technologies.map((tech) => (
+          <Checkbox key={tech.id} label={tech.name} />
         ))}
       </Menu>
       <Button type="submit" className={csx.confirmSearchBtn}>

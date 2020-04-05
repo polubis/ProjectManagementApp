@@ -8,18 +8,17 @@
   border-radius: 4px;
 
   .input {
+    @include label;
     width: 100%;
     height: 100%;
     padding: 0 24px;
     background: transparent;
     border: none;
     color: $primary;
-    font-size: 18px;
 
     &::placeholder {
       color: $primary;
       font-weight: $thin;
-      font-size: 16px;
     }
   }
 
@@ -72,7 +71,6 @@
     padding: 6px 0;
 
     label {
-      @include noSelect;
       margin: 0;
       padding: 0 6px;
 
@@ -82,18 +80,6 @@
 
       & > span:first-of-type {
         padding: 12px;
-      }
-
-      & > span:last-of-type {
-        @include label;
-      }
-
-      .technologyCheckbox {
-        color: $primary !important;
-      }
-
-      .technologyCheckboxChecked {
-        color: $primary !important;
       }
     }
   }

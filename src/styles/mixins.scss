@@ -70,6 +70,7 @@
 @mixin label {
   @include text;
   font-size: 14px;
+  font-weight: $medium;
 }
 
 @mixin headingSmall {
@@ -89,6 +90,13 @@
 @mixin headingMedium {
   @include text;
   font-size: 22px;
+  line-height: 26px;
+  font-weight: $medium;
+}
+
+@mixin headingBig {
+  @include text;
+  font-size: 26px;
   line-height: 26px;
   font-weight: $medium;
 }

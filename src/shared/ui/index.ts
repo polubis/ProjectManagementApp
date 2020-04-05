@@ -1,4 +1,5 @@
-export * from './input';
+export * from './field';
 export * from './stepper';
 export * from './text';
 export * from './logo';
+export * from './checkbox';

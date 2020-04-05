@@ -1,0 +1,18 @@
+@import 'styles/mixins';
+
+.checkbox {
+  color: $primary !important;
+
+  .checked {
+    color: $primary !important;
+  }
+}
+
+.checkboxLabel {
+  @include noSelect;
+
+  & > span:last-of-type {
+    @include label;
+    color: $primary;
+  }
+}

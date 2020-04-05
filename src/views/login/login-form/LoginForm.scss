@@ -1,0 +1,21 @@
+@import 'styles/mixins';
+
+.loginForm {
+  @include col;
+  width: 380px;
+
+  & > div:first-of-type {
+    margin-bottom: 40px;
+  }
+
+  .loginActions {
+    @include row;
+    margin: 24px 0 96px 0;
+
+    a {
+      @include labelSmall;
+      color: $primary;
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.loginView {
+    @include centered;
+    flex-flow: column;
+    min-height: 100vh;
+    
+    h5 {
+        @include headingBig;
+        margin-bottom: 82px;
+    }
+}
