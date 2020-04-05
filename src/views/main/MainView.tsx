@@ -23,13 +23,13 @@ const MainView = ({ match }: MainViewProps) => {
 
         <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
+        <Route exact path={`${match.path}/templates/:category`} component={TemplatesView} />
+
         <Route
           exact
           path={`${match.path}/templates/:category/:id`}
           component={() => <div>details</div>}
         />
-
-        <Route exact path={`${match.path}/templates/:category`} component={TemplatesView} />
 
         <Route
           exact
