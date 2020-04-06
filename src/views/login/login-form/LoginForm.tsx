@@ -1,9 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button } from '@material-ui/core';
-
-import { Field, Checkbox } from 'shared/ui';
+import { Button, Field, Checkbox } from 'shared/ui';
 
 import csx from './LoginForm.scss';
 

@@ -11,5 +11,5 @@ export const signOut = () => {
 };
 
 export const signInViaGithub = () => {
-  window.location.href = `${API.CORE}/GithubAuthorization/SignIn?redirectUrl=${window.location.href}`;
+  window.location.href = `${API.CORE}/GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
 };

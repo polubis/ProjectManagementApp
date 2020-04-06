@@ -9,4 +9,21 @@
         @include headingBig;
         margin-bottom: 82px;
     }
+
+    .divider {
+        @include row;
+        margin: 42px 0 28px 0;
+
+        span {
+            @include labelSmall;
+            display: block;
+            margin: 0 12px;
+        }
+
+        div {
+           width: 18px;
+           height: 2px;
+           background: $white;; 
+        }
+    }
 }
