@@ -1,4 +1,4 @@
-export interface SignInViaCredentialsPayload {
+export interface LogInViaCredentials {
   login: string;
   password: string;
 }

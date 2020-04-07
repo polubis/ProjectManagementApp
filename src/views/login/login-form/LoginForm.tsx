@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Button, Field, Checkbox } from 'shared/ui';
-import { useForm } from 'shared/forms';
+import { useForm, FormSubmitEvent } from 'shared/forms';
+
+import { logInViaCredentials } from 'api';
 
 import { loginFormConfig } from '.';
 
 import csx from './LoginForm.scss';
 
 export const LoginForm = () => {
-  const [{ fields }, change, submit] = useForm(loginFormConfig);
+  const [isLogingIn, setIsLogingIn] = useState(false);
+
+  const [{ fields, isDirty, isInvalid }, change, submit] = useForm(loginFormConfig);
+
+  const handleLogin = async (e: FormSubmitEvent) => {
+    const isInvalid = submit(e);
+
+    if (isInvalid) {
+      return;
+    }
+
+    setIsLogingIn(true);
+
+    const [{ value: login }, { value: password }] = fields;
+
+    try {
+      await logInViaCredentials({ login, password });
+    } catch (error) {
+    } finally {
+      setIsLogingIn(false);
+    }
+  };
 
   return (
-    <form className={csx.loginForm}>
+    <form className={csx.loginForm} onSubmit={handleLogin}>
       {loginFormConfig.map(({ label, type }, idx) => (
         <Field
           key={label}
@@ -20,7 +43,7 @@ export const LoginForm = () => {
           label={label}
           placeholder={`${label}...`}
           type={type}
-          error={fields[idx].error}
+          error={isDirty && fields[idx].error}
           onChange={change}
         />
       ))}
@@ -30,7 +53,9 @@ export const LoginForm = () => {
         <NavLink to="/forgot-password">Forgot password ?</NavLink>
       </div>
 
-      <Button>LOG IN</Button>
+      <Button type="submit" disabled={isLogingIn || (isDirty && isInvalid)}>
+        SUBMIT
+      </Button>
     </form>
   );
 };

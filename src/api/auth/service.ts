@@ -1,8 +1,8 @@
 import { core, API } from '..';
 
-import { SignInViaCredentialsPayload } from '.';
+import { LogInViaCredentials } from '.';
 
-export const signInViaCredentials = (payload: SignInViaCredentialsPayload) => {
+export const logInViaCredentials = (payload: LogInViaCredentials) => {
   return core.post('Authorization/SignIn', payload);
 };
 
