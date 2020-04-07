@@ -8,20 +8,10 @@
   }
 
   label {
+    @include label;
     @include rowBetween;
     color: $primary;
     margin-bottom: 12px;
-
-    span {
-      @include label;
-    }
-
-    svg {
-      width: 18px;
-      height: 18px;
-      color: $error;
-      cursor: pointer;
-    }
   }
 
   input {
@@ -37,6 +27,23 @@
     &::placeholder {
       color: $primary;
       font-weight: $thin;
+    }
+  }
+
+  .validation {
+    @include row;
+    height: 12px;
+    color: $error;
+    margin-top: 12px;
+
+    .error {
+      @include labelSmall;
+    }
+
+    svg {
+      margin-right: 8px;
+      width: 18px;
+      height: 18px;
     }
   }
 }

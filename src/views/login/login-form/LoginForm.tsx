@@ -20,8 +20,8 @@ export const LoginForm = () => {
           label={label}
           placeholder={`${label}...`}
           type={type}
+          error={fields[idx].error}
           onChange={change}
-          isInvalid={!!fields[idx].error}
         />
       ))}
 
