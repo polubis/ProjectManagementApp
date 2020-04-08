@@ -5,20 +5,20 @@ $padding: 20px 0;
 
 
 /* layout */
-.root {
+.templateDetailsView {
   @include centered;
   height: 100%;
   .container {
     @include colCenter;
     padding: $padding;
     width: 50%;
-  }
-}
 
-section {
-  width: 75%;
-  display: inline-block;
-  height: auto;
+    section {
+      width: 75%;
+      display: inline-block;
+      height: auto;
+    }
+  }
 }
 
 .header {

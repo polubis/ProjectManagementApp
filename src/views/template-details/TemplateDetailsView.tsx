@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import csx from './TemplateDetailsView.scss';
-import { Button } from 'shared/ui';
+import { RouteChildrenProps } from 'react-router';
 
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -8,11 +7,13 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { RouteChildrenProps } from 'react-router';
+import { Button } from 'shared/ui';
+
+import csx from './TemplateDetailsView.scss';
 
 interface TemplateDetailsViewProps extends RouteChildrenProps<{ id: string }> {}
 
-export const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
+const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
   const MOCKED_TECH = ['PWA', 'React', 'JavaScript', 'TypeScript', 'MVP'];
   const MOCKED_PATTERNS = ['PWA', 'MVP'];
   const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
@@ -22,10 +23,10 @@ export const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
     'https://dummyimage.com/64x64/000/fff.png'
   ];
 
-  const mapList = (list: string[]) => list.map((item) => <li>{item}</li>);
+  const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
   const mapImages = (list: string[]) =>
     list.map((item) => (
-      <li>
+      <li key={item}>
         <img src={item} />
       </li>
     ));
@@ -36,7 +37,7 @@ export const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
   }, [match.params.id]);
 
   return (
-    <div className={csx.root}>
+    <div className={csx.templateDetailsView}>
       <div className={csx.container}>
         <div className={csx.actions}>
           <Button>
@@ -120,3 +121,5 @@ export const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
     </div>
   );
 };
+
+export default TemplateDetailsView;

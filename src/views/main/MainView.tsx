@@ -6,9 +6,9 @@ import { withLazy } from 'shared/utils';
 import { Navbar, Sidebar } from '.';
 
 import csx from './MainView.scss';
-import TemplateDetailsView from 'viewstemplates/template-details';
 
 const TemplatesView = withLazy(() => import('views/templates'));
+const TemplateDetailsView = withLazy(() => import('views/template-details'));
 
 interface MainViewProps extends RouteChildrenProps {}
 
