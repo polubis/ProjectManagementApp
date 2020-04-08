@@ -1,0 +1,92 @@
+@import 'styles/mixins';
+@import 'styles/palette';
+
+$padding: 20px 0;
+
+.root {
+  @include centered;
+  // width: 100%;
+  height: 100%;
+  .container {
+    @include col;
+    padding: $padding;
+    width: 50%;
+  }
+}
+
+
+.header {
+  position: relative;
+  @include row;
+  
+  span {
+    left: 0;
+    position: absolute;
+  }
+}
+
+.button {
+  position: relative;
+  right: 75px;
+}
+
+.details {
+  padding: $padding;
+  display: flex;
+  flex-wrap: wrap;
+  .stars {
+    @include row;
+    color: #FFDD00;
+  }
+  
+  .watches {
+    @include row;
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .createdBy {
+    width: 100%;
+    @include labelExtraSmall;
+  }
+}
+
+
+
+.col {
+  @include col;
+  margin: 20px 0;
+}
+
+/* lists */
+.basicList {
+  list-style-type: disc;
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: $padding;
+
+
+  li:first-child {
+    list-style-type: none;
+  }
+
+  li {
+    margin-right: 20px;
+  }
+}
+
+.primary {
+  color: $primary;
+}
+
+.white {
+  color: #ffffff;
+}
+
+/* lists end */
+
+.description {
+  line-height: 30px;
+  // position: relative;
+  max-width: 50%;
+}

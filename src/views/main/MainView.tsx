@@ -6,6 +6,7 @@ import { withLazy } from 'shared/utils';
 import { Navbar, Sidebar } from '.';
 
 import csx from './MainView.scss';
+import TemplateDetailsView from 'viewstemplates/template-details';
 
 const TemplatesView = withLazy(() => import('views/templates'));
 
@@ -28,7 +29,7 @@ const MainView = ({ match }: MainViewProps) => {
         <Route
           exact
           path={`${match.path}/templates/:category/:id`}
-          component={() => <div>details</div>}
+          component={TemplateDetailsView}
         />
 
         <Route
