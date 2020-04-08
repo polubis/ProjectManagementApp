@@ -1,0 +1,123 @@
+@import 'styles/mixins';
+@import 'styles/palette';
+
+$padding: 20px 0;
+
+
+/* layout */
+.root {
+  @include centered;
+  height: 100%;
+  .container {
+    @include colCenter;
+    padding: $padding;
+    width: 50%;
+  }
+}
+
+section {
+  width: 75%;
+  display: inline-block;
+  height: auto;
+}
+
+.header {
+  position: relative;
+  right: 50px;
+  @include row;
+}
+
+.button {
+  right: 10px;
+}
+
+.details {
+  padding: $padding;
+  display: flex;
+  flex-wrap: wrap;
+  .stars {
+    @include row;
+    color: #FFDD00;
+  }
+  
+  .watches {
+    @include row;
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .createdBy {
+    width: 100%;
+    @include labelExtraSmall;
+  }
+}
+
+.description {
+  line-height: 30px;
+}
+
+.col {
+  @include col;
+  margin: 20px 0;
+}
+/* layout end */
+/* lists */
+
+@media screen and (min-width: 640px) {
+  .basicList {
+    list-style-type: disc;
+    display: flex;
+    flex-wrap: wrap;
+  
+    li:first-child {
+      list-style-type: none;
+      margin-left: 0;
+    }
+  
+    li {
+      margin-right: 20px;
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .basicList {
+    list-style-type: disc;
+    margin-left: 12px;
+  }
+}
+
+.primary {
+  color: $primary;
+}
+
+.white {
+  color: #ffffff;
+}
+
+/* lists end */
+/* actions */
+.actions {
+  display: flex;
+  width: 100%;
+  
+  button {
+    margin: 10px;
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 693px) {
+  .actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 694px) {
+  .actions {
+    justify-content: flex-end;
+  }
+}
+/* actions end */

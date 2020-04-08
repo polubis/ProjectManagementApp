@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
-import csx from './TemplateDetails.scss';
+import csx from './TemplateDetailsView.scss';
 import { Button } from 'shared/ui';
 
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import ShareIcon from '@material-ui/icons/Share';
+
 import { RouteChildrenProps } from 'react-router';
 
-interface TemplateDetailsViewProps extends RouteChildrenProps<{id: string}> {}
+interface TemplateDetailsViewProps extends RouteChildrenProps<{ id: string }> {}
 
-export const TemplateDetailsView = ({match}: TemplateDetailsViewProps) => {
+export const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
   const MOCKED_TECH = ['PWA', 'React', 'JavaScript', 'TypeScript', 'MVP'];
   const MOCKED_PATTERNS = ['PWA', 'MVP'];
   const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
@@ -29,18 +32,27 @@ export const TemplateDetailsView = ({match}: TemplateDetailsViewProps) => {
 
   useEffect(() => {
     console.log(match);
-    console.log(`callApi with id ${match.params.id}`)
+    console.log(`callApi with id ${match.params.id}`);
   }, [match.params.id]);
 
   return (
     <div className={csx.root}>
       <div className={csx.container}>
-        <section>
-          <span style={{position: 'relative', display: 'flex', alignItems: 'center'}}>
-          <Button variant="icon" className={csx.button}>
-            <EditIcon />
+        <div className={csx.actions}>
+          <Button>
+            <MenuBookIcon /> DOCS
           </Button>
-          <ul style={{position: 'absolute', left: '0'}} className={[csx.basicList, csx.primary].join(' ')}>{mapList(MOCKED_TECH)}</ul>
+          <Button>
+            <ShareIcon /> SOURCE
+          </Button>
+        </div>
+        
+        <section>
+          <span className={csx.header}>
+            <Button variant="icon" className={csx.button}>
+              <EditIcon />
+            </Button>
+            <ul className={[csx.basicList, csx.primary].join(' ')}>{mapList(MOCKED_TECH)}</ul>
           </span>
         </section>
 

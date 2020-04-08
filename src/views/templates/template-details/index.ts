@@ -1,3 +1,3 @@
-import { TemplateDetailsView } from './TemplateDetails';
+import { TemplateDetailsView } from './TemplateDetailsView';
 
 export default TemplateDetailsView;
