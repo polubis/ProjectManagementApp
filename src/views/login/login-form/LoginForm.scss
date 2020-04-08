@@ -18,4 +18,9 @@
       margin-left: auto;
     }
   }
+
+  & > button {
+    align-self: center;
+    width: 208px;
+  }
 }

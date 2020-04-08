@@ -44,7 +44,7 @@ export const useFormBase = (config: FormConfig): UseFormBase => {
     const { label, validators = [] } = config[idx];
 
     const validation = runValidators(value, label)(...validators);
-    const result = validation.find(result => result.isInvalid);
+    const result = validation.find((result) => result.isInvalid);
     const error = result ? result.text : '';
 
     return { value, error, validation };
@@ -67,7 +67,7 @@ export const useFormBase = (config: FormConfig): UseFormBase => {
 export const useForm = (config: FormConfig): UseForm => {
   const [state, setState, getChangedField] = useFormBase(config);
 
-  const handleChange = (e: FormChangeEvent) => {
+  const change = (e: FormChangeEvent) => {
     const { value, dataset } = e.target;
 
     if (dataset.idx === undefined) {
@@ -88,12 +88,12 @@ export const useForm = (config: FormConfig): UseForm => {
 
     newState.fields[datasetIdx] = getChangedField(value, datasetIdx);
 
-    newState.isInvalid = newState.fields.some(f => f.error);
+    newState.isInvalid = newState.fields.some((f) => f.error);
 
     setState(newState);
   };
 
-  const handleSubmit = (e: FormSubmitEvent): boolean => {
+  const submit = (e: FormSubmitEvent): boolean => {
     e.preventDefault();
 
     const newState: FormState = { ...state, isDirty: true, isInvalid: false };
@@ -117,5 +117,5 @@ export const useForm = (config: FormConfig): UseForm => {
     return newState.isInvalid;
   };
 
-  return [state, handleChange, handleSubmit];
+  return [state, change, submit];
 };
