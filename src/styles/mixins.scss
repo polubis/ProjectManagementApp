@@ -7,6 +7,12 @@
   flex-flow: column;
 }
 
+@mixin colCenter {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
 @mixin row {
   display: flex;
   align-items: center;
