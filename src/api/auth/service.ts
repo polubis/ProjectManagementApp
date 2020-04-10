@@ -1,13 +1,13 @@
-import { core, API } from '..';
+import { coreInstance, API } from '..';
 
 import { LogInViaCredentialsPayload } from '.';
 
 export const logInViaCredentials = (payload: LogInViaCredentialsPayload) => {
-  return core.post('Authorization/SignIn', payload);
+  return coreInstance.post('Authorization/SignIn', payload);
 };
 
 export const signOut = () => {
-  return core.post('Authorization/SignOut');
+  return coreInstance.post('Authorization/SignOut');
 };
 
 export const signInViaGithub = () => {
