@@ -1,9 +1,7 @@
 import React, { ComponentType } from 'react';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosError } from 'axios';
 
-import { Alert, AlertCloseEvent } from '.';
-
-import { AlertsManagerState } from '.';
+import { Alert, AlertCloseEvent, AlertsManagerState } from '.';
 
 export const withAlertsManagement = (Component: ComponentType) => (instance: AxiosInstance) => {
   class AlertsManager extends React.Component<any, AlertsManagerState> {
@@ -18,7 +16,7 @@ export const withAlertsManagement = (Component: ComponentType) => (instance: Axi
         (response) => {
           return response;
         },
-        (error) => {
+        (error: AxiosError) => {
           this.setState({
             alerts: [
               ...this.state.alerts,
