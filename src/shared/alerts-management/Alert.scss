@@ -1,0 +1,25 @@
+@import 'styles/mixins';
+
+.alert {
+  @include rowBetween;
+  padding: 10px;
+
+  & > span {
+    @include label;
+    margin: 0 auto;
+  }
+
+  & > svg {
+    opacity: 0.8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.error {
+    background: $error;
+    color: $white;
+  }
+}
