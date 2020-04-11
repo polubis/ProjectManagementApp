@@ -1,0 +1,39 @@
+@import 'styles/palette';
+
+.sectionContainer {
+  height: 100%;
+  background-color: $secondaryDark;
+  width: 250px;
+}
+
+.sectionList {
+  display: flex;
+  flex-flow: column;
+  color: $primary;
+  .listElement {
+    padding: 15px;
+    span {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      transition: 0.3s color;
+      svg {
+        margin-right: 10px;
+      }
+    }
+    span:hover {
+      color: $secondary;
+    }
+  }
+}
+
+.nestedList {
+  margin-left: 35px;
+  li {
+    padding-top: 8px;
+  }
+}
+
+.active {
+  color: $secondary;
+}
