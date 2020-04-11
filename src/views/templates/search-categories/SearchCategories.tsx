@@ -1,6 +1,10 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import { Button } from '@material-ui/core';
+import { Button as MuiButton } from '@material-ui/core';
+import AddTemplateIcon from '@material-ui/icons/Queue';
+
+import { Button } from 'shared/ui';
 
 import csx from './SearchCategories.scss';
 
@@ -10,19 +14,29 @@ export interface SearchCategoriesProps {
   onCategoryClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
 }
 
-export const SearchCategories = ({ activeCategory, categories, onCategoryClick }: SearchCategoriesProps) => {
+export const SearchCategories = ({
+  activeCategory,
+  categories,
+  onCategoryClick
+}: SearchCategoriesProps) => {
   return (
     <section className={csx.searchCategories}>
       {categories.map((category) => (
-        <Button
+        <MuiButton
           key={category}
           data-category={category}
           className={`${csx.category} ${category === activeCategory ? csx.active : ''}`}
           onClick={onCategoryClick}
         >
           {category}
-        </Button>
+        </MuiButton>
       ))}
+      <NavLink to="/app/templates/creation">
+        <Button>
+          <AddTemplateIcon />
+          CREATE TEMPLATE
+        </Button>
+      </NavLink>
     </section>
   );
 };

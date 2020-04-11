@@ -1,19 +1,29 @@
 @import 'styles/mixins';
 
 .searchCategories {
-    .category {
-        @include link;
-        color: $primary;
-        padding: 10px 20px;
-        text-transform: capitalize;
+  @include rowCenter;
+  position: relative;
 
-        &:not(:last-of-type) {
-            margin-right: 30px;
-        }
+  .category {
+    @include link;
+    color: $primary;
+    padding: 9px 20px;
+    text-transform: capitalize;
 
-        &.active {
-            background: $secondary;
-            color: $black;
-        }
+    &:not(:last-of-type) {
+      margin-right: 30px;
     }
+
+    &.active {
+      background: $secondary;
+      color: $black;
+    }
+  }
+
+  & > a {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 }
