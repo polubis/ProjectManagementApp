@@ -1,9 +1,13 @@
 @import 'styles/palette';
 
 .sectionContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   height: 100%;
-  background-color: $secondaryDark;
-  width: 250px;
+  width: 330px;
+  background-color: $surfacePrimary;
+  box-shadow: $shadowPrimary;
 }
 
 .sectionList {
@@ -11,7 +15,7 @@
   flex-flow: column;
   color: $primary;
   .listElement {
-    padding: 15px;
+    padding: 34px;
     span {
       display: flex;
       align-items: center;
@@ -30,7 +34,8 @@
 .nestedList {
   margin-left: 35px;
   li {
-    padding-top: 8px;
+    padding-top: 18px;
+    font-weight: $thin;
   }
 }
 
