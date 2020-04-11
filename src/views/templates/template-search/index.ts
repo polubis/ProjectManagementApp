@@ -1,1 +1,1 @@
-export * from './TemplateSearch';
+export * from './TemplatesSearch';

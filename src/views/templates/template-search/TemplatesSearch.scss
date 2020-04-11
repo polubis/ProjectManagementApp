@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.templateSearch {
+.templatesSearch {
   @include row;
   width: 840px;
   height: 60px;
@@ -37,8 +37,8 @@
     width: 300px;
     font-size: 16px;
     font-weight: $bold;
-    border-left: 1px solid $primary;
-    border-right: 1px solid $primary;
+    border-left: 1px solid rgba($primary, 0.43);
+    border-right: 1px solid rgba($primary, 0.43);
 
     svg {
       transform: rotate(-90deg);

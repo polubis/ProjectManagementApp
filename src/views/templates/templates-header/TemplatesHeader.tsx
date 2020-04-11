@@ -6,21 +6,21 @@ import AddTemplateIcon from '@material-ui/icons/Queue';
 
 import { Button } from 'shared/ui';
 
-import csx from './SearchCategories.scss';
+import csx from './TemplatesHeader.scss';
 
-export interface SearchCategoriesProps {
+interface TemplatesHeaderProps {
   activeCategory: string;
   categories: string[];
   onCategoryClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
 }
 
-export const SearchCategories = ({
+export const TemplatesHeader = ({
   activeCategory,
   categories,
   onCategoryClick
-}: SearchCategoriesProps) => {
+}: TemplatesHeaderProps) => {
   return (
-    <section className={csx.searchCategories}>
+    <section className={csx.templatesHeader}>
       {categories.map((category) => (
         <MuiButton
           key={category}
