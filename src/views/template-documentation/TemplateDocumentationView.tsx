@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import InfoIcon from '@material-ui/icons/Info';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -21,7 +21,7 @@ const SECTIONS_MOCKED: DocumentationSection[] = [
   },
   {
     title: 'Setup & Installation',
-    icon: <PowerSettingsNewIcon />,
+    icon: <PowerSettingsNewIcon />
   },
   {
     title: 'Guide',
@@ -36,13 +36,46 @@ const SECTIONS_MOCKED: DocumentationSection[] = [
 ];
 
 const TemplateDocumentationView = () => {
+
   const [activeSection, setActiveSection] = useState(SECTIONS_MOCKED[0].title);
+  const [sections, setSections] = useState(SECTIONS_MOCKED);
+  const [sectionsModified, setSectionsModified] = useState(false);
+
+  const addNewSection = () => {
+    const section: DocumentationSection = {
+      icon: <ExploreIcon />,
+      title: 'essa'
+    };
+
+    const combinedSections = [
+      ...sections,
+      section
+    ]
+
+    setSections(combinedSections);
+    setSectionsModified(!sectionsModified);
+  };
+
+  const addNewSubSection = (sectionIndex: number) => {
+    const combinedSections = sections;
+    const dummySection = sections[sectionIndex];
+
+    dummySection.subSection.push('subSection');
+
+    combinedSections[sectionIndex] = dummySection;
+
+    setSections(combinedSections);
+    setSectionsModified(!sectionsModified);
+  }
+
+  useEffect(() => {
+  }, [sectionsModified]);
 
   const mapSection = (section: DocumentationSection[]) => {
-    const mappedSection = section.map((value) => {
+    const mappedSection = section.map((value, index) => {
       if (value.subSection)
         return (
-          <li className={csx.listElement}>
+          <li className={csx.listElement} key={value.title}>
             <span
               className={activeSection === value.title ? csx.active : null}
               onClick={() => setActiveSection(value.title)}
@@ -55,16 +88,16 @@ const TemplateDocumentationView = () => {
                 <li>{value}</li>
               ))}
             </ul>
-            <li className={csx.listElement}>
+            <span className={csx.listElement} onClick={() => addNewSubSection(index)}>
               <span>
                 <AddCircleOutlineIcon /> ADD SUBSECTION
               </span>
-            </li>
+            </span>
           </li>
         );
 
       return (
-        <li className={csx.listElement}>
+        <li className={csx.listElement} key={value.title}>
           <span
             className={activeSection === value.title ? csx.active : null}
             onClick={() => setActiveSection(value.title)}
@@ -77,7 +110,7 @@ const TemplateDocumentationView = () => {
     });
 
     mappedSection.push(
-      <li className={csx.listElement}>
+      <li className={csx.listElement} onClick={addNewSection}>
         <span>
           <AddCircleOutlineIcon /> ADD SECTION
         </span>
@@ -89,7 +122,7 @@ const TemplateDocumentationView = () => {
 
   return (
     <div className={csx.sectionContainer}>
-      <ul className={csx.sectionList}>{mapSection(SECTIONS_MOCKED)}</ul>
+      <ul className={csx.sectionList}>{mapSection(sections)}</ul>
     </div>
   );
 };
