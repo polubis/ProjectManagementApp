@@ -9,8 +9,6 @@
   width: 330px;
   background-color: $surfacePrimary;
   box-shadow: $shadowPrimary;
-  transition: 0.3s transform;
-  transform: translateX(0);
 
   .button {
     opacity: 0;
@@ -55,7 +53,7 @@
 
 .nestedList {
   margin-left: 35px;
-  
+
   li {
     padding-top: 18px;
     font-weight: $thin;
