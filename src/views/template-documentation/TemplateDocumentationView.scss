@@ -1,6 +1,7 @@
 @import 'styles/palette';
 
 .sectionContainer {
+  position: relative;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -8,6 +9,25 @@
   width: 330px;
   background-color: $surfacePrimary;
   box-shadow: $shadowPrimary;
+  transition: 0.3s transform;
+  transform: translateX(0);
+
+  .button {
+    opacity: 0;
+    position: absolute;
+    border: 1px solid $primary;
+    background-color: transparent !important;
+    color: $primary !important;
+    right: -24px;
+    top: 50%;
+    transition: 0.3s opacity;
+  }
+}
+
+.sectionContainer:hover {
+  .button {
+    opacity: 1;
+  }
 }
 
 .sectionList {
@@ -26,6 +46,7 @@
         margin-right: 10px;
       }
     }
+
     span:hover {
       color: $secondary;
     }
@@ -34,6 +55,7 @@
 
 .nestedList {
   margin-left: 35px;
+  
   li {
     padding-top: 18px;
     font-weight: $thin;
