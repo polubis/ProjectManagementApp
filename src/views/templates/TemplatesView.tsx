@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useHistory, RouteChildrenProps } from 'react-router';
 
-import { SearchCategories, TemplateSearch, TemplateTiles } from '.';
+import { TemplatesHeader, TemplatesSearch, TemplateTiles } from '.';
 
 import csx from './TemplatesView.scss';
 
@@ -26,12 +26,12 @@ const TemplatesView = ({ match }: TemplatesViewProps) => {
 
   return (
     <div className={csx.templatesView}>
-      <SearchCategories
+      <TemplatesHeader
         activeCategory={match.params.category}
         categories={categories}
         onCategoryClick={handleCategoryChange}
       />
-      <TemplateSearch />
+      <TemplatesSearch />
       <TemplateTiles />
     </div>
   );

@@ -7,7 +7,7 @@ import { Checkbox } from 'shared/ui';
 import ChevronIcon from '@material-ui/icons/ChevronLeft';
 import SearchIcon from '@material-ui/icons/Search';
 
-import csx from './TemplateSearch.scss';
+import csx from './TemplatesSearch.scss';
 
 const technologies = [
   { id: 0, name: 'React JS', image: '' },
@@ -16,7 +16,7 @@ const technologies = [
   { id: 3, name: 'Svelte', image: '' }
 ];
 
-export const TemplateSearch = () => {
+export const TemplatesSearch = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -30,7 +30,7 @@ export const TemplateSearch = () => {
   const isMenuOpen = Boolean(anchorEl);
 
   return (
-    <form className={csx.templateSearch}>
+    <form className={csx.templatesSearch}>
       <input placeholder="Find your template..." className={csx.input} />
       <Button
         type="button"

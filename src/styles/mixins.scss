@@ -71,12 +71,19 @@
 @mixin labelSmall {
   @include text;
   font-size: 12px;
+  line-height: 18px;
 }
 
 @mixin label {
   @include text;
   font-size: 14px;
   font-weight: $medium;
+}
+
+@mixin labelBig {
+  @include text;
+  font-size: 20px;
+  font-weight: $bold;
 }
 
 @mixin headingSmall {

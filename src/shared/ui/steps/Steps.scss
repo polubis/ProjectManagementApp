@@ -1,0 +1,72 @@
+@import 'styles/mixins';
+
+.steps {
+  @include rowBetween;
+  width: 100%;
+
+  .stepWrapper {
+    display: flex;
+    cursor: pointer;
+
+    &.active .step {
+      & > button {
+        background: $secondary;
+      }
+
+      & > span {
+        color: $secondary;
+      }
+
+      &:hover {
+        & > button {
+          background: rgba($secondary, 0.82);
+        }
+
+        & > span {
+          color: rgba($secondary, 0.82);
+        }
+      }
+    }
+
+    .step {
+      @include colCenter;
+      width: 60px;
+
+      &:hover {
+        & > button {
+          background: rgba($primary, 0.82);
+        }
+
+        & > span {
+          color: rgba($primary, 0.82);
+        }
+      }
+
+      & > button {
+        @include labelBig;
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        background: $primary;
+        border: 5px solid $surfaceSecondary;
+        color: $black;
+      }
+
+      & > span {
+        @include labelSmall;
+        @include noSelect;
+        margin-top: 12px;
+        color: $primary;
+        text-align: center;
+      }
+    }
+
+    .marker {
+      margin-top: 26px;
+
+      line {
+        stroke: $surfaceDark;
+      }
+    }
+  }
+}
