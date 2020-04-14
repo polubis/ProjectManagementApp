@@ -20,10 +20,14 @@
 }
 
 .button {
-  padding: 9px 24px !important;
+  padding: 9px 20px !important;
 
   & > span {
     @include label;
+
+    svg {
+      margin-right: 12px;
+    }
   }
 }
 

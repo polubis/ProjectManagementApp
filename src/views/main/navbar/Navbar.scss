@@ -4,7 +4,7 @@
   @include row;
   position: sticky;
   grid-area: nav;
-  border-bottom: 1px solid $primaryBlured;
+  border-bottom: 1px solid rgba($primary, 0.43);
   background: $surface;
   top: 0;
   padding: 0 40px;

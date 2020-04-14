@@ -2,7 +2,7 @@
 
 .sidebar {
   grid-area: sidebar;
-  border-right: 1px solid $primaryBlured;
+  border-right: 1px solid rgba($primary, 0.43);
   background: $surface;
 
   .sidebarContent {
