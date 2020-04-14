@@ -18,7 +18,7 @@ export const TemplateTiles = () => {
   return (
     <section className={csx.templateTiles}>
       {templatesMock.map((template) => (
-        <TemplateTile template={template} onTemplateClick={redirectToDetails} />
+        <TemplateTile key={template.id} template={template} onTemplateClick={redirectToDetails} />
       ))}
     </section>
   );

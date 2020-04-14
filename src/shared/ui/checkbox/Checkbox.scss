@@ -11,8 +11,19 @@
 .checkboxLabel {
   @include noSelect;
 
-  & > span:last-of-type {
-    @include label;
-    color: $primary;
+  &.default {
+    & > span:last-of-type {
+      @include label;
+      color: $primary;
+      padding-left: 2px;
+    }
+  }
+
+  &.informing {
+    & > span:last-of-type {
+      @include labelSmall;
+      color: $white;
+      padding-left: 4px;
+    }
   }
 }

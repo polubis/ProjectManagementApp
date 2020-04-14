@@ -1,17 +1,16 @@
 import { req, min, max } from 'shared/forms';
 
-import { TemplateCreationStep } from '.';
+import { TemplateCreationConfig } from '.';
 
-export const templateCreationSteps: TemplateCreationStep[] = [
+export const config: TemplateCreationConfig = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 
     will be displayed first.`,
     formConfig: [
-      { label: 'Name *', placeholder: 'Type template name...', validators: [req, min(2), max(50)] },
+      { label: 'Name', validators: [req, min(2), max(50)] },
       {
-        label: 'Description *',
-        placeholder: 'Add template description...',
+        label: 'Description',
         validators: [req, min(20), max(5000)]
       }
     ]
@@ -21,9 +20,16 @@ export const templateCreationSteps: TemplateCreationStep[] = [
     description: `Connect template to github repository and set access settings.`,
     formConfig: [
       {
-        label: 'Repository link *',
-        placeholder: 'Paste repository link...',
+        label: 'Repository link',
         validators: [req, min(2), max(50)]
+      },
+      {
+        label: 'Public access',
+        value: true
+      },
+      {
+        label: 'Private access',
+        value: false
       }
     ]
   },
@@ -33,18 +39,15 @@ export const templateCreationSteps: TemplateCreationStep[] = [
     settings.`,
     formConfig: [
       {
-        label: 'Technologies *',
-        placeholder: 'Choose technologies...',
+        label: 'Technologies',
         validators: [req, min(2), max(50)]
       },
       {
-        label: 'Patterns *',
-        placeholder: 'Choose technologies...',
+        label: 'Patterns',
         validators: [req, min(20), max(5000)]
       },
       {
-        label: 'Tags *',
-        placeholder: 'Choose technologies...',
+        label: 'Tags',
         validators: [req, min(20), max(5000)]
       }
     ]

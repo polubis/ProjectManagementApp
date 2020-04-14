@@ -14,7 +14,7 @@ interface LoginFormProps {
 }
 
 export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
-  const [{ fields, isDirty, isInvalid }, change, submit] = useForm(loginFormConfig);
+  const [{ fields, isDirty, isInvalid }, change, directChange, submit] = useForm(loginFormConfig);
 
   const handleSubmit = (e: FormSubmitEvent) => {
     const isInvalid = submit(e);
@@ -38,6 +38,7 @@ export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
           placeholder={`${label}...`}
           type={type}
           error={isDirty && fields[idx].error}
+          value={fields[idx].value}
           onChange={change}
         />
       ))}

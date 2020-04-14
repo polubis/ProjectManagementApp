@@ -1,8 +1,12 @@
 import { Step } from 'shared/ui';
-import { FieldConfig } from 'shared/forms';
+import { FormConfig } from 'shared/forms';
 
-export type TemplateCreationStep = Step & {
+export type TemplateCreationConfig = (Step & {
   description: string;
-  placeholder?: string;
-  formConfig: (FieldConfig & { placeholder?: string })[];
-};
+  formConfig: FormConfig;
+})[];
+
+export interface TemplateCreationStepProps {
+  config: FormConfig;
+  onSubmit(): void;
+}
