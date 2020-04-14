@@ -2,7 +2,6 @@
   "name": "react-templates",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --progress --mode development",
     "build": "webpack --mode production",

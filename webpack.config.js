@@ -62,11 +62,7 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.html$/,
-          use: [
-            {
-              loader: 'html-loader'
-            }
-          ]
+          use: ['html-loader']
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
@@ -94,9 +90,6 @@ module.exports = (env, { mode }) => {
       }),
       new InterpolateHtmlPlugin({
         PUBLIC_URL: 'public'
-      }),
-      new BundleAnalyzerPlugin({
-        openAnalyzer: false
       })
     ],
 
@@ -128,6 +121,14 @@ module.exports = (env, { mode }) => {
         }
       }
     };
+  }
+
+  if (mode !== PROD) {
+    config.plugins.push(
+      new BundleAnalyzerPlugin({
+        openAnalyzer: false
+      })
+    );
   }
 
   return config;
