@@ -20,11 +20,11 @@ export const GithubConnectionStep = ({ config, onSubmit }: TemplateCreationStepP
     onSubmit();
   };
 
-  const handlePublishAccessChange = (_, checked) => {
+  const handlePublishAccessChange = (_, checked: boolean) => {
     directChange([1, 2], [checked, !checked]);
   };
 
-  const handlePrivateAccessChange = (_, checked) => {
+  const handlePrivateAccessChange = (_, checked: boolean) => {
     directChange([1, 2], [!checked, checked]);
   };
 

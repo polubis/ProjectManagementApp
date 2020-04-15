@@ -3,11 +3,8 @@
 .field {
   @include col;
 
-  &.invalid {
-    input,
-    textarea {
-      border-color: $error;
-    }
+  &.invalid > :nth-child(2) {
+    border-color: $error;
   }
 
   label {
@@ -17,14 +14,15 @@
     margin-bottom: 12px;
   }
 
-  input,
-  textarea {
+  & > :nth-child(2) {
     @include label;
     width: 100%;
     border: 1px solid transparent;
     border-radius: 4px;
     background: $surfacePrimary;
     color: $primary;
+    height: 44px;
+    padding: 18px;
 
     &::placeholder {
       color: $primary;
@@ -34,13 +32,7 @@
 
   textarea {
     min-height: 160px;
-    padding: 18px;
     resize: vertical;
-  }
-
-  input {
-    height: 44px;
-    padding: 0 18px;
   }
 
   .validation {

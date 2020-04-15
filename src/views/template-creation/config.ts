@@ -2,7 +2,7 @@ import { req, min, max } from 'shared/forms';
 
 import { TemplateCreationConfig } from '.';
 
-export const config: TemplateCreationConfig = [
+export const templateCreationConfig: TemplateCreationConfig = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 
@@ -40,15 +40,18 @@ export const config: TemplateCreationConfig = [
     formConfig: [
       {
         label: 'Technologies',
-        validators: [req, min(2), max(50)]
+        validators: [req, min(2), max(50)],
+        value: []
       },
       {
         label: 'Patterns',
-        validators: [req, min(20), max(5000)]
+        validators: [req, min(20), max(5000)],
+        value: []
       },
       {
         label: 'Tags',
-        validators: [req, min(20), max(5000)]
+        validators: [req, min(20), max(5000)],
+        value: []
       }
     ]
   }

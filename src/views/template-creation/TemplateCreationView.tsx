@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Steps, StepClickEvent } from 'shared/ui';
 
 import {
-  config,
+  templateCreationConfig,
   BasicInfoStep,
   GithubConnectionStep,
   TechnologiesOverviewStep,
@@ -29,7 +29,7 @@ const TemplateCreationView = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const { label, description, formConfig } = config[activeStep];
+  const { label, description, formConfig } = templateCreationConfig[activeStep];
 
   const StepComponent = steps[activeStep];
 
@@ -37,7 +37,11 @@ const TemplateCreationView = () => {
     <div className={csx.templateCreationView}>
       <h5 className={csx.stepTitle}>{label}</h5>
       <span className={csx.stepDescription}>{description}</span>
-      <Steps steps={config} activeStep={activeStep} onStepClick={handleStepChange} />
+      <Steps
+        steps={templateCreationConfig}
+        activeStep={activeStep}
+        onStepClick={handleStepChange}
+      />
       {StepComponent({
         config: formConfig,
         onSubmit: goToNextStep
