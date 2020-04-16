@@ -6,6 +6,8 @@ import { signInViaGithub, logInViaCredentials } from 'api';
 
 import { LoginForm } from '.';
 
+import { IMGS } from 'consts';
+
 import csx from './LoginView.scss';
 
 const LoginView = () => {
@@ -35,7 +37,7 @@ const LoginView = () => {
       </div>
 
       <Button variant="icon" disabled={isLogingIn} onClick={signInViaGithub}>
-        <img src={window.location.origin + '/public/images/GithubLogo.png'} />
+        <img src={IMGS + '/GithubLogo.png'} />
       </Button>
     </div>
   );

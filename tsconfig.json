@@ -27,12 +27,13 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "consts": ["src/consts"],
       "pages/*": ["src/pages/*"],
       "shared/*": ["src/shared/*"],
       "api": ["src/api"],
       "mocks": ["src/mocks"],
       "views*": ["src/views/*"],
-      "styles": ["src/styles"],
+      "styles": ["src/styles"]
     },
     "plugins": [
       {

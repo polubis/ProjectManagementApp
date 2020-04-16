@@ -1,6 +1,8 @@
-import { coreInstance, API } from '..';
+import { coreInstance } from '..';
 
 import { LogInViaCredentialsPayload } from '.';
+
+import { API } from 'consts';
 
 export const logInViaCredentials = (payload: LogInViaCredentialsPayload) => {
   return coreInstance.post('Authorization/SignIn', payload);
@@ -11,5 +13,5 @@ export const signOut = () => {
 };
 
 export const signInViaGithub = () => {
-  window.location.href = `${API.CORE}/GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
+  window.location.href = `${API}/GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
 };

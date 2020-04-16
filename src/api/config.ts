@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-export const API = {
-  CORE: 'https://web-api-c.azurewebsites.net/api/'
-};
+import { API } from 'consts';
 
 export const coreInstance = axios.create({
-  baseURL: API.CORE,
+  baseURL: API,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true
 });

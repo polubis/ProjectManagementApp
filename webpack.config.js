@@ -1,13 +1,14 @@
 const path = require('path');
 
-const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const DefinePlugin = require('webpack').DefinePlugin;
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, { mode }) => {
-  const [PROD] = ['production'];
+  const [DEV, PROD] = ['development', 'production'];
 
   console.log(`App is running in ${mode} mode`);
 
@@ -91,6 +92,10 @@ module.exports = (env, { mode }) => {
       }),
       new InterpolateHtmlPlugin({
         PUBLIC_URL: 'public'
+      }),
+      new DefinePlugin({
+        __IMAGES_PATH__: mode === DEV ? "'public/images'" : "'images'",
+        __API__: "'https://web-api-c.azurewebsites.net/api/'"
       })
     ],
 
