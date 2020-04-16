@@ -101,9 +101,24 @@ module.exports = (env, { mode }) => {
 
   if (mode === PROD) {
     config.optimization = {
+      runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
-        name: 'vendor'
+        maxInitialRequests: Infinity,
+        cacheGroups: {
+          default: false, // Removes default config
+
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // We creating here node_modules single package name
+              return `npm.${module.context
+                .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+                .replace('@', '')}`;
+            },
+            minSize: 0
+          }
+        }
       }
     };
   }
