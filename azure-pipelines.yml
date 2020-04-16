@@ -28,6 +28,6 @@ steps:
     script: 'ls -l $(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '/home/vsts/work/1/s/dist'
     ArtifactName: 'build'
   condition: succeededOrFailed()
