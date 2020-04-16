@@ -4,6 +4,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, { mode }) => {
   const [PROD] = ['production'];
@@ -84,7 +85,7 @@ module.exports = (env, { mode }) => {
     plugins: [
       new HtmlWebPackPlugin({
         template: './public/index.html',
-        // favicon: './public/favicon.ico',
+        favicon: './public/favicon.ico',
         inject: 'body',
         hash: true
       }),
@@ -121,6 +122,8 @@ module.exports = (env, { mode }) => {
         }
       }
     };
+
+    config.plugins.push(new CopyPlugin([{ from: 'public', ignore: ['index.html'] }]));
   }
 
   if (mode !== PROD) {
