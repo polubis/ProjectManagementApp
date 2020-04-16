@@ -62,11 +62,7 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.html$/,
-          use: [
-            {
-              loader: 'html-loader'
-            }
-          ]
+          use: ['html-loader']
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
@@ -86,8 +82,14 @@ module.exports = (env, { mode }) => {
     },
 
     plugins: [
-      new BundleAnalyzerPlugin({
-        openAnalyzer: false
+      new HtmlWebPackPlugin({
+        template: './public/index.html',
+        // favicon: './public/favicon.ico',
+        inject: 'body',
+        hash: true
+      }),
+      new InterpolateHtmlPlugin({
+        PUBLIC_URL: 'public'
       })
     ],
 
@@ -99,26 +101,19 @@ module.exports = (env, { mode }) => {
 
   if (mode === PROD) {
     config.optimization = {
-      runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
-        maxInitialRequests: Infinity,
-        cacheGroups: {
-          default: false, // Removes default config
-
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              // We creating here node_modules single package name
-              return `npm.${module.context
-                .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                .replace('@', '')}`;
-            },
-            minSize: 0
-          }
-        }
+        name: 'vendor'
       }
     };
+  }
+
+  if (mode !== PROD) {
+    config.plugins.push(
+      new BundleAnalyzerPlugin({
+        openAnalyzer: false
+      })
+    );
   }
 
   return config;
