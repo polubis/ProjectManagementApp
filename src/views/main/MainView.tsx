@@ -10,6 +10,7 @@ import csx from './MainView.scss';
 const TemplatesView = withLazy(() => import('views/templates'));
 
 const TemplateDetailsView = withLazy(() => import('views/template-details'));
+
 const TemplateDocumentationView = withLazy(() => import('views/template-documentation'));
 
 const TemplateCreationView = withLazy(() => import('views/template-creation'));
@@ -49,11 +50,6 @@ const MainView = ({ match }: MainViewProps) => {
             exact
             path={`${match.path}/templates/:category/:id/documentation`}
             component={TemplateDocumentationView}
-          />
-          <Route
-            exact
-            path={`${match.path}/templates/:category/:id`}
-            component={TemplateDetailsView}
           />
 
           <Route path="*" render={() => <Redirect to={`${match.path}/dashboard`} />} />

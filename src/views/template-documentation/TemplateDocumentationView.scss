@@ -1,9 +1,9 @@
 @import 'styles/palette';
+@import 'styles/mixins';
 
-.sectionContainer {
+.templateDocumentationView {
+  @include col;
   position: relative;
-  display: flex;
-  flex-flow: column;
   align-items: center;
   height: 100%;
   width: 330px;
@@ -22,7 +22,7 @@
   }
 }
 
-.sectionContainer:hover {
+.templateDocumentationView:hover {
   .button {
     opacity: 1;
   }

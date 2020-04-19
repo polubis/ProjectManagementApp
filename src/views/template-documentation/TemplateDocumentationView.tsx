@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 
 import InfoIcon from '@material-ui/icons/Info';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -12,6 +12,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from 'shared/ui';
 
 import { DocumentationSection } from './models';
+
+import { sectionsReducer } from './useSectionsReducer';
 
 import csx from './TemplateDocumentationView.scss';
 
@@ -41,31 +43,11 @@ const SECTIONS_MOCKED: DocumentationSection[] = [
   }
 ];
 
+
 const TemplateDocumentationView = () => {
+  
   const [activeSection, setActiveSection] = useState(0);
-  const [sections, setSections] = useState(SECTIONS_MOCKED);
-
-  const addNewSection = () => {
-    const section: DocumentationSection = {
-      icon: <ExploreIcon />,
-      title: 'siema'
-    };
-
-    const combinedSections = [...sections, section];
-
-    setSections(combinedSections);
-  };
-
-  const addNewSubSection = (sectionIndex: number) => {
-    const combinedSections = [...sections];
-    const newSubSections = {...sections[sectionIndex]};
-
-    newSubSections.subSection.push('subSection');
-
-    combinedSections[sectionIndex] = newSubSections;
-
-    setSections(combinedSections);
-  };
+  const [sections, sectionsDispatcher] = useReducer(sectionsReducer, SECTIONS_MOCKED);
 
   const mapSection = (section: DocumentationSection[]) => {
     const mappedSection = section.map((value, idx) => {
@@ -86,7 +68,7 @@ const TemplateDocumentationView = () => {
               ))}
             </ul>
 
-            <span className={csx.listElement} onClick={() => addNewSubSection(idx)}>
+            <span className={csx.listElement} onClick={() => sectionsDispatcher({type: 'addSubSection', sectionIndex: idx})}>
               <span>
                 <AddCircleOutlineIcon /> ADD SUBSECTION
               </span>
@@ -108,7 +90,7 @@ const TemplateDocumentationView = () => {
     });
 
     mappedSection.push(
-      <li className={csx.listElement} onClick={addNewSection}>
+      <li className={csx.listElement} onClick={() => sectionsDispatcher({type: 'addMainSection'})}>
         <span>
           <AddCircleOutlineIcon /> ADD SECTION
         </span>
@@ -119,7 +101,7 @@ const TemplateDocumentationView = () => {
   };
 
   return (
-    <div className={csx.sectionContainer}>
+    <div className={csx.templateDocumentationView}>
       <ul className={csx.sectionList}>{mapSection(sections)}</ul>
       <Button variant="icon" className={csx.button}>
         <ChevronLeftIcon />
