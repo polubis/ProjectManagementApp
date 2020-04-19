@@ -10,6 +10,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Button } from 'shared/ui';
 
 import csx from './TemplateDetailsView.scss';
+import { NavLink } from 'react-router-dom';
 
 interface TemplateDetailsViewProps extends RouteChildrenProps<{ id: string }> {}
 
@@ -35,19 +36,22 @@ const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
     console.log(match);
     console.log(`callApi with id ${match.params.id}`);
   }, [match.params.id]);
-
+  
   return (
     <div className={csx.templateDetailsView}>
       <div className={csx.container}>
         <div className={csx.actions}>
-          <Button>
-            <MenuBookIcon /> DOCS
-          </Button>
+          <NavLink to={`${match.url}/documentation`}>
+            <Button>
+              <MenuBookIcon /> DOCS
+            </Button>
+          </NavLink>
+
           <Button>
             <ShareIcon /> SOURCE
           </Button>
         </div>
-        
+
         <section>
           <span className={csx.header}>
             <Button variant="icon" className={csx.button}>
