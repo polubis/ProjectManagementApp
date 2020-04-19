@@ -1,25 +1,15 @@
 import React from 'react';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
 import { Button, Field, Checkbox } from 'shared/ui';
 
 import { TemplateCreationStepProps } from '..';
 
 import csx from './GithubConnectionStep.scss';
 
-export const GithubConnectionStep = ({ config, onSubmit }: TemplateCreationStepProps) => {
-  const [{ isDirty, isInvalid, fields }, change, directChange, submit] = useForm(config);
-
-  const handleSubmit = (e: FormSubmitEvent) => {
-    const isInvalid = submit(e);
-
-    if (isInvalid) {
-      return;
-    }
-
-    onSubmit();
-  };
-
+export const GithubConnectionStep = ({
+  formManager: [{ isDirty, isInvalid, fields }, change, directChange],
+  onSubmit
+}: TemplateCreationStepProps) => {
   const handlePublishAccessChange = (_, checked: boolean) => {
     directChange([1, 2], [checked, !checked]);
   };
@@ -29,10 +19,10 @@ export const GithubConnectionStep = ({ config, onSubmit }: TemplateCreationStepP
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <Field
         data-idx={0}
-        label={`Repository link *`}
+        label="Repository link *"
         placeholder="Add repository link..."
         error={isDirty && fields[0].error}
         value={fields[0].value}

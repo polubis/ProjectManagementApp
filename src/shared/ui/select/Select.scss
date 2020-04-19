@@ -8,36 +8,51 @@
     background: $primaryDark;
     color: $white;
 
-    button {
+    .selectedItems .selectedItem {
+      color: $white;
+      border-color: $white;
+    }
+
+    .toggleBtn {
       color: $white;
       border-left-color: $white;
     }
   }
 
-  input {
+  .selectedItems {
     @include label;
-    width: inherit;
-    height: inherit;
+    @include row;
+    width: 100%;
+    overflow-x: hidden;
     color: inherit;
-    padding: inherit;
-    border: inherit;
-    background: inherit;
-    padding: 18px;
+    padding: 14px;
+    margin-right: 14px;
 
-    &::placeholder {
-      color: inherit;
+    .selectedItem {
+      @include labelSmall;
+      color: $primary;
+      border-color: $primary;
+
+      &:not(:last-of-type) {
+        margin-right: 6px;
+      }
+    }
+
+    .placeholder {
+      @include noSelect;
       font-weight: $thin;
     }
   }
 
-  button {
-    display: block;
+  .toggleBtn {
+    @include centered;
     height: 100%;
     border-radius: 0;
     color: $primary;
     border-left: 1px solid $primary;
+    min-width: 52px;
 
-    svg {
+    & > svg {
       margin: 0;
       font-size: 28px;
     }

@@ -1,25 +1,15 @@
 import React from 'react';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
-import { Button, Field } from 'shared/ui';
+import { Button, Field, TextareaField } from 'shared/ui';
 
 import { TemplateCreationStepProps } from '..';
 
-export const BasicInfoStep = ({ config, onSubmit }: TemplateCreationStepProps) => {
-  const [{ isDirty, isInvalid, fields }, change, directChange, submit] = useForm(config);
-
-  const handleSubmit = (e: FormSubmitEvent) => {
-    const isInvalid = submit(e);
-
-    if (isInvalid) {
-      return;
-    }
-
-    onSubmit();
-  };
-
+export const BasicInfoStep = ({
+  formManager: [{ isDirty, fields, isInvalid }, change],
+  onSubmit
+}: TemplateCreationStepProps) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <Field
         data-idx={0}
         label="Name *"
@@ -29,14 +19,14 @@ export const BasicInfoStep = ({ config, onSubmit }: TemplateCreationStepProps) =
         onChange={change}
       />
 
-      <Field label="Description *" error={isDirty && fields[1].error}>
-        <textarea
-          data-idx={1}
-          value={fields[1].value}
-          onChange={change}
-          placeholder="Add template description..."
-        ></textarea>
-      </Field>
+      <TextareaField
+        data-idx={1}
+        label="Description *"
+        error={isDirty && fields[1].error}
+        value={fields[1].value}
+        onChange={change}
+        placeholder="Add template description..."
+      />
 
       <Button type="submit" disabled={isDirty && isInvalid}>
         NEXT

@@ -1,79 +1,94 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
-import { Button, Select, SelectItem } from 'shared/ui';
-import { useEnhancedData } from 'shared/utils';
+import { Button, Select, SelectItem, TextareaField } from 'shared/ui';
 
-import { getTechnologies } from 'api';
+import { getTechnologies, getPatterns } from 'api';
 
 import { TemplateCreationStepProps } from '..';
 
-export const TechnologiesOverviewStep = ({ config, onSubmit }: TemplateCreationStepProps) => {
-  const [state, change, directChange, submit] = useForm(config);
+export const TechnologiesOverviewStep = ({
+  formManager: [state, change, directChange],
+  onSubmit
+}: TemplateCreationStepProps) => {
+  const [isLoadingDictionaries, setIsLoadingDictionaries] = useState(false);
 
-  const technologies = useEnhancedData<(SelectItem & { id: number })[]>([]);
-
-  const handleSubmit = (e: FormSubmitEvent) => {
-    const isInvalid = submit(e);
-
-    if (isInvalid) {
-      return;
-    }
-
-    onSubmit();
-  };
-
-  const handleTechnologiesChange = (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    const idx = +e.currentTarget.getAttribute('data-idx');
-    const updatedTechnologies = technologies.data.map((tech, i) =>
-      i === idx
+  const updateSelectItems = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    idx: number,
+    value: boolean
+  ) => {
+    const id = +e.currentTarget.getAttribute('data-id');
+    const items: SelectItem[] = state.fields[idx].value.map((item) =>
+      id === item.id
         ? {
-            ...tech,
-            value: checked
+            ...item,
+            value
           }
-        : tech
+        : item
     );
-    technologies.setData(updatedTechnologies);
+    directChange([idx], [items]);
   };
 
-  const handleGetTechnologies = async () => {
-    technologies.init([]);
+  const handleGetDictionaries = async () => {
+    setIsLoadingDictionaries(true);
+
+    // Allows run calls parallel
+    const techPromise = getTechnologies();
+    const pattPromise = getPatterns();
 
     try {
-      const result = await getTechnologies();
-      technologies.success(result.map(({ id, name }) => ({ id, label: name, value: false })));
-    } catch (err) {
-      technologies.failure(err);
+      const technologies: SelectItem[] = (await techPromise).map(({ id, name }) => ({
+        id,
+        label: name,
+        value: false
+      }));
+
+      const patterns: SelectItem[] = (await pattPromise).map(({ id, name }) => ({
+        id,
+        label: name,
+        value: false
+      }));
+
+      directChange([0, 1], [technologies, patterns]);
+    } catch (error) {
+    } finally {
+      setIsLoadingDictionaries(false);
     }
   };
 
   useEffect(() => {
-    handleGetTechnologies();
+    handleGetDictionaries();
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <Select
         label="Technologies *"
         placeholder="Select template technologies..."
-        items={technologies.data}
-        onSelect={handleTechnologiesChange}
+        items={state.fields[0].value}
+        error={state.isDirty && state.fields[0].error}
+        onSelect={(e, value) => updateSelectItems(e, 0, value)}
       />
+
       <Select
         label="Patterns *"
         placeholder="Select patterns..."
-        items={technologies.data}
-        onSelect={handleTechnologiesChange}
-      />
-      <Select
-        label="Tags *"
-        placeholder="Select tags..."
-        items={technologies.data}
-        onSelect={handleTechnologiesChange}
+        items={state.fields[1].value}
+        error={state.isDirty && state.fields[1].error}
+        onSelect={(e, value) => updateSelectItems(e, 1, value)}
       />
 
-      <Button type="submit" disabled={state.isDirty && state.isInvalid}>
-        NEXT
+      <TextareaField
+        data-idx={2}
+        value={state.fields[2].value}
+        onChange={change}
+        placeholder="Add tags and separate them with commas..."
+        label="Tags *"
+        error={state.isDirty && state.fields[2].error}
+      />
+
+      <Button type="submit" disabled={(state.isDirty && state.isInvalid) || isLoadingDictionaries}>
+        SUBMIT & CREATE
       </Button>
     </form>
   );

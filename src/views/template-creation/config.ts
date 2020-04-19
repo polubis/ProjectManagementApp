@@ -1,8 +1,8 @@
-import { req, min, max } from 'shared/forms';
+import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
-import { TemplateCreationConfig } from '.';
+import { TemplateCreationStepConfig } from '.';
 
-export const templateCreationConfig: TemplateCreationConfig = [
+export const stepsConfig: TemplateCreationStepConfig[] = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 
@@ -21,7 +21,7 @@ export const templateCreationConfig: TemplateCreationConfig = [
     formConfig: [
       {
         label: 'Repository link',
-        validators: [req, min(2), max(50)]
+        validators: [req, url]
       },
       {
         label: 'Public access',
@@ -40,18 +40,18 @@ export const templateCreationConfig: TemplateCreationConfig = [
     formConfig: [
       {
         label: 'Technologies',
-        validators: [req, min(2), max(50)],
+        validators: [req, atleastOneChecked('value', 'technology')],
         value: []
       },
       {
         label: 'Patterns',
-        validators: [req, min(20), max(5000)],
+        validators: [req, atleastOneChecked('value', 'pattern')],
         value: []
       },
       {
         label: 'Tags',
-        validators: [req, min(20), max(5000)],
-        value: []
+        validators: [],
+        value: ''
       }
     ]
   }

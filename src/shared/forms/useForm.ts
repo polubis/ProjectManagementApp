@@ -29,7 +29,7 @@ const getInitialState = (config: FormConfig): FormState => {
 export const useFormBase = (config: FormConfig): UseFormBase => {
   const [state, setState] = useState(getInitialState(config));
 
-  const getChangedField = (value: string, idx: number): FieldState => {
+  const getChangedField = (value: any, idx: number): FieldState => {
     const { label, validators = [] } = config[idx];
 
     const validation = runValidators(value, label)(...validators);
@@ -83,8 +83,8 @@ export const useForm = (config: FormConfig): UseForm => {
     setState(newState);
   };
 
-  const submit = (e: FormSubmitEvent): boolean => {
-    e.preventDefault();
+  const submit = (e?: FormSubmitEvent): boolean => {
+    e && e.preventDefault();
 
     const newState: FormState = { ...state, isDirty: true, isInvalid: false };
 
