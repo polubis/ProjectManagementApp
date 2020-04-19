@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,7 +11,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Button } from 'shared/ui';
 
 import csx from './TemplateDetailsView.scss';
-import { NavLink } from 'react-router-dom';
 
 interface TemplateDetailsViewProps extends RouteChildrenProps<{ id: string }> {}
 
