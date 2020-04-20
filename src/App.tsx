@@ -9,6 +9,7 @@ import { coreInstance } from 'api';
 
 const LoginView = withLazy(() => import('views/login'));
 const MainView = withLazy(() => import('views/main'));
+const MainPageView = withLazy(() => import('views/main-page'));
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={LoginView} />
         <Route path="/app" component={MainView} />
+        <Route path="" component={MainPageView} />
       </Switch>
     </BrowserRouter>
   );

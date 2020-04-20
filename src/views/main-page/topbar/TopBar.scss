@@ -1,0 +1,69 @@
+@import 'styles/palette';
+@import 'styles/mixins';
+
+$padding: 60px;
+
+.nav {
+  @include rowAround;
+  height: 100px;
+  background-color: $surfacePrimary;
+  border-bottom: 1px solid rgba($primary, 0.41);
+
+  .main {
+    @include centered;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 16px;
+      }
+    }
+
+    .links {
+      margin-left: 141px;
+      font-weight: bold;
+      position: relative;
+
+      span {
+        color: $primary;
+        margin-left: $padding;
+        transition: 0.3s color;
+        display: inline-block;
+        width: 90px;
+      }
+
+      span:hover {
+        color: $secondary;
+      }
+
+      .active {
+        color: $secondary;
+      }
+
+      .marker {
+        position: absolute;
+        border-radius: 39px;
+        height: 4px;
+        width: 36px;
+        background-color: $secondary;
+        top: 56px;
+        transition: 0.3s transform;
+      }
+    }
+  }
+
+  .actions {
+    font-weight: bold;
+    span {
+      color: $primary;
+      padding-left: $padding;
+      transition: 0.3s color;
+    }
+
+    span:hover {
+      color: $secondary;
+    }
+  }
+}
+
