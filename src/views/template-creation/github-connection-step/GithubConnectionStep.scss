@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.access {
+    & > label:first-of-type {
+        margin-bottom: 24px;
+    }
+}

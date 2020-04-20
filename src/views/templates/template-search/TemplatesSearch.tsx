@@ -19,8 +19,8 @@ const technologies = [
 export const TemplatesSearch = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setAnchorEl(currentTarget);
   };
 
   const handleClose = () => {

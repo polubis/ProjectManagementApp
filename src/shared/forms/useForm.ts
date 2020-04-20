@@ -26,17 +26,6 @@ const getInitialState = (config: FormConfig): FormState => {
   };
 };
 
-/**
- * Use this hook for create your own change and submit strategies
- * @param `config` - needed for initial state creation
- * @returns `[state, setState, getChangedField]`
- *
- * `state` - represents form state `{isDirty, isInvalid, fields}`
- *
- * `setState` - allows change form state
- *
- * `getChangedField` - changes field state and returns new one
- */
 export const useFormBase = (config: FormConfig): UseFormBase => {
   const [state, setState] = useState(getInitialState(config));
 
@@ -53,17 +42,6 @@ export const useFormBase = (config: FormConfig): UseFormBase => {
   return [state, setState, getChangedField];
 };
 
-/**
- * Allows manage form state
- * @param `config` - needed for initial state creation
- * @returns `[state, handleChange, handleSubmit]`
- *
- * `state` - represents form state `{isDirty, isInvalid, fields}`
- *
- * `handleChange` - changes field state and runs validation
- *
- * `handleSubmit` - runs validation and returns `isInvalid` flag
- */
 export const useForm = (config: FormConfig): UseForm => {
   const [state, setState, getChangedField] = useFormBase(config);
 
@@ -87,6 +65,18 @@ export const useForm = (config: FormConfig): UseForm => {
     const newState: FormState = { ...state, fields: [...state.fields] };
 
     newState.fields[datasetIdx] = getChangedField(value, datasetIdx);
+
+    newState.isInvalid = newState.fields.some((f) => f.error);
+
+    setState(newState);
+  };
+
+  const directChange = (positions: number[], values: any[]) => {
+    const newState: FormState = { ...state, fields: [...state.fields] };
+
+    positions.forEach((position, idx) => {
+      newState.fields[position] = getChangedField(values[idx], position);
+    });
 
     newState.isInvalid = newState.fields.some((f) => f.error);
 
@@ -117,5 +107,5 @@ export const useForm = (config: FormConfig): UseForm => {
     return newState.isInvalid;
   };
 
-  return [state, change, submit];
+  return [state, change, directChange, submit];
 };

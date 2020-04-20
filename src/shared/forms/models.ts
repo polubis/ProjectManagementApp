@@ -4,14 +4,12 @@ export class Validation {
 
 export type Validator = (value: string, label: string) => Validation;
 
-export type FormChangeEvent = React.ChangeEvent<
-  HTMLInputElement | HTMLTextAreaElement
->;
+export type FormChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
 export type FormSubmitEvent = React.ChangeEvent<HTMLFormElement>;
 
 export interface FieldState {
-  value: string;
+  value: any;
   error: string;
   validation: Validation[];
 }
@@ -19,7 +17,7 @@ export interface FieldState {
 export interface FieldConfig {
   label: string;
   validators?: Validator[];
-  value?: string;
+  value?: any;
 }
 
 export interface FormState {
@@ -32,6 +30,8 @@ export type FormConfig = FieldConfig[];
 
 export type ChangeHandler = (e: FormChangeEvent) => void;
 
+export type DirectChangeHandler = (positions: number[], values: any[]) => void;
+
 export type SubmitHandler = (e: FormSubmitEvent) => boolean;
 
 export type GetChangedField = (value: string, idx: number) => FieldState;
@@ -42,4 +42,4 @@ export type UseFormBase = [
   GetChangedField
 ];
 
-export type UseForm = [FormState, ChangeHandler, SubmitHandler];
+export type UseForm = [FormState, ChangeHandler, DirectChangeHandler, SubmitHandler];

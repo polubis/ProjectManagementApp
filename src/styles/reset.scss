@@ -26,7 +26,8 @@ button {
 }
 
 button,
-input {
+input,
+textarea {
   &:focus {
     outline: none;
   }

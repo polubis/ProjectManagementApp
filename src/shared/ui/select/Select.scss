@@ -1,0 +1,72 @@
+@import 'styles/mixins';
+
+.select {
+  @include row;
+  padding: 0 !important;
+
+  &.menuOpen {
+    background: $primaryDark;
+    color: $white;
+
+    button {
+      color: $white;
+      border-left-color: $white;
+    }
+  }
+
+  input {
+    @include label;
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    padding: inherit;
+    border: inherit;
+    background: inherit;
+    padding: 18px;
+
+    &::placeholder {
+      color: inherit;
+      font-weight: $thin;
+    }
+  }
+
+  button {
+    display: block;
+    height: 100%;
+    border-radius: 0;
+    color: $primary;
+    border-left: 1px solid $primary;
+
+    svg {
+      margin: 0;
+      font-size: 28px;
+    }
+  }
+}
+
+.selectMenu {
+  width: 400px;
+  border-radius: 0 !important;
+  box-shadow: $shadowPrimary !important;
+  background: $surfacePrimary !important;
+  color: $primary;
+  margin: 4px 0 0 1px;
+
+  ul {
+    @include col;
+    padding: 6px 0;
+
+    label {
+      margin: 0;
+      padding: 0 6px;
+
+      &:focus {
+        outline: none;
+      }
+
+      & > span:first-of-type {
+        padding: 12px;
+      }
+    }
+  }
+}

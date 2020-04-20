@@ -2,13 +2,10 @@
 
 .navbar {
   @include row;
-  position: sticky;
   grid-area: nav;
   border-bottom: 1px solid rgba($primary, 0.43);
   background: $surface;
-  top: 0;
   padding: 0 40px;
-  z-index: 10;
 
   .breadcrumbs {
     @include row;

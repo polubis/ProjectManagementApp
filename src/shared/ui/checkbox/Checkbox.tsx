@@ -6,14 +6,37 @@ import csx from './Checkbox.scss';
 
 export interface CheckboxProps {
   label: string;
+  value?: boolean;
+  variant?: 'default' | 'informing';
+  dataIdx?: number | string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
 }
 
-export const Checkbox = ({ label }: CheckboxProps) => {
+export const Checkbox = ({
+  label,
+  value,
+  variant = 'default',
+  onChange,
+  dataIdx
+}: CheckboxProps) => {
   return (
     <FormControlLabel
-      classes={{ root: csx.checkboxLabel }}
-      control={<MuiCheckbox classes={{ root: csx.checkbox, checked: csx.checked }} />}
       label={label}
+      classes={{
+        root: [csx.checkboxLabel, csx[variant]].join(' ')
+      }}
+      control={
+        <MuiCheckbox
+          checked={value}
+          onChange={onChange}
+          classes={{ root: csx.checkbox, checked: csx.checked }}
+          inputProps={
+            {
+              'data-idx': dataIdx
+            } as any
+          }
+        />
+      }
     />
   );
 };
