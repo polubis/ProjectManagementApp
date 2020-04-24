@@ -1,7 +1,4 @@
-@import 'styles/palette';
 @import 'styles/mixins';
-
-$margin: 60px;
 
 .nav {
   @include rowAround;
@@ -26,7 +23,7 @@ $margin: 60px;
 
       span {
         color: $primary;
-        margin-left: $margin;
+        margin-left: 60px;
         transition: 0.3s color;
         display: inline-block;
         width: 90px;
@@ -56,7 +53,7 @@ $margin: 60px;
     font-weight: bold;
     span {
       color: $primary;
-      padding-left: $margin;
+      padding-left: 60px;
       transition: 0.3s color;
     }
 
@@ -65,4 +62,3 @@ $margin: 60px;
     }
   }
 }
-
