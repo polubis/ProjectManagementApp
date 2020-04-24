@@ -1,7 +1,7 @@
 @import 'styles/palette';
 @import 'styles/mixins';
 
-$padding: 60px;
+$margin: 60px;
 
 .nav {
   @include rowAround;
@@ -13,8 +13,7 @@ $padding: 60px;
     @include centered;
 
     .logo {
-      display: flex;
-      align-items: center;
+      @include row;
       span {
         margin-left: 16px;
       }
@@ -27,7 +26,7 @@ $padding: 60px;
 
       span {
         color: $primary;
-        margin-left: $padding;
+        margin-left: $margin;
         transition: 0.3s color;
         display: inline-block;
         width: 90px;
@@ -57,7 +56,7 @@ $padding: 60px;
     font-weight: bold;
     span {
       color: $primary;
-      padding-left: $padding;
+      padding-left: $margin;
       transition: 0.3s color;
     }
 

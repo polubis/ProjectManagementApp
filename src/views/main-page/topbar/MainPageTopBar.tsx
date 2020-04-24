@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 
 import { Logo } from 'shared/ui';
 
-import csx from './TopBar.scss';
+import csx from './MainPageTopBar.scss';
 
 const LINK_WIDTH = 90;
 const LINK_MARGIN = 60;
 const LINKS = ['Home', 'About', 'Go to app'];
 
-export const TopBar = () => {
+export const MainPageTopBar = () => {
   const [activeLink, setActiveLink] = useState(0);
 
   return (

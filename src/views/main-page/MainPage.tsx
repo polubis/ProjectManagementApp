@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { TopBar } from '.';
+import { MainPageTopBar } from '.';
+import { MainPageBasicInformation } from './basic-information';
 
 const MainPageView = () => {
 
   return (
-    <div>
-      <TopBar />
-    </div>
+    <>
+      <MainPageTopBar />
+      <MainPageBasicInformation />
+    </>
   );
 };
 
