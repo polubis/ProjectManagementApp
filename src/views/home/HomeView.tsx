@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Topbar, BasicInformation } from '.';
+import { Topbar, BasicInformation, TilesSection, RecommendedTemplates } from '.';
 
 const HomeView = () => {
   return (
     <div>
       <Topbar />
       <BasicInformation />
+      <TilesSection />
+      <RecommendedTemplates />
     </div>
   );
 };

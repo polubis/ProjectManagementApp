@@ -1,0 +1,25 @@
+@import 'styles/mixins';
+
+.recommendedTemplates {
+  @include centered;
+  background-color: $surface;
+  height: 650px;
+  
+  .templatesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: 522px;
+    width: 90%;
+
+    .heading {
+      @include headingMedium;
+      text-align: center;
+      width: 100%;
+    }
+
+    & > div {
+      margin: 52px 32px;
+    }
+  }
+}
