@@ -1,7 +1,8 @@
 import React from 'react';
 
-import csx from './HomeDescription.scss';
 import { Button } from 'shared/ui';
+
+import csx from './HomeDescription.scss';
 
 export const HomeDescription = () => {
   return(

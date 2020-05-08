@@ -13,10 +13,9 @@ export const RecommendedTemplates = () => {
         <h2 className={csx.heading}>Recommended templates</h2>
 
         <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
+        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[1]} />
+        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[2]} />
+        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[3]} />
       </div>
     </div>
   );

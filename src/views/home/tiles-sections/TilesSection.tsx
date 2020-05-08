@@ -12,27 +12,27 @@ import csx from './TilesSection.scss';
 
 const TILES: Tile[] = [
   {
-    icon: <LibraryBooksIcon fontSize="large"/>,
+    icon: <LibraryBooksIcon fontSize="large" />,
     title: 'Templates',
     description: `Are you starting a new project? Use a template prepared by other developers and save your time`
   },
   {
-    icon: <MenuBookIcon fontSize="large"/>,
+    icon: <MenuBookIcon fontSize="large" />,
     title: 'Documentation',
     description: `Bored of searching for information on the internet? Use automatically generated documentation and speed up knowledge transfer`
   },
   {
-    icon: <WidgetsIcon fontSize="large"/>,
+    icon: <WidgetsIcon fontSize="large" />,
     title: 'Components',
     description: `Frustrated with the speed and number of applications to manage your project? Use our tool, complete your team and manage the project from our app`
   },
   {
-    icon: <AccountTreeIcon fontSize="large"/>,
+    icon: <AccountTreeIcon fontSize="large" />,
     title: 'Projects',
     description: `Frustrated with the speed and number of applications to manage your project? Use our tool, complete your team and manage the project from our app`
   },
   {
-    icon: <MessageIcon fontSize="large"/>,
+    icon: <MessageIcon fontSize="large" />,
     title: 'Real-time communication',
     description: `Communicate with team members from our application. We will send you notifications about new templates, changes in your projects and .etc`
   }
@@ -48,5 +48,9 @@ export const TilesSection = () => {
       </section>
     ));
 
-  return <div className={csx.tilesSection}>{mapTiles(TILES)}</div>;
+  return (
+    <div className={csx.wrapper}>
+      <div className={csx.tilesSection}>{mapTiles(TILES)}</div>
+    </div>
+  );
 };

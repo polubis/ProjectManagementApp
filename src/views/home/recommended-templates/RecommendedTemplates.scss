@@ -4,14 +4,14 @@
   @include centered;
   background-color: $surface;
   min-height: 650px;
-  border-bottom: 1px solid rgba($primary, 0.41);
   
   .templatesContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     min-height: 522px;
-    width: 90%;
+    max-width: 1600px;
+    // width: 90%;
 
     .heading {
       @include headingMedium;
@@ -20,7 +20,7 @@
     }
 
     & > div {
-      margin: 52px 32px;
+      margin: 52px 16px;
     }
   }
 }
