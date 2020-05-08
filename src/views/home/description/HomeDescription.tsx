@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Button } from 'shared/ui';
 
+import { EcoSystemImg } from './EcoSystemImg';
+
 import csx from './HomeDescription.scss';
 
 export const HomeDescription = () => {
@@ -15,7 +17,7 @@ export const HomeDescription = () => {
         </Button>
       </div>
       <div className={csx.imageSection}>
-siema jak wyjąc obrazek
+        <EcoSystemImg />
       </div>
     </div>
   )
