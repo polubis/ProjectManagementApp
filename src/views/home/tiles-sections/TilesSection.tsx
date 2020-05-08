@@ -34,7 +34,7 @@ const TILES: Tile[] = [
   {
     icon: <MessageIcon fontSize="large"/>,
     title: 'Real-time communication',
-    description: `Frustrated with the speed and number of applications to manage your project? Use our tool, complete your team and manage the project from our app`
+    description: `Communicate with team members from our application. We will send you notifications about new templates, changes in your projects and .etc`
   }
 ];
 

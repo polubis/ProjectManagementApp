@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Topbar, BasicInformation, TilesSection, RecommendedTemplates } from '.';
+import { Topbar, BasicInformation, TilesSection, RecommendedTemplates, HomeDescription } from '.';
 
 const HomeView = () => {
   return (
@@ -9,6 +9,7 @@ const HomeView = () => {
       <BasicInformation />
       <TilesSection />
       <RecommendedTemplates />
+      <HomeDescription />
     </div>
   );
 };

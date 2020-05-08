@@ -3,13 +3,14 @@
 .recommendedTemplates {
   @include centered;
   background-color: $surface;
-  height: 650px;
+  min-height: 650px;
+  border-bottom: 1px solid rgba($primary, 0.41);
   
   .templatesContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    height: 522px;
+    min-height: 522px;
     width: 90%;
 
     .heading {
