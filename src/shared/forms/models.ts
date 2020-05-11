@@ -36,10 +36,10 @@ export type SubmitHandler = (e?: FormSubmitEvent) => boolean;
 
 export type GetChangedField = (value: any, idx: number) => FieldState;
 
-export type UseFormBase = [
+export type FormManagerBase = [
   FormState,
   React.Dispatch<React.SetStateAction<FormState>>,
   GetChangedField
 ];
 
-export type UseForm = [FormState, ChangeHandler, DirectChangeHandler, SubmitHandler];
+export type FormManager = [FormState, ChangeHandler, DirectChangeHandler, SubmitHandler];

@@ -4,12 +4,12 @@ import { Button, Select, SelectItem, TextareaField } from 'shared/ui';
 
 import { getTechnologies, getPatterns } from 'api';
 
-import { TemplateCreationStepProps } from '..';
+import { TemplateManagementStepProps } from '.';
 
-export const TechnologiesOverviewStep = ({
+export const TechnologiesOverview = ({
   formManager: [state, change, directChange],
   onSubmit
-}: TemplateCreationStepProps) => {
+}: TemplateManagementStepProps) => {
   const [isLoadingDictionaries, setIsLoadingDictionaries] = useState(false);
 
   const updateSelectItems = (

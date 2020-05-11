@@ -1,13 +1,10 @@
 import React, { memo } from 'react';
 
-import csx from './Header.scss';
+import { StepHeaderProps } from '.';
 
-interface HeaderProps {
-  label: string;
-  description: string;
-}
+import csx from './StepHeader.scss';
 
-export const Header = memo(({ label, description }: HeaderProps) => {
+export const StepHeader = memo(({ label, description }: StepHeaderProps) => {
   return (
     <>
       <h5 className={csx.title}>{label}</h5>

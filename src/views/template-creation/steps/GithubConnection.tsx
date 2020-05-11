@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Button, Field, Checkbox } from 'shared/ui';
 
-import { TemplateCreationStepProps } from '..';
+import { TemplateManagementStepProps } from '.';
 
-import csx from './GithubConnectionStep.scss';
+import csx from './GithubConnection.scss';
 
-export const GithubConnectionStep = ({
+export const GithubConnection = ({
   formManager: [{ isDirty, isInvalid, fields }, change, directChange],
   onSubmit
-}: TemplateCreationStepProps) => {
+}: TemplateManagementStepProps) => {
   const handlePublishAccessChange = (_, checked: boolean) => {
     directChange([1, 2], [checked, !checked]);
   };

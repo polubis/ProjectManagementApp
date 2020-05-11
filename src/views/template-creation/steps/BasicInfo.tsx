@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Button, Field, TextareaField } from 'shared/ui';
 
-import { TemplateCreationStepProps } from '..';
+import { TemplateManagementStepProps } from '.';
 
-export const BasicInfoStep = ({
+export const BasicInfo = ({
   formManager: [{ isDirty, fields, isInvalid }, change],
   onSubmit
-}: TemplateCreationStepProps) => {
+}: TemplateManagementStepProps) => {
   return (
     <form onSubmit={onSubmit}>
       <Field

@@ -1,8 +1,15 @@
 import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
-import { TemplateCreationStepConfig } from '.';
+import { TemplateManagementConfig } from '.';
 
-export const stepsConfig: TemplateCreationStepConfig[] = [
+export const STEPS_COUNT = 3;
+
+export const [BASIC_INFO, GITHUB_CONNECTION, TECHNOLOGIES_OVERVIEW] = Array.from(
+  { length: STEPS_COUNT },
+  (_, idx) => idx
+);
+
+export const config: TemplateManagementConfig = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 

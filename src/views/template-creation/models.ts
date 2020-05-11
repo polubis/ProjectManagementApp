@@ -1,16 +1,11 @@
-import { UseForm, FormSubmitEvent, FormConfig } from 'shared/forms';
+import { FormConfig } from 'shared/forms';
 
 import { StepStatus } from 'shared/ui';
 
-export interface TemplateCreationStepConfig {
+export type TemplateManagementConfig = {
   label: string;
   description: string;
   formConfig: FormConfig;
   progress?: number;
   status?: StepStatus;
-}
-
-export interface TemplateCreationStepProps {
-  formManager: UseForm;
-  onSubmit(e: FormSubmitEvent): void;
-}
+}[];
