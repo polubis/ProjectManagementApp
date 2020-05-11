@@ -7,15 +7,6 @@
   padding: 60px 0;
   margin: 0 auto;
 
-  .stepTitle {
-    @include headingBig;
-  }
-
-  .stepDescription {
-    @include description;
-    margin: 12px 0 34px 0;
-  }
-
   & > form {
     @include col;
     margin-top: 52px;

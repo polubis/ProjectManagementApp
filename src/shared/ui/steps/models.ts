@@ -1,12 +1,16 @@
-export type StepClickEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
+export enum StepStatus {
+  VALID = 'valid',
+  INVALID = 'invalid'
+}
 
 export interface Step {
   label: string;
+  progress?: number;
+  status?: StepStatus;
   content?: React.ReactNode;
 }
 
 export interface StepsProps {
-  activeStep: number;
   steps: Step[];
-  onStepClick(event: StepClickEvent): void;
+  onChange(step: number): void;
 }

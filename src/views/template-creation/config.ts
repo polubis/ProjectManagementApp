@@ -1,8 +1,15 @@
-import { req, min, max } from 'shared/forms';
+import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
-import { TemplateCreationConfig } from '.';
+import { TemplateManagementConfig } from '.';
 
-export const templateCreationConfig: TemplateCreationConfig = [
+export const STEPS_COUNT = 3;
+
+export const [BASIC_INFO, GITHUB_CONNECTION, TECHNOLOGIES_OVERVIEW] = Array.from(
+  { length: STEPS_COUNT },
+  (_, idx) => idx
+);
+
+export const config: TemplateManagementConfig = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 
@@ -21,7 +28,7 @@ export const templateCreationConfig: TemplateCreationConfig = [
     formConfig: [
       {
         label: 'Repository link',
-        validators: [req, min(2), max(50)]
+        validators: [req, url]
       },
       {
         label: 'Public access',
@@ -40,18 +47,18 @@ export const templateCreationConfig: TemplateCreationConfig = [
     formConfig: [
       {
         label: 'Technologies',
-        validators: [req, min(2), max(50)],
+        validators: [req, atleastOneChecked('value', 'technology')],
         value: []
       },
       {
         label: 'Patterns',
-        validators: [req, min(20), max(5000)],
+        validators: [req, atleastOneChecked('value', 'pattern')],
         value: []
       },
       {
         label: 'Tags',
-        validators: [req, min(20), max(5000)],
-        value: []
+        validators: [],
+        value: ''
       }
     ]
   }

@@ -8,39 +8,41 @@
     display: flex;
     cursor: pointer;
 
-    &.active .step {
-      & > button {
-        background: $secondary;
-      }
-
-      & > span {
-        color: $secondary;
-      }
-
-      &:hover {
+    &.valid {
+      .step {
         & > button {
-          background: rgba($secondary, 0.82);
+          background: $secondary;
         }
 
         & > span {
-          color: rgba($secondary, 0.82);
+          color: $secondary;
         }
+      }
+
+      .markerValue {
+        stroke: $secondary;
+      }
+    }
+
+    &.invalid {
+      .step {
+        & > button {
+          background: $error;
+        }
+
+        & > span {
+          color: $error;
+        }
+      }
+
+      .markerValue {
+        stroke: $error;
       }
     }
 
     .step {
       @include colCenter;
       width: 60px;
-
-      &:hover {
-        & > button {
-          background: rgba($primary, 0.82);
-        }
-
-        & > span {
-          color: rgba($primary, 0.82);
-        }
-      }
 
       & > button {
         @include labelBig;
@@ -64,7 +66,7 @@
     .marker {
       margin-top: 26px;
 
-      line {
+      line:not(.markerValue) {
         stroke: $surfaceDark;
       }
     }

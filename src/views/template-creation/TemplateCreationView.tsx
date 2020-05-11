@@ -1,51 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
-import { Steps, StepClickEvent } from 'shared/ui';
+import { useForm, FormSubmitEvent } from 'shared/forms';
+
+import { Steps } from 'shared/ui';
 
 import {
-  templateCreationConfig,
-  BasicInfoStep,
-  GithubConnectionStep,
-  TechnologiesOverviewStep,
-  TemplateCreationStepProps
+  BasicInfo,
+  GithubConnection,
+  TechnologiesOverview,
+  StepHeader,
+  config,
+  createSteps,
+  BASIC_INFO,
+  GITHUB_CONNECTION,
+  TECHNOLOGIES_OVERVIEW,
+  STEPS_COUNT
 } from '.';
 
 import csx from './TemplateCreationView.scss';
 
-const steps = [
-  (props: TemplateCreationStepProps) => <BasicInfoStep {...props} />,
-  (props: TemplateCreationStepProps) => <GithubConnectionStep {...props} />,
-  (props: TemplateCreationStepProps) => <TechnologiesOverviewStep {...props} />
-];
-
+// TODO IN FREE TIME RENAME THIS COMPONENT TO TEMPLATE MANAGEMENT VIEW
 const TemplateCreationView = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(BASIC_INFO);
 
-  const handleStepChange = (e: StepClickEvent) => {
-    setActiveStep(+e.currentTarget.getAttribute('data-idx'));
-  };
+  const basicInfo = useForm(config[BASIC_INFO].formConfig);
+  const githubConnection = useForm(config[GITHUB_CONNECTION].formConfig);
+  const technologiesOverview = useForm(config[TECHNOLOGIES_OVERVIEW].formConfig);
 
-  const goToNextStep = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  const formManagers = useMemo(() => {
+    return [basicInfo, githubConnection, technologiesOverview];
+  }, [basicInfo, githubConnection, technologiesOverview]);
 
-  const { label, description, formConfig } = templateCreationConfig[activeStep];
+  const changeStep = useCallback(
+    (stepValue: number, e?: FormSubmitEvent) => {
+      const isActiveStepInvalid = formManagers[activeStep][3](e);
 
-  const StepComponent = steps[activeStep];
+      if (stepValue > activeStep && isActiveStepInvalid) {
+        return;
+      }
+
+      const calculateNextStep = () => {
+        const ALLOWED_DISTANCE = 1;
+
+        if (stepValue - activeStep > ALLOWED_DISTANCE) {
+          for (let i = activeStep + ALLOWED_DISTANCE; i < STEPS_COUNT - ALLOWED_DISTANCE; i++) {
+            const isStepInvalid = formManagers[i][3](e);
+
+            if (isStepInvalid) {
+              return i;
+            }
+          }
+        }
+
+        return stepValue;
+      };
+
+      const nextStep = calculateNextStep();
+
+      if (nextStep <= formManagers.length - 1) {
+        setActiveStep(nextStep);
+      } else {
+        // CALL SAVE METHOD HERE
+        // ALSO THINK ABOUT LOAD DICTIONARIES FROM THIS COMPONENT AND PASS THEM TO FORMS
+      }
+    },
+    [activeStep, ...formManagers]
+  );
+
+  const onStepChange = useCallback(
+    (step: number) => {
+      changeStep(step);
+    },
+    [changeStep]
+  );
+
+  const onStepSubmit = useCallback(
+    (e: FormSubmitEvent) => {
+      changeStep(activeStep + 1, e);
+    },
+    [activeStep, changeStep]
+  );
+
+  const steps = useMemo(() => createSteps(config, formManagers), formManagers);
+
+  const { label, description } = config[activeStep];
 
   return (
     <div className={csx.templateCreationView}>
-      <h5 className={csx.stepTitle}>{label}</h5>
-      <span className={csx.stepDescription}>{description}</span>
-      <Steps
-        steps={templateCreationConfig}
-        activeStep={activeStep}
-        onStepClick={handleStepChange}
-      />
-      {StepComponent({
-        config: formConfig,
-        onSubmit: goToNextStep
-      })}
+      <StepHeader description={description} label={label} />
+
+      <Steps steps={steps} onChange={onStepChange} />
+
+      {activeStep === BASIC_INFO && <BasicInfo formManager={basicInfo} onSubmit={onStepSubmit} />}
+
+      {activeStep === GITHUB_CONNECTION && (
+        <GithubConnection formManager={githubConnection} onSubmit={onStepSubmit} />
+      )}
+
+      {activeStep === TECHNOLOGIES_OVERVIEW && (
+        <TechnologiesOverview formManager={technologiesOverview} onSubmit={onStepSubmit} />
+      )}
     </div>
   );
 };

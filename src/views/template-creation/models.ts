@@ -1,12 +1,11 @@
-import { Step } from 'shared/ui';
 import { FormConfig } from 'shared/forms';
 
-export type TemplateCreationConfig = (Step & {
+import { StepStatus } from 'shared/ui';
+
+export type TemplateManagementConfig = {
+  label: string;
   description: string;
   formConfig: FormConfig;
-})[];
-
-export interface TemplateCreationStepProps {
-  config: FormConfig;
-  onSubmit(): void;
-}
+  progress?: number;
+  status?: StepStatus;
+}[];

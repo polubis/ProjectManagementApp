@@ -8,7 +8,7 @@ export interface CheckboxProps {
   label: string;
   value?: boolean;
   variant?: 'default' | 'informing';
-  dataIdx?: number | string;
+  dataId?: number | string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
 }
 
@@ -17,7 +17,7 @@ export const Checkbox = ({
   value,
   variant = 'default',
   onChange,
-  dataIdx
+  dataId
 }: CheckboxProps) => {
   return (
     <FormControlLabel
@@ -32,7 +32,7 @@ export const Checkbox = ({
           classes={{ root: csx.checkbox, checked: csx.checked }}
           inputProps={
             {
-              'data-idx': dataIdx
+              'data-id': dataId
             } as any
           }
         />

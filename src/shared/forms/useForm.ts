@@ -6,8 +6,8 @@ import {
   FieldState,
   FormState,
   FormConfig,
-  UseFormBase,
-  UseForm,
+  FormManagerBase,
+  FormManager,
   runValidators
 } from '.';
 
@@ -26,10 +26,10 @@ const getInitialState = (config: FormConfig): FormState => {
   };
 };
 
-export const useFormBase = (config: FormConfig): UseFormBase => {
+export const useFormBase = (config: FormConfig): FormManagerBase => {
   const [state, setState] = useState(getInitialState(config));
 
-  const getChangedField = (value: string, idx: number): FieldState => {
+  const getChangedField = (value: any, idx: number): FieldState => {
     const { label, validators = [] } = config[idx];
 
     const validation = runValidators(value, label)(...validators);
@@ -42,7 +42,7 @@ export const useFormBase = (config: FormConfig): UseFormBase => {
   return [state, setState, getChangedField];
 };
 
-export const useForm = (config: FormConfig): UseForm => {
+export const useForm = (config: FormConfig): FormManager => {
   const [state, setState, getChangedField] = useFormBase(config);
 
   const change = (e: FormChangeEvent) => {
@@ -83,8 +83,8 @@ export const useForm = (config: FormConfig): UseForm => {
     setState(newState);
   };
 
-  const submit = (e: FormSubmitEvent): boolean => {
-    e.preventDefault();
+  const submit = (e?: FormSubmitEvent): boolean => {
+    e && e.preventDefault();
 
     const newState: FormState = { ...state, isDirty: true, isInvalid: false };
 

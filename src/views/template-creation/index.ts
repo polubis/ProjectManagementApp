@@ -2,7 +2,7 @@ import TemplateCreationView from './TemplateCreationView';
 
 export * from './config';
 export * from './models';
-export * from './technologies-overview-step';
-export * from './github-connection-step';
-export * from './basic-info-step';
+export * from './utils';
+export * from './step-header';
+export * from './steps';
 export default TemplateCreationView;
