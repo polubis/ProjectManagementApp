@@ -4,13 +4,15 @@ import { NavLink } from 'react-router-dom';
 import { Button, Field, Checkbox } from 'shared/ui';
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
+import { LogInPayload } from 'api';
+
 import { loginFormConfig } from '.';
 
 import csx from './LoginForm.scss';
 
 interface LoginFormProps {
   isDisabled: boolean;
-  onSubmit(login: string, password: string): void;
+  onSubmit(credentials: LogInPayload): void;
 }
 
 export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
@@ -25,7 +27,7 @@ export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
 
     const [{ value: login }, { value: password }] = fields;
 
-    onSubmit(login, password);
+    onSubmit({ login, password });
   };
 
   return (

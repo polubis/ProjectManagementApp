@@ -2,10 +2,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { withLazy } from 'shared/utils';
-import { withAlertsManagement } from 'shared/alerts-management';
+import AuthProvider, { UnprotectedRoute } from 'core/auth';
 
-import { coreInstance } from 'api';
+import { withLazy } from 'shared/utils';
 
 const LoginView = withLazy(() => import('views/login'));
 const MainView = withLazy(() => import('views/main'));
@@ -13,12 +12,14 @@ const MainView = withLazy(() => import('views/main'));
 const App = () => {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/login" component={LoginView} />
-        <Route path="/app" component={MainView} />
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <Route path="/app" component={MainView} />
+          <UnprotectedRoute path="/login" redirect="/app" component={LoginView} />
+        </Switch>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
 
-export default withAlertsManagement(App)(coreInstance);
+export default App;

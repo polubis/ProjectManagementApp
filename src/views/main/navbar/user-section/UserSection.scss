@@ -1,0 +1,37 @@
+@import 'styles/mixins';
+
+.userSection {
+  @include row;
+  margin-left: auto;
+
+  .details {
+    @include row;
+
+    & > span {
+      @include label;
+      margin-right: 16px;
+    }
+
+    .avatar {
+      box-shadow: $shadowPrimary;
+    }
+  }
+
+  .logoutBtn {
+    @include label;
+    font-weight: $thin;
+    color: $primary;
+    cursor: pointer;
+  }
+
+  .divider {
+    height: 30px;
+    width: 1px;
+    margin: 0 48px;
+    background: rgba($primary, 0.43);
+  }
+
+  .logInBtn {
+    margin-right: 28px;
+  }
+}

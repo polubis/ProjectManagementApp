@@ -6,6 +6,8 @@ import AddTemplateIcon from '@material-ui/icons/Queue';
 
 import { Button } from 'shared/ui';
 
+import { Protected } from 'core/auth';
+
 import csx from './TemplatesHeader.scss';
 
 interface TemplatesHeaderProps {
@@ -31,12 +33,15 @@ export const TemplatesHeader = ({
           {category}
         </MuiButton>
       ))}
-      <NavLink to="/app/templates/creation">
-        <Button>
-          <AddTemplateIcon />
-          CREATE TEMPLATE
-        </Button>
-      </NavLink>
+
+      <Protected>
+        <NavLink to="/app/templates/creation">
+          <Button>
+            <AddTemplateIcon />
+            CREATE TEMPLATE
+          </Button>
+        </NavLink>
+      </Protected>
     </section>
   );
 };
