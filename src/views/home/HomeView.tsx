@@ -4,14 +4,14 @@ import { Topbar, BasicInformation, TilesSection, RecommendedTemplates, HomeDescr
 
 const HomeView = () => {
   return (
-    <>
+    <div>
       <Topbar />
       <BasicInformation />
       <TilesSection />
       <RecommendedTemplates />
       <HomeDescription />
       <Footer />
-    </>
+    </div>
   );
 };
 

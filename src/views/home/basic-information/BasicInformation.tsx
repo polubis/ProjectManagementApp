@@ -6,7 +6,7 @@ import csx from './BasicInformation.scss';
 
 export const BasicInformation = () => {
   return (
-    <div className={csx.basicInformation}>
+    <section className={csx.basicInformation}>
       <p className={csx.heading}>
         <span>Simplified</span> and faster project development process
       </p>
@@ -16,6 +16,6 @@ export const BasicInformation = () => {
         prepared by developers community from around the world
       </p>
       <TemplatesSearch />
-    </div>
+    </section>
   );
 };

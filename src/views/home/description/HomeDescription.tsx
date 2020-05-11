@@ -8,7 +8,7 @@ import csx from './HomeDescription.scss';
 
 export const HomeDescription = () => {
   return(
-    <div className={csx.homeDescription}>
+    <section className={csx.homeDescription}>
       <div className={csx.textSection}>
         <p className={csx.header}>The whole <span>ecosystem</span> in one.</p>
         <p className={csx.desc}>Choose a template, find people in the team, create a project and enjoy the whole ecosystem in one place.</p>
@@ -19,6 +19,6 @@ export const HomeDescription = () => {
       <div className={csx.imageSection}>
         <EcoSystemImg />
       </div>
-    </div>
+    </section>
   )
 }

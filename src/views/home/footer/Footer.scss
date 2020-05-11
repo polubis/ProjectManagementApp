@@ -7,6 +7,7 @@
     p {
       height: 75px;
     }
+
     button {
       width: 151px;
       margin-top: 32px;
@@ -43,18 +44,22 @@
         color: $primary;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
+
         &::placeholder {
           color: $primary;
         }
       }
     }
+
     p {
       height: 75px;
     }
   }
 
   .authors {
+
     p {
+
       span {
         color: $primary;
       }
@@ -68,14 +73,15 @@
   padding-bottom: 32px;
   padding-left: 40px;
   padding-right: 40px;
+
   & > span {
     @include heading;
     height: 38px;
     width: 191px;
 
     figure {
-      display: flex;
-      align-items: center;
+      @include row;
+
       img {
         margin-right: 16px;
       }
@@ -92,10 +98,12 @@
 .list {
   @include rowBetween;
   margin-top: 83px;
+
   li {
     font-weight: bold;
     transition: 0.3s color;
   }
+
   li:hover {
     color: $secondary;
   }
@@ -107,7 +115,7 @@
     flex-flow: column;
   }
 
-  .newsletter, .authors {
+  .authors {
     border-top: 1px solid white;
   }
 }
