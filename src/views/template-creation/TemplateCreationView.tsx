@@ -2,13 +2,12 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
-import { Steps } from 'shared/ui';
+import { Steps, StepHeader } from 'shared/ui';
 
 import {
   BasicInfo,
   GithubConnection,
   TechnologiesOverview,
-  StepHeader,
   config,
   createSteps,
   BASIC_INFO,

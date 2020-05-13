@@ -42,6 +42,12 @@ export const useFormBase = (config: FormConfig): FormManagerBase => {
   return [state, setState, getChangedField];
 };
 
+  /**
+   * Allows to create form manager feature.
+   *
+   * @param config - allows to create initial state and add basic validators
+   * @returns [state, changeHandler, directChange, submit]
+   */
 export const useForm = (config: FormConfig): FormManager => {
   const [state, setState, getChangedField] = useFormBase(config);
 

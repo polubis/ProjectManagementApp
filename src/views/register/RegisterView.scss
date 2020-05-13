@@ -1,0 +1,24 @@
+@import 'styles/mixins';
+
+.registerView {
+  @include centered;
+  align-items: unset;
+  flex-flow: column;
+  min-height: 100vh;
+  margin: 0 auto;
+  width: 420px;
+
+  & > form {
+    @include col;
+    margin-top: 52px;
+
+    & > div:not(:last-of-type) {
+      margin-bottom: 28px;
+    }
+
+    & > button {
+      width: 196px;
+      margin: 120px auto 0 auto;
+    }
+  }
+}
