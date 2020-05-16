@@ -66,7 +66,7 @@ export const TechnologiesOverview = ({
         label="Technologies *"
         placeholder="Select template technologies..."
         items={state.fields[0].value}
-        error={state.isDirty && state.fields[0].error}
+        error={state.isDirty ? state.fields[0].error : ''}
         onSelect={(e, value) => updateSelectItems(e, 0, value)}
       />
 
@@ -74,17 +74,17 @@ export const TechnologiesOverview = ({
         label="Patterns *"
         placeholder="Select patterns..."
         items={state.fields[1].value}
-        error={state.isDirty && state.fields[1].error}
+        error={state.isDirty ? state.fields[1].error : ''}
         onSelect={(e, value) => updateSelectItems(e, 1, value)}
       />
 
       <TextareaField
-        data-idx={2}
-        value={state.fields[2].value}
-        onChange={change}
         placeholder="Add tags and separate them with commas..."
         label="Tags *"
-        error={state.isDirty && state.fields[2].error}
+        data-idx={2}
+        onChange={change}
+        value={state.fields[2].value}
+        error={state.isDirty ? state.fields[2].error : ''}
       />
 
       <Button type="submit" disabled={(state.isDirty && state.isInvalid) || isLoadingDictionaries}>

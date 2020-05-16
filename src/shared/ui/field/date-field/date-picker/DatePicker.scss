@@ -1,0 +1,115 @@
+@import 'styles/mixins';
+
+.datePickerWrapper {
+  @include centered;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  .datePicker {
+    @include col;
+    width: 340px;
+    box-shadow: $shadowPrimary;
+
+    header {
+      @include col;
+      padding: 18px;
+      background: $primary;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      & > span {
+        &:first-of-type {
+          @include label;
+          margin-bottom: 10px;
+        }
+
+        &:last-of-type {
+          @include headingMedium;
+        }
+      }
+    }
+
+    section {
+      @include col;
+      background: $surfacePrimary;
+
+      .yearPicker {
+        @include rowBetween;
+        padding: 8px 12px;
+
+        & > button,
+        & > span {
+          color: $primary;
+        }
+
+        & > button:hover {
+          background: rgba($primary, 0.1);
+        }
+
+        & > span {
+          @include label;
+        }
+      }
+
+      .dayPicker {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(7, 40px);
+        grid-template-rows: repeat(7, 40px);
+        grid-gap: 4px;
+        padding: 0 12px;
+
+        & > div {
+          @include labelSmall;
+          text-align: center;
+          margin: 8px 0;
+          color: $primary;
+        }
+
+        & > button {
+          min-width: unset;
+          border-radius: 50%;
+          color: $primary;
+
+          &.activeDay {
+            background: $secondary;
+            color: $black;
+
+            &:hover {
+              background: $secondary;
+            }
+          }
+
+          &.prevDay,
+          &.nextDay {
+            color: rgba($primary, 0.6);
+          }
+
+          &:hover {
+            background: rgba($primary, 0.1);
+          }
+        }
+      }
+    }
+
+    footer {
+      @include row;
+      justify-content: flex-end;
+      padding: 8px 12px;
+      background: $surfacePrimary;
+
+      & > button {
+        color: $primary;
+
+        &:first-of-type {
+          color: rgba($primary, 0.8);
+          margin-right: 12px;
+        }
+      }
+    }
+  }
+}

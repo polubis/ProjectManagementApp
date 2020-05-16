@@ -127,4 +127,10 @@
   font-weight: $thin;
 }
 
+@mixin dottedText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 // END TEXT

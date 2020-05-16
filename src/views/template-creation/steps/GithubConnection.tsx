@@ -24,7 +24,7 @@ export const GithubConnection = ({
         data-idx={0}
         label="Repository link *"
         placeholder="Add repository link..."
-        error={isDirty && fields[0].error}
+        error={isDirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />

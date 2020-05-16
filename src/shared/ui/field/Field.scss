@@ -43,6 +43,7 @@
 
     .error {
       @include labelSmall;
+      @include dottedText;
     }
 
     svg {

@@ -13,7 +13,7 @@ export const config: TemplateManagementConfig = [
   {
     label: 'Basic information',
     description: `Name your template and add a description. This information 
-    will be displayed first.`,
+    will be displayed first`,
     formConfig: [
       { label: 'Name', validators: [req, min(2), max(50)] },
       {
@@ -24,7 +24,7 @@ export const config: TemplateManagementConfig = [
   },
   {
     label: 'Github connection',
-    description: `Connect template to github repository and set access settings.`,
+    description: `Connect template to github repository and set access settings`,
     formConfig: [
       {
         label: 'Repository link',
@@ -43,7 +43,7 @@ export const config: TemplateManagementConfig = [
   {
     label: 'Technologies overview',
     description: `Choose technologies and patterns. Users will search by these
-    settings.`,
+    settings`,
     formConfig: [
       {
         label: 'Technologies',

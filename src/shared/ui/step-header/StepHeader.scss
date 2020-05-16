@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+
+.stepHeader {
+  @include col;
+
+  .title {
+    @include headingBig;
+  }
+
+  .description {
+    @include description;
+    margin: 12px 0 34px 0;
+  }
+}
