@@ -1,0 +1,38 @@
+@import 'styles/mixins';
+
+.homeDescription {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: $surfacePrimary;
+  height: 756px;
+
+  .textSection {
+    @include col;
+
+    .header {
+      @include headingBig;
+      margin-bottom: 32px;
+      
+      span {
+        color: $primary;
+      }
+    }
+
+    .desc {
+      @include description;
+      width: 430px;
+      margin-bottom: 58px;
+    }
+    
+    button {
+      width: 167px;
+    }
+  }
+
+  .imageSection {
+    width: 570px;
+    height: 460px;
+  }
+}

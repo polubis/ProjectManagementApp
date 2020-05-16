@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
 
@@ -7,19 +8,16 @@ import { Button } from 'shared/ui';
 import { Protected, Unprotected } from 'core/auth';
 
 import csx from './UserSection.scss';
-import { NavLink } from 'react-router-dom';
 
 export const UserSection = () => {
   return (
     <div className={csx.userSection}>
       <Protected>
-        {({ user: { firstName, lastName }, logOut }) => (
+        {({ user: { email, username }, logOut }) => (
           <>
             <div className={csx.details}>
-              <span>Hi, {firstName}</span>
-              <Avatar className={csx.avatar}>
-                {firstName.charAt(0)} {lastName.charAt(0)}
-              </Avatar>
+              <span>Hi, {username}</span>
+              <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
             </div>
 
             <div className={csx.divider} />

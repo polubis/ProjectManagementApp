@@ -6,14 +6,11 @@ export interface AuthProviderProps extends RouteComponentProps {
   children: React.ReactNode;
 }
 
-export interface AuthProviderPartialState {
+export interface AuthProviderState {
   isPending: boolean;
   isAuthorized: boolean;
   error: string;
   user: User | null;
-}
-
-export interface AuthProviderState extends AuthProviderPartialState {
   logIn?(credentials: LogInPayload): Promise<void>;
   logOut?(): Promise<void>;
 }

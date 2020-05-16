@@ -13,11 +13,7 @@ const renderChildren = (
   children: JSX.Element | RenderGuardChildren,
   injectedState: GuardInjectedState
 ) => {
-  if (typeof children === 'function') {
-    return children(injectedState);
-  }
-
-  return children;
+  return typeof children === 'function' ? children(injectedState) : children;
 };
 
 export const Unprotected = ({ children }: GuardProps) => {

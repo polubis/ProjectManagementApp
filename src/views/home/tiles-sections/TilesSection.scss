@@ -1,0 +1,47 @@
+@import 'styles/mixins';
+
+.wrapper {
+  @include rowCenter;
+  width: 100%;
+  border-bottom: 1px solid rgba($primary, 0.41);
+  background-color: $surfacePrimary;
+}
+
+.tilesSection {
+  @include centered;
+  flex-wrap: wrap;
+  min-height: 832px;
+  max-width: 1350px;
+
+  .tile {
+    @include centered;
+    flex-flow: column;
+    width: 380px;
+    height: 320px;
+    background-color: $primaryDark;
+    margin: 0 32px;
+
+    span {
+      text-align: center;
+      width: 320px;
+    }
+
+    .heading {
+      @include heading;
+      margin-top: 24.2px;
+    }
+
+    .description {
+      @include description;
+      margin-top: 18px;
+    }
+  }
+}
+
+@media screen and (max-width: 1332px) {
+  .tilesSection {
+    .tile {
+      margin: 32px 32px;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import AuthProvider, { UnprotectedRoute } from 'core/auth';
 
 import { withLazy } from 'shared/utils';
 
+const HomeView = withLazy(() => import('views/home'));
 const LoginView = withLazy(() => import('views/login'));
 const MainView = withLazy(() => import('views/main'));
 
@@ -14,8 +15,11 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Switch>
+          <UnprotectedRoute exact path="/login" redirect="/app" component={LoginView} />
           <Route path="/app" component={MainView} />
-          <UnprotectedRoute path="/login" redirect="/app" component={LoginView} />
+          <Route exact path="/" component={HomeView} />
+          <Route path="**" render={() => <div>Not Found Page </div>} />
+          {/* {TODO LATER IMPROVE NOT FOUND PAGE} */}
         </Switch>
       </AuthProvider>
     </BrowserRouter>

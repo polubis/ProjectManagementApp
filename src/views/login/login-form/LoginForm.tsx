@@ -4,16 +4,10 @@ import { NavLink } from 'react-router-dom';
 import { Button, Field, Checkbox } from 'shared/ui';
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
-import { LogInPayload } from 'api';
-
-import { loginFormConfig } from '.';
+import { loginFormConfig, LoginFormProps } from '.';
 
 import csx from './LoginForm.scss';
 
-interface LoginFormProps {
-  isDisabled: boolean;
-  onSubmit(credentials: LogInPayload): void;
-}
 
 export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
   const [{ fields, isDirty, isInvalid }, change, directChange, submit] = useForm(loginFormConfig);

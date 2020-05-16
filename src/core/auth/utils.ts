@@ -1,15 +1,12 @@
 import { createContext } from 'react';
 
-import { AuthProviderState, AuthProviderPartialState } from '.';
+import { AuthProviderState } from '.';
 
-export const INIT_STATE: AuthProviderPartialState = {
+export const INIT_STATE: AuthProviderState = {
   isPending: false,
   isAuthorized: false,
   user: null,
   error: ''
 };
 
-export const AuthContext = createContext<AuthProviderState>({
-  ...INIT_STATE,
-  logIn: () => Promise.resolve()
-});
+export const AuthContext = createContext(INIT_STATE);

@@ -6,6 +6,6 @@ export interface LogInPayload {
 export interface User {
   username: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName: string | null;
+  lastName: string | null;
 }
