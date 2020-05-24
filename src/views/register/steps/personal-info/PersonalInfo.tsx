@@ -2,14 +2,16 @@ import React from 'react';
 
 import { Button, Field, DateField, Select, SelectItem } from 'shared/ui';
 
-import { RegisterStepProps } from '.';
+import { PersonalInfoProps } from '.';
 
 import csx from './PersonalInfo.scss';
 
 export const PersonalInfo = ({
   formManager: [{ isDirty, fields, isInvalid }, change, directChange, submit],
+  onBack,
+  onSkip,
   onSubmit
-}: RegisterStepProps) => {
+}: PersonalInfoProps) => {
   const updateGender = (e: React.ChangeEvent<HTMLInputElement>, idx: number, value: boolean) => {
     const id = +e.currentTarget.getAttribute('data-id');
     const items: SelectItem[] = fields[idx].value.map((item) =>
@@ -24,7 +26,7 @@ export const PersonalInfo = ({
   };
 
   return (
-    <form onSubmit={submit}>
+    <form className={csx.personalInfo} onSubmit={submit}>
       <Field
         data-idx={0}
         label="First name *"
@@ -62,9 +64,19 @@ export const PersonalInfo = ({
         />
       </div>
 
-      <Button type="submit" disabled={isDirty && isInvalid}>
-        NEXT
-      </Button>
+      <footer>
+        <Button type="button" theme="primaryTransparent" onClick={onBack}>
+          BACK
+        </Button>
+
+        <Button type="button" theme="primaryTransparent" onClick={onSkip}>
+          SKIP
+        </Button>
+
+        <Button type="submit" disabled={isDirty && isInvalid}>
+          NEXT
+        </Button>
+      </footer>
     </form>
   );
 };

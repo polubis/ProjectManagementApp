@@ -1,9 +1,0 @@
-@import 'styles/mixins';
-
-.fieldGroup {
-  @include rowBetween;
-
-  & > div {
-    width: 46%;
-  }
-}

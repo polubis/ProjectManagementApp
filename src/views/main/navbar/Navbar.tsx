@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router';
 
+import { UserSection } from '.';
+
 import csx from './Navbar.scss';
 
 const getBreadcrumbs = (pathname: string) => {
@@ -26,6 +28,8 @@ export const Navbar = ({ basePath }) => {
           </React.Fragment>
         ))}
       </div>
+
+      <UserSection />
     </nav>
   );
 };

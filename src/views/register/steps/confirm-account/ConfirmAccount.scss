@@ -1,0 +1,29 @@
+@import 'styles/mixins';
+
+.confirmAccount {
+  @include colCenter;
+
+  & > header {
+    align-items: center;
+
+    & > span {
+      text-align: center;
+    }
+  }
+
+  & > svg {
+    margin: 52px 0 98px 0;
+  }
+
+  & > footer {
+    @include col;
+
+    a {
+      margin-bottom: 22px;
+    }
+
+    button {
+      width: 380px;
+    }
+  }
+}

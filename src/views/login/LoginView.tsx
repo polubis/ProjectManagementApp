@@ -1,34 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import { Button } from 'shared/ui';
 
-import { signInViaGithub, logInViaCredentials } from 'api';
+import { signInViaGithub } from 'api';
 
 import { LoginForm } from '.';
 
 import { IMGS } from 'consts';
 
+import { AuthContext } from 'core/auth';
+
 import csx from './LoginView.scss';
 
 const LoginView = () => {
-  const [isLogingIn, setIsLogingIn] = useState(false);
-
-  const handleLogin = async (login: string, password: string) => {
-    setIsLogingIn(true);
-
-    try {
-      await logInViaCredentials({ login, password });
-    } catch (error) {
-    } finally {
-      setIsLogingIn(false);
-    }
-  };
+  const { logIn, isPending } = useContext(AuthContext);
 
   return (
     <div className={csx.loginView}>
       <h5>Log In</h5>
 
-      <LoginForm isDisabled={isLogingIn} onSubmit={handleLogin} />
+      <LoginForm isDisabled={isPending} onSubmit={logIn} />
 
       <div className={csx.divider}>
         <div />
@@ -36,7 +27,7 @@ const LoginView = () => {
         <div />
       </div>
 
-      <Button variant="icon" disabled={isLogingIn} onClick={signInViaGithub}>
+      <Button variant="icon" disabled={isPending} onClick={signInViaGithub}>
         <img src={IMGS + '/GithubLogo.png'} />
       </Button>
     </div>

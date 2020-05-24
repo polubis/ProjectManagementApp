@@ -5,7 +5,7 @@ import { SelectItem } from 'shared/ui';
 
 export const STEPS_COUNT = 4;
 
-export const [CREDENTIALS, PERSONAL_INFO, WORK_AND_COMPANY, ALMOST_DONE] = Array.from(
+export const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE] = Array.from(
   { length: STEPS_COUNT },
   (_, idx) => idx
 );
@@ -56,10 +56,12 @@ export const config: RegisterConfig = [
     description: `Describe yourself for other users`,
     formConfig: [
       {
-        label: 'Position'
+        label: 'Position',
+        value: []
       },
       {
-        label: 'Seniority'
+        label: 'Seniority',
+        value: []
       },
       {
         label: 'Company'
@@ -68,7 +70,8 @@ export const config: RegisterConfig = [
         label: 'Years of experience'
       },
       {
-        label: 'Technologies'
+        label: 'Technologies',
+        value: []
       }
     ]
   },

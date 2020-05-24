@@ -2,10 +2,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { withLazy } from 'shared/utils';
-import { withAlertsManagement } from 'shared/alerts-management';
+import AuthProvider, { UnprotectedRoute } from 'core/auth';
 
-import { coreInstance } from 'api';
+import { withLazy } from 'shared/utils';
 
 const HomeView = withLazy(() => import('views/home'));
 const LoginView = withLazy(() => import('views/login'));
@@ -15,14 +14,18 @@ const RegisterView = withLazy(() => import('views/register'));
 const App = () => {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/register" component={RegisterView} />
-        <Route exact path="/login" component={LoginView} />
-        <Route path="/app" component={MainView} />
-        <Route path="" component={HomeView} />
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <UnprotectedRoute exact path="/login" redirect="/app" component={LoginView} />
+          <UnprotectedRoute exact path="/register" redirect="/app" component={RegisterView} />
+          <Route path="/app" component={MainView} />
+          <Route exact path="/" component={HomeView} />
+          <Route path="**" render={() => <div>Not Found Page </div>} />
+          {/* {TODO LATER IMPROVE NOT FOUND PAGE} */}
+        </Switch>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
 
-export default withAlertsManagement(App)(coreInstance);
+export default App;

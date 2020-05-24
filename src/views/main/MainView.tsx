@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 
+import { ProtectedRoute } from 'core/auth';
+
 import { withLazy } from 'shared/utils';
 
 import { Navbar, Sidebar } from '.';
@@ -30,7 +32,12 @@ const MainView = ({ match }: MainViewProps) => {
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
 
-          <Route exact path={`${match.path}/templates/creation`} component={TemplateCreationView} />
+          <ProtectedRoute
+            exact
+            redirect={`${match.path}/templates`}
+            path={`${match.path}/templates/creation`}
+            component={TemplateCreationView}
+          />
 
           <Route
             exact

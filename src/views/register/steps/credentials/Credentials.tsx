@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Field } from 'shared/ui';
 
-import { RegisterStepProps } from '.';
+import { RegisterStepProps } from '..';
 
 export const Credentials = ({
   formManager: [{ isDirty, fields, isInvalid }, change],
