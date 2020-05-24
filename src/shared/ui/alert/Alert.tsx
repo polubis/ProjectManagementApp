@@ -8,15 +8,13 @@ import { AlertProps } from '.';
 
 import csx from './Alert.scss';
 
-export const Alert = ({ idx, message, type, onClose }: AlertProps) => {
+export const Alert = ({ message, type = 'error', onClose }: AlertProps) => {
   const render = usePortal();
 
-  const className = [csx.alert, csx[type]].join(' ');
-
   return render(
-    <div className={className}>
+    <div className={`${csx.alert} ${csx[type]}`}>
       <span>{message}</span>
-      <CloseIcon data-idx={idx} onClick={onClose} />
+      <CloseIcon onClick={onClose} />
     </div>
   );
 };

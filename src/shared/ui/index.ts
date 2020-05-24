@@ -5,3 +5,4 @@ export * from './checkbox';
 export * from './button';
 export * from './select';
 export * from './steps';
+export * from './alert';
