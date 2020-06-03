@@ -8,13 +8,21 @@
 
     &:hover {
       background: $primaryDark;
-      opacity: 1;
     }
 
     &:disabled {
       opacity: 0.6;
       background: $primaryDark;
       color: $white;
+    }
+  }
+
+  &.primaryTransparent {
+    background: transparent;
+    color: $primary;
+
+    &:disabled {
+      color: rgba($primary, 0.6);
     }
   }
 }

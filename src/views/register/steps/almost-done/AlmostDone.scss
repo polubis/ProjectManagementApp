@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.almostDone {
+  @include col;
+
+  & > svg {
+    margin: 0 auto;
+  }
+
+  & > label {
+    padding: 0 20px;
+
+    &:first-of-type {
+      margin-bottom: 42px;
+    }
+  }
+
+  .description {
+    @include description;
+    display: block;
+    text-align: center;
+    margin: 18px auto 0 auto;
+    width: 400px;
+  }
+
+  .divider {
+    height: 6px;
+    width: 200px;
+    margin: 28px auto 50px auto;
+    border-radius: 41px;
+    background: $surfaceDark;
+  }
+
+  & > footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 28px;
+    margin: 120px 0 0 0;
+  }
+}

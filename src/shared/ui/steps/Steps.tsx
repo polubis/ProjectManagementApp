@@ -27,7 +27,9 @@ export const Steps = ({ steps, onChange }: StepsProps) => {
           {idx !== steps.length - 1 && (
             <svg className={csx.marker} width="100%" height="8">
               <line x1="100%" strokeWidth="8" />
-              <line x1={`${progress}%`} strokeWidth="8" className={csx.markerValue} />
+              {progress !== undefined && (
+                <line x1={`${progress}%`} strokeWidth="8" className={csx.markerValue} />
+              )}
             </svg>
           )}
         </div>

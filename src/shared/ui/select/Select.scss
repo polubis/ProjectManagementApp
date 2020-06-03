@@ -40,6 +40,7 @@
 
     .placeholder {
       @include noSelect;
+      @include dottedText;
       font-weight: $thin;
     }
   }

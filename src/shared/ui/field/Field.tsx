@@ -7,15 +7,15 @@ import { FieldBaseProps, FieldProps, TextareaFieldProps } from '.';
 import csx from './Field.scss';
 
 export const FieldBase = ({ label, error, children, className = '' }: FieldBaseProps) => {
-  const isInvalid = !!error;
-
   return (
-    <div className={`${csx.field} ${className} ${isInvalid ? csx.invalid : ''}`}>
+    <div className={`${csx.field} ${className} ${error ? csx.invalid : ''}`}>
       <label>{label}</label>
       {children}
       <div className={csx.validation}>
-        {isInvalid && <ErrorIcon />}
-        <span className={csx.error}>{error}</span>
+        {error && <ErrorIcon />}
+        <span className={csx.error} title={error}>
+          {error}
+        </span>
       </div>
     </div>
   );

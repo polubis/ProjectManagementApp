@@ -14,7 +14,7 @@ export const BasicInfo = ({
         data-idx={0}
         label="Name *"
         placeholder="Type template name..."
-        error={isDirty && fields[0].error}
+        error={isDirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />
@@ -22,7 +22,7 @@ export const BasicInfo = ({
       <TextareaField
         data-idx={1}
         label="Description *"
-        error={isDirty && fields[1].error}
+        error={isDirty ? fields[1].error : ''}
         value={fields[1].value}
         onChange={change}
         placeholder="Add template description..."

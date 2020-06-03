@@ -11,7 +11,7 @@ export interface ButtonProps
   > {
   children: React.ReactNode;
   variant?: 'default' | 'icon';
-  theme?: 'primaryDark';
+  theme?: 'primaryDark' | 'primaryTransparent';
 }
 
 export const Button = ({

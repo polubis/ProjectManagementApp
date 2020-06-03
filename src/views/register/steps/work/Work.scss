@@ -1,0 +1,32 @@
+@import 'styles/mixins';
+
+.work {
+  @include col;
+
+  & > svg {
+    margin: 0 auto;
+  }
+
+  .description {
+    @include description;
+    display: block;
+    text-align: center;
+    margin: 18px auto 50px auto;
+    width: 260px;
+  }
+
+  .fields {
+    @include rowBetween;
+
+    & > div {
+      width: 46%;
+    }
+  }
+
+  & > footer {
+    display: grid;
+    grid-template-columns: auto auto 180px;
+    grid-gap: 28px;
+    margin: 120px 0 0 0;
+  }
+}
