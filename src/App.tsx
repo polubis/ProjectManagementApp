@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import AuthProvider, { UnprotectedRoute } from 'core/auth';
+import AuthProvider, { UnprotectedRoute } from 'features/auth';
 
 import { withLazy } from 'shared/utils';
 

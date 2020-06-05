@@ -33,8 +33,8 @@ const TemplateDetailsView = ({ match }: TemplateDetailsViewProps) => {
     ));
 
   useEffect(() => {
-    console.log(match);
-    console.log(`callApi with id ${match.params.id}`);
+    // console.log(match);
+    // console.log(`callApi with id ${match.params.id}`);
   }, [match.params.id]);
   
   return (

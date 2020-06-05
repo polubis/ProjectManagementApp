@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { parseError } from '.';
-
 import { API } from 'consts';
+
+import { parseError } from '.';
 
 export const coreInstance = axios.create({
   baseURL: API,

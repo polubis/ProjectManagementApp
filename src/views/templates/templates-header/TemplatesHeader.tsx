@@ -6,7 +6,7 @@ import AddTemplateIcon from '@material-ui/icons/Queue';
 
 import { Button } from 'shared/ui';
 
-import { Protected } from 'core/auth';
+import { Protected } from 'features/auth';
 
 import csx from './TemplatesHeader.scss';
 

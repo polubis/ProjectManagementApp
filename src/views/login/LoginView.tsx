@@ -8,7 +8,7 @@ import { LoginForm } from '.';
 
 import { IMGS } from 'consts';
 
-import { AuthContext } from 'core/auth';
+import { AuthContext } from 'features/auth';
 
 import csx from './LoginView.scss';
 

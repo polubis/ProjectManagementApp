@@ -5,7 +5,7 @@ import { Avatar } from '@material-ui/core';
 
 import { Button } from 'shared/ui';
 
-import { Protected, Unprotected } from 'core/auth';
+import { Protected, Unprotected } from 'features/auth';
 
 import csx from './UserSection.scss';
 
