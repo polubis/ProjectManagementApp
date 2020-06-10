@@ -57,30 +57,3 @@
     font-size: 28px;
   }
 }
-
-.technologiesMenu {
-  width: 300px;
-  border-radius: 0;
-  box-shadow: $shadowPrimary;
-  background: $surfacePrimary;
-  color: $primary;
-  margin-top: 1px;
-
-  ul {
-    @include col;
-    padding: 6px 0;
-
-    label {
-      margin: 0;
-      padding: 0 6px;
-
-      &:focus {
-        outline: none;
-      }
-
-      & > span:first-of-type {
-        padding: 12px;
-      }
-    }
-  }
-}

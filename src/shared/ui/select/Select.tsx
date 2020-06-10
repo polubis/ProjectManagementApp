@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Button, Chip, Menu } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 
-import { Checkbox, FieldBase, SelectProps } from '..';
+import { FieldBase, SelectProps, Menu, selectMenuConfig } from '..';
 
 import csx from './Select.scss';
 
 export const Select = ({ label, placeholder = label, error, items, onSelect }: SelectProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const openMenu = ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(currentTarget);
-  };
+  const openMenu = useCallback(
+    ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      setAnchorEl(currentTarget);
+    },
+    []
+  );
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -51,22 +54,17 @@ export const Select = ({ label, placeholder = label, error, items, onSelect }: S
         >
           <ExpandMoreIcon />
         </Button>
-        <Menu
-          id={label}
-          classes={{
-            paper: csx.selectMenu
-          }}
-          getContentAnchorEl={null}
-          anchorEl={anchorEl}
-          open={isMenuOpen}
-          onClose={closeMenu}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          {items.map(({ id, label, value }) => (
-            <Checkbox key={id} dataId={id} onChange={onSelect} label={label} value={value} />
-          ))}
-        </Menu>
+
+        {isMenuOpen && (
+          <Menu
+            {...selectMenuConfig}
+            id={label}
+            anchorEl={anchorEl}
+            onClose={closeMenu}
+            onSelect={onSelect}
+            items={items}
+          />
+        )}
       </div>
     </FieldBase>
   );

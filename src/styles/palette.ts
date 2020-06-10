@@ -5,11 +5,18 @@ export enum Palette {
   secondary = '#0f183e',
   secondaryDark = '#121c47',
 
+  surface = '#101b48',
+  surfaceDark = '#193457',
+  surfacePrimary = '#0f183e',
+  surfaceSecondary = '#121c47',
+
   error = '#ff395b',
 
   ok = '#65ffcb',
   okThin = 'rgba(101, 255, 203, 0.82)',
 
   white = '#fff',
-  black = '#000'
+  black = '#000',
+
+  shadowPrimary = '0 3px 6px rgba(0, 0, 0, 0.16)'
 }

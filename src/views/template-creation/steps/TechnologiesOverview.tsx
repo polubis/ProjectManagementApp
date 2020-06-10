@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, Select, SelectItem, TextareaField } from 'shared/ui';
+import { getPatterns } from 'api';
 
-import { getTechnologies, getPatterns } from 'api';
+import { Button, Select, SelectItem, TextareaField } from 'shared/ui';
 
 import { TemplateManagementStepProps } from '.';
 
@@ -33,23 +33,16 @@ export const TechnologiesOverview = ({
     setIsLoadingDictionaries(true);
 
     // Allows run calls parallel
-    const techPromise = getTechnologies();
     const pattPromise = getPatterns();
 
     try {
-      const technologies: SelectItem[] = (await techPromise).map(({ id, name }) => ({
-        id,
-        label: name,
-        value: false
-      }));
-
       const patterns: SelectItem[] = (await pattPromise).map(({ id, name }) => ({
         id,
         label: name,
         value: false
       }));
 
-      directChange([0, 1], [technologies, patterns]);
+      directChange([1], [patterns]);
     } catch (error) {
     } finally {
       setIsLoadingDictionaries(false);

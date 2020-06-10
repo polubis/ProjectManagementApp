@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { TextProps, TextVariants } from '.';
 import { Palette } from 'styles';
+
+import { TextProps, TextVariants } from '.';
 
 import classes from './Text.scss';
 
