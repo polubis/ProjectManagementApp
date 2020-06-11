@@ -59,30 +59,3 @@
     }
   }
 }
-
-.selectMenu {
-  width: 400px;
-  border-radius: 0 !important;
-  box-shadow: $shadowPrimary !important;
-  background: $surfacePrimary !important;
-  color: $primary;
-  margin: 4px 0 0 1px;
-
-  ul {
-    @include col;
-    padding: 6px 0;
-
-    label {
-      margin: 0;
-      padding: 0 6px;
-
-      &:focus {
-        outline: none;
-      }
-
-      & > span:first-of-type {
-        padding: 12px;
-      }
-    }
-  }
-}

@@ -1,63 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 
-import { Button, Menu } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-import { Checkbox } from 'shared/ui';
-
-import ChevronIcon from '@material-ui/icons/ChevronLeft';
 import SearchIcon from '@material-ui/icons/Search';
+
+import { CheckboxProps, Select } from 'shared/ui';
+
+import { TechnologiesContext } from 'providers/technologies';
 
 import csx from './TemplatesSearch.scss';
 
-const technologies = [
-  { id: 0, name: 'React JS', image: '' },
-  { id: 1, name: 'Angular JS', image: '' },
-  { id: 2, name: 'Vue JS', image: '' },
-  { id: 3, name: 'Svelte', image: '' }
-];
-
 export const TemplatesSearch = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const { technologies } = useContext(TechnologiesContext);
 
-  const handleClick = ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(currentTarget);
-  };
+  const [searchData, setSearchData] = useState({
+    technologies: [],
+    phrase: ''
+  });
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const setTechnologiesSelection = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+      const id = +e.currentTarget.getAttribute('data-id');
+      const mappedTechnologies: CheckboxProps[] = searchData.technologies.map(
+        (item: CheckboxProps) =>
+          id === item.dataId
+            ? {
+                ...item,
+                value
+              }
+            : item
+      );
 
-  const isMenuOpen = Boolean(anchorEl);
+      setSearchData({
+        phrase: '',
+        technologies: mappedTechnologies
+      });
+    },
+    [searchData]
+  );
+
+  useEffect(() => {
+    const mappedTechnologies: CheckboxProps[] = technologies.map(({ id, name }) => ({
+      dataId: id,
+      label: name,
+      value: false
+    }));
+
+    setSearchData({
+      phrase: '',
+      technologies: mappedTechnologies
+    });
+  }, [technologies]);
 
   return (
     <form className={csx.templatesSearch}>
       <input placeholder="Find your template..." className={csx.input} />
-      <Button
-        type="button"
-        aria-controls="technologies-menu"
-        aria-haspopup="true"
-        className={`${csx.technologiesBtn} ${isMenuOpen ? csx.technologiesBtnActive : ''}`}
-        onClick={handleClick}
-      >
-        All technologies
-        <ChevronIcon />
-      </Button>
-      <Menu
-        id="technologies-menu"
-        classes={{
-          paper: csx.technologiesMenu
-        }}
-        getContentAnchorEl={null}
-        anchorEl={anchorEl}
-        open={isMenuOpen}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-      >
-        {technologies.map((tech) => (
-          <Checkbox key={tech.id} label={tech.name} />
-        ))}
-      </Menu>
+
+      <Select
+        label="Technologies *"
+        placeholder="All technologies"
+        className={csx.select}
+        openClass={csx.selectMenuOpen}
+        items={searchData.technologies}
+        onSelect={setTechnologiesSelection}
+      />
+
       <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />
       </Button>
