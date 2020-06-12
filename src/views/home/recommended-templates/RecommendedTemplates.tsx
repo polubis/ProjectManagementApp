@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TemplateTile } from 'viewstemplates';
+import { TemplateTile } from 'views/templates';
 
 import { templatesMock } from 'src/mocks/templates';
 
@@ -12,10 +12,10 @@ export const RecommendedTemplates = () => {
       <div className={csx.templatesContainer}>
         <h2 className={csx.heading}>Recommended templates</h2>
 
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[0]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[1]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[2]} />
-        <TemplateTile onTemplateClick={() => console.log('siema')} template={templatesMock[3]} />
+        <TemplateTile onClick={() => console.log('siema')} template={templatesMock[0]} />
+        <TemplateTile onClick={() => console.log('siema')} template={templatesMock[1]} />
+        <TemplateTile onClick={() => console.log('siema')} template={templatesMock[2]} />
+        <TemplateTile onClick={() => console.log('siema')} template={templatesMock[3]} />
       </div>
     </section>
   );

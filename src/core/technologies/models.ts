@@ -1,7 +1,7 @@
 import { Technology } from 'api';
 
 export interface TechnologiesProviderState {
-  isLoading: boolean;
+  loading: boolean;
   error: string;
   technologies: Technology[];
 }

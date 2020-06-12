@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { CheckboxProps, Select } from 'shared/ui';
 
-import { TechnologiesContext } from 'providers/technologies';
+import { TechnologiesContext } from 'core/technologies';
 
 import csx from './TemplatesSearch.scss';
 

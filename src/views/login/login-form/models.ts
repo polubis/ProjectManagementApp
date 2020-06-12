@@ -1,6 +1,6 @@
 import { LogInPayload } from 'api';
 
 export interface LoginFormProps {
-  isDisabled: boolean;
+  disabled: boolean;
   onSubmit(credentials: LogInPayload): void;
 }

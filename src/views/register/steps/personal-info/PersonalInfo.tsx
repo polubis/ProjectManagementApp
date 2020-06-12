@@ -7,7 +7,7 @@ import { PersonalInfoProps } from '.';
 import csx from './PersonalInfo.scss';
 
 export const PersonalInfo = ({
-  formManager: [{ isDirty, fields, isInvalid }, change, directChange, submit],
+  formManager: [{ dirty, fields, invalid }, change, directChange, submit],
   onBack,
   onSkip,
   onSubmit
@@ -31,7 +31,7 @@ export const PersonalInfo = ({
         data-idx={0}
         label="First name *"
         placeholder="Type first name..."
-        error={isDirty ? fields[0].error : ''}
+        error={dirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />
@@ -40,7 +40,7 @@ export const PersonalInfo = ({
         data-idx={1}
         label="Last name *"
         placeholder="Type last name..."
-        error={isDirty ? fields[1].error : ''}
+        error={dirty ? fields[1].error : ''}
         value={fields[1].value}
         onChange={change}
       />
@@ -49,7 +49,7 @@ export const PersonalInfo = ({
         <DateField
           data-idx={2}
           label="Birth date *"
-          error={isDirty ? fields[2].error : ''}
+          error={dirty ? fields[2].error : ''}
           value={fields[2].value}
           onChange={change}
           onSelect={(value) => directChange([2], [value])}
@@ -59,7 +59,7 @@ export const PersonalInfo = ({
           label="Gender *"
           placeholder="Choose gender..."
           items={fields[3].value}
-          error={isDirty ? fields[3].error : ''}
+          error={dirty ? fields[3].error : ''}
           onSelect={(e, value) => updateGender(e, 3, value)}
         />
       </div>
@@ -73,7 +73,7 @@ export const PersonalInfo = ({
           SKIP
         </Button>
 
-        <Button type="submit" disabled={isDirty && isInvalid}>
+        <Button type="submit" disabled={dirty && invalid}>
           NEXT
         </Button>
       </footer>

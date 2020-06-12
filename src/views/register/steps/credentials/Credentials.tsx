@@ -5,7 +5,7 @@ import { Button, Field } from 'shared/ui';
 import { RegisterStepProps } from '..';
 
 export const Credentials = ({
-  formManager: [{ isDirty, fields, isInvalid }, change],
+  formManager: [{ dirty, fields, invalid }, change],
   onSubmit
 }: RegisterStepProps) => {
   return (
@@ -15,7 +15,7 @@ export const Credentials = ({
         label="Email *"
         placeholder="Type email adress..."
         type="email"
-        error={isDirty ? fields[0].error : ''}
+        error={dirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />
@@ -25,7 +25,7 @@ export const Credentials = ({
         label="Password *"
         placeholder="Type password..."
         type="password"
-        error={isDirty ? fields[1].error : ''}
+        error={dirty ? fields[1].error : ''}
         value={fields[1].value}
         onChange={change}
       />
@@ -35,12 +35,12 @@ export const Credentials = ({
         label="Repeated password *"
         placeholder="Repeat your password..."
         type="password"
-        error={isDirty ? fields[2].error : ''}
+        error={dirty ? fields[2].error : ''}
         value={fields[2].value}
         onChange={change}
       />
 
-      <Button type="submit" disabled={isDirty && isInvalid}>
+      <Button type="submit" disabled={dirty && invalid}>
         NEXT
       </Button>
     </form>

@@ -7,7 +7,7 @@ import { AlmostDoneProps, AlmostDoneImage } from '.';
 import csx from './AlmostDone.scss';
 
 export const AlmostDone = ({
-  formManager: [{ isDirty, fields, isInvalid }, change],
+  formManager: [{ dirty, fields, invalid }, change],
   onBack,
   onSubmit
 }: AlmostDoneProps) => {
@@ -44,7 +44,7 @@ export const AlmostDone = ({
           BACK
         </Button>
 
-        <Button type="submit" disabled={isDirty && isInvalid}>
+        <Button type="submit" disabled={dirty && invalid}>
           CREATE ACCOUNT
         </Button>
       </footer>

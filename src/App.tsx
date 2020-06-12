@@ -3,8 +3,7 @@ import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
 import AuthProvider, { UnprotectedRoute } from 'core/auth';
-
-import TechnologiesProvider from 'providers/technologies';
+import TechnologiesProvider from 'core/technologies';
 
 import { withLazy } from 'shared/utils';
 

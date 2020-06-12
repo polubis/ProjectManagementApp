@@ -4,8 +4,8 @@ import { StepStatus, Step } from 'shared/ui';
 
 import { TemplateManagementConfig } from '.';
 
-const getStepStatus = ([{ isDirty, isInvalid }]: FormManager) => {
-  return isDirty ? (isInvalid ? StepStatus.INVALID : StepStatus.VALID) : undefined;
+const getStepStatus = ([{ dirty, invalid }]: FormManager) => {
+  return dirty ? (invalid ? StepStatus.INVALID : StepStatus.VALID) : undefined;
 };
 
 const getStepProgress = ([{ fields }]: FormManager) => {

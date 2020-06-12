@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { TechnologiesProviderState } from '.';
 
 export const INIT_STATE: TechnologiesProviderState = {
-  isLoading: true,
+  loading: true,
   error: '',
   technologies: []
 };

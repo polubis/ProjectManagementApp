@@ -2,6 +2,7 @@
 
 .templateTiles {
     width: 100%;
+    min-height: 100vh;
     justify-content: center;
     display: grid;
     grid-template-columns: 320px 320px 320px 320px;

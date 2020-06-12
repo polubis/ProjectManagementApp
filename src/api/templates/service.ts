@@ -1,7 +1,7 @@
-export const getTemplates = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve();
-        }, 1000);
-    })
+import { call, coreInstance, Template } from '..';
+
+export const getTemplates = (page: number, query: string, limit: number) => {
+  const urlQuery = `?limit=${limit}&page=${page}&query=${query}`;
+
+  return call<Template[]>(coreInstance.get(`Templates/Search${urlQuery}`));
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import { Button, Select, CheckboxProps, TextareaField } from 'shared/ui';
 
-import { TechnologiesContext } from 'providers/technologies';
+import { TechnologiesContext } from 'core/technologies';
 
 import { TemplateManagementStepProps } from '.';
 
@@ -10,7 +10,7 @@ export const TechnologiesOverview = ({
   formManager: [state, change, directChange],
   onSubmit
 }: TemplateManagementStepProps) => {
-  const { technologies, isLoading } = useContext(TechnologiesContext);
+  const { technologies, loading } = useContext(TechnologiesContext);
 
   const setTechnologiesSelection = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -45,7 +45,7 @@ export const TechnologiesOverview = ({
         label="Technologies *"
         placeholder="Select template technologies..."
         items={state.fields[0].value}
-        error={state.isDirty ? state.fields[0].error : ''}
+        error={state.dirty ? state.fields[0].error : ''}
         onSelect={(e, value) => setTechnologiesSelection(e, 0, value)}
       />
 
@@ -53,7 +53,7 @@ export const TechnologiesOverview = ({
         label="Patterns *"
         placeholder="Select patterns..."
         items={state.fields[1].value}
-        error={state.isDirty ? state.fields[1].error : ''}
+        error={state.dirty ? state.fields[1].error : ''}
         onSelect={(e, value) => setTechnologiesSelection(e, 1, value)}
       />
 
@@ -63,10 +63,10 @@ export const TechnologiesOverview = ({
         data-idx={2}
         onChange={change}
         value={state.fields[2].value}
-        error={state.isDirty ? state.fields[2].error : ''}
+        error={state.dirty ? state.fields[2].error : ''}
       />
 
-      <Button type="submit" disabled={(state.isDirty && state.isInvalid) || isLoading}>
+      <Button type="submit" disabled={(state.dirty && state.invalid) || loading}>
         SUBMIT & CREATE
       </Button>
     </form>
