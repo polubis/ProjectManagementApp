@@ -29,6 +29,8 @@
     "paths": {
       "consts": ["src/consts"],
       "pages/*": ["src/pages/*"],
+      "providers/*": ["src/providers/*"],
+      "components/*": ["src/components/*"],
       "shared/*": ["src/shared/*"],
       "core/*": ["src/core/*"],
       "api": ["src/api"],

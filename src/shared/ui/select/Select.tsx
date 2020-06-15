@@ -1,36 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Button, Chip, Menu } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 
-import { Checkbox, FieldBase, SelectProps } from '..';
+import { FieldBase, SelectProps, SelectMenuProps, Menu, SelectItem, CheckboxProps } from '..';
 
 import csx from './Select.scss';
 
-export const Select = ({ label, placeholder = label, error, items, onSelect }: SelectProps) => {
+export const Select = ({
+  label,
+  placeholder = label,
+  className,
+  openClass = csx.menuOpen,
+  error,
+  items,
+  onSelect
+}: SelectProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const openMenu = ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(currentTarget);
-  };
+  const openMenu = useCallback(
+    ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      setAnchorEl(currentTarget);
+    },
+    []
+  );
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const selectedItems = items.filter(({ value }) => value);
+  const selectedItems = useMemo(() => {
+    return items.filter(({ value }) => value);
+  }, [items]);
 
   return (
-    <FieldBase label={label} error={error}>
-      <div className={`${csx.select} ${isMenuOpen ? csx.menuOpen : ''}`}>
+    <FieldBase className={className} label={label} error={error}>
+      <div className={`${csx.select} ${isMenuOpen ? openClass : ''}`}>
         <div className={csx.selectedItems}>
           {selectedItems.length > 0 ? (
-            selectedItems.map(({ id, label }) => (
+            selectedItems.map(({ dataId, label }) => (
               <Chip
-                key={id}
-                data-id={id}
+                key={dataId}
+                data-id={dataId}
                 label={label}
                 className={csx.selectedItem}
                 onClick={onSelect as any}
@@ -42,6 +55,7 @@ export const Select = ({ label, placeholder = label, error, items, onSelect }: S
             <span className={csx.placeholder}>{placeholder}</span>
           )}
         </div>
+
         <Button
           aria-haspopup="true"
           type="button"
@@ -51,22 +65,19 @@ export const Select = ({ label, placeholder = label, error, items, onSelect }: S
         >
           <ExpandMoreIcon />
         </Button>
-        <Menu
-          id={label}
-          classes={{
-            paper: csx.selectMenu
-          }}
-          getContentAnchorEl={null}
-          anchorEl={anchorEl}
-          open={isMenuOpen}
-          onClose={closeMenu}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          {items.map(({ id, label, value }) => (
-            <Checkbox key={id} dataId={id} onChange={onSelect} label={label} value={value} />
-          ))}
-        </Menu>
+
+        {isMenuOpen && (
+          <Menu<CheckboxProps, SelectMenuProps>
+            width={400}
+            id={label}
+            anchorEl={anchorEl}
+            items={items}
+            onClose={closeMenu}
+            onSelect={onSelect}
+          >
+            {SelectItem}
+          </Menu>
+        )}
       </div>
     </FieldBase>
   );
