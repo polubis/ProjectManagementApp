@@ -8,14 +8,13 @@ import { loginFormConfig, LoginFormProps } from '.';
 
 import csx from './LoginForm.scss';
 
-
-export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
-  const [{ fields, isDirty, isInvalid }, change, directChange, submit] = useForm(loginFormConfig);
+export const LoginForm = ({ disabled, onSubmit }: LoginFormProps) => {
+  const [{ fields, dirty, invalid }, change, directChange, submit] = useForm(loginFormConfig);
 
   const handleSubmit = (e: FormSubmitEvent) => {
-    const isInvalid = submit(e);
+    const invalid = submit(e);
 
-    if (isInvalid) {
+    if (invalid) {
       return;
     }
 
@@ -33,7 +32,7 @@ export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
           label={label}
           placeholder={`${label}...`}
           type={type}
-          error={isDirty && fields[idx].error}
+          error={dirty && fields[idx].error}
           value={fields[idx].value}
           onChange={change}
         />
@@ -41,10 +40,10 @@ export const LoginForm = ({ isDisabled, onSubmit }: LoginFormProps) => {
 
       <div className={csx.loginActions}>
         <Checkbox label="Remember me" />
-        {isDisabled || <NavLink to="/forgot-password">Forgot password ?</NavLink>}
+        {disabled || <NavLink to="/forgot-password">Forgot password ?</NavLink>}
       </div>
 
-      <Button type="submit" disabled={isDisabled || (isDirty && isInvalid)}>
+      <Button type="submit" disabled={disabled || (dirty && invalid)}>
         SUBMIT
       </Button>
     </form>

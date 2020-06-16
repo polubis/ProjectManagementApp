@@ -17,35 +17,35 @@ const renderChildren = (
 };
 
 export const Unprotected = ({ children }: GuardProps) => {
-  const { isPending, isAuthorized, ...injectedState } = useContext(AuthContext);
+  const { pending, authorized, ...injectedState } = useContext(AuthContext);
 
-  return isPending ? null : isAuthorized ? null : renderChildren(children, injectedState);
+  return pending ? null : authorized ? null : renderChildren(children, injectedState);
 };
 
 export const Protected = ({ children }: GuardProps) => {
-  const { isPending, isAuthorized, ...injectedState } = useContext(AuthContext);
+  const { pending, authorized, ...injectedState } = useContext(AuthContext);
 
-  return isPending ? null : isAuthorized ? renderChildren(children, injectedState) : null;
+  return pending ? null : authorized ? renderChildren(children, injectedState) : null;
 };
 
 export const ProtectedRoute = ({ component: Component, redirect, ...rest }: RouteGuardProps) => {
-  const { isPending, isAuthorized } = useContext(AuthContext);
+  const { pending, authorized } = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
-      render={() => (isPending ? null : isAuthorized ? <Component /> : <Redirect to={redirect} />)}
+      render={() => (pending ? null : authorized ? <Component /> : <Redirect to={redirect} />)}
     />
   );
 };
 
 export const UnprotectedRoute = ({ component: Component, redirect, ...rest }: RouteGuardProps) => {
-  const { isPending, isAuthorized } = useContext(AuthContext);
+  const { pending, authorized } = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
-      render={() => (isPending ? null : isAuthorized ? <Redirect to={redirect} /> : <Component />)}
+      render={() => (pending ? null : authorized ? <Redirect to={redirect} /> : <Component />)}
     />
   );
 };

@@ -13,13 +13,13 @@ import { AuthContext } from 'core/auth';
 import csx from './LoginView.scss';
 
 const LoginView = () => {
-  const { logIn, isPending } = useContext(AuthContext);
+  const { logIn, pending } = useContext(AuthContext);
 
   return (
     <div className={csx.loginView}>
       <h5>Log In</h5>
 
-      <LoginForm isDisabled={isPending} onSubmit={logIn} />
+      <LoginForm disabled={pending} onSubmit={logIn} />
 
       <div className={csx.divider}>
         <div />
@@ -27,7 +27,7 @@ const LoginView = () => {
         <div />
       </div>
 
-      <Button variant="icon" disabled={isPending} onClick={signInViaGithub}>
+      <Button variant="icon" disabled={pending} onClick={signInViaGithub}>
         <img src={IMGS + '/GithubLogo.png'} />
       </Button>
     </div>

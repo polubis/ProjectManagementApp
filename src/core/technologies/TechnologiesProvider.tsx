@@ -6,21 +6,21 @@ import { TechnologiesProviderState, TechnologiesContext, INIT_STATE } from '.';
 
 class TechnologiesProvider extends React.Component<any, TechnologiesProviderState> {
   componentDidMount() {
-    this.load();
+    this.getTechnologies();
   }
 
-  load = async () => {
-    const { isLoading } = this.state;
+  getTechnologies = async () => {
+    const { loading } = this.state;
 
-    if (!isLoading) {
-      this.setState({ ...INIT_STATE, isLoading: true });
+    if (!loading) {
+      this.setState({ ...INIT_STATE, loading: true });
     }
 
     try {
       const technologies = await getTechnologies();
-      this.setState({ ...INIT_STATE, isLoading: false, technologies });
+      this.setState({ ...INIT_STATE, loading: false, technologies });
     } catch (error) {
-      this.setState({ ...INIT_STATE, isLoading: false, error });
+      this.setState({ ...INIT_STATE, loading: false, error });
     }
   };
 

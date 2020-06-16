@@ -3,8 +3,8 @@ import { createContext } from 'react';
 import { AuthProviderState } from '.';
 
 export const INIT_STATE: AuthProviderState = {
-  isPending: false,
-  isAuthorized: false,
+  pending: false,
+  authorized: false,
   user: null,
   error: ''
 };

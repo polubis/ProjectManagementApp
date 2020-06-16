@@ -13,8 +13,8 @@ import {
 
 const getInitialState = (config: FormConfig): FormState => {
   return {
-    isInvalid: false,
-    isDirty: false,
+    invalid: false,
+    dirty: false,
     fields: config.map(
       ({ value }) =>
         ({
@@ -33,7 +33,7 @@ export const useFormBase = (config: FormConfig): FormManagerBase => {
     const { label, validators = [] } = config[idx];
 
     const validation = runValidators(value, label)(...validators);
-    const result = validation.find((result) => result.isInvalid);
+    const result = validation.find((result) => result.invalid);
     const error = result ? result.text : '';
 
     return { value, error, validation };
@@ -66,7 +66,7 @@ export const useForm = (config: FormConfig): FormManager => {
 
     newState.fields[datasetIdx] = getChangedField(value, datasetIdx);
 
-    newState.isInvalid = newState.fields.some((f) => f.error);
+    newState.invalid = newState.fields.some((f) => f.error);
 
     setState(newState);
   };
@@ -78,7 +78,7 @@ export const useForm = (config: FormConfig): FormManager => {
       newState.fields[position] = getChangedField(values[idx], position);
     });
 
-    newState.isInvalid = newState.fields.some((f) => f.error);
+    newState.invalid = newState.fields.some((f) => f.error);
 
     setState(newState);
   };
@@ -86,13 +86,13 @@ export const useForm = (config: FormConfig): FormManager => {
   const submit = (e?: FormSubmitEvent): boolean => {
     e && e.preventDefault();
 
-    const newState: FormState = { ...state, isDirty: true, isInvalid: false };
+    const newState: FormState = { ...state, dirty: true, invalid: false };
 
     newState.fields = newState.fields.map((field, idx) => {
       const { value, validation, error } = getChangedField(field.value, idx);
 
       if (error) {
-        newState.isInvalid = true;
+        newState.invalid = true;
       }
 
       return {
@@ -104,7 +104,7 @@ export const useForm = (config: FormConfig): FormManager => {
 
     setState(newState);
 
-    return newState.isInvalid;
+    return newState.invalid;
   };
 
   return [state, change, directChange, submit];

@@ -7,7 +7,7 @@ import { TemplateManagementStepProps } from '.';
 import csx from './GithubConnection.scss';
 
 export const GithubConnection = ({
-  formManager: [{ isDirty, isInvalid, fields }, change, directChange],
+  formManager: [{ dirty, invalid, fields }, change, directChange],
   onSubmit
 }: TemplateManagementStepProps) => {
   const handlePublishAccessChange = (_, checked: boolean) => {
@@ -24,7 +24,7 @@ export const GithubConnection = ({
         data-idx={0}
         label="Repository link *"
         placeholder="Add repository link..."
-        error={isDirty ? fields[0].error : ''}
+        error={dirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />
@@ -46,7 +46,7 @@ to view this template"
         />
       </div>
 
-      <Button type="submit" disabled={isDirty && isInvalid}>
+      <Button type="submit" disabled={dirty && invalid}>
         NEXT
       </Button>
     </form>

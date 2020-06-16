@@ -7,15 +7,15 @@ export interface AuthProviderProps extends RouteComponentProps {
 }
 
 export interface AuthProviderState {
-  isPending: boolean;
-  isAuthorized: boolean;
+  pending: boolean;
+  authorized: boolean;
   error: string;
   user: User | null;
   logIn?(credentials: LogInPayload): Promise<void>;
   logOut?(): Promise<void>;
 }
 
-export interface GuardInjectedState extends Omit<AuthProviderState, 'isAuthorized' | 'isPending'> {}
+export interface GuardInjectedState extends Omit<AuthProviderState, 'authorized' | 'pending'> {}
 
 export type RenderGuardChildren = (injectedState: GuardInjectedState | null) => JSX.Element;
 

@@ -2,14 +2,16 @@ export interface Template {
   id: number;
   name: string;
   description: string;
-  views: number;
-  stars: number;
-  mainTechnology: {
+  githubLink: string;
+  // Remove this part later
+  views?: number;
+  stars?: number;
+  mainTechnology?: {
     id: number;
     name: string;
     avatar: string;
   };
-  authors: {
+  authors?: {
     id: number;
     name: string;
     avatar: string;

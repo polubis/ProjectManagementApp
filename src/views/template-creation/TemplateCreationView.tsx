@@ -32,9 +32,9 @@ const TemplateCreationView = () => {
 
   const changeStep = useCallback(
     (stepValue: number, e?: FormSubmitEvent) => {
-      const isActiveStepInvalid = formManagers[activeStep][3](e);
+      const activeStepInvalid = formManagers[activeStep][3](e);
 
-      if (stepValue > activeStep && isActiveStepInvalid) {
+      if (stepValue > activeStep && activeStepInvalid) {
         return;
       }
 
@@ -43,9 +43,9 @@ const TemplateCreationView = () => {
 
         if (stepValue - activeStep > ALLOWED_DISTANCE) {
           for (let i = activeStep + ALLOWED_DISTANCE; i < STEPS_COUNT - ALLOWED_DISTANCE; i++) {
-            const isStepInvalid = formManagers[i][3](e);
+            const stepInvalid = formManagers[i][3](e);
 
-            if (isStepInvalid) {
+            if (stepInvalid) {
               return i;
             }
           }

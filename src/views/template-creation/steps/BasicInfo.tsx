@@ -5,7 +5,7 @@ import { Button, Field, TextareaField } from 'shared/ui';
 import { TemplateManagementStepProps } from '.';
 
 export const BasicInfo = ({
-  formManager: [{ isDirty, fields, isInvalid }, change],
+  formManager: [{ dirty, fields, invalid }, change],
   onSubmit
 }: TemplateManagementStepProps) => {
   return (
@@ -14,7 +14,7 @@ export const BasicInfo = ({
         data-idx={0}
         label="Name *"
         placeholder="Type template name..."
-        error={isDirty ? fields[0].error : ''}
+        error={dirty ? fields[0].error : ''}
         value={fields[0].value}
         onChange={change}
       />
@@ -22,13 +22,13 @@ export const BasicInfo = ({
       <TextareaField
         data-idx={1}
         label="Description *"
-        error={isDirty ? fields[1].error : ''}
+        error={dirty ? fields[1].error : ''}
         value={fields[1].value}
         onChange={change}
         placeholder="Add template description..."
       />
 
-      <Button type="submit" disabled={isDirty && isInvalid}>
+      <Button type="submit" disabled={dirty && invalid}>
         NEXT
       </Button>
     </form>

@@ -1,5 +1,5 @@
 export class Validation {
-  constructor(public isInvalid: boolean, public text: string) {}
+  constructor(public invalid: boolean, public text: string) {}
 }
 
 export type Validator = (value: any, label: string) => Validation;
@@ -21,8 +21,8 @@ export interface FieldConfig {
 }
 
 export interface FormState {
-  isInvalid: boolean;
-  isDirty: boolean;
+  invalid: boolean;
+  dirty: boolean;
   fields: FieldState[];
 }
 

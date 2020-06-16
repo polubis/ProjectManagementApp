@@ -13,30 +13,30 @@ class AuthProvider extends React.Component<AuthProviderProps, AuthProviderState>
   }
 
   authorize = async () => {
-    const { isPending } = this.state;
+    const { pending } = this.state;
 
-    if (!isPending) {
-      this.setState({ ...INIT_STATE, isPending: true });
+    if (!pending) {
+      this.setState({ ...INIT_STATE, pending: true });
     }
 
     try {
       const user = await getAuthorizedUser();
-      this.setState({ ...INIT_STATE, isAuthorized: true, user });
+      this.setState({ ...INIT_STATE, authorized: true, user });
     } catch {
       this.setState({ ...INIT_STATE });
     }
   };
 
   logIn = async (credentials: LogInPayload) => {
-    const { isPending } = this.state;
+    const { pending } = this.state;
 
-    if (!isPending) {
-      this.setState({ ...INIT_STATE, isPending: true });
+    if (!pending) {
+      this.setState({ ...INIT_STATE, pending: true });
     }
 
     try {
       const user = await logIn(credentials);
-      this.setState({ ...INIT_STATE, isAuthorized: true, user }, () => {
+      this.setState({ ...INIT_STATE, authorized: true, user }, () => {
         this.props.history.replace('/app');
       });
     } catch (error) {
