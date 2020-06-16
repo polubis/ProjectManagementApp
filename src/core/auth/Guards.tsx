@@ -34,7 +34,9 @@ export const ProtectedRoute = ({ component: Component, redirect, ...rest }: Rout
   return (
     <Route
       {...rest}
-      render={() => (pending ? null : authorized ? <Component /> : <Redirect to={redirect} />)}
+      render={(props) =>
+        pending ? null : authorized ? <Component {...(props as any)} /> : <Redirect to={redirect} />
+      }
     />
   );
 };
@@ -45,7 +47,9 @@ export const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Ro
   return (
     <Route
       {...rest}
-      render={() => (pending ? null : authorized ? <Redirect to={redirect} /> : <Component />)}
+      render={(props) =>
+        pending ? null : authorized ? <Redirect to={redirect} /> : <Component {...(props as any)} />
+      }
     />
   );
 };

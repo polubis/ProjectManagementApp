@@ -1,5 +1,5 @@
 export interface Template {
-  id: number;
+  id: string;
   name: string;
   description: string;
   githubLink: string;
@@ -16,4 +16,13 @@ export interface Template {
     name: string;
     avatar: string;
   }[];
+}
+
+export interface AddTemplatePayload {
+  name: string;
+  description: string;
+  githubLink: string;
+  tagsIds: number[];
+  patternsIds: number[];
+  technologiesIds: number[];
 }
