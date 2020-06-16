@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
-import { Steps, StepHeader } from 'shared/ui';
+import { Steps, StepHeader, CheckboxProps } from 'shared/ui';
 
 import {
   BasicInfo,
@@ -13,14 +14,19 @@ import {
   BASIC_INFO,
   GITHUB_CONNECTION,
   TECHNOLOGIES_OVERVIEW,
-  STEPS_COUNT
+  STEPS_COUNT,
+  useTemplateManagement
 } from '.';
 
 import csx from './TemplateCreationView.scss';
 
 // TODO IN FREE TIME RENAME THIS COMPONENT TO TEMPLATE MANAGEMENT VIEW
 const TemplateCreationView = () => {
+  const history = useHistory();
+
   const [activeStep, setActiveStep] = useState(BASIC_INFO);
+
+  const [state, add] = useTemplateManagement();
 
   const basicInfo = useForm(config[BASIC_INFO].formConfig);
   const githubConnection = useForm(config[GITHUB_CONNECTION].formConfig);
@@ -59,8 +65,18 @@ const TemplateCreationView = () => {
       if (nextStep <= formManagers.length - 1) {
         setActiveStep(nextStep);
       } else {
-        // CALL SAVE METHOD HERE
-        // ALSO THINK ABOUT LOAD DICTIONARIES FROM THIS COMPONENT AND PASS THEM TO FORMS
+        const [{ value: name }, { value: description }] = basicInfo[0].fields;
+        const [{ value: githubLink }] = githubConnection[0].fields;
+        const technologies: CheckboxProps[] = technologiesOverview[0].fields[0].value;
+
+        add({
+          name,
+          description,
+          githubLink,
+          technologiesIds: technologies.filter((t) => t.value).map((t) => +t.dataId),
+          patternsIds: [],
+          tagsIds: []
+        });
       }
     },
     [activeStep, ...formManagers]
@@ -80,6 +96,12 @@ const TemplateCreationView = () => {
     [activeStep, changeStep]
   );
 
+  useEffect(() => {
+    if (state.result !== null) {
+      history.replace(`/app/templates/all/${state.result}`);
+    }
+  }, [state.result]);
+
   const steps = useMemo(() => createSteps(config, formManagers), formManagers);
 
   const { label, description } = config[activeStep];
@@ -97,7 +119,11 @@ const TemplateCreationView = () => {
       )}
 
       {activeStep === TECHNOLOGIES_OVERVIEW && (
-        <TechnologiesOverview formManager={technologiesOverview} onSubmit={onStepSubmit} />
+        <TechnologiesOverview
+          pending={state.pending}
+          formManager={technologiesOverview}
+          onSubmit={onStepSubmit}
+        />
       )}
     </div>
   );

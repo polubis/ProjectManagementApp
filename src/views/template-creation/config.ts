@@ -1,5 +1,7 @@
 import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
+import { CheckboxProps } from 'shared/ui';
+
 import { TemplateManagementConfig } from '.';
 
 export const STEPS_COUNT = 3;
@@ -48,11 +50,11 @@ export const config: TemplateManagementConfig = [
       {
         label: 'Technologies',
         validators: [req, atleastOneChecked('value', 'technology')],
-        value: []
+        value: [] as CheckboxProps[]
       },
       {
         label: 'Patterns',
-        validators: [req, atleastOneChecked('value', 'pattern')],
+        // validators: [req, atleastOneChecked('value', 'pattern')],
         value: []
       },
       {

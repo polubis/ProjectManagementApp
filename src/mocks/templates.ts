@@ -2,7 +2,7 @@ import { Template } from 'api';
 
 export const templatesMock: Template[] = [
   {
-    id: 0,
+    id: '0',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -22,7 +22,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 1,
+    id: '1',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -42,7 +42,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 2,
+    id: '2',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -62,7 +62,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 3,
+    id: '3',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -82,7 +82,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 4,
+    id: '4',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     views: 1,
@@ -102,7 +102,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 5,
+    id: '5',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -122,7 +122,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 6,
+    id: '6',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -142,7 +142,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 7,
+    id: '7',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
@@ -162,7 +162,7 @@ export const templatesMock: Template[] = [
     ]
   },
   {
-    id: 8,
+    id: '8',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',

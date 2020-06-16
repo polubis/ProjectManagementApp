@@ -8,6 +8,7 @@ import { TemplateManagementStepProps } from '.';
 
 export const TechnologiesOverview = ({
   formManager: [state, change, directChange],
+  pending,
   onSubmit
 }: TemplateManagementStepProps) => {
   const { technologies, loading } = useContext(TechnologiesContext);
@@ -30,13 +31,15 @@ export const TechnologiesOverview = ({
   };
 
   useEffect(() => {
-    const mappedTechnologies: CheckboxProps[] = technologies.map(({ id, name }) => ({
-      dataId: id,
-      label: name,
-      value: false
-    }));
+    if (state.fields[0].value.length === 0) {
+      const mappedTechnologies: CheckboxProps[] = technologies.map(({ id, name }) => ({
+        dataId: id,
+        label: name,
+        value: false
+      }));
 
-    directChange([0], [mappedTechnologies]);
+      directChange([0], [mappedTechnologies]);
+    }
   }, []);
 
   return (
@@ -66,7 +69,7 @@ export const TechnologiesOverview = ({
         error={state.dirty ? state.fields[2].error : ''}
       />
 
-      <Button type="submit" disabled={(state.dirty && state.invalid) || loading}>
+      <Button type="submit" disabled={(state.dirty && state.invalid) || loading || pending}>
         SUBMIT & CREATE
       </Button>
     </form>
