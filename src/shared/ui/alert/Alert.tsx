@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { usePortal } from 'shared/utils';
 
-import { AlertProps } from '.';
+import { AlertProps } from './Alert.d';
 
 import csx from './Alert.scss';
 
