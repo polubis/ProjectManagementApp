@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 
+import { GetTemplatesPayload } from 'api';
+
 import TemplatesProvider, { TemplatesContext } from 'core/templates';
 
 import { useScroll } from 'shared/utils';
@@ -20,19 +22,26 @@ const categories = ['all', 'recommended', 'top', 'recent', 'yours'];
 const TemplatesView = ({ activeCategory, history }: TemplatesViewProps) => {
   const { getTemplates } = useContext(TemplatesContext);
 
-  const [usedFilters, setUsedFilters] = useState({
+  const [usedFilters, setUsedFilters] = useState<GetTemplatesPayload>({
     page: 1,
     query: '',
-    technologies: [],
-    category: activeCategory
+    limit: 25
   });
 
-  const changeCategory = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleCategoryChange = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     history.push(e.currentTarget.getAttribute('data-category'));
   }, []);
 
+  const handleSearchSubmit = useCallback((newFilters: any) => {
+    setUsedFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+      page: 1
+    }));
+  }, []);
+
   useEffect(() => {
-    getTemplates(usedFilters.page, usedFilters.query);
+    getTemplates(usedFilters);
   }, [usedFilters]);
 
   useScroll(() => {
@@ -47,9 +56,9 @@ const TemplatesView = ({ activeCategory, history }: TemplatesViewProps) => {
       <TemplatesHeader
         activeCategory={activeCategory}
         categories={categories}
-        onCategoryClick={changeCategory}
+        onCategoryClick={handleCategoryChange}
       />
-      <TemplatesSearch />
+      <TemplatesSearch onSubmit={handleSearchSubmit} />
       <TemplateTiles />
     </div>
   );

@@ -1,34 +1,34 @@
 import React from 'react';
 
-import { getTemplates } from 'api';
+import { getTemplates, GetTemplatesPayload } from 'api';
 
 import { TemplatesProviderState, INIT_STATE, TemplatesContext } from '.';
 
 class TemplatesProvider extends React.Component<any, TemplatesProviderState> {
-  getTemplates = async (page: number, query: string) => {
-    const LIMIT = 25;
+  getTemplates = async (payload: GetTemplatesPayload) => {
+    const loadingMore = payload.page > 1;
 
-    if (this.state.allLoaded) {
+    if (loadingMore && this.state.allLoaded) {
       return;
     }
 
-    this.setState({ loading: true, error: '' });
+    this.setState({ loading: true, error: '', templates: loadingMore ? this.state.templates : [] });
 
     try {
-      const newTemplates = await getTemplates(page, query, LIMIT);
+      let templates = await getTemplates(payload);
 
-      const allLoaded = newTemplates.length < LIMIT;
-
-      const templates = [...this.state.templates, ...newTemplates];
+      if (loadingMore) {
+        templates = [...this.state.templates, ...templates];
+      }
 
       this.setState({
         loading: false,
         templates,
-        allLoaded,
+        allLoaded: templates.length < payload.limit,
         error: ''
       });
     } catch (error) {
-      this.setState({ loading: false, error });
+      this.setState({ loading: false, error, templates: [] });
     }
   };
 

@@ -18,6 +18,13 @@ export interface Template {
   }[];
 }
 
+export interface GetTemplatesPayload {
+  page: number;
+  query: string;
+  limit: number;
+  technologiesIds?: number[];
+}
+
 export interface AddTemplatePayload {
   name: string;
   description: string;

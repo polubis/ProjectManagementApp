@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 
 import { Button } from '@material-ui/core';
 
@@ -6,37 +6,51 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { CheckboxProps, Select } from 'shared/ui';
 
+import { useForm, FormSubmitEvent } from 'shared/forms';
+
+import { throttle } from 'shared/utils';
+
 import { TechnologiesContext } from 'core/technologies';
+
+import { TemplatesSearchProps, searchFormConfig } from '.';
 
 import csx from './TemplatesSearch.scss';
 
-export const TemplatesSearch = () => {
+export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
   const { technologies } = useContext(TechnologiesContext);
 
-  const [searchData, setSearchData] = useState({
-    technologies: [],
-    phrase: ''
-  });
+  const [{ fields }, change, directChange, submit] = useForm(searchFormConfig);
 
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
       const id = +e.currentTarget.getAttribute('data-id');
-      const mappedTechnologies: CheckboxProps[] = searchData.technologies.map(
-        (item: CheckboxProps) =>
-          id === item.dataId
-            ? {
-                ...item,
-                value
-              }
-            : item
+      const mappedTechnologies: CheckboxProps[] = fields[1].value.map((item: CheckboxProps) =>
+        id === item.dataId
+          ? {
+              ...item,
+              value
+            }
+          : item
       );
 
-      setSearchData({
-        phrase: '',
-        technologies: mappedTechnologies
-      });
+      directChange([1], [mappedTechnologies]);
     },
-    [searchData]
+    [fields]
+  );
+
+  const throttledOnSubmit = useCallback(throttle(onSubmit, 500), []);
+
+  const handleSubmit = useCallback(
+    (e: FormSubmitEvent) => {
+      const isInvalid = submit(e);
+
+      if (isInvalid) {
+        return;
+      }
+
+      throttledOnSubmit(fields[0].value);
+    },
+    [fields]
   );
 
   useEffect(() => {
@@ -46,22 +60,25 @@ export const TemplatesSearch = () => {
       value: false
     }));
 
-    setSearchData({
-      phrase: '',
-      technologies: mappedTechnologies
-    });
+    directChange([1], [mappedTechnologies]);
   }, [technologies]);
 
   return (
-    <form className={csx.templatesSearch}>
-      <input placeholder="Find your template..." className={csx.input} />
+    <form className={csx.templatesSearch} onSubmit={handleSubmit}>
+      <input
+        data-idx={0}
+        placeholder="Find your template..."
+        className={csx.input}
+        value={fields[0].value}
+        onChange={change}
+      />
 
       <Select
         label="Technologies *"
         placeholder="All technologies"
         className={csx.select}
         openClass={csx.selectMenuOpen}
-        items={searchData.technologies}
+        items={fields[1].value}
         onSelect={setTechnologiesSelection}
       />
 
