@@ -1,9 +1,17 @@
-import { call, coreInstance, AddTemplatePayload, Template } from '..';
+import { call, coreInstance, AddTemplatePayload, GetTemplatesPayload, Template } from '..';
 
-export const getTemplates = (page: number, query: string, limit: number) => {
-  const urlQuery = `?limit=${limit}&page=${page}&query=${query}`;
+export const getTemplates = ({ limit, page, query, technologiesIds }: GetTemplatesPayload) => {
+  const parseParam = <T>(value: T, key: string) => {
+    return `${key}=${'' + value}`;
+  };
 
-  return call<Template[]>(coreInstance.get(`Templates/Search${urlQuery}`));
+  const params = [
+    parseParam(limit, 'limit'),
+    parseParam(page, 'page'),
+    parseParam(query, 'query')
+  ].join('&');
+
+  return call<Template[]>(coreInstance.get(`Templates/Search?${params}`));
 };
 
 export const addTemplate = (payload: AddTemplatePayload) => {

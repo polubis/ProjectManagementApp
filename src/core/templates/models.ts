@@ -1,9 +1,9 @@
-import { Template } from 'api';
+import { Template, GetTemplatesPayload } from 'api';
 
 export interface TemplatesProviderState {
   loading: boolean;
   allLoaded: boolean;
   error: string;
   templates: Template[];
-  getTemplates?(page: number, query: string, merge?: boolean): void;
+  getTemplates?(payload: GetTemplatesPayload): void;
 }
