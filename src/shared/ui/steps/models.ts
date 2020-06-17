@@ -12,5 +12,4 @@ export interface Step {
 
 export interface StepsProps {
   steps: Step[];
-  onChange(step: number): void;
 }

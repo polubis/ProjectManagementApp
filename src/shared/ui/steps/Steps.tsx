@@ -1,27 +1,16 @@
 import React from 'react';
 
-import { IconButton } from '@material-ui/core';
-
 import { StepsProps } from '.';
 
 import csx from './Steps.scss';
 
-export const Steps = ({ steps, onChange }: StepsProps) => {
-  const handleStepClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onChange(+e.currentTarget.getAttribute('data-idx'));
-  };
-
+export const Steps = ({ steps }: StepsProps) => {
   return (
     <nav className={csx.steps}>
       {steps.map(({ label, content, status, progress }, idx) => (
-        <div
-          key={label}
-          data-idx={idx}
-          className={`${csx.stepWrapper} ${status ? csx[status] : ''}`}
-          onClick={handleStepClick}
-        >
+        <div key={label} className={`${csx.stepWrapper} ${status ? csx[status] : ''}`}>
           <div className={csx.step}>
-            <IconButton>{content || idx + 1}</IconButton>
+            <div>{content || idx + 1}</div>
             <span>{label}</span>
           </div>
           {idx !== steps.length - 1 && (

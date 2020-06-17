@@ -82,13 +82,6 @@ const TemplateCreationView = () => {
     [activeStep, ...formManagers]
   );
 
-  const onStepChange = useCallback(
-    (step: number) => {
-      changeStep(step);
-    },
-    [changeStep]
-  );
-
   const onStepSubmit = useCallback(
     (e: FormSubmitEvent) => {
       changeStep(activeStep + 1, e);
@@ -110,12 +103,12 @@ const TemplateCreationView = () => {
     <div className={csx.templateCreationView}>
       <StepHeader description={description} label={label} />
 
-      <Steps steps={steps} onChange={onStepChange} />
+      <Steps steps={steps} />
 
       {activeStep === BASIC_INFO && <BasicInfo formManager={basicInfo} onSubmit={onStepSubmit} />}
 
       {activeStep === GITHUB_CONNECTION && (
-        <GithubConnection formManager={githubConnection} onSubmit={onStepSubmit} />
+        <GithubConnection formManager={githubConnection} onSubmit={onStepSubmit} onBack={() => {}} />
       )}
 
       {activeStep === TECHNOLOGIES_OVERVIEW && (
@@ -123,6 +116,7 @@ const TemplateCreationView = () => {
           pending={state.pending}
           formManager={technologiesOverview}
           onSubmit={onStepSubmit}
+          onBack={() => {}}
         />
       )}
     </div>

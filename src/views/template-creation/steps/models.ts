@@ -4,4 +4,5 @@ export interface TemplateManagementStepProps {
   formManager: FormManager;
   pending?: boolean;
   onSubmit(e: FormSubmitEvent): void;
+  onBack?(): void;
 }

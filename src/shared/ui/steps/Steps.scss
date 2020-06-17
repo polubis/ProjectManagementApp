@@ -6,11 +6,10 @@
 
   .stepWrapper {
     display: flex;
-    cursor: pointer;
 
     &.valid {
       .step {
-        & > button {
+        & > div {
           background: $secondary;
         }
 
@@ -26,7 +25,7 @@
 
     &.invalid {
       .step {
-        & > button {
+        & > div {
           background: $error;
         }
 
@@ -44,13 +43,15 @@
       @include colCenter;
       width: 60px;
 
-      & > button {
+      & > div {
         @include labelBig;
+        @include centered;
         flex-shrink: 0;
         width: 60px;
         height: 60px;
         background: $primary;
         border: 5px solid $surfaceSecondary;
+        border-radius: 50%;
         color: $black;
       }
 

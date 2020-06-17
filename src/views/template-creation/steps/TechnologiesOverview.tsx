@@ -9,7 +9,8 @@ import { TemplateManagementStepProps } from '.';
 export const TechnologiesOverview = ({
   formManager: [state, change, directChange],
   pending,
-  onSubmit
+  onSubmit,
+  onBack
 }: TemplateManagementStepProps) => {
   const { technologies, loading } = useContext(TechnologiesContext);
 
@@ -69,9 +70,15 @@ export const TechnologiesOverview = ({
         error={state.dirty ? state.fields[2].error : ''}
       />
 
-      <Button type="submit" disabled={(state.dirty && state.invalid) || loading || pending}>
-        SUBMIT & CREATE
-      </Button>
+      <footer>
+        <Button type="button" theme="primaryTransparent" onClick={onBack}>
+          BACK
+        </Button>
+
+        <Button type="submit" disabled={(state.dirty && state.invalid) || loading || pending}>
+          SUBMIT & CREATE
+        </Button>
+      </footer>
     </form>
   );
 };

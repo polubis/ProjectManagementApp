@@ -8,7 +8,8 @@ import csx from './GithubConnection.scss';
 
 export const GithubConnection = ({
   formManager: [{ dirty, invalid, fields }, change, directChange],
-  onSubmit
+  onSubmit,
+  onBack
 }: TemplateManagementStepProps) => {
   const handlePublishAccessChange = (_, checked: boolean) => {
     directChange([1, 2], [checked, !checked]);
@@ -46,9 +47,15 @@ to view this template"
         />
       </div>
 
-      <Button type="submit" disabled={dirty && invalid}>
-        NEXT
-      </Button>
+      <footer>
+        <Button type="button" theme="primaryTransparent" onClick={onBack}>
+          BACK
+        </Button>
+
+        <Button type="submit" disabled={dirty && invalid}>
+          NEXT
+        </Button>
+      </footer>
     </form>
   );
 };

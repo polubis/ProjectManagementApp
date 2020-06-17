@@ -28,9 +28,11 @@ export const BasicInfo = ({
         placeholder="Add template description..."
       />
 
-      <Button type="submit" disabled={dirty && invalid}>
-        NEXT
-      </Button>
+      <footer>
+        <Button type="submit" disabled={dirty && invalid}>
+          NEXT
+        </Button>
+      </footer>
     </form>
   );
 };
