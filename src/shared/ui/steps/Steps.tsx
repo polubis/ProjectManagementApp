@@ -5,12 +5,10 @@ import { IconButton } from '@material-ui/core';
 import csx from './Steps.scss';
 
 namespace Steps {
-  export type ItemStatus = 'valid' | 'invalid';
-
   export interface Item {
     label: string;
     progress?: number;
-    status?: ItemStatus;
+    status?: boolean;
     content?: ReactNode;
   }
 
@@ -31,7 +29,9 @@ const Steps = ({ items, onChange }: Steps.Props) => {
         <div
           key={label}
           data-idx={idx}
-          className={`${csx.stepWrapper} ${status ? csx[status] : ''}`}
+          className={`${csx.stepWrapper} ${
+            status === undefined ? '' : status ? csx.valid : csx.invalid
+          }`}
           onClick={handleStepClick}
         >
           <div className={csx.step}>
