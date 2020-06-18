@@ -4,6 +4,9 @@ import ErrorIcon from '@material-ui/icons/Error';
 
 import csx from './Field.scss';
 
+// TODO
+// Move components to separate files with their namespace definitions and put them at ui/name-of-component
+
 export namespace FieldBase {
   export interface Props {
     label: string;

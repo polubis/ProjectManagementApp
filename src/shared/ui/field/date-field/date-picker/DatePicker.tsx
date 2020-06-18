@@ -10,6 +10,9 @@ import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getD
 
 import csx from './DatePicker.scss';
 
+// TODO
+// Move this component to ui/date-picker
+
 namespace DatePicker {
   export interface Date {
     year: number;

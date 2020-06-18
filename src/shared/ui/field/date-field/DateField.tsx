@@ -9,6 +9,9 @@ import { FieldBase, DatePicker } from '..';
 
 import csx from './DateField.scss';
 
+// TODO
+// Move this component to ui/date-field
+
 namespace DateField {
   export interface Props {
     label: string;

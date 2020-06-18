@@ -1,15 +1,26 @@
 import React from 'react';
 
-import { Checkbox, Menu, SelectItemDataProps } from '..';
+import { Checkbox, Menu, Select } from '..';
 
-export const SelectItem = ({ style, index, data }: Menu.ChildrenProps<SelectItemDataProps>) => {
+namespace SelectItem {
+  export interface Data {
+    items: Checkbox.Props[];
+    onSelect: Select.OnSelect;
+  }
+
+  export type Props = Menu.ChildrenProps<Data>;
+}
+
+const SelectItem = ({ style, index, data }: SelectItem.Props) => {
   const { items, onSelect } = data;
 
   const item = items[index];
 
   return (
     <div style={style}>
-      <Checkbox dataId={item.dataId} onChange={onSelect} label={item.label} value={item.value} />
+      <Checkbox {...item} onChange={onSelect} />
     </div>
   );
 };
+
+export default SelectItem;

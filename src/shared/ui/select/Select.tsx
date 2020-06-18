@@ -1,13 +1,31 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, ChangeEvent } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, Chip } from '@material-ui/core';
 
-import { FieldBase, SelectProps, SelectMenuProps, Menu, SelectItem, Checkbox } from '..';
+import { FieldBase, Menu, SelectItem, Checkbox } from '..';
 
 import csx from './Select.scss';
 
-export const Select = ({
+namespace Select {
+  export type OnSelect = (event: ChangeEvent<HTMLInputElement>, checked?: boolean) => void;
+
+  export interface Props {
+    label: string;
+    items: Checkbox.Props[];
+    className?: string;
+    openClass?: string;
+    error?: string;
+    placeholder?: string;
+    onSelect: OnSelect;
+  }
+
+  export interface MenuProps {
+    onSelect: OnSelect;
+  }
+}
+
+const Select = ({
   label,
   placeholder = label,
   className,
@@ -15,7 +33,7 @@ export const Select = ({
   error,
   items,
   onSelect
-}: SelectProps) => {
+}: Select.Props) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = useCallback(
@@ -67,7 +85,7 @@ export const Select = ({
         </Button>
 
         {isMenuOpen && (
-          <Menu<Checkbox.Props, SelectMenuProps>
+          <Menu<Checkbox.Props, Select.MenuProps>
             width={400}
             id={label}
             anchorEl={anchorEl}
@@ -82,3 +100,5 @@ export const Select = ({
     </FieldBase>
   );
 };
+
+export default Select;

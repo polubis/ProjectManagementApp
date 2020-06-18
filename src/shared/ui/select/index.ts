@@ -1,3 +1,2 @@
-export * from './models';
-export * from './SelectItem';
-export * from './Select';
+export { default as Select } from './Select';
+export { default as SelectItem } from './SelectItem';
