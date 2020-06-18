@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field, DateField, Select, CheckboxProps } from 'shared/ui';
+import { Button, Field, DateField, Select, Checkbox } from 'shared/ui';
 
 import { PersonalInfoProps } from '.';
 
@@ -14,7 +14,7 @@ export const PersonalInfo = ({
 }: PersonalInfoProps) => {
   const updateGender = (e: React.ChangeEvent<HTMLInputElement>, idx: number, value: boolean) => {
     const id = +e.currentTarget.getAttribute('data-id');
-    const items: CheckboxProps[] = fields[idx].value.map((item) =>
+    const items: Checkbox.Props[] = fields[idx].value.map((item) =>
       id === item.id
         ? {
             ...item,

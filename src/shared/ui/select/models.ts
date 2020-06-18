@@ -1,4 +1,4 @@
-import { CheckboxProps } from '..';
+import { Checkbox } from '..';
 
 export type SelectChangeHandler = (
   event: React.ChangeEvent<HTMLInputElement>,
@@ -7,7 +7,7 @@ export type SelectChangeHandler = (
 
 export interface SelectProps {
   label: string;
-  items: CheckboxProps[];
+  items: Checkbox.Props[];
   className?: string;
   openClass?: string;
   error?: string;
@@ -20,6 +20,6 @@ export interface SelectMenuProps {
 }
 
 export interface SelectItemDataProps {
-  items: CheckboxProps[];
+  items: Checkbox.Props[];
   onSelect: SelectChangeHandler;
 }

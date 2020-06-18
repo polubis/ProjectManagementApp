@@ -3,7 +3,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, Chip } from '@material-ui/core';
 
-import { FieldBase, SelectProps, SelectMenuProps, Menu, SelectItem, CheckboxProps } from '..';
+import { FieldBase, SelectProps, SelectMenuProps, Menu, SelectItem, Checkbox } from '..';
 
 import csx from './Select.scss';
 
@@ -67,7 +67,7 @@ export const Select = ({
         </Button>
 
         {isMenuOpen && (
-          <Menu<CheckboxProps, SelectMenuProps>
+          <Menu<Checkbox.Props, SelectMenuProps>
             width={400}
             id={label}
             anchorEl={anchorEl}

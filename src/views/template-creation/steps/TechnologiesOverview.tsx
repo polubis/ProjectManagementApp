@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 
-import { Button, Select, CheckboxProps, TextareaField } from 'shared/ui';
+import { Button, Select, Checkbox, TextareaField } from 'shared/ui';
 
 import { TechnologiesContext } from 'core/technologies';
 
@@ -19,7 +19,7 @@ export const TechnologiesOverview = ({
     value: boolean
   ) => {
     const id = +e.currentTarget.getAttribute('data-id');
-    const items: CheckboxProps[] = state.fields[idx].value.map((item: CheckboxProps) =>
+    const items: Checkbox.Props[] = state.fields[idx].value.map((item: Checkbox.Props) =>
       id === item.dataId
         ? {
             ...item,
@@ -32,7 +32,7 @@ export const TechnologiesOverview = ({
 
   useEffect(() => {
     if (state.fields[0].value.length === 0) {
-      const mappedTechnologies: CheckboxProps[] = technologies.map(({ id, name }) => ({
+      const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
         dataId: id,
         label: name,
         value: false

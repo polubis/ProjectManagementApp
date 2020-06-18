@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
-import { Steps, StepHeader, CheckboxProps } from 'shared/ui';
+import { Steps, StepHeader, Checkbox } from 'shared/ui';
 
 import {
   BasicInfo,
@@ -67,7 +67,7 @@ const TemplateCreationView = () => {
       } else {
         const [{ value: name }, { value: description }] = basicInfo[0].fields;
         const [{ value: githubLink }] = githubConnection[0].fields;
-        const technologies: CheckboxProps[] = technologiesOverview[0].fields[0].value;
+        const technologies: Checkbox.Props[] = technologiesOverview[0].fields[0].value;
 
         add({
           name,

@@ -4,12 +4,14 @@ import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
 
 import csx from './Checkbox.scss';
 
-export interface CheckboxProps {
-  label: string;
-  value?: boolean;
-  variant?: 'default' | 'informing';
-  dataId?: number | string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+export namespace Checkbox {
+  export interface Props {
+    label: string;
+    value?: boolean;
+    variant?: 'default' | 'informing';
+    dataId?: number | string;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  }
 }
 
 export const Checkbox = ({
@@ -18,7 +20,7 @@ export const Checkbox = ({
   variant = 'default',
   onChange,
   dataId
-}: CheckboxProps) => {
+}: Checkbox.Props) => {
   return (
     <FormControlLabel
       label={label}
