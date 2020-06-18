@@ -110,7 +110,7 @@ const TemplateCreationView = () => {
     <div className={csx.templateCreationView}>
       <StepHeader description={description} label={label} />
 
-      <Steps steps={steps} onChange={onStepChange} />
+      <Steps items={steps} onChange={onStepChange} />
 
       {activeStep === BASIC_INFO && <BasicInfo formManager={basicInfo} onSubmit={onStepSubmit} />}
 

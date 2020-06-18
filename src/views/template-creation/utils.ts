@@ -1,11 +1,11 @@
 import { FormManager } from 'shared/forms';
 
-import { StepStatus, Step } from 'shared/ui';
+import { Steps } from 'shared/ui';
 
 import { TemplateManagementConfig } from '.';
 
-const getStepStatus = ([{ dirty, invalid }]: FormManager) => {
-  return dirty ? (invalid ? StepStatus.INVALID : StepStatus.VALID) : undefined;
+const getStepStatus = ([{ dirty, invalid }]: FormManager): Steps.ItemStatus | undefined => {
+  return dirty ? (invalid ? 'invalid' : 'valid') : undefined;
 };
 
 const getStepProgress = ([{ fields }]: FormManager) => {
@@ -16,13 +16,13 @@ const getStepProgress = ([{ fields }]: FormManager) => {
 export const createSteps = (
   config: TemplateManagementConfig,
   formManagers: FormManager[]
-): Step[] => {
+): Steps.Item[] => {
   return config.map(
     (c, idx) =>
       ({
         ...c,
         status: getStepStatus(formManagers[idx]),
         progress: getStepProgress(formManagers[idx])
-      } as Step)
+      } as Steps.Item)
   );
 };

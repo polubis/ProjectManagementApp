@@ -1,2 +1,1 @@
-export * from './Steps';
-export * from './models';
+export { default as Steps } from './Steps';

@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { IconButton } from '@material-ui/core';
 
-import { StepsProps } from '.';
-
 import csx from './Steps.scss';
 
-export const Steps = ({ steps, onChange }: StepsProps) => {
+namespace Steps {
+  export type ItemStatus = 'valid' | 'invalid';
+
+  export interface Item {
+    label: string;
+    progress?: number;
+    status?: ItemStatus;
+    content?: ReactNode;
+  }
+
+  export interface Props {
+    items: Item[];
+    onChange(item: number): void;
+  }
+}
+
+const Steps = ({ items, onChange }: Steps.Props) => {
   const handleStepClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     onChange(+e.currentTarget.getAttribute('data-idx'));
   };
 
   return (
     <nav className={csx.steps}>
-      {steps.map(({ label, content, status, progress }, idx) => (
+      {items.map(({ label, content, status, progress }, idx) => (
         <div
           key={label}
           data-idx={idx}
@@ -24,7 +38,7 @@ export const Steps = ({ steps, onChange }: StepsProps) => {
             <IconButton>{content || idx + 1}</IconButton>
             <span>{label}</span>
           </div>
-          {idx !== steps.length - 1 && (
+          {idx !== items.length - 1 && (
             <svg className={csx.marker} width="100%" height="8">
               <line x1="100%" strokeWidth="8" />
               {progress !== undefined && (
@@ -37,3 +51,5 @@ export const Steps = ({ steps, onChange }: StepsProps) => {
     </nav>
   );
 };
+
+export default Steps;
