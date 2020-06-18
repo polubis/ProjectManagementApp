@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Logo, Button } from 'shared/ui';
-
 import SendIcon from '@material-ui/icons/Send';
+
+import { Logo, Button } from 'ui';
 
 import csx from './Footer.scss';
 
@@ -17,7 +17,7 @@ export const Footer = () => {
           </figure>
         </span>
         <p>Do you lack any functionality? Let us know what you need and we will implement it :</p>
-          <Button>LET US KNOW</Button>
+        <Button>LET US KNOW</Button>
         <ul className={csx.list}>
           <li>Home</li>
           <li>About</li>

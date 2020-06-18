@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 import { getAuthorizedUser, LogInPayload, logIn, logOut } from 'api';
 
-import { Alert } from 'shared/ui';
+import { Alert } from 'ui';
 
 import { INIT_STATE, AuthProviderState, AuthProviderProps, AuthContext } from '.';
 

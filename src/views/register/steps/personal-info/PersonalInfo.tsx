@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field, DateField, Select, Checkbox } from 'shared/ui';
+import { Button, Field, DateField, Select, Checkbox } from 'ui';
 
 import { PersonalInfoProps } from '.';
 

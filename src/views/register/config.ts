@@ -1,6 +1,6 @@
 import { req, min, max, date } from 'shared/forms';
 
-import { Checkbox } from 'shared/ui';
+import { Checkbox } from 'ui';
 
 import { RegisterConfig } from '.';
 

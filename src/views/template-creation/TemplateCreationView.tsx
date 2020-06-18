@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
+import { Steps, StepHeader, Checkbox } from 'ui';
 
-import { Steps, StepHeader, Checkbox } from 'shared/ui';
+import { useForm, FormSubmitEvent } from 'shared/forms';
 
 import {
   BasicInfo,

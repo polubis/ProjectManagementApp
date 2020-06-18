@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Steps, StepHeader } from 'shared/ui';
+import { Steps, StepHeader } from 'ui';
 
 import { useForm } from 'shared/forms';
 

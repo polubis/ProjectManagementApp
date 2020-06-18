@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field } from 'shared/ui';
+import { Button, Field } from 'ui';
 
 import { RegisterStepProps } from '..';
 

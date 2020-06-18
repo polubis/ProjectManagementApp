@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 
 import { FormChangeEvent } from 'shared/forms';
 
-import { FieldBase, DatePicker } from '..';
+import { FieldBase, DatePicker } from 'ui';
 
 import csx from './DateField.scss';
 

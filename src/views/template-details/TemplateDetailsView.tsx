@@ -8,7 +8,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { Button } from 'shared/ui';
+import { Button } from 'ui';
 
 import csx from './TemplateDetailsView.scss';
 

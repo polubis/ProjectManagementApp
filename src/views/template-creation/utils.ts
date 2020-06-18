@@ -1,6 +1,6 @@
-import { FormManager } from 'shared/forms';
+import { Steps } from 'ui';
 
-import { Steps } from 'shared/ui';
+import { FormManager } from 'shared/forms';
 
 import { TemplateManagementConfig } from '.';
 

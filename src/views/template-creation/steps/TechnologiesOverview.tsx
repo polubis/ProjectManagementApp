@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 
-import { Button, Select, Checkbox, TextareaField } from 'shared/ui';
+import { Button, Select, Checkbox, TextareaField } from 'ui';
 
 import { TechnologiesContext } from 'core/technologies';
 

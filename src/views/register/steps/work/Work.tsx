@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Field, Select, Button } from 'shared/ui';
+import { Field, Select, Button } from 'ui';
 
 import { WorkProps, WorkImage } from '.';
 

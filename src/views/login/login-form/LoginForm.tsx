@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button, Field, Checkbox } from 'shared/ui';
+import { Button, Field, Checkbox } from 'ui';
+
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
 import { loginFormConfig, LoginFormProps } from '.';
@@ -32,7 +33,7 @@ export const LoginForm = ({ disabled, onSubmit }: LoginFormProps) => {
           label={label}
           placeholder={`${label}...`}
           type={type}
-          error={dirty && fields[idx].error}
+          error={dirty ? fields[idx].error : ''}
           value={fields[idx].value}
           onChange={change}
         />

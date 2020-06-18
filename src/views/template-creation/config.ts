@@ -1,6 +1,6 @@
 import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
-import { Checkbox } from 'shared/ui';
+import { Checkbox } from 'ui';
 
 import { TemplateManagementConfig } from '.';
 

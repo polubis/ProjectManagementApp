@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 
 import { Button } from '@material-ui/core';
-
 import SearchIcon from '@material-ui/icons/Search';
 
-import { Checkbox, Select } from 'shared/ui';
+import { Checkbox, Select } from 'ui';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
