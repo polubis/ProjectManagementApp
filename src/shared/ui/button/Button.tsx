@@ -4,22 +4,24 @@ import { Button as MuiButton, IconButton as MuiIconButton } from '@material-ui/c
 
 import csx from './Button.scss';
 
-export interface ButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  children: React.ReactNode;
-  variant?: 'default' | 'icon';
-  theme?: 'primaryDark' | 'primaryTransparent';
+namespace Button {
+  export interface Props
+    extends React.DetailedHTMLProps<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    > {
+    children: React.ReactNode;
+    variant?: 'default' | 'icon';
+    theme?: 'primaryDark' | 'primaryTransparent';
+  }
 }
 
-export const Button = ({
+const Button = ({
   children,
   variant = 'default',
   theme = 'primaryDark',
   ...btnProps
-}: ButtonProps) => {
+}: Button.Props) => {
   if (variant === 'icon') {
     return (
       <MuiIconButton {...(btnProps as any)} classes={{ root: `${csx.iconButton} ${csx[theme]}` }}>
@@ -34,3 +36,5 @@ export const Button = ({
     </MuiButton>
   );
 };
+
+export default Button;
