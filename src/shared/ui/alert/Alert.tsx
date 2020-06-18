@@ -4,11 +4,19 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { usePortal } from 'shared/utils';
 
-import { AlertProps } from '.';
-
 import csx from './Alert.scss';
 
-export const Alert = ({ message, type = 'error', onClose }: AlertProps) => {
+namespace Alert {
+  export type Types = 'warning' | 'error' | 'success' | 'info';
+
+  export interface Props {
+    message: string;
+    type?: Types;
+    onClose(): void;
+  }
+}
+
+const Alert = ({ message, type = 'error', onClose }: Alert.Props) => {
   const render = usePortal();
 
   return render(
@@ -18,3 +26,5 @@ export const Alert = ({ message, type = 'error', onClose }: AlertProps) => {
     </div>
   );
 };
+
+export default Alert;

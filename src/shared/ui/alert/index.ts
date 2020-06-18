@@ -1,2 +1,1 @@
-export * from './Alert';
-export * from './models';
+export { default as Alert } from './Alert';

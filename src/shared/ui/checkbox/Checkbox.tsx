@@ -4,7 +4,7 @@ import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
 
 import csx from './Checkbox.scss';
 
-export namespace Checkbox {
+namespace Checkbox {
   export interface Props {
     label: string;
     value?: boolean;
@@ -14,7 +14,7 @@ export namespace Checkbox {
   }
 }
 
-export const Checkbox = ({
+const Checkbox = ({
   label,
   value,
   variant = 'default',
@@ -42,3 +42,5 @@ export const Checkbox = ({
     />
   );
 };
+
+export default Checkbox;
