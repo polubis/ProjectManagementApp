@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Checkbox, MenuItemProps, SelectItemDataProps } from '..';
+import { Checkbox, Menu, SelectItemDataProps } from '..';
 
-export const SelectItem = ({ style, index, data }: MenuItemProps<SelectItemDataProps>) => {
+export const SelectItem = ({ style, index, data }: Menu.ChildrenProps<SelectItemDataProps>) => {
   const { items, onSelect } = data;
 
   const item = items[index];

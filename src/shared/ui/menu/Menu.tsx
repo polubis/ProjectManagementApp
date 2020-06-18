@@ -1,15 +1,38 @@
 import React, { useMemo } from 'react';
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
-import { Menu as MuiMenu, makeStyles } from '@material-ui/core';
+import { Menu as MuiMenu, makeStyles, PopoverOrigin } from '@material-ui/core';
 
 import { Palette } from 'styles';
 
-import { MenuProps, MuiMenuStyleProps } from '.';
+namespace Menu {
+  type BaseProps<T> = {
+    id: string;
+    anchorEl: Element;
+    items: T[];
+    children: React.ComponentType<ListChildComponentProps>;
+    onClose(): void;
+    anchorOrigin?: PopoverOrigin;
+    transformOrigin?: PopoverOrigin;
+    width?: number;
+    height?: number;
+    itemSize?: number;
+  };
+
+  export type Props<T, R> = BaseProps<T> & R;
+
+  export interface ChildrenProps<T> extends Omit<ListChildComponentProps, 'data'> {
+    data: T;
+  }
+
+  export interface Styles {
+    width: number;
+  }
+}
 
 const useStyles = makeStyles({
   paper: {
-    width: (props: MuiMenuStyleProps) => props.width + 'px',
+    width: (props: Menu.Styles) => props.width + 'px',
     boxShadow: Palette.shadowPrimary,
     background: Palette.surfacePrimary,
     color: Palette.primary,
@@ -30,7 +53,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Menu = <T, R>({
+const Menu = <T, R>({
   id,
   anchorEl,
   items,
@@ -42,7 +65,7 @@ export const Menu = <T, R>({
   height = 300,
   itemSize = 40,
   ...menuItemProps
-}: MenuProps<T, R>) => {
+}: Menu.Props<T, R>) => {
   const classes = useStyles({ width });
 
   const itemData = useMemo(
@@ -76,3 +99,5 @@ export const Menu = <T, R>({
     </MuiMenu>
   );
 };
+
+export default Menu;

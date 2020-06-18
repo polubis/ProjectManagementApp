@@ -1,2 +1,1 @@
-export * from './Menu';
-export * from './models';
+export { default as Menu } from './Menu';
