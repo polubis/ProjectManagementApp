@@ -1,6 +1,6 @@
 import { date } from 'shared/forms';
 
-import { PickerDate } from '.';
+import { DatePicker } from '.';
 
 export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -55,15 +55,15 @@ export const getMonthName = (month: number) => {
   return MONTHS[month - 1];
 };
 
-export const getDaysInMonth = ({ year, month }: PickerDate) => {
+export const getDaysInMonth = ({ year, month }: DatePicker.Date) => {
   return new Date(year, month, 0).getDate();
 };
 
-export const getLastDayOfMonth = ({ year, month }: PickerDate) => {
+export const getLastDayOfMonth = ({ year, month }: DatePicker.Date) => {
   return new Date(year, month, 0).getDay();
 };
 
-export const getDays = (date: PickerDate) => {
+export const getDays = (date: DatePicker.Date) => {
   const DAYS_LIMIT = 42;
 
   const prevMonthDate = { ...date, month: date.month - 1 };

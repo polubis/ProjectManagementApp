@@ -1,3 +1,3 @@
-export * from './models';
 export * from './date-picker';
-export * from './DateField';
+
+export { default as DateField } from './DateField';

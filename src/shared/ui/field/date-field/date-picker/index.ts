@@ -1,3 +1,3 @@
-export * from './models';
 export * from './utils';
-export * from './DatePicker';
+
+export { default as DatePicker } from './DatePicker';

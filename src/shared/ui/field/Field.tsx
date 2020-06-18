@@ -2,11 +2,39 @@ import React from 'react';
 
 import ErrorIcon from '@material-ui/icons/Error';
 
-import { FieldBaseProps, FieldProps, TextareaFieldProps } from '.';
-
 import csx from './Field.scss';
 
-export const FieldBase = ({ label, error, children, className = '' }: FieldBaseProps) => {
+export namespace FieldBase {
+  export interface Props {
+    label: string;
+    children: React.ReactNode;
+    className?: string;
+    error?: string;
+  }
+}
+
+export namespace Field {
+  export interface Props
+    extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    label: string;
+    className?: string;
+    error?: string;
+  }
+}
+
+export namespace TextareaField {
+  export interface Props
+    extends React.DetailedHTMLProps<
+      React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+      HTMLTextAreaElement
+    > {
+    label: string;
+    className?: string;
+    error?: string;
+  }
+}
+
+export const FieldBase = ({ label, error, children, className = '' }: FieldBase.Props) => {
   return (
     <div className={`${csx.field} ${className} ${error ? csx.invalid : ''}`}>
       <label>{label}</label>
@@ -21,7 +49,7 @@ export const FieldBase = ({ label, error, children, className = '' }: FieldBaseP
   );
 };
 
-export const Field = ({ label, error, className, ...inputProps }: FieldProps) => {
+export const Field = ({ label, error, className, ...inputProps }: Field.Props) => {
   return (
     <FieldBase label={label} error={error} className={className}>
       <input {...inputProps} />
@@ -29,7 +57,7 @@ export const Field = ({ label, error, className, ...inputProps }: FieldProps) =>
   );
 };
 
-export const TextareaField = ({ label, error, className, ...inputProps }: TextareaFieldProps) => {
+export const TextareaField = ({ label, error, className, ...inputProps }: TextareaField.Props) => {
   return (
     <FieldBase label={label} error={error} className={className}>
       <textarea {...inputProps}></textarea>

@@ -6,25 +6,25 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { usePortal } from 'shared/utils';
 
-import {
-  getInitDate,
-  getDayName,
-  getMonthName,
-  DAYS_SYMBOLS,
-  MONTHS_COUNT,
-  getDays,
-  PickerDate
-} from '..';
+import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getDays } from '..';
 
 import csx from './DatePicker.scss';
 
-interface DatePickerProps {
-  value: string;
-  onClose(): void;
-  onSave(date: PickerDate): void;
+namespace DatePicker {
+  export interface Date {
+    year: number;
+    month: number;
+    day: number;
+  }
+
+  export interface Props {
+    value: string;
+    onClose(): void;
+    onSave(date: Date): void;
+  }
 }
 
-export const DatePicker = ({ value, onClose, onSave }: DatePickerProps) => {
+const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   const render = usePortal();
 
   const [activeDate, setActiveDate] = useState(getInitDate(value));
@@ -157,3 +157,5 @@ export const DatePicker = ({ value, onClose, onSave }: DatePickerProps) => {
     </div>
   );
 };
+
+export default DatePicker;
