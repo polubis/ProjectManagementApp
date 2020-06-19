@@ -3,9 +3,9 @@ import { useHistory } from 'react-router';
 
 import { GetTemplatesPayload } from 'api';
 
-import TemplatesProvider, { TemplatesContext } from 'core/templates';
+import { useScroll } from 'utils';
 
-import { useScroll } from 'shared/utils';
+import TemplatesProvider, { TemplatesContext } from 'core/templates';
 
 import {
   TemplatesHeader,

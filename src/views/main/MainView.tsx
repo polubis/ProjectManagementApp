@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 
-import { ProtectedRoute } from 'core/auth';
+import { withLazy } from 'utils';
 
-import { withLazy } from 'shared/utils';
+import { ProtectedRoute } from 'core/auth';
 
 import { Navbar, Sidebar } from '.';
 

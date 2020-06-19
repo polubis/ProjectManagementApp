@@ -4,7 +4,7 @@ import { IconButton, Button } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { usePortal } from 'shared/utils';
+import { usePortal } from 'utils';
 
 import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getDays } from '..';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import { usePortal } from 'shared/utils';
+import { usePortal } from 'utils';
 
 import csx from './Alert.scss';
 
