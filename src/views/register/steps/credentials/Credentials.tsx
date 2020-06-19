@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field } from 'ui';
+import { Button, InputField } from 'ui';
 
 import { RegisterStepProps } from '..';
 
@@ -10,7 +10,7 @@ export const Credentials = ({
 }: RegisterStepProps) => {
   return (
     <form onSubmit={onSubmit}>
-      <Field
+      <InputField
         data-idx={0}
         label="Email *"
         placeholder="Type email adress..."
@@ -20,7 +20,7 @@ export const Credentials = ({
         onChange={change}
       />
 
-      <Field
+      <InputField
         data-idx={1}
         label="Password *"
         placeholder="Type password..."
@@ -30,7 +30,7 @@ export const Credentials = ({
         onChange={change}
       />
 
-      <Field
+      <InputField
         data-idx={2}
         label="Repeated password *"
         placeholder="Repeat your password..."

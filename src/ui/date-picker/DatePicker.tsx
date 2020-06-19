@@ -6,12 +6,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { usePortal } from 'shared/utils';
 
-import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getDays } from 'ui';
+import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getDays } from '..';
 
 import csx from './DatePicker.scss';
-
-// TODO
-// Move this component to ui/date-picker
 
 namespace DatePicker {
   export interface Date {

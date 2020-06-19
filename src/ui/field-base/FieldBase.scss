@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.field {
+.fieldBase {
   @include col;
 
   &.invalid > :nth-child(2) {

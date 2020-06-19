@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button, Field, Checkbox } from 'ui';
+import { Button, InputField, Checkbox } from 'ui';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
@@ -27,7 +27,7 @@ export const LoginForm = ({ disabled, onSubmit }: LoginFormProps) => {
   return (
     <form className={csx.loginForm} onSubmit={handleSubmit}>
       {loginFormConfig.map(({ label, type }, idx) => (
-        <Field
+        <InputField
           key={label}
           data-idx={idx}
           label={label}

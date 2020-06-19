@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field, Checkbox } from 'ui';
+import { Button, Checkbox, InputField } from 'ui';
 
 import { TemplateManagementStepProps } from '.';
 
@@ -20,7 +20,7 @@ export const GithubConnection = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <Field
+      <InputField
         data-idx={0}
         label="Repository link *"
         placeholder="Add repository link..."
