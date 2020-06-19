@@ -1,6 +1,43 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import { Form, V } from '.';
+import { V } from '.';
+
+namespace Form {
+  export namespace Events {
+    export interface Change<T = HTMLInputElement | HTMLTextAreaElement> extends ChangeEvent<T> {}
+
+    export interface Submit extends ChangeEvent<HTMLFormElement> {}
+  }
+
+  export namespace Field {
+    export interface Config {
+      label: string;
+      fns?: V.Fn[];
+      value?: any;
+    }
+
+    export interface State {
+      value: any;
+      error: string;
+      result: V.Result[];
+    }
+  }
+
+  export type Config = Field.Config[];
+
+  export interface State {
+    invalid: boolean;
+    dirty: boolean;
+    fields: Field.State[];
+  }
+
+  export type Manager = [
+    Form.State,
+    (e: Form.Events.Change) => void,
+    (positions: number[], values: any[]) => void,
+    (e?: Form.Events.Submit) => boolean
+  ];
+}
 
 const makeState = (config: Form.Config): Form.State => {
   return {
@@ -17,7 +54,7 @@ const makeState = (config: Form.Config): Form.State => {
   };
 };
 
-export const useForm = (config: Form.Config): Form.Manager => {
+const useManager = (config: Form.Config): Form.Manager => {
   const [state, setState] = useState(makeState(config));
 
   const makeField = (value: any, idx: number): Form.Field.State => {
@@ -94,3 +131,9 @@ export const useForm = (config: Form.Config): Form.Manager => {
 
   return [state, change, directChange, submit];
 };
+
+const Form = {
+  useManager
+};
+
+export default Form;

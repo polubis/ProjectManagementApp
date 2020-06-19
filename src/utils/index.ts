@@ -1,4 +1,4 @@
-export * from './forms';
+export * from './form';
 export * from './operators';
 export * from './rendering';
 export * from './routing';
