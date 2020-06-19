@@ -12,14 +12,14 @@ export namespace Form {
   export namespace Field {
     export interface Config {
       label: string;
-      validators?: V.Fn[];
+      fns?: V.Fn[];
       value?: any;
     }
 
     export interface State {
       value: any;
       error: string;
-      validation: V.Result[];
+      result: V.Result[];
     }
   }
 

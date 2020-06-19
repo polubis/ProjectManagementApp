@@ -11,7 +11,7 @@ const makeState = (config: Form.Config): Form.State => {
         ({
           value: value !== undefined ? value : '',
           error: '',
-          validation: []
+          result: []
         } as Form.Field.State)
     )
   };
@@ -20,14 +20,14 @@ const makeState = (config: Form.Config): Form.State => {
 export const useForm = (config: Form.Config): Form.Manager => {
   const [state, setState] = useState(makeState(config));
 
-  const getChangedField = (value: any, idx: number): Form.Field.State => {
-    const { label, validators = [] } = config[idx];
+  const makeField = (value: any, idx: number): Form.Field.State => {
+    const { label, fns = [] } = config[idx];
 
-    const validation = V.run(value, label)(...validators);
-    const result = validation.find((result) => result.invalid);
-    const error = result ? result.text : '';
+    const result = V.run(value, label)(...fns);
+    const invalidResult = result.find((result) => result.invalid);
+    const error = invalidResult ? invalidResult.text : '';
 
-    return { value, error, validation };
+    return { value, error, result };
   };
 
   const change = (e: Form.Events.Change) => {
@@ -49,7 +49,7 @@ export const useForm = (config: Form.Config): Form.Manager => {
 
     const newState: Form.State = { ...state, fields: [...state.fields] };
 
-    newState.fields[datasetIdx] = getChangedField(value, datasetIdx);
+    newState.fields[datasetIdx] = makeField(value, datasetIdx);
 
     newState.invalid = newState.fields.some((f) => f.error);
 
@@ -60,7 +60,7 @@ export const useForm = (config: Form.Config): Form.Manager => {
     const newState: Form.State = { ...state, fields: [...state.fields] };
 
     positions.forEach((position, idx) => {
-      newState.fields[position] = getChangedField(values[idx], position);
+      newState.fields[position] = makeField(values[idx], position);
     });
 
     newState.invalid = newState.fields.some((f) => f.error);
@@ -74,7 +74,7 @@ export const useForm = (config: Form.Config): Form.Manager => {
     const newState: Form.State = { ...state, dirty: true, invalid: false };
 
     newState.fields = newState.fields.map((field, idx) => {
-      const { value, validation, error } = getChangedField(field.value, idx);
+      const { value, result, error } = makeField(field.value, idx);
 
       if (error) {
         newState.invalid = true;
@@ -82,7 +82,7 @@ export const useForm = (config: Form.Config): Form.Manager => {
 
       return {
         value,
-        validation,
+        result,
         error
       };
     });
