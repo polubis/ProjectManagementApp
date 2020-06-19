@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { Steps, StepHeader, Checkbox } from 'ui';
 
-import { useForm, FormSubmitEvent } from 'utils';
+import { useForm, Form } from 'utils';
 
 import {
   BasicInfo,
@@ -37,7 +37,7 @@ const TemplateCreationView = () => {
   }, [basicInfo, githubConnection, technologiesOverview]);
 
   const changeStep = useCallback(
-    (stepValue: number, e?: FormSubmitEvent) => {
+    (stepValue: number, e?: Form.Events.Submit) => {
       const activeStepInvalid = formManagers[activeStep][3](e);
 
       if (stepValue > activeStep && activeStepInvalid) {
@@ -90,7 +90,7 @@ const TemplateCreationView = () => {
   );
 
   const onStepSubmit = useCallback(
-    (e: FormSubmitEvent) => {
+    (e: Form.Events.Submit) => {
       changeStep(activeStep + 1, e);
     },
     [activeStep, changeStep]

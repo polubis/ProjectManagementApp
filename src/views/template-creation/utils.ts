@@ -1,21 +1,21 @@
 import { Steps } from 'ui';
 
-import { FormManager } from 'utils';
+import { Form } from 'utils';
 
 import { TemplateManagementConfig } from '.';
 
-const getStepStatus = ([{ dirty, invalid }]: FormManager): boolean | undefined => {
+const getStepStatus = ([{ dirty, invalid }]: Form.Manager): boolean | undefined => {
   return dirty ? !invalid : undefined;
 };
 
-const getStepProgress = ([{ fields }]: FormManager) => {
+const getStepProgress = ([{ fields }]: Form.Manager) => {
   const validFieldsCount = fields.filter((f) => !f.error).length;
   return (validFieldsCount / fields.length) * 100;
 };
 
 export const createSteps = (
   config: TemplateManagementConfig,
-  formManagers: FormManager[]
+  formManagers: Form.Manager[]
 ): Steps.Item[] => {
   return config.map(
     (c, idx) =>

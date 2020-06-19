@@ -1,17 +1,8 @@
 import { useState } from 'react';
 
-import {
-  FormChangeEvent,
-  FormSubmitEvent,
-  FieldState,
-  FormState,
-  FormConfig,
-  FormManagerBase,
-  FormManager,
-  V
-} from '.';
+import { Form, V } from '.';
 
-const getInitialState = (config: FormConfig): FormState => {
+const makeState = (config: Form.Config): Form.State => {
   return {
     invalid: false,
     dirty: false,
@@ -21,15 +12,15 @@ const getInitialState = (config: FormConfig): FormState => {
           value: value !== undefined ? value : '',
           error: '',
           validation: []
-        } as FieldState)
+        } as Form.Field.State)
     )
   };
 };
 
-export const useFormBase = (config: FormConfig): FormManagerBase => {
-  const [state, setState] = useState(getInitialState(config));
+export const useForm = (config: Form.Config): Form.Manager => {
+  const [state, setState] = useState(makeState(config));
 
-  const getChangedField = (value: any, idx: number): FieldState => {
+  const getChangedField = (value: any, idx: number): Form.Field.State => {
     const { label, validators = [] } = config[idx];
 
     const validation = V.run(value, label)(...validators);
@@ -39,13 +30,7 @@ export const useFormBase = (config: FormConfig): FormManagerBase => {
     return { value, error, validation };
   };
 
-  return [state, setState, getChangedField];
-};
-
-export const useForm = (config: FormConfig): FormManager => {
-  const [state, setState, getChangedField] = useFormBase(config);
-
-  const change = (e: FormChangeEvent) => {
+  const change = (e: Form.Events.Change) => {
     const { value, dataset } = e.target;
 
     if (dataset.idx === undefined) {
@@ -62,7 +47,7 @@ export const useForm = (config: FormConfig): FormManager => {
       throw new Error('Invalid data-idx attribute');
     }
 
-    const newState: FormState = { ...state, fields: [...state.fields] };
+    const newState: Form.State = { ...state, fields: [...state.fields] };
 
     newState.fields[datasetIdx] = getChangedField(value, datasetIdx);
 
@@ -72,7 +57,7 @@ export const useForm = (config: FormConfig): FormManager => {
   };
 
   const directChange = (positions: number[], values: any[]) => {
-    const newState: FormState = { ...state, fields: [...state.fields] };
+    const newState: Form.State = { ...state, fields: [...state.fields] };
 
     positions.forEach((position, idx) => {
       newState.fields[position] = getChangedField(values[idx], position);
@@ -83,10 +68,10 @@ export const useForm = (config: FormConfig): FormManager => {
     setState(newState);
   };
 
-  const submit = (e?: FormSubmitEvent): boolean => {
+  const submit = (e?: Form.Events.Submit): boolean => {
     e && e.preventDefault();
 
-    const newState: FormState = { ...state, dirty: true, invalid: false };
+    const newState: Form.State = { ...state, dirty: true, invalid: false };
 
     newState.fields = newState.fields.map((field, idx) => {
       const { value, validation, error } = getChangedField(field.value, idx);

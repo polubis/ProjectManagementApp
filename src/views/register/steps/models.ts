@@ -1,6 +1,6 @@
-import { FormManager, FormSubmitEvent } from 'utils';
+import { Form } from 'utils';
 
 export interface RegisterStepProps {
-  formManager: FormManager;
-  onSubmit(e: FormSubmitEvent): void;
+  formManager: Form.Manager;
+  onSubmit(e: Form.Events.Submit): void;
 }

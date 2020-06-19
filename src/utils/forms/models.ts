@@ -1,43 +1,40 @@
+import { ChangeEvent } from 'react';
+
 import { V } from '.';
 
-// TODO MOVE THIS IMPLEMENTATION ALSO TO NAMESPACE AND MAKE SIMPLER TYPE DEFINITIONS
+export namespace Form {
+  export namespace Events {
+    export interface Change<T = HTMLInputElement | HTMLTextAreaElement> extends ChangeEvent<T> {}
 
-export type FormChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+    export interface Submit extends ChangeEvent<HTMLFormElement> {}
+  }
 
-export type FormSubmitEvent = React.ChangeEvent<HTMLFormElement>;
+  export namespace Field {
+    export interface Config {
+      label: string;
+      validators?: V.Fn[];
+      value?: any;
+    }
 
-export interface FieldState {
-  value: any;
-  error: string;
-  validation: V.Result[];
+    export interface State {
+      value: any;
+      error: string;
+      validation: V.Result[];
+    }
+  }
+
+  export type Config = Field.Config[];
+
+  export interface State {
+    invalid: boolean;
+    dirty: boolean;
+    fields: Field.State[];
+  }
+
+  export type Manager = [
+    Form.State,
+    (e: Form.Events.Change) => void,
+    (positions: number[], values: any[]) => void,
+    (e?: Form.Events.Submit) => boolean
+  ];
 }
-
-export interface FieldConfig {
-  label: string;
-  validators?: V.Fn[];
-  value?: any;
-}
-
-export interface FormState {
-  invalid: boolean;
-  dirty: boolean;
-  fields: FieldState[];
-}
-
-export type FormConfig = FieldConfig[];
-
-export type ChangeHandler = (e: FormChangeEvent) => void;
-
-export type DirectChangeHandler = (positions: number[], values: any[]) => void;
-
-export type SubmitHandler = (e?: FormSubmitEvent) => boolean;
-
-export type GetChangedField = (value: any, idx: number) => FieldState;
-
-export type FormManagerBase = [
-  FormState,
-  React.Dispatch<React.SetStateAction<FormState>>,
-  GetChangedField
-];
-
-export type FormManager = [FormState, ChangeHandler, DirectChangeHandler, SubmitHandler];

@@ -1,6 +1,6 @@
-import { FieldConfig, V } from 'utils';
+import { Form, V } from 'utils';
 
-export const loginFormConfig: (FieldConfig & { type?: 'password' })[] = [
+export const loginFormConfig: (Form.Field.Config & { type?: 'password' })[] = [
   { label: 'Login', validators: [V.req] },
   { label: 'Password', validators: [V.req], type: 'password' }
 ];

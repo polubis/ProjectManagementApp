@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { throttle, useForm, FormSubmitEvent } from 'utils';
+import { throttle, useForm, Form } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 
@@ -38,7 +38,7 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
   const throttledOnSubmit = useCallback(throttle(onSubmit, 500), []);
 
   const handleSubmit = useCallback(
-    (e: FormSubmitEvent) => {
+    (e: Form.Events.Submit) => {
       const isInvalid = submit(e);
 
       if (isInvalid) {
