@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Steps, StepHeader } from 'shared/ui';
+import { Steps, StepHeader } from 'ui';
 
 import { useForm } from 'shared/forms';
 
@@ -40,7 +40,7 @@ const RegisterView = () => {
     <div className={csx.registerView}>
       <StepHeader description={description} label={label} />
 
-      <Steps steps={config} onChange={onStepChange} />
+      <Steps items={config} onChange={onStepChange} />
 
       {activeStep === CREDENTIALS && <Credentials formManager={credentials} onSubmit={() => {}} />}
 

@@ -1,7 +1,8 @@
 import { req, min, max, date } from 'shared/forms';
 
+import { Checkbox } from 'ui';
+
 import { RegisterConfig } from '.';
-import { CheckboxProps } from 'shared/ui';
 
 export const STEPS_COUNT = 4;
 
@@ -47,7 +48,7 @@ export const config: RegisterConfig = [
         value: [
           { dataId: 0, label: 'Male', value: false },
           { dataId: 1, label: 'Female', value: false }
-        ] as CheckboxProps[]
+        ] as Checkbox.Props[]
       }
     ]
   },

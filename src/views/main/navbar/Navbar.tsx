@@ -24,7 +24,7 @@ export const Navbar = ({ basePath }) => {
         {breadcrumbs.map((breadcrumb, idx) => (
           <React.Fragment key={idx}>
             <div className={csx.breadcrumb}>{breadcrumb}</div>
-            <div className={csx.divider}>></div>
+            <div className={csx.divider}>{'>'}</div>
           </React.Fragment>
         ))}
       </div>

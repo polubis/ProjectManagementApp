@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Button } from 'shared/ui';
+import { Button } from 'ui';
 
 import { signInViaGithub } from 'api';
 

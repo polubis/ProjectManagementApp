@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Checkbox } from 'shared/ui';
+import { Button, Checkbox } from 'ui';
 
 import { AlmostDoneProps, AlmostDoneImage } from '.';
 

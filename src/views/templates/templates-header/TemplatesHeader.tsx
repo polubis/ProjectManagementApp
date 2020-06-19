@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Button as MuiButton } from '@material-ui/core';
 import AddTemplateIcon from '@material-ui/icons/Queue';
 
-import { Button } from 'shared/ui';
+import { Button } from 'ui';
 
 import { Protected } from 'core/auth';
 

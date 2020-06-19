@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Logo } from 'shared/ui';
+import { Logo } from 'ui';
 
 import { HomeViewLink } from '.';
 

@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
+import { Steps, StepHeader, Checkbox } from 'ui';
 
-import { Steps, StepHeader, CheckboxProps } from 'shared/ui';
+import { useForm, FormSubmitEvent } from 'shared/forms';
 
 import {
   BasicInfo,
@@ -67,7 +67,7 @@ const TemplateCreationView = () => {
       } else {
         const [{ value: name }, { value: description }] = basicInfo[0].fields;
         const [{ value: githubLink }] = githubConnection[0].fields;
-        const technologies: CheckboxProps[] = technologiesOverview[0].fields[0].value;
+        const technologies: Checkbox.Props[] = technologiesOverview[0].fields[0].value;
 
         add({
           name,
@@ -110,7 +110,7 @@ const TemplateCreationView = () => {
     <div className={csx.templateCreationView}>
       <StepHeader description={description} label={label} />
 
-      <Steps steps={steps} onChange={onStepChange} />
+      <Steps items={steps} onChange={onStepChange} />
 
       {activeStep === BASIC_INFO && <BasicInfo formManager={basicInfo} onSubmit={onStepSubmit} />}
 

@@ -1,6 +1,6 @@
 import { req, min, max, url, atleastOneChecked } from 'shared/forms';
 
-import { CheckboxProps } from 'shared/ui';
+import { Checkbox } from 'ui';
 
 import { TemplateManagementConfig } from '.';
 
@@ -50,7 +50,7 @@ export const config: TemplateManagementConfig = [
       {
         label: 'Technologies',
         validators: [req, atleastOneChecked('value', 'technology')],
-        value: [] as CheckboxProps[]
+        value: [] as Checkbox.Props[]
       },
       {
         label: 'Patterns',

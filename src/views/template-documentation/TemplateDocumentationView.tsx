@@ -9,7 +9,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { Button } from 'shared/ui';
+import { Button } from 'ui';
 
 import { DocumentationSection } from './models';
 

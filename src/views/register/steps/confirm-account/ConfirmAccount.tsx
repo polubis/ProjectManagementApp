@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { StepHeader, Button } from 'shared/ui';
+import { StepHeader, Button } from 'ui';
 
 import { ConfirmAccountImage } from '.';
 

@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 
 import { Button } from '@material-ui/core';
-
 import SearchIcon from '@material-ui/icons/Search';
 
-import { CheckboxProps, Select } from 'shared/ui';
+import { Checkbox, Select } from 'ui';
 
 import { useForm, FormSubmitEvent } from 'shared/forms';
 
@@ -24,7 +23,7 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
       const id = +e.currentTarget.getAttribute('data-id');
-      const mappedTechnologies: CheckboxProps[] = fields[1].value.map((item: CheckboxProps) =>
+      const mappedTechnologies: Checkbox.Props[] = fields[1].value.map((item: Checkbox.Props) =>
         id === item.dataId
           ? {
               ...item,
@@ -48,13 +47,15 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
         return;
       }
 
-      throttledOnSubmit(fields[0].value);
+      throttledOnSubmit({
+        query: fields[0].value
+      });
     },
     [fields]
   );
 
   useEffect(() => {
-    const mappedTechnologies: CheckboxProps[] = technologies.map(({ id, name }) => ({
+    const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
       dataId: id,
       label: name,
       value: false

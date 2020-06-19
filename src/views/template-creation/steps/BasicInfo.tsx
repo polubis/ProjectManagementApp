@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field, TextareaField } from 'shared/ui';
+import { Button, Field, TextareaField } from 'ui';
 
 import { TemplateManagementStepProps } from '.';
 

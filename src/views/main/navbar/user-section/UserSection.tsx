@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
 
-import { Button } from 'shared/ui';
+import { Button } from 'ui';
 
 import { Protected, Unprotected } from 'core/auth';
 
