@@ -5,14 +5,14 @@ import { Avatar } from '@material-ui/core';
 
 import { Button } from 'ui';
 
-import { Protected, Unprotected } from 'core/auth';
+import { Guard } from 'core/auth';
 
 import csx from './UserSection.scss';
 
 export const UserSection = () => {
   return (
     <div className={csx.userSection}>
-      <Protected>
+      <Guard.Protected>
         {({ user: { email, username }, logOut }) => (
           <>
             <div className={csx.details}>
@@ -27,9 +27,9 @@ export const UserSection = () => {
             </span>
           </>
         )}
-      </Protected>
+      </Guard.Protected>
 
-      <Unprotected>
+      <Guard.Unprotected>
         <>
           <NavLink to="/login">
             <Button className={csx.logInBtn}>LOG IN</Button>
@@ -39,7 +39,7 @@ export const UserSection = () => {
             <Button>CREATE ACCOUNT</Button>
           </NavLink>
         </>
-      </Unprotected>
+      </Guard.Unprotected>
     </div>
   );
 };

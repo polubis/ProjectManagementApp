@@ -3,7 +3,7 @@ import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 
 import { withLazy } from 'utils';
 
-import { ProtectedRoute } from 'core/auth';
+import { Guard } from 'core/auth';
 
 import { Navbar, Sidebar } from '.';
 
@@ -32,7 +32,7 @@ const MainView = ({ match }: MainViewProps) => {
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
 
-          <ProtectedRoute
+          <Guard.ProtectedRoute
             exact
             redirect={`${match.path}/templates`}
             path={`${match.path}/templates/creation`}

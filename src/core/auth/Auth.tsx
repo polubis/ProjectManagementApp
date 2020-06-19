@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import { getAuthorizedUser, LogInPayload, logIn, logOut, User } from 'api';
@@ -99,9 +99,15 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
   }
 }
 
+const useProvider = () => {
+  const context = useContext(Context);
+  return context;
+};
+
 const Auth = {
   Provider: withRouter(Provider),
-  Context
+  Context,
+  useProvider
 };
 
 export default Auth;

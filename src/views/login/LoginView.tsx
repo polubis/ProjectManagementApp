@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Button } from 'ui';
 
@@ -13,7 +13,7 @@ import { Auth } from 'core/auth';
 import csx from './LoginView.scss';
 
 const LoginView = () => {
-  const { logIn, pending } = useContext(Auth.Context);
+  const { logIn, pending } = Auth.useProvider();
 
   return (
     <div className={csx.loginView}>
