@@ -8,12 +8,12 @@ import { LoginForm } from '.';
 
 import { IMGS } from 'consts';
 
-import { AuthContext } from 'core/auth';
+import { Auth } from 'core/auth';
 
 import csx from './LoginView.scss';
 
 const LoginView = () => {
-  const { logIn, pending } = useContext(AuthContext);
+  const { logIn, pending } = useContext(Auth.Context);
 
   return (
     <div className={csx.loginView}>

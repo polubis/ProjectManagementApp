@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { withLazy } from 'utils';
 
-import AuthProvider, { UnprotectedRoute } from 'core/auth';
+import { Auth, UnprotectedRoute } from 'core/auth';
 import TechnologiesProvider from 'core/technologies';
 
 const HomeView = withLazy(() => import('views/home'));
@@ -15,7 +15,7 @@ const RegisterView = withLazy(() => import('views/register'));
 const App = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
+      <Auth.Provider>
         <TechnologiesProvider>
           <Switch>
             <UnprotectedRoute exact path="/login" redirect="/app" component={LoginView} />
@@ -26,7 +26,7 @@ const App = () => {
             {/* {TODO LATER IMPROVE NOT FOUND PAGE} */}
           </Switch>
         </TechnologiesProvider>
-      </AuthProvider>
+      </Auth.Provider>
     </BrowserRouter>
   );
 };

@@ -1,13 +1,7 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router';
 
-import {
-  AuthContext,
-  GuardProps,
-  RouteGuardProps,
-  RenderGuardChildren,
-  GuardInjectedState
-} from '.';
+import { Auth, GuardProps, RouteGuardProps, RenderGuardChildren, GuardInjectedState } from '.';
 
 const renderChildren = (
   children: JSX.Element | RenderGuardChildren,
@@ -17,19 +11,19 @@ const renderChildren = (
 };
 
 export const Unprotected = ({ children }: GuardProps) => {
-  const { pending, authorized, ...injectedState } = useContext(AuthContext);
+  const { pending, authorized, ...injectedState } = useContext(Auth.Context);
 
   return pending ? null : authorized ? null : renderChildren(children, injectedState);
 };
 
 export const Protected = ({ children }: GuardProps) => {
-  const { pending, authorized, ...injectedState } = useContext(AuthContext);
+  const { pending, authorized, ...injectedState } = useContext(Auth.Context);
 
   return pending ? null : authorized ? renderChildren(children, injectedState) : null;
 };
 
 export const ProtectedRoute = ({ component: Component, redirect, ...rest }: RouteGuardProps) => {
-  const { pending, authorized } = useContext(AuthContext);
+  const { pending, authorized } = useContext(Auth.Context);
 
   return (
     <Route
@@ -42,7 +36,7 @@ export const ProtectedRoute = ({ component: Component, redirect, ...rest }: Rout
 };
 
 export const UnprotectedRoute = ({ component: Component, redirect, ...rest }: RouteGuardProps) => {
-  const { pending, authorized } = useContext(AuthContext);
+  const { pending, authorized } = useContext(Auth.Context);
 
   return (
     <Route

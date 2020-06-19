@@ -2,6 +2,8 @@ import { RouteProps, RouteComponentProps } from 'react-router';
 
 import { User, LogInPayload } from 'api';
 
+import { Auth } from '.';
+
 export interface AuthProviderProps extends RouteComponentProps {
   children: React.ReactNode;
 }
@@ -15,7 +17,7 @@ export interface AuthProviderState {
   logOut?(): Promise<void>;
 }
 
-export interface GuardInjectedState extends Omit<AuthProviderState, 'authorized' | 'pending'> {}
+export interface GuardInjectedState extends Omit<Auth.Provider.State, 'authorized' | 'pending'> {}
 
 export type RenderGuardChildren = (injectedState: GuardInjectedState | null) => JSX.Element;
 
