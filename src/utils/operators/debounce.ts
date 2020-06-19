@@ -12,4 +12,4 @@ export const debounce = (func: Function, wait: number, immediate?: any) => {
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
-}
+};
