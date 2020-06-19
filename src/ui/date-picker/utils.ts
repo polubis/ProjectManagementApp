@@ -1,4 +1,4 @@
-import { date } from 'shared/forms';
+import { V } from 'utils';
 
 import { DatePicker } from 'ui';
 
@@ -42,7 +42,7 @@ export const getNow = () => {
 };
 
 export const getInitDate = (value: string) => {
-  if (date(value, '').invalid) {
+  if (V.date(value, '').invalid) {
     return getNow();
   }
 

@@ -1,3 +1,5 @@
 export * from './models';
-export * from './validators';
+
+export { default as V } from './validator';
+
 export * from './useForm';

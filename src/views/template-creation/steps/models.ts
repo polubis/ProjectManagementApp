@@ -1,4 +1,4 @@
-import { FormManager, FormSubmitEvent } from 'shared/forms';
+import { FormManager, FormSubmitEvent } from 'utils';
 
 export interface TemplateManagementStepProps {
   formManager: FormManager;

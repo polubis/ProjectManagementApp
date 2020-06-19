@@ -1,8 +1,6 @@
-export class Validation {
-  constructor(public invalid: boolean, public text: string) {}
-}
+import { V } from '.';
 
-export type Validator = (value: any, label: string) => Validation;
+// TODO MOVE THIS IMPLEMENTATION ALSO TO NAMESPACE AND MAKE SIMPLER TYPE DEFINITIONS
 
 export type FormChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -11,12 +9,12 @@ export type FormSubmitEvent = React.ChangeEvent<HTMLFormElement>;
 export interface FieldState {
   value: any;
   error: string;
-  validation: Validation[];
+  validation: V.Result[];
 }
 
 export interface FieldConfig {
   label: string;
-  validators?: Validator[];
+  validators?: V.Fn[];
   value?: any;
 }
 

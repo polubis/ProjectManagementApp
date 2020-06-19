@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { Steps, StepHeader, Checkbox } from 'ui';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
+import { useForm, FormSubmitEvent } from 'utils';
 
 import {
   BasicInfo,

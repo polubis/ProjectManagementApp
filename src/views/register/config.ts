@@ -1,4 +1,4 @@
-import { req, min, max, date } from 'shared/forms';
+import { V } from 'utils';
 
 import { Checkbox } from 'ui';
 
@@ -16,14 +16,14 @@ export const config: RegisterConfig = [
     label: 'Email & Password',
     description: `Make sure your password is secure`,
     formConfig: [
-      { label: 'Email', validators: [req] },
+      { label: 'Email', validators: [V.req] },
       {
         label: 'Password',
-        validators: [req, min(4), max(20)]
+        validators: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Repeated password',
-        validators: [req, min(4), max(20)]
+        validators: [V.req, V.min(4), V.max(20)]
       }
     ]
   },
@@ -33,15 +33,15 @@ export const config: RegisterConfig = [
     formConfig: [
       {
         label: 'First name',
-        validators: [req, min(4), max(20)]
+        validators: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Last name',
-        validators: [req, min(4), max(20)]
+        validators: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Date of birth',
-        validators: [date]
+        validators: [V.date]
       },
       {
         label: 'Gender',

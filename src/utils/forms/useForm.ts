@@ -8,7 +8,7 @@ import {
   FormConfig,
   FormManagerBase,
   FormManager,
-  runValidators
+  V
 } from '.';
 
 const getInitialState = (config: FormConfig): FormState => {
@@ -32,7 +32,7 @@ export const useFormBase = (config: FormConfig): FormManagerBase => {
   const getChangedField = (value: any, idx: number): FieldState => {
     const { label, validators = [] } = config[idx];
 
-    const validation = runValidators(value, label)(...validators);
+    const validation = V.run(value, label)(...validators);
     const result = validation.find((result) => result.invalid);
     const error = result ? result.text : '';
 
