@@ -1,6 +1,6 @@
-import { FormConfig } from 'utils';
+import { Form } from 'utils';
 
-export const searchFormConfig: FormConfig = [
+export const searchFormConfig: Form.Config = [
   { label: 'Phrase' },
   { label: 'Technologies', value: [] }
 ];

@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { throttle, useForm, FormSubmitEvent } from 'utils';
+import { throttle, Form } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 
@@ -16,7 +16,7 @@ import csx from './TemplatesSearch.scss';
 export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
   const { technologies } = useContext(TechnologiesContext);
 
-  const [{ fields }, change, directChange, submit] = useForm(searchFormConfig);
+  const [{ fields }, change, directChange, submit] = Form.useManager(searchFormConfig);
 
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
@@ -38,7 +38,7 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
   const throttledOnSubmit = useCallback(throttle(onSubmit, 500), []);
 
   const handleSubmit = useCallback(
-    (e: FormSubmitEvent) => {
+    (e: Form.Events.Submit) => {
       const isInvalid = submit(e);
 
       if (isInvalid) {

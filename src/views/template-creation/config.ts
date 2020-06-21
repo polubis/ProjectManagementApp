@@ -17,10 +17,10 @@ export const config: TemplateManagementConfig = [
     description: `Name your template and add a description. This information 
     will be displayed first`,
     formConfig: [
-      { label: 'Name', validators: [V.req, V.min(2), V.max(50)] },
+      { label: 'Name', fns: [V.req, V.min(2), V.max(50)] },
       {
         label: 'Description',
-        validators: [V.req, V.min(20), V.max(5000)]
+        fns: [V.req, V.min(20), V.max(5000)]
       }
     ]
   },
@@ -30,7 +30,7 @@ export const config: TemplateManagementConfig = [
     formConfig: [
       {
         label: 'Repository link',
-        validators: [V.req, V.url]
+        fns: [V.req, V.url]
       },
       {
         label: 'Public access',
@@ -49,18 +49,16 @@ export const config: TemplateManagementConfig = [
     formConfig: [
       {
         label: 'Technologies',
-        validators: [V.req, V.oneTruthy('value', 'technology')],
+        fns: [V.req, V.oneTruthy('value', 'technology')],
         value: [] as Checkbox.Props[]
       },
       {
         label: 'Patterns',
-        // validators: [V.req, V.oneTruthy('value', 'pattern')],
+        // fns: [V.req, V.oneTruthy('value', 'pattern')],
         value: []
       },
       {
-        label: 'Tags',
-        validators: [],
-        value: ''
+        label: 'Tags'
       }
     ]
   }

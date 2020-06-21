@@ -1,9 +1,9 @@
-import { FormConfig } from 'utils';
+import { Form } from 'utils';
 
 export type TemplateManagementConfig = {
   label: string;
   description: string;
-  formConfig: FormConfig;
+  formConfig: Form.Config;
   progress?: number;
   status?: boolean;
 }[];

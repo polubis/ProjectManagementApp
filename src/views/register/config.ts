@@ -16,14 +16,14 @@ export const config: RegisterConfig = [
     label: 'Email & Password',
     description: `Make sure your password is secure`,
     formConfig: [
-      { label: 'Email', validators: [V.req] },
+      { label: 'Email', fns: [V.req] },
       {
         label: 'Password',
-        validators: [V.req, V.min(4), V.max(20)]
+        fns: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Repeated password',
-        validators: [V.req, V.min(4), V.max(20)]
+        fns: [V.req, V.min(4), V.max(20)]
       }
     ]
   },
@@ -33,15 +33,15 @@ export const config: RegisterConfig = [
     formConfig: [
       {
         label: 'First name',
-        validators: [V.req, V.min(4), V.max(20)]
+        fns: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Last name',
-        validators: [V.req, V.min(4), V.max(20)]
+        fns: [V.req, V.min(4), V.max(20)]
       },
       {
         label: 'Date of birth',
-        validators: [V.date]
+        fns: [V.date]
       },
       {
         label: 'Gender',

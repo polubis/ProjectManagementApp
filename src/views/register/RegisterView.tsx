@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Steps, StepHeader } from 'ui';
 
-import { useForm } from 'utils';
+import { Form } from 'utils';
 
 import {
   CREDENTIALS,
@@ -21,10 +21,10 @@ import csx from './RegisterView.scss';
 const RegisterView = () => {
   const [activeStep, setActiveStep] = useState(CREDENTIALS);
 
-  const credentials = useForm(config[CREDENTIALS].formConfig);
-  const personalInfo = useForm(config[PERSONAL_INFO].formConfig);
-  const work = useForm(config[WORK].formConfig);
-  const almostDone = useForm(config[ALMOST_DONE].formConfig);
+  const credentials = Form.useManager(config[CREDENTIALS].formConfig);
+  const personalInfo = Form.useManager(config[PERSONAL_INFO].formConfig);
+  const work = Form.useManager(config[WORK].formConfig);
+  const almostDone = Form.useManager(config[ALMOST_DONE].formConfig);
 
   const onStepChange = useCallback(
     (step: number) => {

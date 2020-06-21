@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { Steps, StepHeader, Checkbox } from 'ui';
 
-import { useForm, FormSubmitEvent } from 'utils';
+import { Form } from 'utils';
 
 import {
   BasicInfo,
@@ -28,16 +28,16 @@ const TemplateCreationView = () => {
 
   const [state, add] = useTemplateManagement();
 
-  const basicInfo = useForm(config[BASIC_INFO].formConfig);
-  const githubConnection = useForm(config[GITHUB_CONNECTION].formConfig);
-  const technologiesOverview = useForm(config[TECHNOLOGIES_OVERVIEW].formConfig);
+  const basicInfo = Form.useManager(config[BASIC_INFO].formConfig);
+  const githubConnection = Form.useManager(config[GITHUB_CONNECTION].formConfig);
+  const technologiesOverview = Form.useManager(config[TECHNOLOGIES_OVERVIEW].formConfig);
 
   const formManagers = useMemo(() => {
     return [basicInfo, githubConnection, technologiesOverview];
   }, [basicInfo, githubConnection, technologiesOverview]);
 
   const changeStep = useCallback(
-    (stepValue: number, e?: FormSubmitEvent) => {
+    (stepValue: number, e?: Form.Events.Submit) => {
       const activeStepInvalid = formManagers[activeStep][3](e);
 
       if (stepValue > activeStep && activeStepInvalid) {
@@ -90,7 +90,7 @@ const TemplateCreationView = () => {
   );
 
   const onStepSubmit = useCallback(
-    (e: FormSubmitEvent) => {
+    (e: Form.Events.Submit) => {
       changeStep(activeStep + 1, e);
     },
     [activeStep, changeStep]

@@ -1,9 +1,9 @@
-import { FormConfig } from 'utils';
+import { Form } from 'utils';
 
 export type RegisterConfig = {
   label: string;
   description: string;
-  formConfig: FormConfig;
+  formConfig: Form.Config;
   progress?: number;
   status?: boolean;
 }[];

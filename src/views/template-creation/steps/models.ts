@@ -1,7 +1,7 @@
-import { FormManager, FormSubmitEvent } from 'utils';
+import { Form } from 'utils';
 
 export interface TemplateManagementStepProps {
-  formManager: FormManager;
+  formManager: Form.Manager;
   pending?: boolean;
-  onSubmit(e: FormSubmitEvent): void;
+  onSubmit(e: Form.Events.Submit): void;
 }

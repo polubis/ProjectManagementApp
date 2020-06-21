@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
 import { IconButton } from '@material-ui/core';
 
-import { FormChangeEvent } from 'utils';
+import { Form } from 'utils';
 
 import { FieldBase, DatePicker } from 'ui';
 
@@ -15,7 +15,7 @@ namespace DateField {
     value: string;
     error?: string;
     onSelect(value: string): void;
-    onChange(e: FormChangeEvent): void;
+    onChange(e: Form.Events.Change<HTMLInputElement>): void;
   }
 }
 

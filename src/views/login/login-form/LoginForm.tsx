@@ -3,16 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, InputField, Checkbox } from 'ui';
 
-import { useForm, FormSubmitEvent } from 'utils';
+import { Form } from 'utils';
 
 import { loginFormConfig, LoginFormProps } from '.';
 
 import csx from './LoginForm.scss';
 
 export const LoginForm = ({ disabled, onSubmit }: LoginFormProps) => {
-  const [{ fields, dirty, invalid }, change, directChange, submit] = useForm(loginFormConfig);
+  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(loginFormConfig);
 
-  const handleSubmit = (e: FormSubmitEvent) => {
+  const handleSubmit = (e: Form.Events.Submit) => {
     const invalid = submit(e);
 
     if (invalid) {
