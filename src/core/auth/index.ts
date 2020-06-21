@@ -1,7 +1,2 @@
-import AuthProvider from './AuthProvider';
-
-export * from './Guards';
-export * from './models';
-export * from './utils';
-
-export default AuthProvider;
+export { default as Auth } from './Auth';
+export { default as Guard } from './Guard';
