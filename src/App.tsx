@@ -2,10 +2,10 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
+import { withLazy } from 'utils';
+
 import AuthProvider, { UnprotectedRoute } from 'core/auth';
 import TechnologiesProvider from 'core/technologies';
-
-import { withLazy } from 'shared/utils';
 
 const HomeView = withLazy(() => import('views/home'));
 const LoginView = withLazy(() => import('views/login'));

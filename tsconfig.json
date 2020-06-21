@@ -32,6 +32,7 @@
       "components/*": ["src/components/*"],
       "shared/*": ["src/shared/*"],
       "ui": ["src/ui"],
+      "utils": ["src/utils"],
       "core/*": ["src/core/*"],
       "api": ["src/api"],
       "mocks": ["src/mocks"],

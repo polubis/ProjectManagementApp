@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
-import { throttle } from '.';
+import { throttle } from 'utils';
 
 export const useScroll = (callback: Function, offset = 0) => {
   const onScroll = useCallback(() => {
