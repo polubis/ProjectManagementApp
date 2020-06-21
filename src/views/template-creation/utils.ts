@@ -1,6 +1,6 @@
 import { Steps } from 'ui';
 
-import { FormManager } from 'shared/forms';
+import { FormManager } from 'utils';
 
 import { TemplateManagementConfig } from '.';
 

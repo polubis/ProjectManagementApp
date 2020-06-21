@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
 import { IconButton } from '@material-ui/core';
 
-import { FormChangeEvent } from 'shared/forms';
+import { FormChangeEvent } from 'utils';
 
 import { FieldBase, DatePicker } from 'ui';
 

@@ -1,4 +1,4 @@
-import { FormConfig } from 'shared/forms';
+import { FormConfig } from 'utils';
 
 export const searchFormConfig: FormConfig = [
   { label: 'Phrase' },

@@ -1,4 +1,4 @@
-import { FormConfig } from 'shared/forms';
+import { FormConfig } from 'utils';
 
 export type TemplateManagementConfig = {
   label: string;

@@ -5,9 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { throttle } from 'utils';
-
-import { useForm, FormSubmitEvent } from 'shared/forms';
+import { throttle, useForm, FormSubmitEvent } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 

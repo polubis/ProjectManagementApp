@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Steps, StepHeader } from 'ui';
 
-import { useForm } from 'shared/forms';
+import { useForm } from 'utils';
 
 import {
   CREDENTIALS,

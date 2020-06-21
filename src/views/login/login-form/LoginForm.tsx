@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, InputField, Checkbox } from 'ui';
 
-import { useForm, FormSubmitEvent } from 'shared/forms';
+import { useForm, FormSubmitEvent } from 'utils';
 
 import { loginFormConfig, LoginFormProps } from '.';
 
