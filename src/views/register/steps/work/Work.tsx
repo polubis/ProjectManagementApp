@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Field, Select, Button } from 'ui';
+import { Button, InputField, Select } from 'ui';
 
 import { WorkProps, WorkImage } from '.';
 
@@ -21,7 +21,7 @@ export const Work = ({
       </span>
 
       <div className={csx.fields}>
-        <Field
+        <InputField
           data-idx={0}
           label="Position"
           placeholder="Type your position..."
@@ -40,7 +40,7 @@ export const Work = ({
       </div>
 
       <div className={csx.fields}>
-        <Field
+        <InputField
           data-idx={2}
           label="Company"
           placeholder="Type company..."
@@ -49,7 +49,7 @@ export const Work = ({
           onChange={change}
         />
 
-        <Field
+        <InputField
           data-idx={3}
           label="Years of experience"
           placeholder="Experience..."

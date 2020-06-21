@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button, Field, DateField, Select, Checkbox } from 'ui';
-
 import { PersonalInfoProps } from '.';
+
+import { Button, Checkbox, DateField, InputField, Select } from 'ui';
 
 import csx from './PersonalInfo.scss';
 
@@ -27,7 +27,7 @@ export const PersonalInfo = ({
 
   return (
     <form className={csx.personalInfo} onSubmit={submit}>
-      <Field
+      <InputField
         data-idx={0}
         label="First name *"
         placeholder="Type first name..."
@@ -36,7 +36,7 @@ export const PersonalInfo = ({
         onChange={change}
       />
 
-      <Field
+      <InputField
         data-idx={1}
         label="Last name *"
         placeholder="Type last name..."

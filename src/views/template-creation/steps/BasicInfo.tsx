@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Field, TextareaField } from 'ui';
+import { Button, InputField, TextareaField } from 'ui';
 
 import { TemplateManagementStepProps } from '.';
 
@@ -10,7 +10,7 @@ export const BasicInfo = ({
 }: TemplateManagementStepProps) => {
   return (
     <form onSubmit={onSubmit}>
-      <Field
+      <InputField
         data-idx={0}
         label="Name *"
         placeholder="Type template name..."
