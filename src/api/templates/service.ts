@@ -1,4 +1,6 @@
-import { call, coreInstance, AddTemplatePayload, GetTemplatesPayload, Template } from '..';
+import { core } from 'core/api';
+
+import { AddTemplatePayload, GetTemplatesPayload, Template } from '..';
 
 export const getTemplates = ({ limit, page, query, technologiesIds }: GetTemplatesPayload) => {
   const parseParam = <T>(value: T, key: string) => {
@@ -11,9 +13,7 @@ export const getTemplates = ({ limit, page, query, technologiesIds }: GetTemplat
     parseParam(query, 'query')
   ].join('&');
 
-  return call<Template[]>(coreInstance.get(`Templates/Search?${params}`));
+  return core.get<Template[]>(`Templates/Search?${params}`);
 };
 
-export const addTemplate = (payload: AddTemplatePayload) => {
-  return call<string>(coreInstance.post('Templates', payload));
-};
+export const addTemplate = (payload: AddTemplatePayload) => core.post<string>('Templates', payload);

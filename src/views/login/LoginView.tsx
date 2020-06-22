@@ -6,7 +6,7 @@ import { signInViaGithub } from 'api';
 
 import { LoginForm } from '.';
 
-import { IMGS } from 'consts';
+import { IMGS_PATH } from 'consts';
 
 import { Auth } from 'core/auth';
 
@@ -28,7 +28,7 @@ const LoginView = () => {
       </div>
 
       <Button variant="icon" disabled={pending} onClick={signInViaGithub}>
-        <img src={IMGS + '/GithubLogo.png'} />
+        <img src={IMGS_PATH + '/GithubLogo.png'} />
       </Button>
     </div>
   );
