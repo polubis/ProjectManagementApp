@@ -1,35 +1,17 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { withLazy } from 'utils';
+import Modules from 'modules';
 
-import { Auth, Guard } from 'core/auth';
+import { Auth } from 'core/auth';
 import TechnologiesProvider from 'core/technologies';
-
-const HomeView = withLazy(() => import('views/home'));
-const LoginView = withLazy(() => import('views/login'));
-const MainView = withLazy(() => import('views/main'));
-const RegisterView = withLazy(() => import('views/register'));
 
 const App = () => {
   return (
     <BrowserRouter>
       <Auth.Provider>
         <TechnologiesProvider>
-          <Switch>
-            <Guard.UnprotectedRoute exact path="/login" redirect="/app" component={LoginView} />
-            <Guard.UnprotectedRoute
-              exact
-              path="/register"
-              redirect="/app"
-              component={RegisterView}
-            />
-            <Route path="/app" component={MainView} />
-            <Route exact path="/" component={HomeView} />
-            <Route path="**" render={() => <div>Not Found Page </div>} />
-            {/* {TODO LATER IMPROVE NOT FOUND PAGE} */}
-          </Switch>
+          <Modules />
         </TechnologiesProvider>
       </Auth.Provider>
     </BrowserRouter>
