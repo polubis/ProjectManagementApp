@@ -1,0 +1,10 @@
+@import 'styles/mixins';
+
+.templates {
+  @include col;
+  padding: 60px;
+
+  & > form {
+    margin: 62px auto 82px auto;
+  }
+}

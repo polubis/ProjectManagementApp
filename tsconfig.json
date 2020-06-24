@@ -28,7 +28,6 @@
     "baseUrl": ".",
     "paths": {
       "consts": ["src/consts"],
-      "pages/*": ["src/pages/*"],
       "components/*": ["src/components/*"],
       "shared/*": ["src/shared/*"],
       "ui": ["src/ui"],
@@ -37,7 +36,7 @@
       "core/*": ["src/core/*"],
       "api": ["src/api"],
       "mocks": ["src/mocks"],
-      "views*": ["src/views/*"],
+      "services*": ["src/services/*"],
       "styles": ["src/styles"]
     },
     "plugins": [
