@@ -95,7 +95,7 @@ module.exports = (env, { mode }) => {
       }),
       new DefinePlugin({
         __IMAGES_PATH__: mode === DEV ? "'public/images'" : "'images'",
-        __API__: "'https://web-api-c.azurewebsites.net/api/'"
+        __CORE_API_PATH__: "'https://web-api-c.azurewebsites.net/api/'"
       })
     ],
 

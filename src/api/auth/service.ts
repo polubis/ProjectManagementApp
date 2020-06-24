@@ -1,19 +1,16 @@
-import { coreInstance, call, LogInPayload, User } from '..';
+import { CORE_API_PATH } from 'consts';
 
-import { API } from 'consts';
+import { core } from 'core/api';
 
-export const logIn = (credentials: LogInPayload) => {
-  return call<User>(coreInstance.post('Authorization/SignIn', credentials));
-};
+import { LogInPayload, User } from '..';
 
-export const logOut = () => {
-  return call<null>(coreInstance.post('Authorization/SignOut'));
-};
+export const logIn = (credentials: LogInPayload) =>
+  core.post<User>('Authorization/SignIn', credentials);
+
+export const logOut = () => core.post<null>('Authorization/SignOut');
+
+export const getAuthorizedUser = () => core.get('Account/GetCurrentUserData');
 
 export const signInViaGithub = () => {
-  window.location.href = `${API}GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
-};
-
-export const getAuthorizedUser = () => {
-  return call<User>(coreInstance.get('Account/GetCurrentUserData'));
+  window.location.href = `${CORE_API_PATH}GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
 };

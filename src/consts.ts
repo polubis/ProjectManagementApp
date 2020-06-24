@@ -1,3 +1,3 @@
-export const IMGS = `${window.location.origin}/${__IMAGES_PATH__}`;
+export const IMGS_PATH = `${window.location.origin}/${__IMAGES_PATH__}`;
 
-export const API = __API__;
+export const CORE_API_PATH = __CORE_API_PATH__;

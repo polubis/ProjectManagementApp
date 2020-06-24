@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { IMGS } from 'consts';
+import { IMGS_PATH } from 'consts';
 
 import csx from './Logo.scss';
 
 export const Logo = () => {
-  return <img className={csx.root} src={IMGS + '/Logo.png'} />;
+  return <img className={csx.root} src={IMGS_PATH + '/Logo.png'} />;
 };

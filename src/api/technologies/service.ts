@@ -1,5 +1,5 @@
-import { call, coreInstance, Technology } from '..';
+import { core } from 'core/api';
 
-export const getTechnologies = (): Promise<Technology[]> => {
-  return call<Technology[]>(coreInstance.get('TemplateTechnologies/Search'));
-};
+import { Technology } from '..';
+
+export const getTechnologies = () => core.get<Technology[]>('TemplateTechnologies/Search');
