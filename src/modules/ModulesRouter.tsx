@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router';
 
 import { Guard } from 'core/auth';
 
+import TemplatesProvider from 'core/templates';
+
 import { withLazy } from 'utils';
 
 const Home = withLazy(() => import('./home'));
@@ -15,7 +17,14 @@ const ModulesRouter = () => {
     <Switch>
       <Guard.UnprotectedRoute exact path="/login" redirect="/app" component={Login} />
       <Guard.UnprotectedRoute exact path="/register" redirect="/app" component={Register} />
-      <Route path="/app" component={Main} />
+      <Route
+        path="/app"
+        render={(props) => (
+          <TemplatesProvider>
+            <Main {...props} />
+          </TemplatesProvider>
+        )}
+      />
       <Route exact path="/" component={Home} />
       <Route path="**" render={() => <div>Not Found Page </div>} />
     </Switch>

@@ -1,22 +1,25 @@
 import React, { useCallback, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { throttle, Form } from 'utils';
+import { Form } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 
-import { TemplatesSearchProps, searchFormConfig } from '.';
-
 import csx from './TemplatesSearch.scss';
 
-export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
+const config: Form.Config = [{ label: 'Query' }, { label: 'Technologies', value: [] }];
+
+export const TemplatesSearch = () => {
+  const history = useHistory();
+
   const { technologies } = useContext(TechnologiesContext);
 
-  const [{ fields }, change, directChange, submit] = Form.useManager(searchFormConfig);
+  const [{ fields }, change, directChange, submit] = Form.useManager(config);
 
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
@@ -35,8 +38,6 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
     [fields]
   );
 
-  const throttledOnSubmit = useCallback(throttle(onSubmit, 500), []);
-
   const handleSubmit = useCallback(
     (e: Form.Events.Submit) => {
       const isInvalid = submit(e);
@@ -45,9 +46,9 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
         return;
       }
 
-      throttledOnSubmit({
-        query: fields[0].value
-      });
+      const [{ value: query }] = fields;
+
+      history.push(`/app/templates/all?query=${query}`);
     },
     [fields]
   );

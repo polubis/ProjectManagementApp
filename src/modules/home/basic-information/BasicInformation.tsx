@@ -15,7 +15,7 @@ export const BasicInformation = () => {
         Use <span>Jupi.io</span> to boost your development process with high quality templates
         prepared by developers community from around the world
       </p>
-      <TemplatesSearch onSubmit={() => {}} />
+      <TemplatesSearch />
     </section>
   );
 };
