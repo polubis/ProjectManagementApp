@@ -1,18 +1,30 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { getAuthorizedUser, LogInPayload, logIn, logOut, User } from 'api';
-
 import { Alert } from 'ui';
 
+import { getSelf, logIn, logOut } from '.';
+
 namespace Auth {
+  export interface Credentials {
+    login: string;
+    password: string;
+  }
+
+  export interface User {
+    username: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+  }
+
   export namespace Provider {
     export interface State {
       user: User;
       pending: boolean;
       authorized: boolean;
       error: string;
-      logIn?(payload: LogInPayload): Promise<void>;
+      logIn?(payload: Credentials): Promise<void>;
       logOut?(): Promise<void>;
     }
 
@@ -44,14 +56,14 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
     }
 
     try {
-      const user = await getAuthorizedUser();
+      const user = await getSelf();
       this.setState({ ...STATE, authorized: true, user });
     } catch {
       this.setState({ ...STATE });
     }
   };
 
-  logIn = async (credentials: LogInPayload) => {
+  logIn = async (credentials: Auth.Credentials) => {
     const { pending } = this.state;
 
     if (!pending) {
@@ -99,15 +111,14 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
   }
 }
 
-const useProvider = () => {
+const use = () => {
   const context = useContext(Context);
   return context;
 };
 
 const Auth = {
   Provider: withRouter(Provider),
-  Context,
-  useProvider
+  use
 };
 
 export default Auth;

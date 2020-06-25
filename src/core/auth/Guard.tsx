@@ -12,7 +12,8 @@ namespace Guard {
   }
 
   export namespace Children {
-    export interface InjectedState extends Omit<Auth.Provider.State, 'authorized' | 'pending'> {}
+    export interface InjectedState
+      extends Omit<Auth.Provider.State, 'authorized' | 'pending'> {}
 
     export type RenderProp = (state: InjectedState) => JSX.Element;
   }
@@ -23,7 +24,7 @@ namespace Guard {
 }
 
 const Protected = ({ children }: Guard.Props) => {
-  const { pending, authorized, ...state } = Auth.useProvider();
+  const { pending, authorized, ...state } = Auth.use();
 
   return pending
     ? null
@@ -35,7 +36,7 @@ const Protected = ({ children }: Guard.Props) => {
 };
 
 const Unprotected = ({ children }: Guard.Props) => {
-  const { pending, authorized, ...state } = Auth.useProvider();
+  const { pending, authorized, ...state } = Auth.use();
 
   return pending
     ? null
@@ -47,7 +48,7 @@ const Unprotected = ({ children }: Guard.Props) => {
 };
 
 const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
-  const { pending, authorized } = Auth.useProvider();
+  const { pending, authorized } = Auth.use();
 
   return (
     <Route
@@ -60,7 +61,7 @@ const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route
 };
 
 const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
-  const { pending, authorized } = Auth.useProvider();
+  const { pending, authorized } = Auth.use();
 
   return (
     <Route
