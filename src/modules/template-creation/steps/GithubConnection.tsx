@@ -28,7 +28,7 @@ export const GithubConnection = ({
         value={fields[0].value}
         onChange={change}
       />
-
+      
       <div className={csx.access}>
         <Checkbox
           variant="informing"
