@@ -3,6 +3,8 @@ export interface Template {
   name: string;
   description: string;
   githubLink: string;
+  technologies?: string[];
+  patterns?: string[];
   // Remove this part later
   views?: number;
   stars?: number;

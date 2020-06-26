@@ -16,4 +16,6 @@ export const getTemplates = ({ limit, page, query, technologiesIds }: GetTemplat
   return core.get<Template[]>(`Templates/Search?${params}`);
 };
 
+export const getTemplateDetails = (id: string) => core.get<Template>(`Templates/${id}`);
+
 export const addTemplate = (payload: AddTemplatePayload) => core.post<string>('Templates', payload);

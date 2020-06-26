@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
@@ -11,12 +11,12 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Button } from 'ui';
 
 import csx from './TemplateDetails.scss';
+import { Template, getTemplateDetails } from 'api';
 
 interface TemplateDetailsProps extends RouteChildrenProps<{ id: string }> {}
 
 const TemplateDetails = ({ match }: TemplateDetailsProps) => {
-  const MOCKED_TECH = ['PWA', 'React', 'JavaScript', 'TypeScript', 'MVP'];
-  const MOCKED_PATTERNS = ['PWA', 'MVP'];
+  
   const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
   const MOCKED_AUTHORS = [
     'https://dummyimage.com/64x64/000/fff.png',
@@ -24,19 +24,28 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
     'https://dummyimage.com/64x64/000/fff.png'
   ];
 
+  const [template, setTemplate] = useState<Template>(null);
+
   const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
   const mapImages = (list: string[]) =>
-    list.map((item) => (
-      <li key={item}>
+  // to avoid key error
+    list.map((item, idx) => (
+      <li key={item + idx}>
         <img src={item} />
       </li>
     ));
 
   useEffect(() => {
-    console.log(match);
-    console.log(`callApi with id ${match.params.id}`);
+    const getData = async () => {
+      const template = await getTemplateDetails(match.params.id);
+
+      setTemplate(template);
+    }
+
+    getData();
   }, [match.params.id]);
-  
+
+  if (template === null) return <div>Loading...</div>
   return (
     <div className={csx.templateDetails}>
       <div className={csx.container}>
@@ -57,19 +66,20 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
             <Button variant="icon" className={csx.button}>
               <EditIcon />
             </Button>
-            <ul className={[csx.basicList, csx.primary].join(' ')}>{mapList(MOCKED_TECH)}</ul>
+            <ul className={[csx.basicList, csx.primary].join(' ')}>{mapList(template.technologies)}</ul>
           </span>
         </section>
 
         <section className={csx.details}>
           <span className={csx.watches}>
             <VisibilityIcon />
-            13k watch
+            {template.views}
           </span>
           <span className={csx.stars}>
             <StarBorderIcon />
-            3.5k stars
+            {template.stars}
           </span>
+          {/* MISSING FROM API? */}
           <p className={csx.createdBy}>Created 12 months ago by user</p>
         </section>
 
@@ -78,17 +88,11 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
             <Button variant="icon" className={csx.button}>
               <EditIcon />
             </Button>
-            <span>React with model view provider</span>
+            <span>{template.name}</span>
           </h2>
 
           <p className={csx.description}>
-            CSS uses a global namespace for CSS Selectors that can easily result in style conflicts
-            throughout your application when building an application using modern web components.
-            You can avoid this problem by nesting CSS selectors or use a styling convention like BEM
-            but this becomes complicated quickly and won’t scale. CSS-in-JS avoids these problems
-            entirely by generating unique class names when styles are converted to CSS. This allows
-            you to think about styles on a component level with out worrying about styles defined
-            elsewhere.
+            {template.description}
           </p>
         </section>
 
@@ -99,6 +103,7 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
             </Button>
             <span>Tech stack</span>
           </h3>
+          {/* MISSING FROM API? */}
           <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(MOCKED_TECH_STACK)}</ul>
         </section>
 
@@ -109,7 +114,7 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
             </Button>
             <span>Patterns</span>
           </h3>
-          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(MOCKED_PATTERNS)}</ul>
+          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(template.patterns)}</ul>
         </section>
 
         <section className={csx.col}>
@@ -119,6 +124,7 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
             </Button>
             <span>Authors</span>
           </h3>
+          {/* MISSING FROM API? */}
           <ul style={{ display: 'inline-flex' }}>{mapImages(MOCKED_AUTHORS)}</ul>
         </section>
       </div>
