@@ -1,12 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { Guard } from 'core/auth';
 
 import SendIcon from '@material-ui/icons/Send';
 
 import { Logo, Button } from 'ui';
 
 import csx from './Footer.scss';
-import { NavLink } from 'react-router-dom';
-import { Guard } from 'core/auth';
 
 export const Footer = () => {
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { NavLink } from 'react-router-dom';
 
 import { Guard } from 'core/auth';
@@ -9,7 +8,6 @@ import { Logo } from 'ui';
 import { HomeLink } from '.';
 
 import csx from './Topbar.scss';
-
 
 const LINK_WIDTH = 90;
 const LINK_MARGIN = 60;
@@ -44,7 +42,7 @@ export const Topbar = () => {
         <section className={csx.links}>
           {LINKS.map((value, idx) => {
             return (
-              <NavLink to={value.linkTo} key={idx}>
+              <NavLink key={idx} to={value.linkTo}>
                 <span
                   className={idx === activeLink ? csx.active : null}
                   onClick={() => setActiveLink(idx)}

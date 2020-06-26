@@ -1,8 +1,5 @@
 import React from 'react';
-
 import { NavLink } from 'react-router-dom';
-
-import { Guard } from 'core/auth';
 
 import { Button } from 'ui';
 
