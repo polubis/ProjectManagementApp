@@ -1,67 +1,35 @@
-import React, { useEffect, useCallback, useContext, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { GetTemplatesPayload } from 'api';
+import SearchCategories from './search-categories';
+import TemplatesSearch from './template-search';
+import TemplateTiles from './template-tiles';
+import TemplatesProvider from './TemplatesProvider';
 
-import { useScroll, useQueryParams } from 'utils';
-
-import { TemplatesContext } from 'core/templates';
-
-import { TemplatesHeader, TemplatesSearch, TemplateTiles, TemplatesProps } from '.';
+import { useTemplatesSearch } from '.';
 
 import csx from './Templates.scss';
 
-const categories = ['all', 'recommended', 'top', 'recent', 'yours'];
-
-const Templates = ({
-  match: {
-    params: { category }
-  }
-}: TemplatesProps) => {
+const Templates = () => {
   const history = useHistory();
 
-  const [query] = useQueryParams('query');
+  useTemplatesSearch();
 
-  const [usedFilters, setUsedFilters] = useState<GetTemplatesPayload>({
-    page: 1,
-    limit: 25,
-    query
-  });
-
-  const { getTemplates } = useContext(TemplatesContext);
-
-  const handleCategoryChange = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const changeCategory = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     history.push(e.currentTarget.getAttribute('data-category'));
   }, []);
 
-  useEffect(() => {
-    if (!categories.includes(category)) {
-      history.push(categories[0]);
-    }
-  }, []);
-
-  useEffect(() => {
-    getTemplates(usedFilters);
-  }, [usedFilters]);
-
-  useScroll(() => {
-    setUsedFilters((prevFilters) => ({
-      ...prevFilters,
-      page: prevFilters.page + 1
-    }));
-  }, 1000);
-
   return (
     <div className={csx.templates}>
-      <TemplatesHeader
-        activeCategory={category}
-        categories={categories}
-        onCategoryClick={handleCategoryChange}
-      />
+      <SearchCategories onClick={changeCategory} />
       <TemplatesSearch />
       <TemplateTiles />
     </div>
   );
 };
 
-export default Templates;
+export default () => (
+  <TemplatesProvider>
+    <Templates />
+  </TemplatesProvider>
+);

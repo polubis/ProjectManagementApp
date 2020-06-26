@@ -1,1 +1,3 @@
-export * from './TemplateTile';
+import TemplateTile from './TemplateTile';
+
+export default TemplateTile;

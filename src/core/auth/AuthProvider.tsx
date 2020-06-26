@@ -3,38 +3,25 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import { Alert } from 'ui';
 
-import { getSelf, logIn, logOut } from '.';
+import { SelfUser, LogInPayload, getSelf, logIn, logOut, logInViaGithub } from 'core/api';
 
-namespace Auth {
-  export interface Credentials {
-    login: string;
-    password: string;
+namespace AuthProvider {
+  export interface State {
+    user: SelfUser;
+    pending: boolean;
+    authorized: boolean;
+    error: string;
+    logIn?(payload: LogInPayload): Promise<void>;
+    logInViaGithub?(): void;
+    logOut?(): Promise<void>;
   }
 
-  export interface User {
-    username: string;
-    email: string;
-    firstName: string | null;
-    lastName: string | null;
-  }
-
-  export namespace Provider {
-    export interface State {
-      user: User;
-      pending: boolean;
-      authorized: boolean;
-      error: string;
-      logIn?(payload: Credentials): Promise<void>;
-      logOut?(): Promise<void>;
-    }
-
-    export interface Props extends RouteComponentProps {
-      children: ReactNode;
-    }
+  export interface Props extends RouteComponentProps {
+    children: ReactNode;
   }
 }
 
-const STATE: Auth.Provider.State = {
+const STATE: AuthProvider.State = {
   user: null,
   pending: false,
   authorized: false,
@@ -43,7 +30,7 @@ const STATE: Auth.Provider.State = {
 
 const Context = createContext(STATE);
 
-class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
+class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
   componentDidMount() {
     this.authorize();
   }
@@ -63,7 +50,7 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
     }
   };
 
-  logIn = async (credentials: Auth.Credentials) => {
+  logIn = async (payload: LogInPayload) => {
     const { pending } = this.state;
 
     if (!pending) {
@@ -71,7 +58,7 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
     }
 
     try {
-      const user = await logIn(credentials);
+      const user = await logIn(payload);
       this.setState({ ...STATE, authorized: true, user }, () => {
         this.props.history.replace('/app');
       });
@@ -96,7 +83,8 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
   readonly state: typeof STATE = {
     ...STATE,
     logIn: this.logIn,
-    logOut: this.logOut
+    logOut: this.logOut,
+    logInViaGithub
   };
 
   render() {
@@ -111,14 +99,12 @@ class Provider extends React.Component<Auth.Provider.Props, typeof STATE> {
   }
 }
 
-const use = () => {
+const AuthProvider = withRouter(Provider);
+
+export const useAuthProvider = () => {
   const context = useContext(Context);
+
   return context;
 };
 
-const Auth = {
-  Provider: withRouter(Provider),
-  use
-};
-
-export default Auth;
+export default AuthProvider;

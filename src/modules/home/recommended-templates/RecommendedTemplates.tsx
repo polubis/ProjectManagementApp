@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TemplateTile } from 'src/modules/templates';
+import TemplateTile from 'src/modules/templates/template-tiles/template-tile';
 
 import { templatesMock } from 'src/mocks/templates';
 

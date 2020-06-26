@@ -1,4 +1,4 @@
-import { Template } from 'api';
+import { Template } from 'core/api';
 
 export const templatesMock: Template[] = [
   {

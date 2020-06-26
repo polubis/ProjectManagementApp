@@ -1,13 +1,13 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 
 import { throttle } from 'utils';
 
-export const useScroll = (callback: Function, offset = 0) => {
+export const useScroll = (offset = 0) => {
+  const [bottomExceeded, setIsBottomExceeded] = useState(false);
+
   const onScroll = useCallback(() => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - offset) {
-      callback();
-    }
-  }, [callback]);
+    setIsBottomExceeded(window.innerHeight + window.scrollY >= document.body.offsetHeight - offset);
+  }, []);
 
   useEffect(() => {
     const debouncedOnScroll = throttle(onScroll, 200);
@@ -18,4 +18,6 @@ export const useScroll = (callback: Function, offset = 0) => {
       document.removeEventListener('scroll', debouncedOnScroll);
     };
   }, []);
+
+  return bottomExceeded;
 };

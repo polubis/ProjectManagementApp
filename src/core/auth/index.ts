@@ -1,4 +1,6 @@
-export { default as Auth } from './Auth';
+import AuthProvider from './AuthProvider';
+
 export { default as Guard } from './Guard';
 
-export * from './service';
+export * from './AuthProvider';
+export default AuthProvider;

@@ -6,20 +6,23 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { Form } from 'utils';
+import { Form, useQueryParams } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 
 import csx from './TemplatesSearch.scss';
 
-const config: Form.Config = [{ label: 'Query' }, { label: 'Technologies', value: [] }];
-
-export const TemplatesSearch = () => {
+const TemplatesSearch = () => {
   const history = useHistory();
+
+  const [query] = useQueryParams('query');
 
   const { technologies } = useContext(TechnologiesContext);
 
-  const [{ fields }, change, directChange, submit] = Form.useManager(config);
+  const [{ fields }, change, directChange, submit] = Form.useManager([
+    { label: 'Query', value: query },
+    { label: 'Technologies', value: [] }
+  ]);
 
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
@@ -52,6 +55,10 @@ export const TemplatesSearch = () => {
     },
     [fields]
   );
+
+  useEffect(() => {
+    directChange([0], [query]);
+  }, [query]);
 
   useEffect(() => {
     const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
@@ -88,3 +95,5 @@ export const TemplatesSearch = () => {
     </form>
   );
 };
+
+export default TemplatesSearch;

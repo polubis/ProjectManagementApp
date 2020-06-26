@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TemplatesSearch } from 'src/modules/templates';
+import TemplatesSearch from 'src/modules/templates/template-search';
 
 import csx from './BasicInformation.scss';
 

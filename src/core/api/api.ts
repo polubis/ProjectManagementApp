@@ -1,8 +1,6 @@
 import Axios, { AxiosError, AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
 
-import { CORE_API_PATH } from 'consts';
-
-namespace Api {
+export namespace Api {
   export interface Response<T> {
     data: T;
     errors: string[];
@@ -25,13 +23,7 @@ namespace Api {
   }
 }
 
-const parseError = ({ response: { statusText } }: AxiosError) => {
-  return Promise.reject(statusText);
-};
-
-const parseSuccess = (response: AxiosResponse<Api.Response<any>>) => response.data.data;
-
-const makeInstance = (config: AxiosRequestConfig) => (
+export const makeInstance = (config: AxiosRequestConfig) => (
   onSuccess: Api.Parser.Success,
   onError: Api.Parser.Error
 ): Api.Instance => {
@@ -44,9 +36,3 @@ const makeInstance = (config: AxiosRequestConfig) => (
 
   return instance;
 };
-
-export const core = makeInstance({
-  baseURL: CORE_API_PATH,
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true
-})(parseSuccess, parseError);
