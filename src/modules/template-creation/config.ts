@@ -30,7 +30,7 @@ export const config: TemplateManagementConfig = [
     formConfig: [
       {
         label: 'Repository link',
-        fns: [V.req, V.url, V.githubUrl]
+        fns: [V.req, V.githubUrl]
       },
       {
         label: 'Public access',
