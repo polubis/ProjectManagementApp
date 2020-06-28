@@ -1,3 +1,3 @@
-export * from './template-tile';
-export * from './placeholder';
-export * from './TemplateTiles';
+import TemplateTiles from './TemplateTiles';
+
+export default TemplateTiles;

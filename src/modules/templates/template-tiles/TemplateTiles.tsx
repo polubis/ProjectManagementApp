@@ -1,16 +1,17 @@
-import React, { useContext, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { TemplatesContext } from 'core/templates';
+import { useTemplatesProvider } from '../TemplatesProvider';
 
-import { TemplateTile, Placeholder } from '.';
+import Placeholder from './placeholder';
+import TemplateTile from './template-tile';
 
 import csx from './TemplateTiles.scss';
 
-export const TemplateTiles = () => {
+const TemplateTiles = () => {
   const { push, location } = useHistory();
 
-  const { templates, loading } = useContext(TemplatesContext);
+  const { templates, loading } = useTemplatesProvider();
 
   const goToDetails = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -33,3 +34,5 @@ export const TemplateTiles = () => {
     </section>
   );
 };
+
+export default TemplateTiles;

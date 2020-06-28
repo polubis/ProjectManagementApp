@@ -1,22 +1,28 @@
 import React, { useCallback, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { Checkbox, Select } from 'ui';
 
-import { throttle, Form } from 'utils';
+import { Form, useQueryParams } from 'utils';
 
 import { TechnologiesContext } from 'core/technologies';
 
-import { TemplatesSearchProps, searchFormConfig } from '.';
-
 import csx from './TemplatesSearch.scss';
 
-export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
+const TemplatesSearch = () => {
+  const history = useHistory();
+
+  const [query] = useQueryParams('query');
+
   const { technologies } = useContext(TechnologiesContext);
 
-  const [{ fields }, change, directChange, submit] = Form.useManager(searchFormConfig);
+  const [{ fields }, change, directChange, submit] = Form.useManager([
+    { label: 'Query', value: query },
+    { label: 'Technologies', value: [] }
+  ]);
 
   const setTechnologiesSelection = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
@@ -35,8 +41,6 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
     [fields]
   );
 
-  const throttledOnSubmit = useCallback(throttle(onSubmit, 500), []);
-
   const handleSubmit = useCallback(
     (e: Form.Events.Submit) => {
       const isInvalid = submit(e);
@@ -45,12 +49,16 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
         return;
       }
 
-      throttledOnSubmit({
-        query: fields[0].value
-      });
+      const [{ value: query }] = fields;
+
+      history.push(`/app/templates/all?query=${query}`);
     },
     [fields]
   );
+
+  useEffect(() => {
+    directChange([0], [query]);
+  }, [query]);
 
   useEffect(() => {
     const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
@@ -87,3 +95,5 @@ export const TemplatesSearch = ({ onSubmit }: TemplatesSearchProps) => {
     </form>
   );
 };
+
+export default TemplatesSearch;

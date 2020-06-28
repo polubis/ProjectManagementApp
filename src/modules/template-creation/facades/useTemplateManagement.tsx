@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { AddTemplatePayload, addTemplate } from 'api';
+import { addTemplate, AddTemplatePayload } from 'core/api';
 
 import { UseTemplateManagement, UseTemplateManagementState } from '.';
 

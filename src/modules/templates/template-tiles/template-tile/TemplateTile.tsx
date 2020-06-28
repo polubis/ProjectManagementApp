@@ -5,16 +5,18 @@ import { Avatar } from '@material-ui/core';
 import StarsIcon from '@material-ui/icons/StarOutlined';
 import ViewsIcon from '@material-ui/icons/RemoveRedEye';
 
-import { Template } from 'api';
+import { Template } from 'core/api';
 
 import csx from './TemplateTile.scss';
 
-export interface TemplateTileProps {
-  template: Template;
-  onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
+namespace TemplateTile {
+  export interface Props {
+    template: Template;
+    onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
+  }
 }
 
-export const TemplateTile = ({ template, onClick }: TemplateTileProps) => {
+const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
   return (
     <div data-id={template.id} className={csx.templateTile} onClick={onClick}>
       <header className={csx.toolbar}>
@@ -47,3 +49,5 @@ export const TemplateTile = ({ template, onClick }: TemplateTileProps) => {
     </div>
   );
 };
+
+export default TemplateTile;

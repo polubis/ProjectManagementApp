@@ -1,11 +1,9 @@
 import { CORE_API_PATH } from 'consts';
 
-import { core } from 'core/api';
+import { core, LogInPayload, SelfUser } from '..';
 
-import { Auth } from '.';
-
-export const logIn = (payload: Auth.Credentials) =>
-  core.post<Auth.User>('Authorization/SignIn', payload);
+export const logIn = (payload: LogInPayload) =>
+  core.post<SelfUser>('Authorization/SignIn', payload);
 
 export const logInViaGithub = () => {
   window.location.href = `${CORE_API_PATH}GithubAuthorization/SignIn?redirectUrl=${window.location.origin}/app`;
