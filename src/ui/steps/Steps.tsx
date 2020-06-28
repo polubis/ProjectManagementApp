@@ -14,15 +14,10 @@ namespace Steps {
 
   export interface Props {
     items: Item[];
-    onChange(item: number): void;
   }
 }
 
-const Steps = ({ items, onChange }: Steps.Props) => {
-  const handleStepClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onChange(+e.currentTarget.getAttribute('data-idx'));
-  };
-
+const Steps = ({ items }: Steps.Props) => {
   return (
     <nav className={csx.steps}>
       {items.map(({ label, content, status, progress }, idx) => (
@@ -32,10 +27,9 @@ const Steps = ({ items, onChange }: Steps.Props) => {
           className={`${csx.stepWrapper} ${
             status === undefined ? '' : status ? csx.valid : csx.invalid
           }`}
-          onClick={handleStepClick}
         >
           <div className={csx.step}>
-            <IconButton>{content || idx + 1}</IconButton>
+            <div>{content || idx + 1}</div>
             <span>{label}</span>
           </div>
           {idx !== items.length - 1 && (

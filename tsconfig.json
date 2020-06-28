@@ -34,7 +34,6 @@
       "modules": ["src/modules"],
       "utils": ["src/utils"],
       "core/*": ["src/core/*"],
-      "api": ["src/api"],
       "mocks": ["src/mocks"],
       "services*": ["src/services/*"],
       "styles": ["src/styles"]

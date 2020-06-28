@@ -26,21 +26,13 @@ const Register = () => {
   const work = Form.useManager(config[WORK].formConfig);
   const almostDone = Form.useManager(config[ALMOST_DONE].formConfig);
 
-  const onStepChange = useCallback(
-    (step: number) => {
-      // changeStep(step);
-      setActiveStep(step);
-    },
-    [activeStep]
-  );
-
   const { label, description } = config[activeStep];
 
   return (
     <div className={csx.register}>
       <StepHeader description={description} label={label} />
 
-      <Steps items={config} onChange={onStepChange} />
+      <Steps items={config} />
 
       {activeStep === CREDENTIALS && <Credentials formManager={credentials} onSubmit={() => {}} />}
 

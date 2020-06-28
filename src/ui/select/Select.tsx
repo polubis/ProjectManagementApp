@@ -50,7 +50,7 @@ const Select = ({
   const isMenuOpen = Boolean(anchorEl);
 
   const selectedItems = useMemo(() => {
-    return items.filter(({ value }) => value);
+    return items.filter(({ value }) => value).reverse();
   }, [items]);
 
   return (
