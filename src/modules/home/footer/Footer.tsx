@@ -1,4 +1,7 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { Guard } from 'core/auth';
 
 import SendIcon from '@material-ui/icons/Send';
 
@@ -19,9 +22,9 @@ export const Footer = () => {
         <p>Do you lack any functionality? Let us know what you need and we will implement it :</p>
         <Button>LET US KNOW</Button>
         <ul className={csx.list}>
-          <li>Home</li>
-          <li>About</li>
-          <li>Go to App</li>
+          <NavLink to=""><li>Home</li></NavLink>
+          <NavLink to=""><li>About</li></NavLink>
+          <NavLink to="/app"><li>Go to App</li></NavLink>
         </ul>
       </section>
       <section className={`${csx.basicSection} ${csx.newsletter}`}>
@@ -37,8 +40,12 @@ export const Footer = () => {
           </Button>
         </div>
         <ul className={csx.list}>
-          <li>Sign Up</li>
-          <li>Sign In</li>
+          <Guard.Unprotected>
+          <>
+          <NavLink to="/register"><li>Sign Up</li></NavLink>
+          <NavLink to="/login"><li>Sign In</li></NavLink>
+          </>
+          </Guard.Unprotected>
         </ul>
       </section>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TemplatesSearch } from 'src/modules/templates';
+import TemplatesSearch from 'src/modules/templates/template-search';
 
 import csx from './BasicInformation.scss';
 
@@ -15,7 +15,7 @@ export const BasicInformation = () => {
         Use <span>Jupi.io</span> to boost your development process with high quality templates
         prepared by developers community from around the world
       </p>
-      <TemplatesSearch onSubmit={() => {}} />
+      <TemplatesSearch />
     </section>
   );
 };

@@ -1,3 +1,3 @@
-export * from './config';
-export * from './models';
-export * from './TemplatesSearch';
+import TemplatesSearch from './TemplatesSearch';
+
+export default TemplatesSearch;

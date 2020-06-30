@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { Guard } from 'core/auth';
 
 import { Logo } from 'ui';
 
@@ -23,7 +26,6 @@ const LINKS: HomeLink[] = [
   }
 ];
 
-
 export const Topbar = () => {
   const [activeLink, setActiveLink] = useState(0);
 
@@ -40,13 +42,14 @@ export const Topbar = () => {
         <section className={csx.links}>
           {LINKS.map((value, idx) => {
             return (
-              <span
-                key={idx}
-                className={idx === activeLink ? csx.active : null}
-                onClick={() => setActiveLink(idx)}
-              >
-                {value.label}
-              </span>
+              <NavLink key={idx} to={value.linkTo}>
+                <span
+                  className={idx === activeLink ? csx.active : null}
+                  onClick={() => setActiveLink(idx)}
+                >
+                  {value.label}
+                </span>
+              </NavLink>
             );
           })}
           <div
@@ -59,8 +62,16 @@ export const Topbar = () => {
       </div>
 
       <div className={csx.actions}>
-        <span>Sing up</span>
-        <span>Sign in</span>
+        <Guard.Unprotected>
+          <>
+            <NavLink to="/register">
+              <span>Sing up</span>
+            </NavLink>
+            <NavLink to="/login">
+              <span>Sign in</span>
+            </NavLink>
+          </>
+        </Guard.Unprotected>
       </div>
     </nav>
   );

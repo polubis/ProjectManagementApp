@@ -4,14 +4,14 @@ import { Button } from 'ui';
 
 import { IMGS_PATH } from 'consts';
 
-import { Auth, logInViaGithub } from 'core/auth';
+import { useAuthProvider } from 'core/auth';
 
 import LoginForm from './login-form';
 
 import csx from './Login.scss';
 
 const Login = () => {
-  const { logIn, pending } = Auth.use();
+  const { logIn, logInViaGithub, pending } = useAuthProvider();
 
   return (
     <div className={csx.login}>

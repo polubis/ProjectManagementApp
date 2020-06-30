@@ -5,14 +5,14 @@ import { Button, InputField, Checkbox } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { Auth } from 'core/auth';
+import { LogInPayload } from 'core/api';
 
 import csx from './LoginForm.scss';
 
 namespace LoginForm {
   export interface Props {
     disabled: boolean;
-    onSubmit(credentials: Auth.Credentials): void;
+    onSubmit(credentials: LogInPayload): void;
   }
 }
 

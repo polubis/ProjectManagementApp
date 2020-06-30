@@ -1,4 +1,4 @@
-import { AddTemplatePayload } from 'api';
+import { AddTemplatePayload } from 'core/api';
 
 export interface UseTemplateManagementState {
   pending: boolean;

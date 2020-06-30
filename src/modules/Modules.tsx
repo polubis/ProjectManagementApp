@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { Auth } from 'core/auth';
+import AuthProvider from 'core/auth';
 import TechnologiesProvider from 'core/technologies';
 
 import ModulesRouter from './ModulesRouter';
 
 const Modules = () => {
   return (
-    <Auth.Provider>
+    <AuthProvider>
       <TechnologiesProvider>
         <ModulesRouter />
       </TechnologiesProvider>
-    </Auth.Provider>
+    </AuthProvider>
   );
 };
 
