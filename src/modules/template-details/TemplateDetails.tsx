@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,8 +15,10 @@ import { Template, getTemplateDetails } from 'api';
 
 interface TemplateDetailsProps extends RouteChildrenProps<{ id: string }> {}
 
+// TODO - REPLACE MISSING PROPERTIES WHEN ENDPOINT WILL BE FINISHED
+// TODO - CONNECT EDIT
+
 const TemplateDetails = ({ match }: TemplateDetailsProps) => {
-  
   const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
   const MOCKED_AUTHORS = [
     'https://dummyimage.com/64x64/000/fff.png',
@@ -28,7 +30,7 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
 
   const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
   const mapImages = (list: string[]) =>
-  // to avoid key error
+    // to avoid key error
     list.map((item, idx) => (
       <li key={item + idx}>
         <img src={item} />
@@ -38,35 +40,37 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
   useEffect(() => {
     const getData = async () => {
       const template = await getTemplateDetails(match.params.id);
-
       setTemplate(template);
-    }
+    };
 
     getData();
   }, [match.params.id]);
 
-  if (template === null) return <div>Loading...</div>
+  if (template === null) return <div>Loading...</div>;
   return (
     <div className={csx.templateDetails}>
       <div className={csx.container}>
         <div className={csx.actions}>
+          <Button>
+            <EditIcon /> EDIT
+          </Button>
           <NavLink to={`${match.url}/documentation`}>
             <Button>
               <MenuBookIcon /> DOCS
             </Button>
           </NavLink>
-
-          <Button>
-            <ShareIcon /> SOURCE
-          </Button>
+          <Link to={{ pathname: template.githubLink }} target="_blank">
+            <Button>
+              <ShareIcon /> SOURCE
+            </Button>
+          </Link>
         </div>
 
         <section>
           <span className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <ul className={[csx.basicList, csx.primary].join(' ')}>{mapList(template.technologies)}</ul>
+            <ul className={[csx.basicList, csx.primary].join(' ')}>
+              {mapList(template.technologies)}
+            </ul>
           </span>
         </section>
 
@@ -85,22 +89,14 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
 
         <section>
           <h2 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
             <span>{template.name}</span>
           </h2>
 
-          <p className={csx.description}>
-            {template.description}
-          </p>
+          <p className={csx.description}>{template.description}</p>
         </section>
 
         <section className={csx.col}>
           <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
             <span>Tech stack</span>
           </h3>
           {/* MISSING FROM API? */}
@@ -109,9 +105,6 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
 
         <section className={csx.col}>
           <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
             <span>Patterns</span>
           </h3>
           <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(template.patterns)}</ul>
@@ -119,9 +112,6 @@ const TemplateDetails = ({ match }: TemplateDetailsProps) => {
 
         <section className={csx.col}>
           <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
             <span>Authors</span>
           </h3>
           {/* MISSING FROM API? */}
