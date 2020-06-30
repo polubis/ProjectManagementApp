@@ -10,8 +10,11 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import { Button } from 'ui';
 
+import { getTemplateDetails, Template } from 'core/api';
+
 import csx from './TemplateDetails.scss';
-import { Template, getTemplateDetails } from 'api';
+
+
 
 interface TemplateDetailsProps extends RouteChildrenProps<{ id: string }> {}
 
