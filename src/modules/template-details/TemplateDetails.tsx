@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
+
+import { CircularProgress } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -10,119 +12,121 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import { Button } from 'ui';
 
-import { getTemplateDetails, Template } from 'core/api';
+import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
+
+import { convertNumber, convertDate } from 'src/utils/calculations';
+
+import { Contributors } from 'core/api';
 
 import csx from './TemplateDetails.scss';
 
+namespace TemplateDetails {
+  export interface Props extends RouteChildrenProps<{ id: string }> {}
+}
 
-
-interface TemplateDetailsProps extends RouteChildrenProps<{ id: string }> {}
-
-// TODO - REPLACE MISSING PROPERTIES WHEN ENDPOINT WILL BE FINISHED
 // TODO - CONNECT EDIT
 
-const TemplateDetails = ({ match }: TemplateDetailsProps) => {
-  const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
-  const MOCKED_AUTHORS = [
-    'https://dummyimage.com/64x64/000/fff.png',
-    'https://dummyimage.com/64x64/000/fff.png',
-    'https://dummyimage.com/64x64/000/fff.png'
-  ];
+const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
 
-  const [template, setTemplate] = useState<Template>(null);
+const mapImages = (contributors: Contributors[]) => {
+  if (contributors === null || contributors.length === 0)
+  return;
 
-  const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
-  const mapImages = (list: string[]) =>
-    // to avoid key error
-    list.map((item, idx) => (
-      <li key={item + idx}>
-        <img src={item} />
-      </li>
-    ));
+  return contributors.map(({name, avatar}) => (
+    <li key={name}>
+      <img src={avatar} />
+    </li>
+  ));
+}
+
+const TemplateDetails = ({match}: TemplateDetails.Props) => {
+
+  const { template, loading, getTemplate } = useTemplateDetailsProvider();
 
   useEffect(() => {
-    const getData = async () => {
-      const template = await getTemplateDetails(match.params.id);
-      setTemplate(template);
-    };
-
-    getData();
+    getTemplate(match.params.id);
   }, [match.params.id]);
 
-  if (template === null) return <div>Loading...</div>;
   return (
     <div className={csx.templateDetails}>
       <div className={csx.container}>
-        <div className={csx.actions}>
-          <Button>
-            <EditIcon /> EDIT
-          </Button>
-          <NavLink to={`${match.url}/documentation`}>
-            <Button>
-              <MenuBookIcon /> DOCS
-            </Button>
-          </NavLink>
-          <Link to={{ pathname: template.githubLink }} target="_blank">
-            <Button>
-              <ShareIcon /> SOURCE
-            </Button>
-          </Link>
-        </div>
+        {loading && <CircularProgress />}
 
-        <section>
-          <span className={csx.header}>
-            <ul className={[csx.basicList, csx.primary].join(' ')}>
-              {mapList(template.technologies)}
-            </ul>
-          </span>
-        </section>
+        {!loading && (
+          <>
+            <div className={csx.actions}>
+              <Button>
+                <EditIcon /> EDIT
+              </Button>
+              <NavLink to={`${match.url}/documentation`}>
+                <Button>
+                  <MenuBookIcon /> DOCS
+                </Button>
+              </NavLink>
+              <Link to={{ pathname: template.githubLink }} target="_blank">
+                <Button>
+                  <ShareIcon /> SOURCE
+                </Button>
+              </Link>
+            </div>
 
-        <section className={csx.details}>
-          <span className={csx.watches}>
-            <VisibilityIcon />
-            {template.views}
-          </span>
-          <span className={csx.stars}>
-            <StarBorderIcon />
-            {template.stars}
-          </span>
-          {/* MISSING FROM API? */}
-          <p className={csx.createdBy}>Created 12 months ago by user</p>
-        </section>
+            <section>
+              <span className={csx.header}>
+                <ul className={`${csx.basicList} ${csx.primary}`}>{mapList(template.tags)}</ul>
+              </span>
+            </section>
 
-        <section>
-          <h2 className={csx.header}>
-            <span>{template.name}</span>
-          </h2>
+            <section className={csx.details}>
+              <span className={csx.watches}>
+                <VisibilityIcon />
+                {convertNumber(template.watches)}
+              </span>
+              <span className={csx.stars}>
+                <StarBorderIcon />
+                {convertNumber(template.stars)}
+              </span>
+              <p className={csx.createdBy}>
+                Created at {convertDate(template.createdDate)} by user
+              </p>
+            </section>
 
-          <p className={csx.description}>{template.description}</p>
-        </section>
+            <section>
+              <h2 className={csx.header}>
+                <span>{template.name}</span>
+              </h2>
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <span>Tech stack</span>
-          </h3>
-          {/* MISSING FROM API? */}
-          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(MOCKED_TECH_STACK)}</ul>
-        </section>
+              <p className={csx.description}>{template.description}</p>
+            </section>
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <span>Patterns</span>
-          </h3>
-          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(template.patterns)}</ul>
-        </section>
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Tech stack</span>
+              </h3>
+              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.technologies)}</ul>
+            </section>
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <span>Authors</span>
-          </h3>
-          {/* MISSING FROM API? */}
-          <ul style={{ display: 'inline-flex' }}>{mapImages(MOCKED_AUTHORS)}</ul>
-        </section>
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Patterns</span>
+              </h3>
+              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.patterns)}</ul>
+            </section>
+
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Authors</span>
+              </h3>
+              <ul className={csx.authors}>{mapImages(template.contributors)}</ul>
+            </section>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-export default TemplateDetails;
+export default (props: TemplateDetails.Props) => (
+  <TemplateDetailsProvider>
+    <TemplateDetails {...props}/>
+  </TemplateDetailsProvider>
+);
