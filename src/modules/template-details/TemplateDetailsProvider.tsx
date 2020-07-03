@@ -31,15 +31,16 @@ class Provider extends React.Component<any, typeof STATE> {
       const template = await getTemplate(id);
 
       this.setState({
+        ...STATE,
         loading: false,
         template,
-        error: ''
       });
       
     } catch (error) {
       this.setState({
         ...STATE,
-        loading: false
+        loading: false,
+        error
       });
     }
   };

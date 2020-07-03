@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
-import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
+import { CircularProgress } from '@material-ui/core';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
 import { Contributors } from 'core/api';
 
-import { CircularProgress } from '@material-ui/core';
+import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
 
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
