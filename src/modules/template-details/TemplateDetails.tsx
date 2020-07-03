@@ -14,8 +14,6 @@ import { Button } from 'ui';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
-import { Contributors } from 'core/api';
-
 import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
 
 import csx from './TemplateDetails.scss';
@@ -25,18 +23,6 @@ namespace TemplateDetails {
 }
 
 // TODO - CONNECT EDIT
-
-const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
-
-const mapImages = (contributors: Contributors[]) => {
-  if (contributors === null || contributors.length === 0) return;
-
-  return contributors.map(({ name, avatar }) => (
-    <li key={name}>
-      <img src={avatar} />
-    </li>
-  ));
-};
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { template, loading, getTemplate } = useTemplateDetailsProvider();
@@ -52,6 +38,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
           <CircularProgress />
         ) : (
           <>
+            {console.log(template)}
             <div className={csx.actions}>
               <Button>
                 <EditIcon /> EDIT
@@ -70,7 +57,11 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
 
             <section>
               <span className={csx.header}>
-                <ul className={`${csx.basicList} ${csx.primary}`}>{mapList(template.tags)}</ul>
+                <ul className={`${csx.basicList} ${csx.primary}`}>
+                  {template.tags.map(({ id, name }) => (
+                    <li key={id}>{name}</li>
+                  ))}
+                </ul>
               </span>
             </section>
 
@@ -84,7 +75,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 {convertNumberToKFormat(template.stars)}
               </span>
               <p className={csx.createdBy}>
-                Created at {convertDate(template.createdDate)} by user
+                Created at {convertDate(template.createdDate)} by {template.addedBy}
               </p>
             </section>
 
@@ -100,28 +91,41 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h3 className={csx.header}>
                 <span>Tech stack</span>
               </h3>
-              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.technologies)}</ul>
+              <ul className={`${csx.basicList} ${csx.white} ${csx.technologies}`}>
+                {template.technologies.map(({ id, name }) => (
+                  <li key={id}>{name}</li>
+                ))}
+              </ul>
             </section>
 
             <section className={csx.col}>
               <h3 className={csx.header}>
                 <span>Patterns</span>
               </h3>
-              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.patterns)}</ul>
+              <ul className={`${csx.basicList} ${csx.white} ${csx.patterns}`}>
+                {template.patterns.map(({ id, name }) => (
+                  <li key={id}>{name}</li>
+                ))}
+              </ul>
             </section>
 
             <section className={csx.col}>
               <h3 className={csx.header}>
                 <span>Authors</span>
               </h3>
-              <ul className={csx.authors}>{mapImages(template.contributors)}</ul>
+              <ul className={csx.authors}>
+                {template.contributors !== null &&
+                  template.contributors.map(({ name, avatar }) => {
+                    return (
+                      <li key={name}>
+                        <img src={avatar} />
+                      </li>
+                    );
+                  })}
+              </ul>
             </section>
           </>
         )}
-        {/* {loading && <CircularProgress />}
-
-        {!loading && (
-         } */}
       </div>
     </div>
   );
