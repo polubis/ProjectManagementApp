@@ -4,12 +4,6 @@ import { RouteChildrenProps } from 'react-router';
 
 import { CircularProgress } from '@material-ui/core';
 
-import { convertNumberToKFormat, convertDate } from 'utils';
-
-import { Contributors } from 'core/api';
-
-import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
-
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -17,6 +11,12 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
 import { Button } from 'ui';
+
+import { convertNumberToKFormat, convertDate } from 'utils';
+
+import { Contributors } from 'core/api';
+
+import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
 
 import csx from './TemplateDetails.scss';
 
