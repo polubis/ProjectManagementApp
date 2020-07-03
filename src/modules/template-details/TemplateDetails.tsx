@@ -2,6 +2,12 @@ import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
+import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
+
+import { convertNumberToKFormat, convertDate } from 'utils';
+
+import { Contributors } from 'core/api';
+
 import { CircularProgress } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,12 +17,6 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
 import { Button } from 'ui';
-
-import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
-
-import { convertNumber, convertDate } from 'src/utils/calculations';
-
-import { Contributors } from 'core/api';
 
 import csx from './TemplateDetails.scss';
 
@@ -79,11 +79,11 @@ const TemplateDetails = ({match}: TemplateDetails.Props) => {
             <section className={csx.details}>
               <span className={csx.watches}>
                 <VisibilityIcon />
-                {convertNumber(template.watches)}
+                {convertNumberToKFormat(template.watches)}
               </span>
               <span className={csx.stars}>
                 <StarBorderIcon />
-                {convertNumber(template.stars)}
+                {convertNumberToKFormat(template.stars)}
               </span>
               <p className={csx.createdBy}>
                 Created at {convertDate(template.createdDate)} by user

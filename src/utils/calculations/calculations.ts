@@ -1,4 +1,4 @@
-export const convertNumber = (num: number): string =>
+export const convertNumberToKFormat = (num: number): string =>
   num > 1000 ? `${num / 1000}k` : `${num}`;
 
 export const convertDate = (value: Date): string => {

@@ -30,7 +30,7 @@ $padding: 20px 0;
   flex-wrap: wrap;
   .stars {
     @include row;
-    color: #ffdd00;
+    color: $stars;
   }
 
   .watches {
