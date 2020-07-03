@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
+
+import { CircularProgress } from '@material-ui/core';
+
+import { convertNumberToKFormat, convertDate } from 'utils';
+
+import { Contributors } from 'core/api';
+
+import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
 
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -12,118 +20,115 @@ import { Button } from 'ui';
 
 import csx from './TemplateDetails.scss';
 
-interface TemplateDetailsProps extends RouteChildrenProps<{ id: string }> {}
+namespace TemplateDetails {
+  export interface Props extends RouteChildrenProps<{ id: string }> {}
+}
 
-const TemplateDetails = ({ match }: TemplateDetailsProps) => {
-  const MOCKED_TECH = ['PWA', 'React', 'JavaScript', 'TypeScript', 'MVP'];
-  const MOCKED_PATTERNS = ['PWA', 'MVP'];
-  const MOCKED_TECH_STACK = ['React', 'Angular', 'Vue'];
-  const MOCKED_AUTHORS = [
-    'https://dummyimage.com/64x64/000/fff.png',
-    'https://dummyimage.com/64x64/000/fff.png',
-    'https://dummyimage.com/64x64/000/fff.png'
-  ];
+// TODO - CONNECT EDIT
 
-  const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
-  const mapImages = (list: string[]) =>
-    list.map((item) => (
-      <li key={item}>
-        <img src={item} />
-      </li>
-    ));
+const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
+
+const mapImages = (contributors: Contributors[]) => {
+  if (contributors === null || contributors.length === 0) return;
+
+  return contributors.map(({ name, avatar }) => (
+    <li key={name}>
+      <img src={avatar} />
+    </li>
+  ));
+};
+
+const TemplateDetails = ({ match }: TemplateDetails.Props) => {
+  const { template, loading, getTemplate } = useTemplateDetailsProvider();
 
   useEffect(() => {
-    console.log(match);
-    console.log(`callApi with id ${match.params.id}`);
+    getTemplate(match.params.id);
   }, [match.params.id]);
-  
+
   return (
     <div className={csx.templateDetails}>
       <div className={csx.container}>
-        <div className={csx.actions}>
-          <NavLink to={`${match.url}/documentation`}>
-            <Button>
-              <MenuBookIcon /> DOCS
-            </Button>
-          </NavLink>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <div className={csx.actions}>
+              <Button>
+                <EditIcon /> EDIT
+              </Button>
+              <NavLink to={`${match.url}/documentation`}>
+                <Button>
+                  <MenuBookIcon /> DOCS
+                </Button>
+              </NavLink>
+              <Link to={{ pathname: template.githubLink }} target="_blank">
+                <Button>
+                  <ShareIcon /> SOURCE
+                </Button>
+              </Link>
+            </div>
 
-          <Button>
-            <ShareIcon /> SOURCE
-          </Button>
-        </div>
+            <section>
+              <span className={csx.header}>
+                <ul className={`${csx.basicList} ${csx.primary}`}>{mapList(template.tags)}</ul>
+              </span>
+            </section>
 
-        <section>
-          <span className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <ul className={[csx.basicList, csx.primary].join(' ')}>{mapList(MOCKED_TECH)}</ul>
-          </span>
-        </section>
+            <section className={csx.details}>
+              <span className={csx.watches}>
+                <VisibilityIcon />
+                {convertNumberToKFormat(template.watches)}
+              </span>
+              <span className={csx.stars}>
+                <StarBorderIcon />
+                {convertNumberToKFormat(template.stars)}
+              </span>
+              <p className={csx.createdBy}>
+                Created at {convertDate(template.createdDate)} by user
+              </p>
+            </section>
 
-        <section className={csx.details}>
-          <span className={csx.watches}>
-            <VisibilityIcon />
-            13k watch
-          </span>
-          <span className={csx.stars}>
-            <StarBorderIcon />
-            3.5k stars
-          </span>
-          <p className={csx.createdBy}>Created 12 months ago by user</p>
-        </section>
+            <section>
+              <h2 className={csx.header}>
+                <span>{template.name}</span>
+              </h2>
 
-        <section>
-          <h2 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <span>React with model view provider</span>
-          </h2>
+              <p className={csx.description}>{template.description}</p>
+            </section>
 
-          <p className={csx.description}>
-            CSS uses a global namespace for CSS Selectors that can easily result in style conflicts
-            throughout your application when building an application using modern web components.
-            You can avoid this problem by nesting CSS selectors or use a styling convention like BEM
-            but this becomes complicated quickly and won’t scale. CSS-in-JS avoids these problems
-            entirely by generating unique class names when styles are converted to CSS. This allows
-            you to think about styles on a component level with out worrying about styles defined
-            elsewhere.
-          </p>
-        </section>
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Tech stack</span>
+              </h3>
+              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.technologies)}</ul>
+            </section>
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <span>Tech stack</span>
-          </h3>
-          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(MOCKED_TECH_STACK)}</ul>
-        </section>
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Patterns</span>
+              </h3>
+              <ul className={`${csx.basicList} ${csx.white}`}>{mapList(template.patterns)}</ul>
+            </section>
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <span>Patterns</span>
-          </h3>
-          <ul className={[csx.basicList, csx.white].join(' ')}>{mapList(MOCKED_PATTERNS)}</ul>
-        </section>
+            <section className={csx.col}>
+              <h3 className={csx.header}>
+                <span>Authors</span>
+              </h3>
+              <ul className={csx.authors}>{mapImages(template.contributors)}</ul>
+            </section>
+          </>
+        )}
+        {/* {loading && <CircularProgress />}
 
-        <section className={csx.col}>
-          <h3 className={csx.header}>
-            <Button variant="icon" className={csx.button}>
-              <EditIcon />
-            </Button>
-            <span>Authors</span>
-          </h3>
-          <ul style={{ display: 'inline-flex' }}>{mapImages(MOCKED_AUTHORS)}</ul>
-        </section>
+        {!loading && (
+         } */}
       </div>
     </div>
   );
 };
 
-export default TemplateDetails;
+export default (props: TemplateDetails.Props) => (
+  <TemplateDetailsProvider>
+    <TemplateDetails {...props} />
+  </TemplateDetailsProvider>
+);

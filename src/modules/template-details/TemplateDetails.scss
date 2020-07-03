@@ -3,7 +3,6 @@
 
 $padding: 20px 0;
 
-
 /* layout */
 .templateDetails {
   @include centered;
@@ -15,7 +14,6 @@ $padding: 20px 0;
 
     section {
       width: 75%;
-      display: inline-block;
       height: auto;
     }
   }
@@ -23,12 +21,7 @@ $padding: 20px 0;
 
 .header {
   position: relative;
-  right: 50px;
   @include row;
-}
-
-.button {
-  right: 10px;
 }
 
 .details {
@@ -37,23 +30,28 @@ $padding: 20px 0;
   flex-wrap: wrap;
   .stars {
     @include row;
-    color: #FFDD00;
+    color: $stars;
   }
-  
+
   .watches {
     @include row;
     color: white;
     margin-right: 20px;
   }
-  
+
   .createdBy {
     width: 100%;
+    margin-top: 22px;
     @include labelExtraSmall;
   }
 }
 
 .description {
   line-height: 30px;
+}
+
+.authors {
+  display: inline-flex;
 }
 
 .col {
@@ -68,12 +66,12 @@ $padding: 20px 0;
     list-style-type: disc;
     display: flex;
     flex-wrap: wrap;
-  
+
     li:first-child {
       list-style-type: none;
       margin-left: 0;
     }
-  
+
     li {
       margin-right: 20px;
       margin-left: 10px;
@@ -101,7 +99,7 @@ $padding: 20px 0;
 .actions {
   display: flex;
   width: 100%;
-  
+
   button {
     margin: 10px;
     width: 130px;

@@ -3,19 +3,25 @@ export interface Template {
   name: string;
   description: string;
   githubLink: string;
+  createdDate?: Date,
+  modifiedDate?: Date,
+  technologies?: string[];
+  patterns?: string[];
+  tags?: string[];
   // Remove this part later
-  views?: number;
+  watches?: number;
   stars?: number;
   mainTechnology?: {
     id: number;
     name: string;
     avatar: string;
   };
-  authors?: {
-    id: number;
-    name: string;
-    avatar: string;
-  }[];
+  contributors?: Contributors[]
+}
+
+export interface Contributors {
+  name: string;
+  avatar: string;
 }
 
 export interface AddTemplatePayload {

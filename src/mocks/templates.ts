@@ -6,16 +6,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -26,16 +25,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -46,16 +44,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -66,16 +63,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -85,7 +81,7 @@ export const templatesMock: Template[] = [
     id: '4',
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
-    views: 1,
+    watches: 1,
     githubLink: 'dasdasd',
     stars: 1,
     mainTechnology: {
@@ -93,9 +89,8 @@ export const templatesMock: Template[] = [
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -106,16 +101,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -126,16 +120,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -146,16 +139,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
@@ -166,16 +158,15 @@ export const templatesMock: Template[] = [
     name: 'P and L Development of New York Corporation (ReadyInCase)',
     description: 'Brkdwn artificial skin grft /decellular alloderm, sequela',
     githubLink: 'dasdasd',
-    views: 1,
+    watches: 1,
     stars: 1,
     mainTechnology: {
       id: 0,
       name: 'React',
       avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
     },
-    authors: [
+    contributors: [
       {
-        id: 0,
         name: 'polubik',
         avatar: 'http://dummyimage.com/203x201.png/cc0000/ffffff'
       }
