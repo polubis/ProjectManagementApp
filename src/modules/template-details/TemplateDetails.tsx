@@ -29,18 +29,16 @@ namespace TemplateDetails {
 const mapList = (list: string[]) => list.map((item) => <li key={item}>{item}</li>);
 
 const mapImages = (contributors: Contributors[]) => {
-  if (contributors === null || contributors.length === 0)
-  return;
+  if (contributors === null || contributors.length === 0) return;
 
-  return contributors.map(({name, avatar}) => (
+  return contributors.map(({ name, avatar }) => (
     <li key={name}>
       <img src={avatar} />
     </li>
   ));
-}
+};
 
-const TemplateDetails = ({match}: TemplateDetails.Props) => {
-
+const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { template, loading, getTemplate } = useTemplateDetailsProvider();
 
   useEffect(() => {
@@ -50,9 +48,9 @@ const TemplateDetails = ({match}: TemplateDetails.Props) => {
   return (
     <div className={csx.templateDetails}>
       <div className={csx.container}>
-        {loading && <CircularProgress />}
-
-        {!loading && (
+        {loading ? (
+          <CircularProgress />
+        ) : (
           <>
             <div className={csx.actions}>
               <Button>
@@ -120,6 +118,10 @@ const TemplateDetails = ({match}: TemplateDetails.Props) => {
             </section>
           </>
         )}
+        {/* {loading && <CircularProgress />}
+
+        {!loading && (
+         } */}
       </div>
     </div>
   );
@@ -127,6 +129,6 @@ const TemplateDetails = ({match}: TemplateDetails.Props) => {
 
 export default (props: TemplateDetails.Props) => (
   <TemplateDetailsProvider>
-    <TemplateDetails {...props}/>
+    <TemplateDetails {...props} />
   </TemplateDetailsProvider>
 );
