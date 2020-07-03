@@ -62,7 +62,7 @@ to view this template"
       </div>
 
       <footer>
-        <Button type="button" theme="primaryTransparent" onClick={onBack}>
+        <Button theme="primaryTransparent" onClick={onBack}>
           BACK
         </Button>
         <Button type="submit" disabled={dirty && invalid}>

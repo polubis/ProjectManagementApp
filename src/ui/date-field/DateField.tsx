@@ -26,9 +26,12 @@ const DateField = ({ label, error, onSelect, ...inputProps }: DateField.Props) =
     setIsPickerOpen(!isPickerOpen);
   }, [isPickerOpen]);
 
-  const handleSelect = useCallback(({ day, month, year }: DatePicker.Date) => {
-    onSelect(`${day >= 10 ? day : `0${day}`}/${month >= 10 ? month : `0${month}`}/${year}`);
-  }, []);
+  const handleSelect = useCallback(
+    ({ day, month, year }: DatePicker.Date) => {
+      onSelect(`${day >= 10 ? day : `0${day}`}/${month >= 10 ? month : `0${month}`}/${year}`);
+    },
+    [onSelect]
+  );
 
   return (
     <>

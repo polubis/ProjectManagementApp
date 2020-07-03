@@ -42,7 +42,7 @@ export const getNow = () => {
 };
 
 export const getInitDate = (value: string) => {
-  if (V.date(value, '').invalid) {
+  if (V.date(false)(value).invalid) {
     return getNow();
   }
 

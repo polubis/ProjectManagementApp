@@ -5,6 +5,7 @@ export * from './date-picker';
 export * from './date-field';
 export * from './input-field';
 export * from './field-base';
+export * from './loader';
 export * from './logo';
 export * from './menu';
 export * from './select';

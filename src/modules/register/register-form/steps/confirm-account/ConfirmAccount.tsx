@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { StepHeader, Button } from 'ui';
@@ -7,7 +7,7 @@ import { ConfirmAccountImage } from '.';
 
 import csx from './ConfirmAccount.scss';
 
-export const ConfirmAccount = memo(() => {
+const ConfirmAccount = () => {
   return (
     <div className={csx.confirmAccount}>
       <StepHeader
@@ -26,4 +26,6 @@ export const ConfirmAccount = memo(() => {
       </footer>
     </div>
   );
-});
+};
+
+export default ConfirmAccount;

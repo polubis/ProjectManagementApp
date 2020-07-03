@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-export const ConfirmAccountImage = memo(() => {
+export const ConfirmAccountImage = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,9 +17,9 @@ export const ConfirmAccountImage = memo(() => {
           y2="0.216"
           gradientUnits="objectBoundingBox"
         >
-          <stop offset="0" stop-color="gray" stop-opacity="0.251" />
-          <stop offset="0.54" stop-color="gray" stop-opacity="0.122" />
-          <stop offset="1" stop-color="gray" stop-opacity="0.102" />
+          <stop offset="0" stopColor="gray" stopOpacity="0.251" />
+          <stop offset="0.54" stopColor="gray" stopOpacity="0.122" />
+          <stop offset="1" stopColor="gray" stopOpacity="0.102" />
         </linearGradient>
         <linearGradient id="b" x1="-0.045" y1="-0.254" x2="0.967" y2="-0.254" />
       </defs>
@@ -231,8 +231,8 @@ export const ConfirmAccountImage = memo(() => {
             transform="translate(-363.935 -296.758)"
             fill="none"
             stroke="#535461"
-            stroke-miterlimit="10"
-            stroke-width="2"
+            strokeMiterlimit="10"
+            strokeWidth="2"
           />
           <path
             d="M803.78,677.086c0,1.5,2.729,5.87,2.729,5.87s2.724-4.368,2.724-5.87a2.73,2.73,0,0,0-5.453,0Z"
@@ -274,8 +274,8 @@ export const ConfirmAccountImage = memo(() => {
             transform="translate(-423.797 -288.269)"
             fill="none"
             stroke="#535461"
-            stroke-miterlimit="10"
-            stroke-width="2"
+            strokeMiterlimit="10"
+            strokeWidth="2"
           />
           <path
             d="M951.938,655.923c0,1.5,2.729,5.87,2.729,5.87s2.724-4.369,2.724-5.87a2.73,2.73,0,1,0-5.453,0Z"
@@ -317,8 +317,8 @@ export const ConfirmAccountImage = memo(() => {
             transform="translate(-376.643 -287.465)"
             fill="none"
             stroke="#535461"
-            stroke-miterlimit="10"
-            stroke-width="2"
+            strokeMiterlimit="10"
+            strokeWidth="2"
           />
           <path
             d="M835.23,654.1c0,1.5,2.729,5.87,2.729,5.87s2.724-4.369,2.724-5.87a2.73,2.73,0,0,0-5.453,0Z"
@@ -577,4 +577,4 @@ export const ConfirmAccountImage = memo(() => {
       </g>
     </svg>
   );
-});
+};

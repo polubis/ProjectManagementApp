@@ -29,12 +29,12 @@ export const config: Form.Config[] = [
   [
     {
       label: 'Technologies',
-      fns: [V.req, V.oneTruthy('value', 'technology')],
+      fns: [V.req, V.oneTruthy('value')],
       value: []
     },
     {
       label: 'Patterns',
-      fns: [V.req, V.oneTruthy('value', 'pattern')],
+      fns: [V.req, V.oneTruthy('value')],
       value: []
     },
     {
@@ -63,11 +63,11 @@ export const steps: Steps.Item[] = [
   }
 ];
 
-export const getAddPayload = (
-  basicInfoManager: Form.Manager,
-  githubConnectionManager: Form.Manager,
-  techDetailsManager: Form.Manager
-): AddTemplatePayload => {
+export const getAddPayload = ([
+  basicInfoManager,
+  githubConnectionManager,
+  techDetailsManager
+]: Form.Manager[]): AddTemplatePayload => {
   const [{ value: name }, { value: description }] = basicInfoManager[0].fields;
   const [{ value: githubLink }] = githubConnectionManager[0].fields;
   const technologies: Checkbox.Props[] = techDetailsManager[0].fields[0].value;
@@ -76,28 +76,8 @@ export const getAddPayload = (
     name,
     description,
     githubLink,
-    technologiesIds: technologies.filter((t) => t.value).map((t) => +t.dataId),
+    technologiesIds: technologies.filter((t) => t.value).map((t) => +t.dataIdx),
     patternsIds: [],
     tagsIds: []
   };
-};
-
-export const decorateSteps = (formManagers: Form.Manager[]): Steps.Item[] => {
-  const getStatus = ([{ dirty, invalid }]: Form.Manager): boolean | undefined => {
-    return dirty ? !invalid : undefined;
-  };
-
-  const getProgress = ([{ fields }]: Form.Manager) => {
-    const validFieldsCount = fields.filter((f) => !f.error).length;
-    return (validFieldsCount / fields.length) * 100;
-  };
-
-  return steps.map(
-    (s, idx) =>
-      ({
-        ...s,
-        status: getStatus(formManagers[idx]),
-        progress: getProgress(formManagers[idx])
-      } as Steps.Item)
-  );
 };

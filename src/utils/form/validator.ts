@@ -1,8 +1,11 @@
 import isGithubUrl from 'is-github-url';
 
+import { Form } from '.';
+
 const PATTERNS = {
   URL: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/,
-  DATE: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
+  DATE: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
+  EMAIL: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 };
 
 namespace V {
@@ -11,7 +14,7 @@ namespace V {
     text: string;
   }
 
-  export type Fn = (value: any, label: string) => Result;
+  export type Fn = (value: any, state: Form.State) => Result;
 }
 
 const makeResult = (invalid: boolean, text: string): V.Result => ({
@@ -22,31 +25,44 @@ const makeResult = (invalid: boolean, text: string): V.Result => ({
 const V = {
   makeResult,
 
-  req: (value: string | any[], label: string) =>
+  req: (value: string | any[]) =>
     makeResult(
       Array.isArray(value) ? value.length === 0 : value.trim() === '',
-      `Please enter your ${label}`
+      `This field is required`
     ),
 
-  min: (ln: number) => (value: string, label: string) =>
-    makeResult(value.trim().length < ln, `${label} must have ${ln} or more characters`),
+  min: (ln: number, checksOnlyTruthy = true) => (value: string) =>
+    makeResult(
+      checksOnlyTruthy
+        ? value.trim().length > 0 && value.trim().length < ln
+        : value.trim().length < ln,
+      `Field must have ${ln} or more characters`
+    ),
 
-  max: (ln: number) => (value: string, label: string) =>
-    makeResult(value.trim().length > ln, `${label} must have ${ln} or less characters`),
+  max: (ln: number) => (value: string) =>
+    makeResult(value.trim().length > ln, `Field must have ${ln} or less characters`),
 
-  url: (value: string, label: string) =>
-    makeResult(!PATTERNS.URL.test(value), `${label} must have valid url format`),
+  url: (value: string) => makeResult(!PATTERNS.URL.test(value), `Invalid url format`),
 
-  githubUrl: (value: string, label: string) => 
-      makeResult(!isGithubUrl(value), `${label} must be valid Github url`),
+  email: (value: string) => makeResult(!PATTERNS.EMAIL.test(value), `Invalid email format`),
 
-  date: (value: string, label: string) =>
-    makeResult(!PATTERNS.DATE.test(value), `${label} must have valid date format`),
+  githubUrl: (value: string) => makeResult(!isGithubUrl(value), `Invalid Github url`),
 
-  oneTruthy: (key: string, label: string) => (items: any[]) =>
-    makeResult(!items.some((item) => !!item[key]), `Atleast one ${label} must be checked`),
+  date: (checksOnlyTruthy = true) => (value: string) =>
+    makeResult(
+      checksOnlyTruthy
+        ? value.trim().length > 0 && !PATTERNS.DATE.test(value)
+        : !PATTERNS.DATE.test(value),
+      `Invalid date format`
+    ),
 
-  run: (value: any, label: string) => (...fns: V.Fn[]) => fns.map((fn) => fn(value, label))
+  oneTruthy: (key: string) => (items: any[]) =>
+    makeResult(!items.some(item => !!item[key]), `Atleast one field must be checked`),
+
+  sameAs: (idx: number, label: string) => (value: any, state: Form.State) =>
+    makeResult(value !== state.fields[idx].value, `Field must be same as ${label}`),
+
+  run: (value: any, state: Form.State) => (...fns: V.Fn[]) => fns.map(fn => fn(value, state))
 };
 
 export default V;

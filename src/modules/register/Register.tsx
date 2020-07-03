@@ -1,59 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
-import { Steps, StepHeader } from 'ui';
+import { useTechnologiesProvider } from 'core/technologies';
 
-import { Form } from 'utils';
-
-import {
-  CREDENTIALS,
-  PERSONAL_INFO,
-  WORK,
-  ALMOST_DONE,
-  Credentials,
-  PersonalInfo,
-  Work,
-  AlmostDone,
-  config
-} from '.';
+import RegisterForm from './register-form';
 
 import csx from './Register.scss';
 
 const Register = () => {
-  const [activeStep, setActiveStep] = useState(CREDENTIALS);
+  const { loading: loadingTechnologies } = useTechnologiesProvider();
 
-  const credentials = Form.useManager(config[CREDENTIALS].formConfig);
-  const personalInfo = Form.useManager(config[PERSONAL_INFO].formConfig);
-  const work = Form.useManager(config[WORK].formConfig);
-  const almostDone = Form.useManager(config[ALMOST_DONE].formConfig);
-
-  const { label, description } = config[activeStep];
-
-  return (
-    <div className={csx.register}>
-      <StepHeader description={description} label={label} />
-
-      <Steps items={config} />
-
-      {activeStep === CREDENTIALS && <Credentials formManager={credentials} onSubmit={() => {}} />}
-
-      {activeStep === PERSONAL_INFO && (
-        <PersonalInfo
-          formManager={personalInfo}
-          onBack={() => {}}
-          onSkip={() => {}}
-          onSubmit={() => {}}
-        />
-      )}
-
-      {activeStep === WORK && (
-        <Work formManager={work} onBack={() => {}} onSkip={() => {}} onSubmit={() => {}} />
-      )}
-
-      {activeStep === ALMOST_DONE && (
-        <AlmostDone formManager={almostDone} onBack={() => {}} onSubmit={() => {}} />
-      )}
-    </div>
-  );
+  return <div className={csx.register}>{!loadingTechnologies && <RegisterForm />}</div>;
 };
 
 export default Register;
