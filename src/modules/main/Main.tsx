@@ -9,17 +9,19 @@ import { Navbar, Sidebar } from '.';
 
 import csx from './Main.scss';
 
+namespace Main {
+  export interface Props extends RouteChildrenProps {}
+}
+
 const Templates = withLazy(() => import('src/modules/templates'));
 
 const TemplateDetails = withLazy(() => import('src/modules/template-details'));
 
 const TemplateDocumentation = withLazy(() => import('src/modules/template-documentation'));
 
-const TemplateCreation = withLazy(() => import('src/modules/template-creation'));
+const TemplateManagement = withLazy(() => import('src/modules/template-management'));
 
-interface MainProps extends RouteChildrenProps {}
-
-const Main = ({ match }: MainProps) => {
+const Main = ({ match }: Main.Props) => {
   return (
     <div className={csx.main}>
       <Navbar basePath={match.path} />
@@ -35,8 +37,8 @@ const Main = ({ match }: MainProps) => {
           <Guard.ProtectedRoute
             exact
             redirect={`${match.path}/templates`}
-            path={`${match.path}/templates/creation`}
-            component={TemplateCreation}
+            path={`${match.path}/templates/management`}
+            component={TemplateManagement}
           />
 
           <Route

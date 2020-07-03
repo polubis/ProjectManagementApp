@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
@@ -8,7 +8,7 @@ import { Checkbox, Select } from 'ui';
 
 import { Form, useQueryParams } from 'utils';
 
-import { TechnologiesContext } from 'core/technologies';
+import { useTechnologiesProvider } from 'core/technologies';
 
 import csx from './TemplatesSearch.scss';
 
@@ -17,7 +17,7 @@ const TemplatesSearch = () => {
 
   const [query] = useQueryParams('query');
 
-  const { technologies } = useContext(TechnologiesContext);
+  const { technologies } = useTechnologiesProvider();
 
   const [{ fields }, change, directChange, submit] = Form.useManager([
     { label: 'Query', value: query },

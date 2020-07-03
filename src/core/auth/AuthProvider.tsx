@@ -23,7 +23,7 @@ namespace AuthProvider {
 
 const STATE: AuthProvider.State = {
   user: null,
-  pending: false,
+  pending: true,
   authorized: false,
   error: ''
 };
@@ -36,43 +36,42 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
   }
 
   authorize = async () => {
-    const { pending } = this.state;
-
-    if (!pending) {
-      this.setState({ ...STATE, pending: true });
+    if (!this.state.pending) {
+      this.setState({ ...STATE });
     }
 
     try {
       const user = await getSelf();
-      this.setState({ ...STATE, authorized: true, user });
+
+      this.setState({ ...STATE, pending: false, authorized: true, user });
     } catch {
-      this.setState({ ...STATE });
+      this.setState({ ...STATE, pending: false });
     }
   };
 
   logIn = async (payload: LogInPayload) => {
-    const { pending } = this.state;
-
-    if (!pending) {
+    if (!this.state.pending) {
       this.setState({ ...STATE, pending: true });
     }
 
     try {
       const user = await logIn(payload);
-      this.setState({ ...STATE, authorized: true, user }, () => {
+
+      this.setState({ ...STATE, pending: false, authorized: true, user }, () => {
         this.props.history.replace('/app');
       });
     } catch (error) {
-      this.setState({ ...STATE, error });
+      this.setState({ ...STATE, pending: false, error });
     }
   };
 
   logOut = async () => {
     try {
       await logOut();
-      this.setState({ ...STATE });
+
+      this.setState({ ...STATE, pending: false });
     } catch (error) {
-      this.setState({ error });
+      this.setState({ ...STATE, pending: false, error });
     }
   };
 

@@ -1,12 +1,13 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
-import { getTechnologies, Technology } from 'core/api';
+import { Pattern, getPatterns } from 'core/api';
 
-namespace TechnologiesProvider {
+namespace PatternsProvider {
   export interface State {
+    patterns: Pattern[];
     loading: boolean;
     error: string;
-    technologies: Technology[];
+    getPatterns?(): Promise<void>;
   }
 
   export interface Props {
@@ -14,35 +15,36 @@ namespace TechnologiesProvider {
   }
 }
 
-const STATE: TechnologiesProvider.State = {
+const STATE: PatternsProvider.State = {
+  patterns: [],
   loading: true,
-  error: '',
-  technologies: []
+  error: ''
 };
 
 const Context = createContext(STATE);
 
-class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
+class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
   componentDidMount() {
-    this.getTechnologies();
+    this.getPatterns();
   }
 
-  getTechnologies = async () => {
+  getPatterns = async () => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
 
     try {
-      const technologies = await getTechnologies();
-      
-      this.setState({ ...STATE, loading: false, technologies });
+      const patterns = await getPatterns();
+
+      this.setState({ ...STATE, loading: false, patterns });
     } catch (error) {
       this.setState({ ...STATE, loading: false, error });
     }
   };
 
   readonly state: typeof STATE = {
-    ...STATE
+    ...STATE,
+    getPatterns: this.getPatterns
   };
 
   render() {
@@ -50,12 +52,12 @@ class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE>
   }
 }
 
-const TechnologiesProvider = Provider;
+const PatternsProvider = Provider;
 
-export const useTechnologiesProvider = () => {
+export const usePatternsProvider = () => {
   const context = useContext(Context);
 
   return context;
 };
 
-export default TechnologiesProvider;
+export default PatternsProvider;

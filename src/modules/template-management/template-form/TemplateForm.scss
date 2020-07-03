@@ -1,0 +1,9 @@
+@import 'styles/mixins';
+
+.loader {
+  margin: auto;
+
+  circle {
+    color: $primary;
+  }
+}

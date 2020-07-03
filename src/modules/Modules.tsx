@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AuthProvider from 'core/auth';
+import PatternsProvider from 'core/patterns';
 import TechnologiesProvider from 'core/technologies';
 
 import ModulesRouter from './ModulesRouter';
@@ -8,9 +9,11 @@ import ModulesRouter from './ModulesRouter';
 const Modules = () => {
   return (
     <AuthProvider>
-      <TechnologiesProvider>
-        <ModulesRouter />
-      </TechnologiesProvider>
+      <PatternsProvider>
+        <TechnologiesProvider>
+          <ModulesRouter />
+        </TechnologiesProvider>
+      </PatternsProvider>
     </AuthProvider>
   );
 };

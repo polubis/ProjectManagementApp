@@ -35,7 +35,7 @@ const SearchCategories = ({ onClick }: SearchCategories.Props) => {
       ))}
 
       <Guard.Protected>
-        <NavLink to="/app/templates/creation">
+        <NavLink to="/app/templates/management">
           <Button>
             <AddTemplateIcon />
             CREATE TEMPLATE

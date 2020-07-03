@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
 
 import { getTemplates, Template } from 'core/api';
 
@@ -9,6 +9,10 @@ namespace TemplatesProvider {
     error: string;
     templates: Template[];
     getTemplates?(url: string, page: number, limit: number): void;
+  }
+
+  export interface Props {
+    children: ReactNode;
   }
 }
 
@@ -21,7 +25,7 @@ const STATE: TemplatesProvider.State = {
 
 const Context = createContext(STATE);
 
-class Provider extends React.Component<any, typeof STATE> {
+class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
   getTemplates = async (url: string, limit: number, page: number) => {
     const loadingMore = page > 1;
 
@@ -29,7 +33,7 @@ class Provider extends React.Component<any, typeof STATE> {
       return;
     }
 
-    this.setState({ loading: true, error: '', templates: loadingMore ? this.state.templates : [] });
+    this.setState({ ...STATE, templates: loadingMore ? this.state.templates : [] });
 
     try {
       let templates = await getTemplates(url);
@@ -45,7 +49,7 @@ class Provider extends React.Component<any, typeof STATE> {
         error: ''
       });
     } catch (error) {
-      this.setState({ loading: false, error, templates: [] });
+      this.setState({ ...STATE, loading: false, error });
     }
   };
 
