@@ -38,7 +38,6 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
           <CircularProgress />
         ) : (
           <>
-            {console.log(template)}
             <div className={csx.actions}>
               <Button>
                 <EditIcon /> EDIT
@@ -91,7 +90,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h3 className={csx.header}>
                 <span>Tech stack</span>
               </h3>
-              <ul className={`${csx.basicList} ${csx.white} ${csx.technologies}`}>
+              <ul className={`${csx.basicList} ${csx.technologies}`}>
                 {template.technologies.map(({ id, name }) => (
                   <li key={id}>{name}</li>
                 ))}
@@ -102,7 +101,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h3 className={csx.header}>
                 <span>Patterns</span>
               </h3>
-              <ul className={`${csx.basicList} ${csx.white} ${csx.patterns}`}>
+              <ul className={`${csx.basicList} ${csx.patterns}`}>
                 {template.patterns.map(({ id, name }) => (
                   <li key={id}>{name}</li>
                 ))}
@@ -114,14 +113,11 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <span>Authors</span>
               </h3>
               <ul className={csx.authors}>
-                {template.contributors !== null &&
-                  template.contributors.map(({ name, avatar }) => {
-                    return (
-                      <li key={name}>
-                        <img src={avatar} />
-                      </li>
-                    );
-                  })}
+                {template.contributors.map(({ name, avatar }) => (
+                  <li key={name}>
+                    <img src={avatar} />
+                  </li>
+                ))}
               </ul>
             </section>
           </>

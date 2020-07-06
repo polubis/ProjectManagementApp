@@ -24,6 +24,7 @@
   padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
+  
   .stars {
     @include row;
     color: $stars;
@@ -87,10 +88,6 @@
 
 .primary {
   color: $primary;
-}
-
-.white {
-  color: #ffffff;
 }
 
 .actions {
