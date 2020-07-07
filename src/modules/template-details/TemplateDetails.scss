@@ -1,15 +1,11 @@
 @import 'styles/mixins';
-@import 'styles/palette';
 
-$padding: 20px 0;
-
-/* layout */
 .templateDetails {
   @include centered;
   height: 100%;
   .container {
     @include colCenter;
-    padding: $padding;
+    padding: 20px 0;
     width: 50%;
 
     section {
@@ -25,9 +21,10 @@ $padding: 20px 0;
 }
 
 .details {
-  padding: $padding;
+  padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
+  
   .stars {
     @include row;
     color: $stars;
@@ -41,12 +38,13 @@ $padding: 20px 0;
 
   .createdBy {
     width: 100%;
-    margin-top: 22px;
+    margin-top: 18px;
     @include labelExtraSmall;
   }
 }
 
 .description {
+  margin-top: 40px;
   line-height: 30px;
 }
 
@@ -54,12 +52,14 @@ $padding: 20px 0;
   display: inline-flex;
 }
 
+.technologies, .patterns, .authors {
+  margin-top: 26px;
+}
+
 .col {
   @include col;
   margin: 20px 0;
 }
-/* layout end */
-/* lists */
 
 @media screen and (min-width: 640px) {
   .basicList {
@@ -90,12 +90,6 @@ $padding: 20px 0;
   color: $primary;
 }
 
-.white {
-  color: #ffffff;
-}
-
-/* lists end */
-/* actions */
 .actions {
   display: flex;
   width: 100%;
@@ -118,4 +112,3 @@ $padding: 20px 0;
     justify-content: flex-end;
   }
 }
-/* actions end */

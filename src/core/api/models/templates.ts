@@ -1,13 +1,16 @@
+import { Technology, Pattern } from '.';
+
 export interface Template {
   id: string;
   name: string;
   description: string;
   githubLink: string;
+  addedBy?: string;
   createdDate?: Date,
   modifiedDate?: Date,
-  technologies?: string[];
-  patterns?: string[];
-  tags?: string[];
+  technologies?: Technology[];
+  patterns?: Pattern[];
+  tags?: Tag[];
   // Remove this part later
   watches?: number;
   stars?: number;
@@ -22,6 +25,11 @@ export interface Template {
 export interface Contributors {
   name: string;
   avatar: string;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
 }
 
 export interface AddTemplatePayload {
