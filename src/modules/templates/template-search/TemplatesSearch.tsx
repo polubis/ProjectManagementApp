@@ -12,6 +12,8 @@ import { useTechnologiesProvider } from 'core/technologies';
 
 import csx from './TemplatesSearch.scss';
 
+const [QUERY, TECHNOLOGIES] = [0, 1];
+
 const TemplatesSearch = () => {
   const history = useHistory();
 
@@ -24,19 +26,9 @@ const TemplatesSearch = () => {
     { label: 'Technologies', value: [] }
   ]);
 
-  const setTechnologiesSelection = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
-      const id = +e.currentTarget.getAttribute('data-id');
-      const mappedTechnologies: Checkbox.Props[] = fields[1].value.map((item: Checkbox.Props) =>
-        id === item.dataId
-          ? {
-              ...item,
-              value
-            }
-          : item
-      );
-
-      directChange([1], [mappedTechnologies]);
+  const handleTechnologySelect = useCallback(
+    (e: Select.Events.Select, value: boolean) => {
+      directChange([TECHNOLOGIES], [Select.updateItems(fields[TECHNOLOGIES].value, e, value)]);
     },
     [fields]
   );
@@ -57,26 +49,26 @@ const TemplatesSearch = () => {
   );
 
   useEffect(() => {
-    directChange([0], [query]);
+    directChange([QUERY], [query]);
   }, [query]);
 
   useEffect(() => {
     const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
-      dataId: id,
+      dataIdx: id,
       label: name,
       value: false
     }));
 
-    directChange([1], [mappedTechnologies]);
+    directChange([TECHNOLOGIES], [mappedTechnologies]);
   }, [technologies]);
 
   return (
     <form className={csx.templatesSearch} onSubmit={handleSubmit}>
       <input
-        data-idx={0}
+        data-idx={QUERY}
         placeholder="Find your template..."
         className={csx.input}
-        value={fields[0].value}
+        value={fields[QUERY].value}
         onChange={change}
       />
 
@@ -85,8 +77,8 @@ const TemplatesSearch = () => {
         placeholder="All technologies"
         className={csx.select}
         openClass={csx.selectMenuOpen}
-        items={fields[1].value}
-        onSelect={setTechnologiesSelection}
+        items={fields[TECHNOLOGIES].value}
+        onSelect={handleTechnologySelect}
       />
 
       <Button type="submit" className={csx.confirmSearchBtn}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import { Guard } from 'core/auth';
-
 import { withLazy } from 'utils';
+
+import { Guard } from 'core/auth';
 
 const Home = withLazy(() => import('./home'));
 const Login = withLazy(() => import('./login'));

@@ -18,7 +18,7 @@ namespace TemplateTile {
 
 const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
   return (
-    <div data-id={template.id} className={csx.templateTile} onClick={onClick}>
+    <div data-idx={template.id} className={csx.templateTile} onClick={onClick}>
       <header className={csx.toolbar}>
         <div className={csx.views}>
           <ViewsIcon />

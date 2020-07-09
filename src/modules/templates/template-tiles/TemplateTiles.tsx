@@ -15,7 +15,7 @@ const TemplateTiles = () => {
 
   const goToDetails = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      const templateId = e.currentTarget.getAttribute('data-id');
+      const templateId = e.currentTarget.getAttribute('data-idx');
       push(`${location.pathname}/${templateId}`);
     },
     [location]

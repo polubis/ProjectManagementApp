@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-export const WorkImage = memo(() => {
+export const WorkImage = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="191" height="132" viewBox="0 0 191 132">
       <g transform="translate(-865 -348)">
@@ -377,4 +377,4 @@ export const WorkImage = memo(() => {
       </g>
     </svg>
   );
-});
+};

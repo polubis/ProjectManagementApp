@@ -8,7 +8,11 @@ import { FieldBase, Menu, SelectItem, Checkbox } from '..';
 import csx from './Select.scss';
 
 namespace Select {
-  export type OnSelect = (event: ChangeEvent<HTMLInputElement>, checked?: boolean) => void;
+  export namespace Events {
+    export type Select = ChangeEvent<HTMLInputElement>;
+  }
+
+  export type OnSelect = (event: Events.Select, checked?: boolean) => void;
 
   export interface Props {
     label: string;
@@ -58,10 +62,10 @@ const Select = ({
       <div className={`${csx.select} ${isMenuOpen ? openClass : ''}`}>
         <div className={csx.selectedItems}>
           {selectedItems.length > 0 ? (
-            selectedItems.map(({ dataId, label }) => (
+            selectedItems.map(({ dataIdx, label }) => (
               <Chip
-                key={dataId}
-                data-id={dataId}
+                key={dataIdx}
+                data-idx={dataIdx}
                 label={label}
                 className={csx.selectedItem}
                 onClick={onSelect as any}
@@ -98,6 +102,32 @@ const Select = ({
         )}
       </div>
     </FieldBase>
+  );
+};
+
+Select.updateItems = (
+  items: Checkbox.Props[],
+  e: Select.Events.Select,
+  value: boolean,
+  unselectOthers = false
+): Checkbox.Props[] => {
+  const id = +e.currentTarget.getAttribute('data-idx');
+
+  if (unselectOthers) {
+    return items.map(item => (id === item.dataIdx ? { ...item, value } : { ...item, value: false }));
+  } else {
+    return items.map(item => (id === item.dataIdx ? { ...item, value } : item));
+  }
+};
+
+Select.makeItems = (items: any[], idKey: string, labelKey: string) => {
+  return items.map(
+    item =>
+      ({
+        dataIdx: item[idKey],
+        label: item[labelKey],
+        value: false
+      } as Checkbox.Props)
   );
 };
 

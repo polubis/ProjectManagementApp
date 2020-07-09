@@ -22,7 +22,7 @@ export const useTemplateManagement = (): Return => {
 
   const [state, setState] = useState(STATE);
 
-  const add = useCallback(async (payload: AddTemplatePayload) => {
+  const handleAdd = useCallback(async (payload: AddTemplatePayload) => {
     setState({ ...STATE, pending: true });
 
     try {
@@ -40,5 +40,5 @@ export const useTemplateManagement = (): Return => {
     }
   }, [state.id]);
 
-  return [state, add];
+  return [state, handleAdd];
 };

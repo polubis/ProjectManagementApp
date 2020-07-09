@@ -39,7 +39,7 @@ namespace Form {
   ];
 }
 
-const makeState = (config: Form.Config): Form.State => {
+const makeInitState = (config: Form.Config): Form.State => {
   return {
     invalid: false,
     dirty: false,
@@ -55,16 +55,32 @@ const makeState = (config: Form.Config): Form.State => {
 };
 
 const useManager = (config: Form.Config): Form.Manager => {
-  const [state, setState] = useState(makeState(config));
+  const [state, setState] = useState(makeInitState(config));
 
-  const makeField = (value: any, idx: number): Form.Field.State => {
-    const { label, fns = [] } = config[idx];
+  const makeField = (value: any, idx: number, currState: Form.State): Form.Field.State => {
+    const { fns = [] } = config[idx];
 
-    const result = V.run(value, label)(...fns);
-    const invalidResult = result.find((result) => result.invalid);
+    const result = V.run(value, currState)(...fns);
+    const invalidResult = result.find(result => result.invalid);
     const error = invalidResult ? invalidResult.text : '';
 
     return { value, error, result };
+  };
+
+  const makeState = (positions: number[], values: any[], currState = state): Form.State => {
+    const newState: Form.State = { ...currState, fields: [...state.fields] };
+
+    positions.forEach((position, idx) => {
+      newState.fields[position].value = values[idx];
+    });
+
+    positions.forEach((position, idx) => {
+      newState.fields[position] = makeField(values[idx], position, newState);
+    });
+
+    newState.invalid = newState.fields.some(f => f.error);
+
+    return newState;
   };
 
   const change = (e: Form.Events.Change) => {
@@ -84,45 +100,19 @@ const useManager = (config: Form.Config): Form.Manager => {
       throw new Error('Invalid data-idx attribute');
     }
 
-    const newState: Form.State = { ...state, fields: [...state.fields] };
-
-    newState.fields[datasetIdx] = makeField(value, datasetIdx);
-
-    newState.invalid = newState.fields.some((f) => f.error);
-
-    setState(newState);
+    setState(makeState([datasetIdx], [value]));
   };
 
   const directChange = (positions: number[], values: any[]) => {
-    const newState: Form.State = { ...state, fields: [...state.fields] };
-
-    positions.forEach((position, idx) => {
-      newState.fields[position] = makeField(values[idx], position);
-    });
-
-    newState.invalid = newState.fields.some((f) => f.error);
-
-    setState(newState);
+    setState(makeState(positions, values));
   };
 
   const submit = (e?: Form.Events.Submit): boolean => {
     e && e.preventDefault();
 
-    const newState: Form.State = { ...state, dirty: true, invalid: false };
-
-    newState.fields = newState.fields.map((field, idx) => {
-      const { value, result, error } = makeField(field.value, idx);
-
-      if (error) {
-        newState.invalid = true;
-      }
-
-      return {
-        value,
-        result,
-        error
-      };
-    });
+    const positions = Array.from({ length: config.length }, (_, idx) => idx);
+    const values = positions.map(p => state.fields[p].value);
+    const newState = makeState(positions, values, { ...state, dirty: true, invalid: false });
 
     setState(newState);
 

@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-export const AlmostDoneImage = memo(() => {
+export const AlmostDoneImage = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -197,4 +197,4 @@ export const AlmostDoneImage = memo(() => {
       </g>
     </svg>
   );
-});
+};

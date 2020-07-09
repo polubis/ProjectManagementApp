@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 
-import { Button, Select, Checkbox, TextareaField } from 'ui';
+import { Button, Select, TextareaField } from 'ui';
 
 import { Form } from 'utils';
 
@@ -15,18 +15,6 @@ namespace TechDetails {
   }
 }
 
-const updateSelectItems = (items: Checkbox.Props[], id: number, value: boolean) => {
-  return items.map((item) => (id === item.dataId ? { ...item, value } : item));
-};
-
-const makeSelectItems = (items: any[]): Checkbox.Props[] => {
-  return items.map(({ id, name }) => ({
-    dataId: id,
-    label: name,
-    value: false
-  }));
-};
-
 const [TECHNOLOGIES, PATTERNS, TAGS] = [0, 1, 2];
 
 const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
@@ -37,26 +25,22 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
   const { technologies } = useTechnologiesProvider();
 
   const handleTechnologySelect = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
-      const id = +e.currentTarget.getAttribute('data-id');
-      const items = updateSelectItems(fields[TECHNOLOGIES].value, id, value);
-      directChange([TECHNOLOGIES], [items]);
+    (e: Select.Events.Select, value: boolean) => {
+      directChange([TECHNOLOGIES], [Select.updateItems(fields[TECHNOLOGIES].value, e, value)]);
     },
     [fields]
   );
 
   const handlePatternSelect = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
-      const id = +e.currentTarget.getAttribute('data-id');
-      const items = updateSelectItems(fields[PATTERNS].value, id, value);
-      directChange([PATTERNS], [items]);
+    (e: Select.Events.Select, value: boolean) => {
+      directChange([PATTERNS], [Select.updateItems(fields[PATTERNS].value, e, value)]);
     },
     [fields]
   );
 
   useEffect(() => {
-    const mappedTechnologies = makeSelectItems(technologies);
-    const mappedPatterns = makeSelectItems(patterns);
+    const mappedTechnologies = Select.makeItems(technologies, 'id', 'name');
+    const mappedPatterns = Select.makeItems(patterns, 'id', 'name');
 
     if (fields[TECHNOLOGIES].value.length === 0 && fields[PATTERNS].value.length === 0) {
       directChange([TECHNOLOGIES, PATTERNS], [mappedTechnologies, mappedPatterns]);
@@ -91,7 +75,7 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
       />
 
       <footer>
-        <Button type="button" theme="primaryTransparent" onClick={onBack}>
+        <Button theme="primaryTransparent" onClick={onBack}>
           BACK
         </Button>
 

@@ -9,23 +9,17 @@ namespace Checkbox {
     label: string;
     value?: boolean;
     variant?: 'default' | 'informing';
-    dataId?: number | string;
+    dataIdx?: number | string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
   }
 }
 
-const Checkbox = ({
-  label,
-  value,
-  variant = 'default',
-  onChange,
-  dataId
-}: Checkbox.Props) => {
+const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
   return (
     <FormControlLabel
       label={label}
       classes={{
-        root: [csx.checkboxLabel, csx[variant]].join(' ')
+        root: `${csx.checkboxLabel} ${csx[variant]}`
       }}
       control={
         <MuiCheckbox
@@ -34,7 +28,7 @@ const Checkbox = ({
           classes={{ root: csx.checkbox, checked: csx.checked }}
           inputProps={
             {
-              'data-id': dataId
+              'data-idx': dataIdx
             } as any
           }
         />

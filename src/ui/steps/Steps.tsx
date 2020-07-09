@@ -1,7 +1,5 @@
 import React, { ReactNode } from 'react';
 
-import { IconButton } from '@material-ui/core';
-
 import csx from './Steps.scss';
 
 namespace Steps {
@@ -13,14 +11,14 @@ namespace Steps {
   }
 
   export interface Props {
-    items: Item[];
+    steps: Item[];
   }
 }
 
-const Steps = ({ items }: Steps.Props) => {
+const Steps = ({ steps }: Steps.Props) => {
   return (
     <nav className={csx.steps}>
-      {items.map(({ label, content, status, progress }, idx) => (
+      {steps.map(({ label, content, status, progress }, idx) => (
         <div
           key={label}
           data-idx={idx}
@@ -32,7 +30,7 @@ const Steps = ({ items }: Steps.Props) => {
             <div>{content || idx + 1}</div>
             <span>{label}</span>
           </div>
-          {idx !== items.length - 1 && (
+          {idx !== steps.length - 1 && (
             <svg className={csx.marker} width="100%" height="8">
               <line x1="100%" strokeWidth="8" />
               {progress !== undefined && (

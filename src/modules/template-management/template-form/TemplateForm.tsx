@@ -1,23 +1,14 @@
 import React, { useState, useCallback, useMemo } from 'react';
 
-import { CircularProgress } from '@material-ui/core';
-
-import { Steps, StepHeader } from 'ui';
+import { Loader, StepHeader } from 'ui';
 
 import { Form } from 'utils';
 
-import {
-  config,
-  descriptions,
-  steps,
-  getAddPayload,
-  decorateSteps,
-  useTemplateManagement
-} from '.';
+import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import csx from './TemplateForm.scss';
+import { config, descriptions, steps, getAddPayload, useTemplateManagement } from '.';
 
 const STEPS_COUNT = 3;
 
@@ -29,11 +20,11 @@ const [BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS] = Array.from(
 const TemplateForm = () => {
   const [activeStep, setActiveStep] = useState(BASIC_INFO);
 
+  const [{ pending }, handleAddTemplate] = useTemplateManagement();
+
   const basicInfoManager = Form.useManager(config[BASIC_INFO]);
   const githubConnectionManager = Form.useManager(config[GITHUB_CONNECTION]);
   const techDetailsManager = Form.useManager(config[TECH_DETAILS]);
-
-  const [{ pending }, addTemplate] = useTemplateManagement();
 
   const formManagers = useMemo(() => {
     return [basicInfoManager, githubConnectionManager, techDetailsManager];
@@ -52,7 +43,7 @@ const TemplateForm = () => {
       const nextStep = activeStep + 1;
 
       if (nextStep === STEPS_COUNT) {
-        addTemplate(getAddPayload(basicInfoManager, githubConnectionManager, techDetailsManager));
+        handleAddTemplate(getAddPayload(formManagers));
       } else {
         setActiveStep(nextStep);
       }
@@ -64,15 +55,13 @@ const TemplateForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   }, []);
 
-  const decoratedSteps = useMemo(() => decorateSteps(formManagers), [formManagers]);
-
   return pending ? (
-    <CircularProgress className={csx.loader} />
+    <Loader />
   ) : (
     <>
       <StepHeader description={descriptions[activeStep]} label={steps[activeStep].label} />
 
-      <Steps items={decoratedSteps} />
+      <FormSteps steps={steps} formManagers={formManagers} />
 
       {activeStep === BASIC_INFO && (
         <BasicInfo formManager={basicInfoManager} onSubmit={handleSubmit} />

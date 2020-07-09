@@ -1,0 +1,83 @@
+import React, { useCallback } from 'react';
+
+import { Button, InputField } from 'ui';
+
+import { Form } from 'utils';
+
+namespace Credentials {
+  export interface Props {
+    formManager: Form.Manager;
+    onSubmit(e: Form.Events.Submit): void;
+  }
+}
+
+const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
+
+const Credentials = ({ formManager, onSubmit }: Credentials.Props) => {
+  const [{ dirty, fields, invalid }, change, directChange] = formManager;
+
+  const handlePasswordChange = useCallback(
+    (e: Form.Events.Change) => {
+      directChange(
+        [PASSWORD, REPEATED_PASSWORD],
+        [e.target.value, fields[REPEATED_PASSWORD].value]
+      );
+    },
+    [fields]
+  );
+
+  const handleRepeatedPasswordChange = useCallback(
+    (e: Form.Events.Change) => {
+      directChange([PASSWORD, REPEATED_PASSWORD], [fields[PASSWORD].value, e.target.value]);
+    },
+    [fields]
+  );
+
+  return (
+    <form onSubmit={onSubmit}>
+      <InputField
+        data-idx={USERNAME}
+        label="Username *"
+        placeholder="Type your username..."
+        error={dirty ? fields[USERNAME].error : ''}
+        value={fields[USERNAME].value}
+        onChange={change}
+      />
+
+      <InputField
+        data-idx={EMAIL}
+        label="Email *"
+        placeholder="Type email adress..."
+        error={dirty ? fields[EMAIL].error : ''}
+        value={fields[EMAIL].value}
+        onChange={change}
+      />
+
+      <InputField
+        data-idx={PASSWORD}
+        label="Password *"
+        placeholder="Type password..."
+        type="password"
+        error={dirty ? fields[PASSWORD].error : ''}
+        value={fields[PASSWORD].value}
+        onChange={handlePasswordChange}
+      />
+
+      <InputField
+        data-idx={REPEATED_PASSWORD}
+        label="Repeated password *"
+        placeholder="Repeat your password..."
+        type="password"
+        error={dirty ? fields[REPEATED_PASSWORD].error : ''}
+        value={fields[REPEATED_PASSWORD].value}
+        onChange={handleRepeatedPasswordChange}
+      />
+
+      <Button type="submit" disabled={dirty && invalid}>
+        NEXT
+      </Button>
+    </form>
+  );
+};
+
+export default Credentials;

@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
-import { CircularProgress } from '@material-ui/core';
-
 import EditIcon from '@material-ui/icons/Edit';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { Button } from 'ui';
+import { Button, Loader } from 'ui';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
@@ -35,7 +33,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     <div className={csx.templateDetails}>
       <div className={csx.container}>
         {loading ? (
-          <CircularProgress />
+          <Loader />
         ) : (
           <>
             <div className={csx.actions}>
