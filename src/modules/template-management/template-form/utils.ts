@@ -39,7 +39,8 @@ export const config: Form.Config[] = [
     },
     {
       label: 'Tags',
-      value: ''
+      fns: [V.req],
+      value: []
     }
   ]
 ];
@@ -70,14 +71,16 @@ export const getAddPayload = ([
 ]: Form.Manager[]): AddTemplatePayload => {
   const [{ value: name }, { value: description }] = basicInfoManager[0].fields;
   const [{ value: githubLink }] = githubConnectionManager[0].fields;
+  const [_, __, { value: tags }] = techDetailsManager[0].fields;
   const technologies: Checkbox.Props[] = techDetailsManager[0].fields[0].value;
+  const patterns: Checkbox.Props[] = techDetailsManager[0].fields[1].value;
 
   return {
     name,
     description,
     githubLink,
     technologiesIds: technologies.filter((t) => t.value).map((t) => +t.dataIdx),
-    patternsIds: [],
-    tagsIds: []
+    patternsIds: patterns.filter((p) => p.value).map((t) => +t.dataIdx),
+    tags
   };
 };

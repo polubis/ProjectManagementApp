@@ -1,8 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
 
-import { Button, Select, TextareaField } from 'ui';
+import { Button, Select } from 'ui';
 
 import { Form } from 'utils';
+
+import { TagsField } from 'shared/components';
 
 import { useTechnologiesProvider } from 'core/technologies';
 import { usePatternsProvider } from 'core/patterns';
@@ -18,7 +20,7 @@ namespace TechDetails {
 const [TECHNOLOGIES, PATTERNS, TAGS] = [0, 1, 2];
 
 const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
-  const [{ fields, invalid, dirty }, change, directChange] = formManager;
+  const [{ fields, invalid, dirty }, _, directChange] = formManager;
 
   const { patterns } = usePatternsProvider();
 
@@ -34,6 +36,22 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
   const handlePatternSelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
       directChange([PATTERNS], [Select.updateItems(fields[PATTERNS].value, e, value)]);
+    },
+    [fields]
+  );
+
+  const handleTagsChange = useCallback(
+    (value: string) => {
+      const tags = [value, ...(fields[TAGS].value as string[])];
+      directChange([TAGS], [tags]);
+    },
+    [fields]
+  );
+
+  const handleTagDelete = useCallback(
+    (idx: number) => {
+      const tags = (fields[TAGS].value as string[]).filter((_, tIdx) => tIdx !== idx);
+      directChange([TAGS], [tags]);
     },
     [fields]
   );
@@ -65,13 +83,13 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
         onSelect={handlePatternSelect}
       />
 
-      <TextareaField
-        placeholder="Add tags and separate them with commas..."
+      <TagsField
+        placeholder="Add tag and confirm with enter..."
         label="Tags *"
-        data-idx={TAGS}
-        onChange={change}
-        value={fields[TAGS].value}
         error={dirty ? fields[TAGS].error : ''}
+        value={fields[TAGS].value}
+        onChange={handleTagsChange}
+        onDelete={handleTagDelete}
       />
 
       <footer>

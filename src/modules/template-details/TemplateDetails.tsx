@@ -12,6 +12,8 @@ import { Button, Loader } from 'ui';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
+import { TemplateTags } from 'shared/components';
+
 import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
 
 import csx from './TemplateDetails.scss';
@@ -53,13 +55,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             </div>
 
             <section>
-              <span className={csx.header}>
-                <ul className={`${csx.basicList} ${csx.primary}`}>
-                  {template.tags.map(({ id, name }) => (
-                    <li key={id}>{name}</li>
-                  ))}
-                </ul>
-              </span>
+              <TemplateTags tags={template.tags} />
             </section>
 
             <section className={csx.details}>
