@@ -8,7 +8,13 @@ import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import { config, descriptions, steps, getAddPayload, useTemplateManagement } from '.';
+import { descriptions, steps, useTemplateManagement } from '..';
+
+namespace TemplateForm {
+  export interface Props {
+    config: Form.Config[];
+  }
+}
 
 const STEPS_COUNT = 3;
 
@@ -17,7 +23,7 @@ const [BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS] = Array.from(
   (_, idx) => idx
 );
 
-const TemplateForm = () => {
+const TemplateForm = ({ config }: TemplateForm.Props) => {
   const [activeStep, setActiveStep] = useState(BASIC_INFO);
 
   const [{ pending }, handleAddTemplate] = useTemplateManagement();
@@ -43,7 +49,7 @@ const TemplateForm = () => {
       const nextStep = activeStep + 1;
 
       if (nextStep === STEPS_COUNT) {
-        handleAddTemplate(getAddPayload(formManagers));
+        handleAddTemplate(formManagers);
       } else {
         setActiveStep(nextStep);
       }
