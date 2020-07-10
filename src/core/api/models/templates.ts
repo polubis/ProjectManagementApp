@@ -10,7 +10,7 @@ export interface Template {
   modifiedDate?: Date,
   technologies?: Technology[];
   patterns?: Pattern[];
-  tags?: Tag[];
+  tags?: string[];
   // Remove this part later
   watches?: number;
   stars?: number;
@@ -27,16 +27,11 @@ export interface Contributors {
   avatar: string;
 }
 
-export interface Tag {
-  id: number;
-  name: string;
-}
-
 export interface AddTemplatePayload {
   name: string;
   description: string;
   githubLink: string;
-  tagsIds: number[];
+  tags: string[];
   patternsIds: number[];
   technologiesIds: number[];
 }

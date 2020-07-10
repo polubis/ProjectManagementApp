@@ -1,0 +1,28 @@
+@import 'styles/mixins';
+
+.tagsField {
+  position: relative;
+
+  & > div {
+    margin-top: 12px;
+  }
+
+  & > input {
+    padding: 18px 52px 18px 18px !important;
+  }
+
+  & > button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 32px;
+    right: 4px;
+    background: transparent;
+    color: $primary;
+
+    &:disabled {
+        color: $primary;
+        opacity: 0.4;
+    }
+  }
+}
