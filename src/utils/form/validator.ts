@@ -56,13 +56,13 @@ const V = {
       `Invalid date format`
     ),
 
-  oneTruthy: (key: string) => (items: any[]) =>
-    makeResult(!items.some(item => !!item[key]), `Atleast one field must be checked`),
+  oneTruthy: (value: { [key: string]: boolean }) =>
+    makeResult(!Object.values(value).some((item) => !!item), `Atleast one field must be checked`),
 
   sameAs: (idx: number, label: string) => (value: any, state: Form.State) =>
     makeResult(value !== state.fields[idx].value, `Field must be same as ${label}`),
 
-  run: (value: any, state: Form.State) => (...fns: V.Fn[]) => fns.map(fn => fn(value, state))
+  run: (value: any, state: Form.State) => (...fns: V.Fn[]) => fns.map((fn) => fn(value, state))
 };
 
 export default V;

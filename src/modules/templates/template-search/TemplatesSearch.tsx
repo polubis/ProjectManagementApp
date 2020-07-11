@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { Checkbox, Select } from 'ui';
+import { Select } from 'ui';
 
 import { Form, useQueryParams } from 'utils';
 
@@ -23,12 +23,12 @@ const TemplatesSearch = () => {
 
   const [{ fields }, change, directChange, submit] = Form.useManager([
     { label: 'Query', value: query },
-    { label: 'Technologies', value: [] }
+    { label: 'Technologies', value: {} }
   ]);
 
   const handleTechnologySelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.updateItems(fields[TECHNOLOGIES].value, e, value)]);
+      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
     },
     [fields]
   );
@@ -52,15 +52,9 @@ const TemplatesSearch = () => {
     directChange([QUERY], [query]);
   }, [query]);
 
-  useEffect(() => {
-    const mappedTechnologies: Checkbox.Props[] = technologies.map(({ id, name }) => ({
-      dataIdx: id,
-      label: name,
-      value: false
-    }));
-
-    directChange([TECHNOLOGIES], [mappedTechnologies]);
-  }, [technologies]);
+  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
+    technologies
+  ]);
 
   return (
     <form className={csx.templatesSearch} onSubmit={handleSubmit}>
@@ -77,7 +71,8 @@ const TemplatesSearch = () => {
         placeholder="All technologies"
         className={csx.select}
         openClass={csx.selectMenuOpen}
-        items={fields[TECHNOLOGIES].value}
+        items={mappedTechnologies}
+        value={fields[TECHNOLOGIES].value}
         onSelect={handleTechnologySelect}
       />
 

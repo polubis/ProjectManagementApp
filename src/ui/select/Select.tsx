@@ -14,9 +14,15 @@ namespace Select {
 
   export type OnSelect = (event: Events.Select, checked?: boolean) => void;
 
+  export interface Item {
+    dataIdx: number | string;
+    label: string;
+  }
+
   export interface Props {
     label: string;
-    items: Checkbox.Props[];
+    items: Item[];
+    value: { [key: string]: boolean };
     className?: string;
     openClass?: string;
     error?: string;
@@ -35,6 +41,7 @@ const Select = ({
   className,
   openClass = csx.menuOpen,
   error,
+  value,
   items,
   onSelect
 }: Select.Props) => {
@@ -53,9 +60,23 @@ const Select = ({
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const selectedItems = useMemo(() => {
-    return items.filter(({ value }) => value).reverse();
-  }, [items]);
+  const selectedItems = useMemo(() => items.filter(({ dataIdx }) => value[dataIdx]).reverse(), [
+    items,
+    value
+  ]);
+
+  const mappedItems = useMemo(
+    () =>
+      items.map(
+        ({ dataIdx, label }) =>
+          ({
+            dataIdx,
+            label,
+            value: !!value[dataIdx]
+          } as Checkbox.Props)
+      ),
+    [items, value]
+  );
 
   return (
     <FieldBase className={className} label={label} error={error}>
@@ -93,7 +114,7 @@ const Select = ({
             width={400}
             id={label}
             anchorEl={anchorEl}
-            items={items}
+            items={mappedItems}
             onClose={closeMenu}
             onSelect={onSelect}
           >
@@ -105,30 +126,22 @@ const Select = ({
   );
 };
 
-Select.updateItems = (
-  items: Checkbox.Props[],
+Select.select = (
   e: Select.Events.Select,
   value: boolean,
-  unselectOthers = false
-): Checkbox.Props[] => {
-  const id = +e.currentTarget.getAttribute('data-idx');
+  values: { [key: string]: boolean } = {}
+) => ({ ...values, [+e.currentTarget.getAttribute('data-idx')]: value });
 
-  if (unselectOthers) {
-    return items.map(item => (id === item.dataIdx ? { ...item, value } : { ...item, value: false }));
-  } else {
-    return items.map(item => (id === item.dataIdx ? { ...item, value } : item));
-  }
-};
-
-Select.makeItems = (items: any[], idKey: string, labelKey: string) => {
-  return items.map(
-    item =>
+Select.makeItems = (items: any[], idKey: string, labelKey: string) =>
+  items.map(
+    (item) =>
       ({
         dataIdx: item[idKey],
-        label: item[labelKey],
-        value: false
-      } as Checkbox.Props)
+        label: item[labelKey]
+      } as Select.Item)
   );
-};
+
+Select.getChecked = (value: { [key: string]: boolean }) =>
+  Object.keys(value).filter((k) => value[k]);
 
 export default Select;

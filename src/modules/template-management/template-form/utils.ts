@@ -1,8 +1,8 @@
-import { Steps, Checkbox } from 'ui';
+import { Steps, Select } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { AddTemplatePayload } from 'core/api';
+import { TemplatePayload } from 'core/api';
 
 export const config: Form.Config[] = [
   [
@@ -29,13 +29,13 @@ export const config: Form.Config[] = [
   [
     {
       label: 'Technologies',
-      fns: [V.req, V.oneTruthy('value')],
-      value: []
+      fns: [V.oneTruthy],
+      value: {}
     },
     {
       label: 'Patterns',
-      fns: [V.req, V.oneTruthy('value')],
-      value: []
+      fns: [V.oneTruthy],
+      value: {}
     },
     {
       label: 'Tags',
@@ -68,19 +68,19 @@ export const getAddPayload = ([
   basicInfoManager,
   githubConnectionManager,
   techDetailsManager
-]: Form.Manager[]): AddTemplatePayload => {
+]: Form.Manager[]): TemplatePayload => {
   const [{ value: name }, { value: description }] = basicInfoManager[0].fields;
   const [{ value: githubLink }] = githubConnectionManager[0].fields;
-  const [_, __, { value: tags }] = techDetailsManager[0].fields;
-  const technologies: Checkbox.Props[] = techDetailsManager[0].fields[0].value;
-  const patterns: Checkbox.Props[] = techDetailsManager[0].fields[1].value;
+  const technologies = techDetailsManager[0].fields[0].value;
+  const patterns = techDetailsManager[0].fields[1].value;
+  const tags = techDetailsManager[0].fields[2].value;
 
   return {
     name,
     description,
     githubLink,
-    technologiesIds: technologies.filter((t) => t.value).map((t) => +t.dataIdx),
-    patternsIds: patterns.filter((p) => p.value).map((t) => +t.dataIdx),
+    technologiesIds: Select.getChecked(technologies).map((k) => +k),
+    patternsIds: Select.getChecked(patterns).map((k) => +k),
     tags
   };
 };

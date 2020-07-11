@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Button, InputField, Select } from 'ui';
 
@@ -18,6 +18,22 @@ namespace Work {
   }
 }
 
+const SENIORITY_ITEMS: Select.Item[] = [
+  { dataIdx: 0, label: 'Junior' },
+  { dataIdx: 1, label: 'Mid' },
+  { dataIdx: 2, label: 'Regular' },
+  { dataIdx: 3, label: 'Pro' },
+  { dataIdx: 4, label: 'Senior' }
+];
+
+const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map(
+  (idx) =>
+    ({
+      dataIdx: idx,
+      label: idx !== 1 ? `${idx} years` : `${idx} year`
+    } as Select.Item)
+);
+
 const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 
 const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
@@ -27,32 +43,28 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
 
   const handleSenioritySelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([SENIORITY], [Select.updateItems(fields[SENIORITY].value, e, value, true)]);
+      directChange([SENIORITY], [Select.select(e, value)]);
     },
     [fields]
   );
 
   const handleTechnologySelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.updateItems(fields[TECHNOLOGIES].value, e, value)]);
+      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
     },
     [fields]
   );
 
   const handleExperienceSelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([EXPERIENCE], [Select.updateItems(fields[EXPERIENCE].value, e, value, true)]);
+      directChange([EXPERIENCE], [Select.select(e, value)]);
     },
     [fields]
   );
 
-  useEffect(() => {
-    const mappedTechnologies = Select.makeItems(technologies, 'id', 'name');
-
-    if (fields[TECHNOLOGIES].value.length === 0) {
-      directChange([TECHNOLOGIES], [mappedTechnologies]);
-    }
-  }, []);
+  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
+    technologies
+  ]);
 
   return (
     <form className={csx.work} onSubmit={onSubmit}>
@@ -75,8 +87,9 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
         <Select
           label="Seniority"
           placeholder="Seniority..."
-          items={fields[SENIORITY].value}
+          items={SENIORITY_ITEMS}
           error={dirty ? fields[SENIORITY].error : ''}
+          value={fields[SENIORITY].value}
           onSelect={handleSenioritySelect}
         />
       </div>
@@ -94,8 +107,9 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
         <Select
           label="Years of experience"
           placeholder="Years of experience..."
-          items={fields[EXPERIENCE].value}
           error={dirty ? fields[EXPERIENCE].error : ''}
+          items={EXPERIENCE_ITEMS}
+          value={fields[EXPERIENCE].value}
           onSelect={handleExperienceSelect}
         />
       </div>
@@ -103,8 +117,9 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
       <Select
         label="Technologies"
         placeholder="Choose technologies..."
-        items={fields[TECHNOLOGIES].value}
         error={dirty ? fields[TECHNOLOGIES].error : ''}
+        items={mappedTechnologies}
+        value={fields[TECHNOLOGIES].value}
         onSelect={handleTechnologySelect}
       />
 
