@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
-import { addTemplate, AddTemplatePayload } from 'core/api';
+import { addTemplate, TemplatePayload } from 'core/api';
 
 interface State {
   pending: boolean;
@@ -9,7 +9,7 @@ interface State {
   id: string | null;
 }
 
-type Return = [State, (payload: AddTemplatePayload) => Promise<void>];
+type Return = [State, (payload: TemplatePayload) => Promise<void>];
 
 const STATE: State = {
   pending: false,
@@ -22,7 +22,7 @@ export const useTemplateManagement = (): Return => {
 
   const [state, setState] = useState(STATE);
 
-  const handleAdd = useCallback(async (payload: AddTemplatePayload) => {
+  const handleAdd = useCallback(async (payload: TemplatePayload) => {
     setState({ ...STATE, pending: true });
 
     try {

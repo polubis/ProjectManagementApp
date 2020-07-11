@@ -14,6 +14,11 @@ namespace PersonalInfo {
   }
 }
 
+const GENDER_LIST: Select.Item[] = [
+  { dataIdx: 0, label: 'Male' },
+  { dataIdx: 1, label: 'Female' }
+];
+
 const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
 
 const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => {
@@ -21,7 +26,7 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
 
   const handleGenderSelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([GENDER], [Select.updateItems(fields[GENDER].value, e, value, true)]);
+      directChange([GENDER], [Select.select(e, value)]);
     },
     [fields]
   );
@@ -66,8 +71,9 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
         <Select
           label="Gender"
           placeholder="Choose gender..."
-          items={fields[GENDER].value}
           error={dirty ? fields[GENDER].error : ''}
+          items={GENDER_LIST}
+          value={fields[GENDER].value}
           onSelect={handleGenderSelect}
         />
       </div>

@@ -27,7 +27,7 @@ export interface Contributors {
   avatar: string;
 }
 
-export interface AddTemplatePayload {
+export interface TemplatePayload {
   name: string;
   description: string;
   githubLink: string;

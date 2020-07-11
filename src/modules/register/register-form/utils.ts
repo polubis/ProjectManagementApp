@@ -1,10 +1,8 @@
-import { Steps, Checkbox } from 'ui';
+import { Steps } from 'ui';
 
 import { Form, V } from 'utils';
 
 import { RegisterPayload } from 'core/api';
-
-const MAX_YEARS_OF_EXP = 30;
 
 const [_, __, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
 
@@ -36,10 +34,7 @@ export const config: Form.Config[] = [
     },
     {
       label: 'Gender',
-      value: [
-        { dataIdx: 0, label: 'Male', value: false },
-        { dataIdx: 1, label: 'Female', value: false }
-      ] as Checkbox.Props[]
+      value: {}
     }
   ],
   [
@@ -49,13 +44,7 @@ export const config: Form.Config[] = [
     },
     {
       label: 'Seniority',
-      value: [
-        { dataIdx: 0, label: 'Junior', value: false },
-        { dataIdx: 1, label: 'Mid', value: false },
-        { dataIdx: 2, label: 'Regular', value: false },
-        { dataIdx: 3, label: 'Pro', value: false },
-        { dataIdx: 4, label: 'Senior', value: false }
-      ] as Checkbox.Props[]
+      value: {}
     },
     {
       label: 'Company',
@@ -63,18 +52,11 @@ export const config: Form.Config[] = [
     },
     {
       label: 'Years of experience',
-      value: Array.from({ length: MAX_YEARS_OF_EXP }, (_, idx) => idx + 1).map(
-        (idx) =>
-          ({
-            dataIdx: idx,
-            label: idx !== 1 ? `${idx} years` : `${idx} year`,
-            value: false
-          } as Checkbox.Props)
-      )
+      value: {}
     },
     {
       label: 'Technologies',
-      value: []
+      value: {}
     }
   ],
   [

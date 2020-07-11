@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Button, Select } from 'ui';
 
@@ -28,14 +28,14 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
 
   const handleTechnologySelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.updateItems(fields[TECHNOLOGIES].value, e, value)]);
+      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
     },
     [fields]
   );
 
   const handlePatternSelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
-      directChange([PATTERNS], [Select.updateItems(fields[PATTERNS].value, e, value)]);
+      directChange([PATTERNS], [Select.select(e, value, fields[PATTERNS].value)]);
     },
     [fields]
   );
@@ -56,30 +56,29 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
     [fields]
   );
 
-  useEffect(() => {
-    const mappedTechnologies = Select.makeItems(technologies, 'id', 'name');
-    const mappedPatterns = Select.makeItems(patterns, 'id', 'name');
+  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
+    technologies
+  ]);
 
-    if (fields[TECHNOLOGIES].value.length === 0 && fields[PATTERNS].value.length === 0) {
-      directChange([TECHNOLOGIES, PATTERNS], [mappedTechnologies, mappedPatterns]);
-    }
-  }, []);
+  const mappedPatterns = useMemo(() => Select.makeItems(patterns, 'id', 'name'), [patterns]);
 
   return (
     <form onSubmit={onSubmit}>
       <Select
         label="Technologies *"
         placeholder="Select template technologies..."
-        items={fields[TECHNOLOGIES].value}
+        items={mappedTechnologies}
         error={dirty ? fields[TECHNOLOGIES].error : ''}
+        value={fields[TECHNOLOGIES].value}
         onSelect={handleTechnologySelect}
       />
 
       <Select
         label="Patterns *"
         placeholder="Select patterns..."
-        items={fields[PATTERNS].value}
+        items={mappedPatterns}
         error={dirty ? fields[PATTERNS].error : ''}
+        value={fields[PATTERNS].value}
         onSelect={handlePatternSelect}
       />
 
