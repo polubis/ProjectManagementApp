@@ -37,7 +37,7 @@ const Main = ({ match }: Main.Props) => {
           <Guard.ProtectedRoute
             exact
             redirect={`${match.path}/templates`}
-            path={`${match.path}/templates/management`}
+            path={`${match.path}/templates/management/:id?`}
             component={TemplateManagement}
           />
 

@@ -6,6 +6,8 @@ import { Form } from 'utils';
 
 import { AlmostDoneImage } from '.';
 
+import { COMPANY_REGULATIONS, COMMERCIAL_INFO } from '../../..';
+
 import csx from './AlmostDone.scss';
 
 namespace AlmostDone {
@@ -15,8 +17,6 @@ namespace AlmostDone {
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
 
 const AlmostDone = ({ formManager, onBack, onSubmit }: AlmostDone.Props) => {
   const [{ dirty, fields, invalid }, _, directChange] = formManager;

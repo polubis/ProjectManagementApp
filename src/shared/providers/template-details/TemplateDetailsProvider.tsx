@@ -1,13 +1,13 @@
 import React, { createContext, useContext } from 'react';
 
-import { Template, getTemplate } from 'core/api';
+import { Template, getTemplateDetails } from 'core/api';
 
 namespace TemplateDetailsProvider {
   export interface State {
     loading: boolean;
     error: string;
     template: Template;
-    getTemplate?(id: string): Promise<void>;
+    getTemplateDetails?(id: string): Promise<void>;
   }
 }
 
@@ -20,7 +20,7 @@ const STATE: TemplateDetailsProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<any, typeof STATE> {
-  getTemplate = async (id: string): Promise<void> => {
+  getTemplateDetails = async (id: string): Promise<void> => {
     if (!this.state.loading) {
       this.setState({
         ...STATE
@@ -28,26 +28,17 @@ class Provider extends React.Component<any, typeof STATE> {
     }
 
     try {
-      const template = await getTemplate(id);
+      const template = await getTemplateDetails(id);
 
-      this.setState({
-        ...STATE,
-        loading: false,
-        template,
-      });
-      
+      this.setState({ ...STATE, loading: false, template });
     } catch (error) {
-      this.setState({
-        ...STATE,
-        loading: false,
-        error
-      });
+      this.setState({ ...STATE, loading: false, error });
     }
   };
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTemplate: this.getTemplate
+    getTemplateDetails: this.getTemplateDetails
   };
 
   render() {

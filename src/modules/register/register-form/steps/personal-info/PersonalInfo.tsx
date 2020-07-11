@@ -4,6 +4,8 @@ import { Button, DateField, InputField, Select } from 'ui';
 
 import { Form } from 'utils';
 
+import { FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER, GENDER_LIST } from '../../..';
+
 import csx from './PersonalInfo.scss';
 
 namespace PersonalInfo {
@@ -13,13 +15,6 @@ namespace PersonalInfo {
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const GENDER_LIST: Select.Item[] = [
-  { dataIdx: 0, label: 'Male' },
-  { dataIdx: 1, label: 'Female' }
-];
-
-const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
 
 const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;

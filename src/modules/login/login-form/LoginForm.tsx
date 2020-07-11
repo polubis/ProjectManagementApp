@@ -16,7 +16,7 @@ namespace LoginForm {
   }
 }
 
-const config: Form.Config = [
+const BASE_CONFIG: Form.Config = [
   { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
   { label: 'Password', fns: [V.req, V.min(2), V.max(50)] }
 ];
@@ -24,7 +24,7 @@ const config: Form.Config = [
 const [USERNAME, PASSWORD] = [0, 1];
 
 const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
-  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(config);
+  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(BASE_CONFIG);
 
   const handleSubmit = (e: Form.Events.Submit) => {
     if (submit(e)) {
@@ -40,8 +40,8 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
     <form className={csx.loginForm} onSubmit={handleSubmit}>
       <InputField
         data-idx={USERNAME}
-        label={config[USERNAME].label}
-        placeholder={`${config[USERNAME].label}...`}
+        label={BASE_CONFIG[USERNAME].label}
+        placeholder={`${BASE_CONFIG[USERNAME].label}...`}
         error={dirty ? fields[USERNAME].error : ''}
         value={fields[USERNAME].value}
         onChange={change}
@@ -50,8 +50,8 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
       <InputField
         data-idx={PASSWORD}
         type="password"
-        label={config[PASSWORD].label}
-        placeholder={`${config[PASSWORD].label}...`}
+        label={BASE_CONFIG[PASSWORD].label}
+        placeholder={`${BASE_CONFIG[PASSWORD].label}...`}
         error={dirty ? fields[PASSWORD].error : ''}
         value={fields[PASSWORD].value}
         onChange={change}

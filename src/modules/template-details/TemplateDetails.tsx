@@ -14,7 +14,9 @@ import { convertNumberToKFormat, convertDate } from 'utils';
 
 import { TemplateTags } from 'shared/components';
 
-import TemplateDetailsProvider, { useTemplateDetailsProvider } from './TemplateDetailsProvider';
+import TemplateDetailsProvider, {
+  useTemplateDetailsProvider
+} from 'shared/providers/template-details';
 
 import csx from './TemplateDetails.scss';
 
@@ -22,13 +24,11 @@ namespace TemplateDetails {
   export interface Props extends RouteChildrenProps<{ id: string }> {}
 }
 
-// TODO - CONNECT EDIT
-
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
-  const { template, loading, getTemplate } = useTemplateDetailsProvider();
+  const { template, loading, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
-    getTemplate(match.params.id);
+    getTemplateDetails(match.params.id);
   }, [match.params.id]);
 
   return (
@@ -39,9 +39,12 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
         ) : (
           <>
             <div className={csx.actions}>
-              <Button>
-                <EditIcon /> EDIT
-              </Button>
+              <NavLink to={`/app/templates/management/${match.params.id}`}>
+                <Button>
+                  <EditIcon /> EDIT
+                </Button>
+              </NavLink>
+
               <NavLink to={`${match.url}/documentation`}>
                 <Button>
                   <MenuBookIcon /> DOCS

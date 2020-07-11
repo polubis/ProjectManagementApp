@@ -4,14 +4,14 @@ import { Button, InputField } from 'ui';
 
 import { Form } from 'utils';
 
+import { USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD } from '../../..';
+
 namespace Credentials {
   export interface Props {
     formManager: Form.Manager;
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
 
 const Credentials = ({ formManager, onSubmit }: Credentials.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;

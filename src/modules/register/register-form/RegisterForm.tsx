@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Loader, StepHeader } from 'ui';
+import { Loader, StepHeader, Steps } from 'ui';
 
 import { Form } from 'utils';
 
@@ -8,24 +8,45 @@ import { FormSteps } from 'shared/components';
 
 import { Credentials, PersonalInfo, Work, AlmostDone, ConfirmAccount } from './steps';
 
-import { descriptions, config, steps, getRegisterPayload, useRegister } from '.';
+import {
+  BASE_CONFIG,
+  CREDENTIALS,
+  PERSONAL_INFO,
+  WORK,
+  ALMOST_DONE,
+  CONFIRM_ACCOUNT,
+  useRegister
+} from '..';
 
-const STEPS_COUNT = 5;
+const DESCRIPTIONS: string[] = [
+  `Choose username, email and use save password for login`,
+  `Will be used for notifications and searching purposes`,
+  `Describe yourself for other users`,
+  `Read our policy and confirm account creation`
+];
 
-const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = Array.from(
-  { length: STEPS_COUNT },
-  (_, idx) => idx
-);
+const STEPS: Steps.Item[] = [
+  {
+    label: 'Account setup'
+  },
+  {
+    label: 'Personal informations'
+  },
+  {
+    label: 'Work & Company'
+  },
+  { label: 'Almost done!' }
+];
 
 const RegisterForm = () => {
   const [activeStep, setActiveStep] = useState(CREDENTIALS);
 
   const [{ pending, created }, handleRegister] = useRegister();
 
-  const credentialsManager = Form.useManager(config[CREDENTIALS]);
-  const personalInfoManager = Form.useManager(config[PERSONAL_INFO]);
-  const workManager = Form.useManager(config[WORK]);
-  const almostDoneManager = Form.useManager(config[ALMOST_DONE]);
+  const credentialsManager = Form.useManager(BASE_CONFIG[CREDENTIALS]);
+  const personalInfoManager = Form.useManager(BASE_CONFIG[PERSONAL_INFO]);
+  const workManager = Form.useManager(BASE_CONFIG[WORK]);
+  const almostDoneManager = Form.useManager(BASE_CONFIG[ALMOST_DONE]);
 
   const formManagers = useMemo(() => {
     return [credentialsManager, personalInfoManager, workManager, almostDoneManager];
@@ -44,7 +65,7 @@ const RegisterForm = () => {
       const nextStep = activeStep + 1;
 
       if (nextStep === CONFIRM_ACCOUNT) {
-        handleRegister(getRegisterPayload(formManagers));
+        handleRegister(formManagers);
       } else {
         setActiveStep(nextStep);
       }
@@ -72,9 +93,9 @@ const RegisterForm = () => {
 
   return (
     <>
-      <StepHeader description={descriptions[activeStep]} label={steps[activeStep].label} />
+      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
 
-      <FormSteps formManagers={formManagers} steps={steps} />
+      <FormSteps formManagers={formManagers} steps={STEPS} />
 
       {activeStep === CREDENTIALS && (
         <Credentials formManager={credentialsManager} onSubmit={handleSubmit} />

@@ -8,6 +8,16 @@ import { useTechnologiesProvider } from 'core/technologies';
 
 import { WorkImage } from '.';
 
+import {
+  POSITION,
+  SENIORITY,
+  COMPANY,
+  EXPERIENCE,
+  TECHNOLOGIES,
+  SENIORITY_ITEMS,
+  EXPERIENCE_ITEMS
+} from '../../..';
+
 import csx from './Work.scss';
 
 namespace Work {
@@ -17,24 +27,6 @@ namespace Work {
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const SENIORITY_ITEMS: Select.Item[] = [
-  { dataIdx: 0, label: 'Junior' },
-  { dataIdx: 1, label: 'Mid' },
-  { dataIdx: 2, label: 'Regular' },
-  { dataIdx: 3, label: 'Pro' },
-  { dataIdx: 4, label: 'Senior' }
-];
-
-const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map(
-  (idx) =>
-    ({
-      dataIdx: idx,
-      label: idx !== 1 ? `${idx} years` : `${idx} year`
-    } as Select.Item)
-);
-
-const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 
 const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;

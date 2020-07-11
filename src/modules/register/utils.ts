@@ -1,12 +1,35 @@
-import { Steps } from 'ui';
-
 import { Form, V } from 'utils';
 
-import { RegisterPayload } from 'core/api';
+import { Select } from 'ui';
 
-const [_, __, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
+export const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = [0, 1, 2, 3, 4];
+export const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
+export const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
+export const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
+export const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
 
-export const config: Form.Config[] = [
+export const GENDER_LIST: Select.Item[] = [
+  { dataIdx: 0, label: 'Male' },
+  { dataIdx: 1, label: 'Female' }
+];
+
+export const SENIORITY_ITEMS: Select.Item[] = [
+  { dataIdx: 0, label: 'Junior' },
+  { dataIdx: 1, label: 'Mid' },
+  { dataIdx: 2, label: 'Regular' },
+  { dataIdx: 3, label: 'Pro' },
+  { dataIdx: 4, label: 'Senior' }
+];
+
+export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map(
+  (idx) =>
+    ({
+      dataIdx: idx,
+      label: idx !== 1 ? `${idx} years` : `${idx} year`
+    } as Select.Item)
+);
+
+export const BASE_CONFIG: Form.Config[] = [
   [
     { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
     { label: 'Email', fns: [V.req, V.email] },
@@ -70,48 +93,3 @@ export const config: Form.Config[] = [
     }
   ]
 ];
-
-export const descriptions: string[] = [
-  `Choose username, email and use save password for login`,
-  `Will be used for notifications and searching purposes`,
-  `Describe yourself for other users`,
-  `Read our policy and confirm account creation`
-];
-
-export const steps: Steps.Item[] = [
-  {
-    label: 'Account setup'
-  },
-  {
-    label: 'Personal informations'
-  },
-  {
-    label: 'Work & Company'
-  },
-  { label: 'Almost done!' }
-];
-
-export const getRegisterPayload = ([
-  credentialsManager,
-  personalInfoManager,
-  workManager,
-  almostDoneManager
-]: Form.Manager[]): RegisterPayload => {
-  const [
-    { value: username },
-    { value: email },
-    { value: password },
-    { value: confirmPassword }
-  ] = credentialsManager[0].fields;
-
-  const [{ value: firstName }, { value: lastName }] = personalInfoManager[0].fields;
-
-  return {
-    username,
-    email,
-    password,
-    confirmPassword,
-    firstName,
-    lastName
-  };
-};
