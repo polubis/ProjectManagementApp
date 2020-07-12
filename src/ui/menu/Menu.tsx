@@ -7,7 +7,6 @@ import { Palette } from 'styles';
 
 namespace Menu {
   type BaseProps<T> = {
-    id: string;
     anchorEl: Element;
     items: T[];
     children: React.ComponentType<ListChildComponentProps>;
@@ -54,7 +53,6 @@ const useStyles = makeStyles({
 });
 
 const Menu = <T, R>({
-  id,
   anchorEl,
   items,
   children,
@@ -80,7 +78,6 @@ const Menu = <T, R>({
     <MuiMenu
       open
       getContentAnchorEl={null}
-      id={id}
       anchorEl={anchorEl}
       classes={classes}
       anchorOrigin={anchorOrigin}
@@ -94,7 +91,7 @@ const Menu = <T, R>({
         itemCount={items.length}
         itemData={itemData}
       >
-        {children as any}
+        {children}
       </FixedSizeList>
     </MuiMenu>
   );

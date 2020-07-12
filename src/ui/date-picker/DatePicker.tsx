@@ -1,12 +1,19 @@
 import React, { useState, useMemo } from 'react';
 
-import { IconButton, Button } from '@material-ui/core';
+import { IconButton, Button as MuiButton } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { usePortal } from 'utils';
-
-import { getInitDate, getDayName, getMonthName, DAYS_SYMBOLS, MONTHS_COUNT, getDays } from '..';
+import {
+  Button,
+  Modal,
+  getInitDate,
+  getDayName,
+  getMonthName,
+  DAYS_SYMBOLS,
+  MONTHS_COUNT,
+  getDays
+} from '..';
 
 import csx from './DatePicker.scss';
 
@@ -25,8 +32,6 @@ namespace DatePicker {
 }
 
 const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
-  const render = usePortal();
-
   const [activeDate, setActiveDate] = useState(getInitDate(value));
 
   const onNextMonthClick = () => {
@@ -101,60 +106,62 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
 
   const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [activeDate]);
 
-  return render(
-    <div className={csx.datePickerWrapper}>
-      <div className={csx.datePicker}>
-        <header>
+  return (
+    <Modal className={csx.datePicker}>
+      <header>
+        <span>{year}</span>
+        <span>
+          {getDayName(activeDate)}, {getMonthName(month)} {day}
+        </span>
+      </header>
+
+      <section>
+        <div className={csx.yearPicker}>
+          <IconButton onClick={onPrevMonthClick}>
+            <ChevronLeftIcon />
+          </IconButton>
           <span>{year}</span>
-          <span>
-            {getDayName(activeDate)}, {getMonthName(month)} {day}
-          </span>
-        </header>
+          <IconButton onClick={onNextMonthClick}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
 
-        <section>
-          <div className={csx.yearPicker}>
-            <IconButton onClick={onPrevMonthClick}>
-              <ChevronLeftIcon />
-            </IconButton>
-            <span>{year}</span>
-            <IconButton onClick={onNextMonthClick}>
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
+        <div className={csx.dayPicker}>
+          {DAYS_SYMBOLS.map((symbol) => (
+            <div key={symbol}>{symbol}</div>
+          ))}
+          {prevDays.map((day) => (
+            <MuiButton key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
+              {day}
+            </MuiButton>
+          ))}
+          {days.map((day) => (
+            <MuiButton
+              key={day}
+              data-idx={day}
+              className={day === activeDate.day ? csx.activeDay : ''}
+              onClick={onDayClick}
+            >
+              {day}
+            </MuiButton>
+          ))}
+          {nextDays.map((day) => (
+            <MuiButton key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
+              {day}
+            </MuiButton>
+          ))}
+        </div>
+      </section>
 
-          <div className={csx.dayPicker}>
-            {DAYS_SYMBOLS.map((symbol) => (
-              <div key={symbol}>{symbol}</div>
-            ))}
-            {prevDays.map((day) => (
-              <Button key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
-                {day}
-              </Button>
-            ))}
-            {days.map((day) => (
-              <Button
-                key={day}
-                data-idx={day}
-                className={day === activeDate.day ? csx.activeDay : ''}
-                onClick={onDayClick}
-              >
-                {day}
-              </Button>
-            ))}
-            {nextDays.map((day) => (
-              <Button key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
-                {day}
-              </Button>
-            ))}
-          </div>
-        </section>
-
-        <footer>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
-        </footer>
-      </div>
-    </div>
+      <footer>
+        <Button theme="primaryTransparent" onClick={onClose}>
+          CANCEL
+        </Button>
+        <Button theme="primaryTransparent" onClick={handleSave}>
+          SAVE
+        </Button>
+      </footer>
+    </Modal>
   );
 };
 

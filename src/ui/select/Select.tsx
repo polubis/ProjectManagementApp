@@ -86,20 +86,13 @@ const Select = ({
           )}
         </div>
 
-        <Button
-          aria-haspopup="true"
-          type="button"
-          aria-controls={label}
-          className={csx.toggleBtn}
-          onClick={openMenu}
-        >
+        <Button className={csx.toggleBtn} onClick={openMenu}>
           <ExpandMoreIcon />
         </Button>
 
         {isMenuOpen && (
           <Menu<Checkbox.Props, Select.MenuProps>
             width={400}
-            id={label}
             anchorEl={anchorEl}
             items={mappedItems}
             onClose={closeMenu}

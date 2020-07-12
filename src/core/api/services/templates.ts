@@ -12,3 +12,5 @@ export const addTemplate = (payload: TemplatePayload) => core.post<string>('Temp
 
 export const editTemplate = (id: string, payload: TemplatePayload) =>
   core.put<string>(`Templates/${id}`, payload);
+
+export const deleteTemplate = (id: string) => core.delete(`Templates/${id}`);

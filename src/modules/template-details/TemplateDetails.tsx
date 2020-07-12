@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { Button, Loader } from 'ui';
+import { Button, Loader, More } from 'ui';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
@@ -18,6 +19,8 @@ import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
 
+import ConfirmDelete from './confirm-delete';
+
 import csx from './TemplateDetails.scss';
 
 namespace TemplateDetails {
@@ -25,11 +28,21 @@ namespace TemplateDetails {
 }
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
   const { template, loading, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
     getTemplateDetails(match.params.id);
   }, [match.params.id]);
+
+  const openConfirmDelete = useCallback(() => {
+    setConfirmDeleteOpen(true);
+  }, []);
+
+  const closeConfirmDelete = useCallback(() => {
+    setConfirmDeleteOpen(false);
+  }, []);
 
   return (
     <div className={csx.templateDetails}>
@@ -38,23 +51,33 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
           <Loader />
         ) : (
           <>
-            <div className={csx.actions}>
-              <NavLink to={`/app/templates/management/${match.params.id}`}>
-                <Button>
-                  <EditIcon /> EDIT
-                </Button>
-              </NavLink>
+            {confirmDeleteOpen && (
+              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
+            )}
 
+            <div className={csx.actions}>
               <NavLink to={`${match.url}/documentation`}>
                 <Button>
                   <MenuBookIcon /> DOCS
                 </Button>
               </NavLink>
+
               <Link to={{ pathname: template.githubLink }} target="_blank">
                 <Button>
                   <ShareIcon /> SOURCE
                 </Button>
               </Link>
+
+              <More>
+                <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                  <EditIcon />
+                  EDIT
+                </NavLink>
+                <div className={csx.delete} onClick={openConfirmDelete}>
+                  <DeleteIcon />
+                  DELETE
+                </div>
+              </More>
             </div>
 
             <section>

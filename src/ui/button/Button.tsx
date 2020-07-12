@@ -12,7 +12,7 @@ namespace Button {
     > {
     children: React.ReactNode;
     variant?: 'default' | 'icon';
-    theme?: 'primaryDark' | 'primaryTransparent';
+    theme?: 'primaryDark' | 'primaryTransparent' | 'danger';
   }
 }
 
