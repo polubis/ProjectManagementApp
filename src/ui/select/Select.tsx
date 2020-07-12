@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useMemo, ChangeEvent } from 'react';
+import React, { useMemo, ChangeEvent } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, Chip } from '@material-ui/core';
 
-import { FieldBase, Menu, SelectItem, Checkbox } from '..';
+import { FieldBase, Menu, SelectItem, Checkbox, useMenu } from '..';
 
 import csx from './Select.scss';
 
@@ -45,20 +45,7 @@ const Select = ({
   items,
   onSelect
 }: Select.Props) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const openMenu = useCallback(
-    ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      setAnchorEl(currentTarget);
-    },
-    []
-  );
-
-  const closeMenu = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
-
-  const isMenuOpen = Boolean(anchorEl);
+  const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
 
   const selectedItems = useMemo(() => items.filter(({ dataIdx }) => value[dataIdx]).reverse(), [
     items,
