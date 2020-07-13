@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 
-import { Loader, StepHeader } from 'ui';
+import { Loader, StepHeader, Steps } from 'ui';
 
 import { Form } from 'utils';
 
@@ -8,19 +8,37 @@ import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import { config, descriptions, steps, getAddPayload, useTemplateManagement } from '.';
+import { useTemplateManagement, BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS } from '..';
 
-const STEPS_COUNT = 3;
+namespace TemplateForm {
+  export interface Props {
+    config: Form.Config[];
+  }
+}
 
-const [BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS] = Array.from(
-  { length: STEPS_COUNT },
-  (_, idx) => idx
-);
+const STEPS: Steps.Item[] = [
+  {
+    label: 'Basic information'
+  },
+  {
+    label: 'Github connection'
+  },
+  {
+    label: 'Technical details'
+  }
+];
 
-const TemplateForm = () => {
+const DESCRIPTIONS: string[] = [
+  `Name your template and add a description. This information 
+      will be displayed first`,
+  `Connect template to github repository and set access settings`,
+  `Add technical details to your newly created template`
+];
+
+const TemplateForm = ({ config }: TemplateForm.Props) => {
   const [activeStep, setActiveStep] = useState(BASIC_INFO);
 
-  const [{ pending }, handleAddTemplate] = useTemplateManagement();
+  const [{ pending }, handleManagement] = useTemplateManagement();
 
   const basicInfoManager = Form.useManager(config[BASIC_INFO]);
   const githubConnectionManager = Form.useManager(config[GITHUB_CONNECTION]);
@@ -42,8 +60,8 @@ const TemplateForm = () => {
 
       const nextStep = activeStep + 1;
 
-      if (nextStep === STEPS_COUNT) {
-        handleAddTemplate(getAddPayload(formManagers));
+      if (nextStep === STEPS.length) {
+        handleManagement(formManagers);
       } else {
         setActiveStep(nextStep);
       }
@@ -59,9 +77,9 @@ const TemplateForm = () => {
     <Loader />
   ) : (
     <>
-      <StepHeader description={descriptions[activeStep]} label={steps[activeStep].label} />
+      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
 
-      <FormSteps steps={steps} formManagers={formManagers} />
+      <FormSteps steps={STEPS} formManagers={formManagers} />
 
       {activeStep === BASIC_INFO && (
         <BasicInfo formManager={basicInfoManager} onSubmit={handleSubmit} />

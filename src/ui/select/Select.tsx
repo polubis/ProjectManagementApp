@@ -141,6 +141,9 @@ Select.makeItems = (items: any[], idKey: string, labelKey: string) =>
       } as Select.Item)
   );
 
+Select.makeValues = (items: any[], idKey: string, value = true) =>
+  items.reduce((prev, curr) => ({ ...prev, [curr[idKey]]: value }), {});
+
 Select.getChecked = (value: { [key: string]: boolean }) =>
   Object.keys(value).filter((k) => value[k]);
 

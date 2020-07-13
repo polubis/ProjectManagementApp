@@ -4,14 +4,14 @@ import { InputField, TextareaField, Button } from 'ui';
 
 import { Form } from 'utils';
 
+import { NAME, DESCRIPTION } from '../..';
+
 namespace BasicInfo {
   export interface Props {
     formManager: Form.Manager;
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const [NAME, DESCRIPTION] = [0, 1];
 
 const BasicInfo = ({ formManager, onSubmit }: BasicInfo.Props) => {
   const [{ dirty, fields, invalid }, change] = formManager;

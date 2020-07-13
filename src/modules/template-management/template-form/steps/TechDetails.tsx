@@ -9,6 +9,8 @@ import { TagsField } from 'shared/components';
 import { useTechnologiesProvider } from 'core/technologies';
 import { usePatternsProvider } from 'core/patterns';
 
+import { TECHNOLOGIES, PATTERNS, TAGS } from '../..';
+
 namespace TechDetails {
   export interface Props {
     formManager: Form.Manager;
@@ -16,8 +18,6 @@ namespace TechDetails {
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const [TECHNOLOGIES, PATTERNS, TAGS] = [0, 1, 2];
 
 const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
   const [{ fields, invalid, dirty }, _, directChange] = formManager;

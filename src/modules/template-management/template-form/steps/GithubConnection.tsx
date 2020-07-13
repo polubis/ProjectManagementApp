@@ -4,6 +4,8 @@ import { Button, Checkbox, InputField } from 'ui';
 
 import { Form } from 'utils';
 
+import { PUBLIC_ACCESS, PRIVATE_ACCESS, GITHUB_LINK } from '../..';
+
 import csx from './GithubConnection.scss';
 
 namespace GithubConnection {
@@ -13,8 +15,6 @@ namespace GithubConnection {
     onSubmit(e: Form.Events.Submit): void;
   }
 }
-
-const [REPO_LINK, PUBLIC_ACCESS, PRIVATE_ACCESS] = [0, 1, 2];
 
 const GithubConnection = ({ formManager, onSubmit, onBack }: GithubConnection.Props) => {
   const [{ fields, dirty, invalid }, change, directChange] = formManager;
@@ -36,11 +36,11 @@ const GithubConnection = ({ formManager, onSubmit, onBack }: GithubConnection.Pr
   return (
     <form onSubmit={onSubmit}>
       <InputField
-        data-idx={REPO_LINK}
-        label="Repository link *"
-        placeholder="Add repository link..."
-        error={dirty ? fields[REPO_LINK].error : ''}
-        value={fields[REPO_LINK].value}
+        data-idx={GITHUB_LINK}
+        label="Github link *"
+        placeholder="Add github link..."
+        error={dirty ? fields[GITHUB_LINK].error : ''}
+        value={fields[GITHUB_LINK].value}
         onChange={change}
       />
 
