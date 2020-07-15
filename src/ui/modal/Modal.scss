@@ -1,0 +1,18 @@
+@import 'styles/mixins';
+
+.modal {
+  @include centered;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  .content {
+    position: relative;
+    background: $surfacePrimary;
+    box-shadow: $shadowPrimary;
+    border-radius: 10px;
+  }
+}

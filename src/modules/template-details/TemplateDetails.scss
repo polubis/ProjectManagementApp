@@ -98,8 +98,16 @@
 
   button {
     margin: 10px;
-    width: 130px;
   }
+}
+
+.edit {
+  @include text;
+  color: $primary;
+}
+
+.delete {
+  color: $error;
 }
 
 @media screen and (max-width: 693px) {

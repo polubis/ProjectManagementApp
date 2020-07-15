@@ -25,6 +25,21 @@
       color: rgba($primary, 0.6);
     }
   }
+
+  &.danger {
+    background: $error;
+    color: $white;
+
+    &:hover {
+      background: $error;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      background: $error;
+      color: $white;
+    }
+  }
 }
 
 .button {

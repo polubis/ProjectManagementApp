@@ -84,6 +84,7 @@
   @include text;
   font-size: 14px;
   font-weight: $medium;
+  line-height: 24px;
 }
 
 @mixin labelBig {

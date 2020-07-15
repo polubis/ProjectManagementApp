@@ -8,6 +8,8 @@ export * from './field-base';
 export * from './loader';
 export * from './logo';
 export * from './menu';
+export * from './modal';
+export * from './more';
 export * from './select';
 export * from './steps';
 export * from './step-header';
