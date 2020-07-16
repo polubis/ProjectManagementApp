@@ -1,67 +1,52 @@
 import { useEffect, useMemo } from 'react';
-import { useRouteMatch, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
+import { pipe } from 'ramda';
 
-import { useScroll, useQueryParams } from 'utils';
+import { useScroll } from 'utils';
+
+import { TemplatesPayload } from 'core/api';
 
 import { useTemplatesProvider } from './TemplatesProvider';
 
-import { CATEGORIES, DEFAULT_LIMIT, DEFAULT_PAGE } from '.';
+import { useTemplatesFilters, TemplatesSearchFilters } from '.';
 
-const isLimitInvalid = (limit: string) => !limit || isNaN(+limit) || +limit < DEFAULT_LIMIT;
+const parse = (filters: TemplatesSearchFilters): TemplatesPayload => ({
+  ...filters,
+  page: +filters.page,
+  limit: +filters.limit,
+  technologiesIds: JSON.parse(filters.technologiesIds),
+  patternsIds: JSON.parse(filters.patternsIds)
+});
 
-const isPageInvalid = (page: string) => !page || isNaN(+page);
+const swapPage = (page: number) => (search: string) => {
+  const newSearch = new URLSearchParams(search);
 
-const isCategoryInvalid = (category: string) => !CATEGORIES.includes(category);
+  newSearch.delete('page');
+  newSearch.set('page', '' + page);
 
-const isUrlInvalid = (category: string, [limit, page]: string[]) => {
-  return isLimitInvalid(limit) || isPageInvalid(page) || isCategoryInvalid(category);
+  return newSearch.toString();
 };
 
-const makeFilters = (category: string, queryParams: string[]) => {
-  const filters = {
-    category: isCategoryInvalid(category) ? CATEGORIES[0] : category,
-    limit: isLimitInvalid(queryParams[0]) ? DEFAULT_LIMIT : +queryParams[0],
-    page: isPageInvalid(queryParams[1]) ? DEFAULT_PAGE : +queryParams[1],
-    query: queryParams[2]
-  };
-
-  return {
-    ...filters,
-    url: `?limit=${filters.limit}&page=${filters.page}&query=${filters.query}`
-  };
-};
+const makeUrl = (pathname: string) => (search: string) => `${pathname}?${search}`;
 
 export const useTemplatesSearch = () => {
-  const {
-    params: { category }
-  } = useRouteMatch<{ category: string }>();
-  const history = useHistory();
-  const queryParams = useQueryParams('limit', 'page', 'query');
+  const { replace, location } = useHistory();
+
+  const filters = useTemplatesFilters();
 
   const bottomExceeded = useScroll(1000);
 
-  const { getTemplates } = useTemplatesProvider();
+  const { getTemplates, allLoaded } = useTemplatesProvider();
 
-  const filters = useMemo(() => {
-    return makeFilters(category, queryParams);
-  }, [category, ...queryParams, bottomExceeded]);
+  const parsedFilters = useMemo(() => parse(filters), [filters]);
 
   useEffect(() => {
-    if (isUrlInvalid(category, queryParams)) {
-      history.replace(`/app/templates/${filters.category}${filters.url}`);
-    } else {
-      getTemplates(filters.url, filters.limit, filters.page);
-    }
-  }, [category, ...queryParams]);
+    getTemplates(parsedFilters);
+  }, [location.key]);
 
   useEffect(() => {
-    if (bottomExceeded) {
-      const getNextPageUrlQuery = () => {
-        const reg = new RegExp('page=' + [queryParams[1]]);
-        return history.location.search.replace(reg, `page=${+queryParams[1] + 1}`);
-      };
-
-      history.replace(`/app/templates/${filters.category}${getNextPageUrlQuery()}`);
+    if (bottomExceeded && !allLoaded) {
+      replace(pipe(swapPage(parsedFilters.page + 1), makeUrl(location.pathname))(location.search));
     }
-  }, [bottomExceeded]);
+  }, [bottomExceeded, allLoaded]);
 };

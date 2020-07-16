@@ -6,8 +6,8 @@ export interface Template {
   description: string;
   githubLink: string;
   addedBy?: string;
-  createdDate?: Date,
-  modifiedDate?: Date,
+  createdDate?: Date;
+  modifiedDate?: Date;
   technologies?: Technology[];
   patterns?: Pattern[];
   tags?: string[];
@@ -19,7 +19,7 @@ export interface Template {
     name: string;
     avatar: string;
   };
-  contributors?: Contributors[]
+  contributors?: Contributors[];
 }
 
 export interface Contributors {
@@ -34,4 +34,21 @@ export interface TemplatePayload {
   tags: string[];
   patternsIds: number[];
   technologiesIds: number[];
+}
+
+export enum TemplatesCategories {
+  ALL = 'all',
+  RECOMMENDED = 'recommended',
+  TOP = 'top',
+  RECENT = 'recent',
+  YOURS = 'yours'
+}
+
+export interface TemplatesPayload {
+  limit: number;
+  page: number;
+  category: TemplatesCategories;
+  query: string;
+  technologiesIds: string[];
+  patternsIds: string[];
 }

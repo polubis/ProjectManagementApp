@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
-import { getTemplates, Template } from 'core/api';
+import { getTemplates, Template, TemplatesPayload } from 'core/api';
 
 namespace TemplatesProvider {
   export interface State {
@@ -8,7 +8,7 @@ namespace TemplatesProvider {
     allLoaded: boolean;
     error: string;
     templates: Template[];
-    getTemplates?(url: string, page: number, limit: number): void;
+    getTemplates?(payload: TemplatesPayload): void;
   }
 
   export interface Props {
@@ -26,7 +26,17 @@ const STATE: TemplatesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
-  getTemplates = async (url: string, limit: number, page: number) => {
+  makeUrl = ({ page, limit, query, category, technologiesIds, patternsIds }: TemplatesPayload) => {
+    const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
+    const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
+
+    return `?page=${page}&limit=${limit}&query=${query}${
+      technologiesPart ? `&${technologiesPart}` : ''
+    }${patternsPart ? `&${patternsPart}` : ''}`;
+  };
+
+  getTemplates = async (payload: TemplatesPayload) => {
+    const { limit, page } = payload;
     const loadingMore = page > 1;
 
     if (loadingMore && this.state.allLoaded) {
@@ -36,18 +46,15 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     this.setState({ ...STATE, templates: loadingMore ? this.state.templates : [] });
 
     try {
-      let templates = await getTemplates(url);
+      let templates = await getTemplates(this.makeUrl(payload));
+
+      const allLoaded = templates.length < limit;
 
       if (loadingMore) {
         templates = [...this.state.templates, ...templates];
       }
 
-      this.setState({
-        loading: false,
-        templates,
-        allLoaded: templates.length < limit,
-        error: ''
-      });
+      this.setState({ loading: false, templates, allLoaded, error: '' });
     } catch (error) {
       this.setState({ ...STATE, loading: false, error });
     }
