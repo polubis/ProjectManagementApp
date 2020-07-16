@@ -1,11 +1,15 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 
 import { Loader } from 'ui';
 
 import { usePatternsProvider } from 'core/patterns';
 import { useTechnologiesProvider } from 'core/technologies';
+import { useAuthProvider } from '../../core/auth';
 
-import TemplateDetailsProvider from 'shared/providers/template-details';
+import TemplateDetailsProvider, {
+  useTemplateDetailsProvider
+} from 'shared/providers/template-details';
 
 import TemplateForm from './template-form';
 
@@ -18,11 +22,19 @@ const TemplateManagement = () => {
 
   const { loading: loadingPatterns } = usePatternsProvider();
 
+  const { template } = useTemplateDetailsProvider();
+
+  const {
+    user: { username }
+  } = useAuthProvider();
+
   const { loading: loadingConfig, config } = useTemplateManagementConfig();
 
   const loading = loadingPatterns || loadingTechnologies || loadingConfig;
 
-  return (
+  return template !== null && template.addedBy !== username ? (
+    <Redirect to="/" />
+  ) : (
     <div className={csx.templateManagement}>
       {loading ? <Loader /> : <TemplateForm config={config} />}
     </div>
