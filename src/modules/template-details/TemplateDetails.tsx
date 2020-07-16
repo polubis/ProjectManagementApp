@@ -11,6 +11,8 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import { Button, Loader, More } from 'ui';
 
+import { useAuthProvider } from 'core/auth';
+
 import { convertNumberToKFormat, convertDate } from 'utils';
 
 import { TemplateTags } from 'shared/components';
@@ -18,8 +20,6 @@ import { TemplateTags } from 'shared/components';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
-
-import { useAuthProvider } from 'core/auth';
 
 import ConfirmDelete from './confirm-delete';
 
