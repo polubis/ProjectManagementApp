@@ -19,7 +19,7 @@ import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
 
-import { useAuthProvider } from '../../core/auth';
+import { useAuthProvider } from 'core/auth';
 
 import ConfirmDelete from './confirm-delete';
 

@@ -5,7 +5,7 @@ import { Loader } from 'ui';
 
 import { usePatternsProvider } from 'core/patterns';
 import { useTechnologiesProvider } from 'core/technologies';
-import { useAuthProvider } from '../../core/auth';
+import { useAuthProvider } from 'core/auth';
 
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
