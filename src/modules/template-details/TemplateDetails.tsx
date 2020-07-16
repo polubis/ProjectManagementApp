@@ -19,6 +19,8 @@ import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
 
+import { useAuthProvider } from '../../core/auth';
+
 import ConfirmDelete from './confirm-delete';
 
 import csx from './TemplateDetails.scss';
@@ -31,6 +33,8 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const { template, loading, getTemplateDetails } = useTemplateDetailsProvider();
+
+  const { user, authorized } = useAuthProvider();
 
   useEffect(() => {
     getTemplateDetails(match.params.id);
@@ -67,17 +71,18 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   <ShareIcon /> SOURCE
                 </Button>
               </Link>
-
-              <More>
-                <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
-                  <EditIcon />
-                  EDIT
-                </NavLink>
-                <div className={csx.delete} onClick={openConfirmDelete}>
-                  <DeleteIcon />
-                  DELETE
-                </div>
-              </More>
+              {user !== null && authorized && template.addedBy === user.username ? (
+                <More>
+                  <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                    <EditIcon />
+                    EDIT
+                  </NavLink>
+                  <div className={csx.delete} onClick={openConfirmDelete}>
+                    <DeleteIcon />
+                    DELETE
+                  </div>
+                </More>
+              ) : null}
             </div>
 
             <section>
