@@ -1,4 +1,4 @@
-import React, { ComponentType, Component } from 'react';
+import React, { ComponentType } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router';
 
 import AuthProvider, { useAuthProvider } from './AuthProvider';
@@ -79,7 +79,7 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
 
 const OnlyAuthor = ({children, author, redirect}: Guard.AuthorProps) => {
   const { pending, authorized, user, ...state } = useAuthProvider();
-  
+
   return !user
   ? null
   : pending
@@ -92,8 +92,6 @@ const OnlyAuthor = ({children, author, redirect}: Guard.AuthorProps) => {
   ? <Redirect to={redirect} />
   : null;
 }
-
-
 
 const Guard = {
   Protected,
