@@ -11,9 +11,9 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import { Button, Loader, More } from 'ui';
 
-import { useAuthProvider } from 'core/auth';
-
 import { convertNumberToKFormat, convertDate } from 'utils';
+
+import { Guard } from 'core/auth';
 
 import { TemplateTags } from 'shared/components';
 
@@ -33,8 +33,6 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const { template, loading, getTemplateDetails } = useTemplateDetailsProvider();
-
-  const { user, authorized } = useAuthProvider();
 
   useEffect(() => {
     getTemplateDetails(match.params.id);
@@ -71,7 +69,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   <ShareIcon /> SOURCE
                 </Button>
               </Link>
-              {user !== null && authorized && template.addedBy === user.username ? (
+              <Guard.OnlyAuthor author={template.addedBy}>
                 <More>
                   <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
                     <EditIcon />
@@ -82,7 +80,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                     DELETE
                   </div>
                 </More>
-              ) : null}
+                </Guard.OnlyAuthor>
             </div>
 
             <section>

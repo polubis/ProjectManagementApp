@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, Component } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router';
 
 import AuthProvider, { useAuthProvider } from './AuthProvider';
@@ -19,6 +19,11 @@ namespace Guard {
 
   export interface Props {
     children: JSX.Element | Children.RenderProp;
+  }
+
+  export interface AuthorProps extends Props {
+    author: string,
+    redirect?: string
   }
 }
 
@@ -72,11 +77,30 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   );
 };
 
+const OnlyAuthor = ({children, author, redirect}: Guard.AuthorProps) => {
+  const { pending, authorized, user, ...state } = useAuthProvider();
+  
+  return !user
+  ? null
+  : pending
+  ? null
+  : authorized && author === user.username
+  ? typeof children === 'function'
+    ? children({user, ...state})
+    : children
+  : redirect
+  ? <Redirect to={redirect} />
+  : null;
+}
+
+
+
 const Guard = {
   Protected,
   Unprotected,
   ProtectedRoute,
-  UnprotectedRoute
+  UnprotectedRoute,
+  OnlyAuthor
 };
 
 export default Guard;

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 
 import { Loader } from 'ui';
 
 import { usePatternsProvider } from 'core/patterns';
 import { useTechnologiesProvider } from 'core/technologies';
-import { useAuthProvider } from 'core/auth';
+import { Guard } from 'core/auth';
 
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
@@ -24,21 +23,17 @@ const TemplateManagement = () => {
 
   const { template } = useTemplateDetailsProvider();
 
-  const {
-    user: { username }
-  } = useAuthProvider();
-
   const { loading: loadingConfig, config } = useTemplateManagementConfig();
 
   const loading = loadingPatterns || loadingTechnologies || loadingConfig;
 
-  return template !== null && template.addedBy !== username ? (
-    <Redirect to="/" />
-  ) : (
-    <div className={csx.templateManagement}>
+  return (
+    template && <Guard.OnlyAuthor author={template.addedBy} redirect='/'>
+      <div className={csx.templateManagement}>
       {loading ? <Loader /> : <TemplateForm config={config} />}
     </div>
-  );
+    </Guard.OnlyAuthor>
+  )
 };
 
 export default () => (
