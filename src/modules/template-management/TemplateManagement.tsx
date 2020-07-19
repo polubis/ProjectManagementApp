@@ -28,7 +28,7 @@ const TemplateManagement = () => {
   const loading = loadingPatterns || loadingTechnologies || loadingConfig;
 
   return (
-    template && <Guard.OnlyAuthor author={template.addedBy} redirect='/'>
+    template && <Guard.OnlyAuthor author={template.addedBy}>
       <div className={csx.templateManagement}>
       {loading ? <Loader /> : <TemplateForm config={config} />}
     </div>

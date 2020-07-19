@@ -22,8 +22,8 @@ namespace Guard {
   }
 
   export interface AuthorProps extends Props {
-    author: string,
-    redirect?: string
+    children: JSX.Element | null;
+    author: string  
   }
 }
 
@@ -77,20 +77,12 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   );
 };
 
-const OnlyAuthor = ({children, author, redirect}: Guard.AuthorProps) => {
-  const { pending, authorized, user, ...state } = useAuthProvider();
+const OnlyAuthor = ({ children, author }: Guard.AuthorProps) => {
+  const { user } = useAuthProvider();
 
-  return !user
-  ? null
-  : pending
-  ? null
-  : authorized && author === user.username
-  ? typeof children === 'function'
-    ? children({user, ...state})
-    : children
-  : redirect
-  ? <Redirect to={redirect} />
-  : null;
+  return user && user.username === author
+  ? children
+  : null
 }
 
 const Guard = {
