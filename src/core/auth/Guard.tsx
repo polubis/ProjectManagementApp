@@ -20,6 +20,11 @@ namespace Guard {
   export interface Props {
     children: JSX.Element | Children.RenderProp;
   }
+
+  export interface AuthorProps {
+    children: JSX.Element;
+    author: string;
+  }
 }
 
 const Protected = ({ children }: Guard.Props) => {
@@ -72,11 +77,18 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   );
 };
 
+const OnlyAuthor = ({ children, author }: Guard.AuthorProps) => {
+  const { user } = useAuthProvider();
+
+  return user && user.username === author ? children : null;
+};
+
 const Guard = {
   Protected,
   Unprotected,
   ProtectedRoute,
-  UnprotectedRoute
+  UnprotectedRoute,
+  OnlyAuthor
 };
 
 export default Guard;

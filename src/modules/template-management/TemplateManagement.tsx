@@ -4,8 +4,11 @@ import { Loader } from 'ui';
 
 import { usePatternsProvider } from 'core/patterns';
 import { useTechnologiesProvider } from 'core/technologies';
+import { Guard } from 'core/auth';
 
-import TemplateDetailsProvider from 'shared/providers/template-details';
+import TemplateDetailsProvider, {
+  useTemplateDetailsProvider
+} from 'shared/providers/template-details';
 
 import TemplateForm from './template-form';
 
@@ -18,15 +21,19 @@ const TemplateManagement = () => {
 
   const { loading: loadingPatterns } = usePatternsProvider();
 
+  const { template } = useTemplateDetailsProvider();
+
   const { loading: loadingConfig, config } = useTemplateManagementConfig();
 
   const loading = loadingPatterns || loadingTechnologies || loadingConfig;
 
   return (
-    <div className={csx.templateManagement}>
+    template && <Guard.OnlyAuthor author={template.addedBy}>
+      <div className={csx.templateManagement}>
       {loading ? <Loader /> : <TemplateForm config={config} />}
     </div>
-  );
+    </Guard.OnlyAuthor>
+  )
 };
 
 export default () => (
