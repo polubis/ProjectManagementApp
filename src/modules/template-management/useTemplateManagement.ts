@@ -23,7 +23,7 @@ const STATE: State = {
   id: null
 };
 
-const getPayload = ([
+const makePayload = ([
   basicInfoManager,
   githubConnectionManager,
   techDetailsManager
@@ -57,7 +57,7 @@ export const useTemplateManagement = (): Return => {
     setState({ ...STATE, pending: true });
 
     try {
-      const payload = getPayload(formManagers);
+      const payload = makePayload(formManagers);
 
       if (id) {
         await editTemplate(id, payload);

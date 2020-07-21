@@ -10,21 +10,33 @@ import { Form, useQueryParams } from 'utils';
 
 import { useTechnologiesProvider } from 'core/technologies';
 
+import { TemplatesSearchFilters } from '..';
+
 import csx from './TemplatesSearch.scss';
 
 const [QUERY, TECHNOLOGIES] = [0, 1];
 
+const parseTechnologies = (technologiesIds: string) =>
+  technologiesIds
+    ? (JSON.parse(technologiesIds) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
+    : {};
+
+const CONFIG: Form.Config = [
+  { label: 'Query', value: '' },
+  {
+    label: 'Technologies',
+    value: {}
+  }
+];
+
 const TemplatesSearch = () => {
   const history = useHistory();
 
-  const [query] = useQueryParams('query');
+  const [query, technologiesIds] = useQueryParams('query', 'technologiesIds');
 
   const { technologies } = useTechnologiesProvider();
 
-  const [{ fields }, change, directChange, submit] = Form.useManager([
-    { label: 'Query', value: query },
-    { label: 'Technologies', value: {} }
-  ]);
+  const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
 
   const handleTechnologySelect = useCallback(
     (e: Select.Events.Select, value: boolean) => {
@@ -41,16 +53,22 @@ const TemplatesSearch = () => {
         return;
       }
 
-      const [{ value: query }] = fields;
+      const [{ value: query }, { value: technologiesIds }] = fields;
 
-      history.push(`/app/templates/all?query=${query}`);
+      const url = new URLSearchParams({
+        query,
+        technologiesIds: JSON.stringify(Select.getChecked(technologiesIds)),
+        patternsIds: JSON.stringify([])
+      } as Partial<TemplatesSearchFilters>).toString();
+
+      history.push(`/app/templates/all?${url}`);
     },
     [fields]
   );
 
   useEffect(() => {
-    directChange([QUERY], [query]);
-  }, [query]);
+    directChange([QUERY, TECHNOLOGIES], [query, parseTechnologies(technologiesIds)]);
+  }, [query, technologiesIds]);
 
   const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
     technologies

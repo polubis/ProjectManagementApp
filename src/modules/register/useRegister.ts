@@ -18,7 +18,7 @@ const STATE: State = {
   created: false
 };
 
-const getPayload = ([
+const makePayload = ([
   credentialsManager,
   personalInfoManager,
   workManager,
@@ -50,7 +50,7 @@ export const useRegister = (): Return => {
     setState({ ...STATE, pending: true });
 
     try {
-      await register(getPayload(formManagers));
+      await register(makePayload(formManagers));
 
       setState({ ...STATE, created: true });
     } catch (error) {

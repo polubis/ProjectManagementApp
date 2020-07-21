@@ -1,5 +1,9 @@
-export const CATEGORIES = ['all', 'recommended', 'top', 'recent', 'yours'];
+import { TemplatesCategories } from 'core/api';
 
-export const DEFAULT_PAGE = 1;
-
-export const DEFAULT_LIMIT = 25;
+export const CATEGORIES: TemplatesCategories[] = [
+  TemplatesCategories.ALL,
+  TemplatesCategories.RECOMMENDED,
+  TemplatesCategories.TOP,
+  TemplatesCategories.RECENT,
+  TemplatesCategories.YOURS
+];
