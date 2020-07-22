@@ -1,16 +1,25 @@
 import { core } from 'core/api';
 
-import { TemplatePayload, Template } from '..';
+import {
+  GET_TEMPLATES,
+  GET_TEMPLATE_DETAILS,
+  ADD_TEMPLATE,
+  EDIT_TEMPLATE,
+  DELETE_TEMPLATE,
+  TemplatePayload,
+  Template
+} from '..';
 
 export const getTemplates = (url: string) => {
-  return core.get<Template[]>(`Templates/Search${url}`);
+  return core.get<Template[]>(`${GET_TEMPLATES}${url}`);
 };
 
-export const getTemplateDetails = (id: string) => core.get<Template>(`Templates/${id}`);
+export const getTemplateDetails = (id: string) =>
+  core.get<Template>(`${GET_TEMPLATE_DETAILS}${id}`);
 
-export const addTemplate = (payload: TemplatePayload) => core.post<string>('Templates', payload);
+export const addTemplate = (payload: TemplatePayload) => core.post<string>(ADD_TEMPLATE, payload);
 
 export const editTemplate = (id: string, payload: TemplatePayload) =>
-  core.put<string>(`Templates/${id}`, payload);
+  core.put<string>(`${EDIT_TEMPLATE}${id}`, payload);
 
-export const deleteTemplate = (id: string) => core.delete(`Templates/${id}`);
+export const deleteTemplate = (id: string) => core.delete(`${DELETE_TEMPLATE}${id}`);

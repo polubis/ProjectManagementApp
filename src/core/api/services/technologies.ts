@@ -1,5 +1,5 @@
 import { core } from 'core/api';
 
-import { Technology } from '..';
+import { Technology, GET_TECHNOLOGIES } from '..';
 
-export const getTechnologies = () => core.get<Technology[]>('TemplateTechnologies/Search');
+export const getTechnologies = () => core.get<Technology[]>(GET_TECHNOLOGIES);

@@ -1,8 +1,6 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { Alert } from 'ui';
-
 import { SelfUser, LogInPayload, getSelf, logIn, logOut, logInViaGithub } from 'core/api';
 
 namespace AuthProvider {
@@ -10,7 +8,6 @@ namespace AuthProvider {
     user: SelfUser;
     pending: boolean;
     authorized: boolean;
-    error: string;
     logIn?(payload: LogInPayload): Promise<void>;
     logInViaGithub?(): void;
     logOut?(): Promise<void>;
@@ -24,8 +21,7 @@ namespace AuthProvider {
 const STATE: AuthProvider.State = {
   user: null,
   pending: true,
-  authorized: false,
-  error: ''
+  authorized: false
 };
 
 const Context = createContext(STATE);
@@ -60,8 +56,8 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       this.setState({ ...STATE, pending: false, authorized: true, user }, () => {
         this.props.history.replace('/app');
       });
-    } catch (error) {
-      this.setState({ ...STATE, pending: false, error });
+    } catch {
+      this.setState({ ...STATE, pending: false });
     }
   };
 
@@ -70,13 +66,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       await logOut();
 
       this.setState({ ...STATE, pending: false });
-    } catch (error) {
-      this.setState({ ...STATE, pending: false, error });
+    } catch {
+      this.setState({ ...STATE, pending: false });
     }
-  };
-
-  closeAlert = () => {
-    this.setState({ error: '' });
   };
 
   readonly state: typeof STATE = {
@@ -87,14 +79,7 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
   };
 
   render() {
-    const { error } = this.state;
-
-    return (
-      <Context.Provider value={this.state}>
-        {error && <Alert message={error} onClose={this.closeAlert} />}
-        {this.props.children}
-      </Context.Provider>
-    );
+    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
   }
 }
 

@@ -13,8 +13,6 @@ import { Button, Loader, More } from 'ui';
 
 import { convertNumberToKFormat, convertDate } from 'utils';
 
-import { Guard } from 'core/auth';
-
 import { TemplateTags } from 'shared/components';
 
 import TemplateDetailsProvider, {
@@ -69,18 +67,16 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   <ShareIcon /> SOURCE
                 </Button>
               </Link>
-              <Guard.OnlyAuthor author={template.addedBy}>
-                <More>
-                  <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
-                    <EditIcon />
-                    EDIT
-                  </NavLink>
-                  <div className={csx.delete} onClick={openConfirmDelete}>
-                    <DeleteIcon />
-                    DELETE
-                  </div>
-                </More>
-                </Guard.OnlyAuthor>
+              <More>
+                <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                  <EditIcon />
+                  EDIT
+                </NavLink>
+                <div className={csx.delete} onClick={openConfirmDelete}>
+                  <DeleteIcon />
+                  DELETE
+                </div>
+              </More>
             </div>
 
             <section>
