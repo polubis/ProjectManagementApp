@@ -1,17 +1,12 @@
 import Axios, { AxiosError, AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
 
 export namespace Api {
-  export interface Response<T> {
-    data: T;
-    errors: string[];
-    hasErrors: boolean;
-    success: boolean;
-  }
+  export type Subscriber = (error: string) => void;
 
   export namespace Parser {
-    export type Success = (res: AxiosResponse<any>) => AxiosResponse<any>;
+    export type Success<T = any> = (res: AxiosResponse<T>) => any;
 
-    export type Error = (err: AxiosError) => Promise<never>;
+    export type Error<T = any> = (err: AxiosError<T>) => string;
   }
 
   export interface Instance extends AxiosInstance {
@@ -20,19 +15,55 @@ export namespace Api {
     post: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
     put: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
     patch: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
+    subscribe: (subscriber: Subscriber) => void;
+    unsubscribe: () => void;
   }
 }
 
+export const makePaths = (controller: string) => (...paths: string[]) =>
+  paths.map((p) => `${controller}/${p}`);
+
 export const makeInstance = (config: AxiosRequestConfig) => (
-  onSuccess: Api.Parser.Success,
-  onError: Api.Parser.Error
-): Api.Instance => {
-  const instance = Axios.create(config);
+  parseSuccess: Api.Parser.Success,
+  parseError: Api.Parser.Error
+) => (errorsBlackList: string[]): Api.Instance => {
+  let subscriber: Api.Subscriber = null;
+
+  const notify = (err: any) => {
+    subscriber(err);
+  };
+
+  const cutUrl = (url: string) => {
+    const queryIdx = url.indexOf('?');
+    return queryIdx > -1 ? url.slice(0, queryIdx) : url;
+  };
+
+  const handleParseError = (err: AxiosError) => {
+    const parsed = parseError(err);
+
+    const url = cutUrl(err.response.config.url);
+
+    if (!errorsBlackList.includes(url)) {
+      notify(parsed);
+    }
+
+    return Promise.reject(parsed);
+  };
+
+  const subscribe = (newSubscriber: Api.Subscriber) => {
+    subscriber = newSubscriber;
+  };
+
+  const unsubscribe = () => {
+    subscriber = null;
+  };
+
+  const instance = Axios.create(config) as Api.Instance;
 
   instance.interceptors.response.use(
-    (res) => onSuccess(res),
-    (err) => onError(err)
+    (res) => parseSuccess(res),
+    (err) => handleParseError(err)
   );
 
-  return instance;
+  return { ...instance, subscribe, unsubscribe } as Api.Instance;
 };

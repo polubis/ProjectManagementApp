@@ -1,7 +1,5 @@
 import { core } from 'core/api';
 
-import { Pattern } from '..';
+import { Pattern, GET_PATTERNS } from '..';
 
-export const getPatterns = () => {
-  return core.get<Pattern[]>('TemplatePatterns/Search');
-};
+export const getPatterns = () => core.get<Pattern[]>(GET_PATTERNS);

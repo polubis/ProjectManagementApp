@@ -11,7 +11,6 @@ import { TECHNOLOGIES, PATTERNS, TAGS } from '.';
 
 interface State {
   pending: boolean;
-  error: string;
   id: string | null;
 }
 
@@ -19,7 +18,6 @@ type Return = [State, (formManagers: Form.Manager[]) => Promise<void>];
 
 const STATE: State = {
   pending: false,
-  error: '',
   id: null
 };
 
@@ -38,8 +36,8 @@ const makePayload = ([
     name,
     description,
     githubLink,
-    technologiesIds: Select.getChecked(technologies).map((k) => +k),
-    patternsIds: Select.getChecked(patterns).map((k) => +k),
+    technologiesIds: Select.getChecked(technologies).map(k => +k),
+    patternsIds: Select.getChecked(patterns).map(k => +k),
     tags
   };
 };
@@ -66,8 +64,8 @@ export const useTemplateManagement = (): Return => {
         const addedTemplateId = await addTemplate(payload);
         setState({ ...STATE, id: addedTemplateId });
       }
-    } catch (error) {
-      setState({ ...STATE, error });
+    } catch {
+      setState({ ...STATE });
     }
   }, []);
 

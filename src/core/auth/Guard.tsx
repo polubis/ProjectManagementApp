@@ -57,7 +57,7 @@ const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={props =>
         pending ? null : authorized ? <Component {...(props as any)} /> : <Redirect to={redirect} />
       }
     />
@@ -70,25 +70,18 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={props =>
         pending ? null : authorized ? <Redirect to={redirect} /> : <Component {...(props as any)} />
       }
     />
   );
 };
 
-const OnlyAuthor = ({ children, author }: Guard.AuthorProps) => {
-  const { user } = useAuthProvider();
-
-  return user && user.username === author ? children : null;
-};
-
 const Guard = {
   Protected,
   Unprotected,
   ProtectedRoute,
-  UnprotectedRoute,
-  OnlyAuthor
+  UnprotectedRoute
 };
 
 export default Guard;
