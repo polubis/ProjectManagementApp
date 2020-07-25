@@ -117,7 +117,7 @@
 @mixin headingBig {
   @include text;
   font-size: 26px;
-  line-height: 26px;
+  line-height: 38px;
   font-weight: $medium;
 }
 
@@ -128,10 +128,23 @@
   font-weight: $thin;
 }
 
+@mixin descriptionMedium {
+  @include text;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: $thin;
+}
+
 @mixin dottedText {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
+@mixin dottedMultilineText {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
 // END TEXT

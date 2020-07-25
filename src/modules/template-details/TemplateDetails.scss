@@ -1,103 +1,102 @@
 @import 'styles/mixins';
 
 .templateDetails {
-  @include centered;
-  height: 100%;
-  .container {
-    @include colCenter;
-    padding: 20px 0;
-    width: 50%;
-
-    section {
-      width: 75%;
-      height: auto;
-    }
-  }
-}
-
-.header {
-  position: relative;
-  @include row;
-}
-
-.details {
-  padding: 20px 0;
-  display: flex;
-  flex-wrap: wrap;
-
-  .stars {
-    @include row;
-    color: $stars;
-  }
-
-  .watches {
-    @include row;
-    color: white;
-    margin-right: 20px;
-  }
-
-  .createdBy {
-    width: 100%;
-    margin-top: 18px;
-    @include labelExtraSmall;
-  }
-}
-
-.description {
-  margin-top: 40px;
-  line-height: 30px;
-}
-
-.authors {
-  display: inline-flex;
-}
-
-.technologies,
-.patterns,
-.authors {
-  margin-top: 26px;
-}
-
-.col {
   @include col;
-  margin: 20px 0;
-}
+  padding: 60px;
+  height: 100%;
 
-@media screen and (min-width: 640px) {
-  .basicList {
-    list-style-type: disc;
-    display: flex;
-    flex-wrap: wrap;
+  & > header {
+    @include row;
+    justify-content: flex-end;
 
-    li:first-child {
-      list-style-type: none;
-      margin-left: 0;
-    }
-
-    li {
-      margin-right: 20px;
-      margin-left: 10px;
+    & > *:not(:last-child) {
+      margin-right: 28px;
     }
   }
-}
 
-@media screen and (max-width: 639px) {
-  .basicList {
-    list-style-type: disc;
-    margin-left: 12px;
-  }
-}
+  & > section {
+    padding: 62px 480px;
 
-.primary {
-  color: $primary;
-}
+    .tags {
+      margin: 32px 0 18px 0;
+    }
 
-.actions {
-  display: flex;
-  width: 100%;
+    .date {
+      @include labelSmall;
+      margin: 22px 0 18px 0;
 
-  button {
-    margin: 10px;
+      span {
+        color: $primary;
+      }
+    }
+
+    h1 {
+      @include headingBig;
+    }
+
+    .description {
+      @include descriptionMedium;
+      display: block;
+      margin: 32px 0 52px 0;
+    }
+
+    .technologies,
+    .patterns,
+    .contributors {
+      @include col;
+
+      h5 {
+        @include heading;
+        margin-bottom: 26px;
+      }
+    }
+
+    .technologies {
+      ul {
+        @include row;
+        flex-flow: wrap;
+
+        li {
+          @include row;
+          margin: 0 24px 24px 0;
+
+          figure {
+            height: 32px;
+
+            img {
+              max-height: 100%;
+            }
+          }
+
+          span {
+            @include label;
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+
+    .patterns {
+      margin: 18px 0 32px 0;
+    }
+
+    .contributors {
+      & > div {
+        @include row;
+        flex-flow: wrap;
+
+        a {
+          margin: 0 22px 22px 0;
+          cursor: pointer;
+
+          & > div {
+            width: 50px;
+            height: 50px;
+            box-shadow: $shadowPrimary;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -107,18 +106,6 @@
 }
 
 .delete {
+  @include text;
   color: $error;
-}
-
-@media screen and (max-width: 693px) {
-  .actions {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (min-width: 694px) {
-  .actions {
-    justify-content: flex-end;
-  }
 }

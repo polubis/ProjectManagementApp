@@ -1,0 +1,26 @@
+@import 'styles/mixins';
+
+.templateStats {
+  @include row;
+
+  & > div {
+    @include row;
+
+    &:not(:last-of-type) {
+      margin-right: 14px;
+    }
+
+    & > span {
+      @include text;
+      margin-left: 8px;
+    }
+
+    &.views {
+      color: $views;
+    }
+
+    &.stars {
+      color: $stars;
+    }
+  }
+}

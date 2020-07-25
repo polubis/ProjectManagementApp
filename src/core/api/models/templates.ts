@@ -5,21 +5,15 @@ export interface Template {
   name: string;
   description: string;
   githubLink: string;
-  addedBy?: string;
-  createdDate?: Date;
-  modifiedDate?: Date;
-  technologies?: Technology[];
-  patterns?: Pattern[];
-  tags?: string[];
-  // Remove this part later
-  watches?: number;
-  stars?: number;
-  mainTechnology?: {
-    id: number;
-    name: string;
-    avatar: string;
-  };
-  contributors?: Contributors[];
+  addedBy: string | null;
+  createdDate: string;
+  modifiedDate: string;
+  technologies: Technology[];
+  patterns: Pattern[];
+  tags: string[];
+  watches: number;
+  stars: number;
+  contributors: Contributors[];
 }
 
 export interface Contributors {

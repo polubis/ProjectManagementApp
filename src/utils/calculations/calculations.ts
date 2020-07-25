@@ -1,7 +1,4 @@
-export const convertNumberToKFormat = (num: number): string =>
-  num > 1000 ? `${num / 1000}k` : `${num}`;
-
-export const convertDate = (value: Date): string => {
+export const convertDate = (value: string): string => {
   const date = new Date(value);
 
   const converted = {
