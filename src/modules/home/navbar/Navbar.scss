@@ -1,0 +1,69 @@
+@import 'styles/mixins';
+
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  height: 99px;
+  background: $surfacePrimary;
+  border-bottom: 1px solid rgba($primary, 0.41);
+
+  .wrapper {
+    @include row;
+    grid-column: 2/3;
+
+    .logo {
+      @include row;
+
+      span {
+        @include heading;
+        margin-left: 18px;
+      }
+    }
+
+    .links {
+      display: grid;
+      grid-gap: 24px;
+
+      a {
+        @include centered;
+        @include link;
+        position: relative;
+        height: 99px;
+        width: 110px;
+        font-weight: $bold;
+        color: $primary;
+
+        &::before {
+          position: absolute;
+          width: 60%;
+          height: 4px;
+          bottom: -2px;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          border-radius: 39px;
+          background: $secondary;
+          z-index: 1;
+        }
+
+        &.activeLink {
+          color: $secondary;
+
+          &::before {
+            content: '';
+          }
+        }
+      }
+    }
+
+    .baseLinks {
+      grid-template-columns: auto auto;
+      margin-left: 140px;
+    }
+
+    .importantLinks {
+      grid-template-columns: auto auto auto;
+      margin-left: auto;
+    }
+  }
+}

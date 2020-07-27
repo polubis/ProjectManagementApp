@@ -13,5 +13,6 @@ export * from './more';
 export * from './select';
 export * from './steps';
 export * from './step-header';
+export * from './spaceholder';
 export * from './tags';
 export * from './textarea-field';

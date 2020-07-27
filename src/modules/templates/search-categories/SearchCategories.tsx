@@ -6,6 +6,7 @@ import AddTemplateIcon from '@material-ui/icons/Queue';
 
 import { Button } from 'ui';
 
+import { TemplatesCategories } from 'core/api';
 import { Guard } from 'core/auth';
 
 import { CATEGORIES } from '..';
@@ -19,7 +20,7 @@ namespace SearchCategories {
 }
 
 const SearchCategories = ({ onClick }: SearchCategories.Props) => {
-  const match = useRouteMatch<{ category: string }>();
+  const match = useRouteMatch<{ category: TemplatesCategories }>();
 
   return (
     <section className={csx.searchCategories}>

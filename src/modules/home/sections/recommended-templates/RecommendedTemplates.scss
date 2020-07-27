@@ -1,0 +1,24 @@
+@import 'styles/mixins';
+
+.recommendedTemplates {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  width: 100%;
+  padding: 80px 32px;
+
+  .wrapper {
+    @include col;
+    grid-column: 2/3;
+
+    & > h5 {
+      @include headingMedium;
+      margin-bottom: 52px;
+    }
+
+    .list {
+      display: grid;
+      grid-template-columns: repeat(4, 320px);
+      grid-gap: 32px;
+    }
+  }
+}

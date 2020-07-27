@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.spaceholder {
+  &.primary {
+    background: rgba($primary, 0.04);
+  }
+}

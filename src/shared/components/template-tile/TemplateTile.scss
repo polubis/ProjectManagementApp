@@ -1,0 +1,49 @@
+@import 'styles/mixins';
+
+.templateTile {
+  @include col;
+  width: 320px;
+  height: 444px;
+  padding: 24px;
+  background: $surfacePrimary;
+  cursor: pointer;
+
+  figure {
+    height: 72px;
+    margin: 52px auto 18px auto;
+
+    img {
+      max-height: 100%;
+    }
+  }
+
+  h5 {
+    @include dottedMultilineText;
+    @include heading;
+    text-align: center;
+    -webkit-line-clamp: 2;
+  }
+
+  .description {
+    @include dottedMultilineText;
+    @include description;
+    text-align: center;
+    -webkit-line-clamp: 3;
+    margin: 14px 0 28px 0;
+  }
+
+  footer {
+    @include centered;
+
+    & > div {
+      width: 28px;
+      height: 28px;
+      box-shadow: $shadowPrimary;
+    }
+
+    & > span {
+      @include labelSmall;
+      margin-left: 12px;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ConfirmAccountImage = () => {
+const ConfirmAccountImage = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -578,3 +578,5 @@ export const ConfirmAccountImage = () => {
     </svg>
   );
 };
+
+export default ConfirmAccountImage;

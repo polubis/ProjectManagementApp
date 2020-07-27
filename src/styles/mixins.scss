@@ -1,7 +1,5 @@
 @import './palette.scss';
 
-// GENERAL
-
 @mixin col {
   display: flex;
   flex-flow: column;
@@ -49,10 +47,6 @@
   user-select: none;
 }
 
-// END GENERAL
-
-// TEXT
-
 @mixin text {
   font-family: $fontPrimary;
   text-transform: none;
@@ -85,6 +79,11 @@
   font-size: 14px;
   font-weight: $medium;
   line-height: 24px;
+}
+
+@mixin labelThin {
+  @include label;
+  font-weight: $thin;
 }
 
 @mixin labelBig {
@@ -135,6 +134,13 @@
   font-weight: $thin;
 }
 
+@mixin descriptionBig {
+  @include text;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: $regular;
+}
+
 @mixin dottedText {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -147,4 +153,3 @@
   -webkit-box-orient: vertical;
   word-break: break-all;
 }
-// END TEXT

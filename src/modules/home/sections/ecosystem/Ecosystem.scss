@@ -1,0 +1,32 @@
+@import 'styles/mixins';
+
+.ecosystem {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  padding: 148px 0 ;
+  border-top: 1px solid rgba($primary, 0.41);
+  background: $surfacePrimary;
+
+  .wrapper {
+    @include rowBetween;
+    grid-column: 2/3;
+
+    .text {
+      @include col;
+      width: 470px;
+
+      h1 {
+        @include headingBig;
+
+        & > span {
+          color: $primary;
+        }
+      }
+
+      & > span {
+        @include descriptionBig;
+        margin: 32px 0 58px 0;
+      }
+    }
+  }
+}

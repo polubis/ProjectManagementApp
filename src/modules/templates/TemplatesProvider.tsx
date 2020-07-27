@@ -27,8 +27,8 @@ const Context = createContext(STATE);
 
 class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
   makeUrl = ({ page, limit, query, category, technologiesIds, patternsIds }: TemplatesPayload) => {
-    const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
-    const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
+    const technologiesPart = technologiesIds.map(id => `technologiesIds=${id}`).join('&');
+    const patternsPart = patternsIds.map(id => `patternsIds=${id}`).join('&');
 
     return `?page=${page}&limit=${limit}&query=${query}${
       technologiesPart ? `&${technologiesPart}` : ''
