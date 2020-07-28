@@ -1,19 +1,20 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps } from 'react-router';
 
+import { Avatar } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 
-import { Button, Loader, More } from 'ui';
+import { Button, Loader, More, Tags } from 'ui';
 
-import { convertNumberToKFormat, convertDate } from 'utils';
+import { convertDate } from 'utils';
 
-import { TemplateTags } from 'shared/components';
+import { Template } from 'core/api';
+
+import { TemplateTags, TemplateStats } from 'shared/components';
 
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
@@ -26,6 +27,9 @@ import csx from './TemplateDetails.scss';
 namespace TemplateDetails {
   export interface Props extends RouteChildrenProps<{ id: string }> {}
 }
+
+const toNames = (template: Template) => () =>
+  template ? template.patterns.map(({ name }) => name) : [];
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
@@ -44,104 +48,100 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setConfirmDeleteOpen(false);
   }, []);
 
+  const patternsNames = useMemo(toNames(template), [template]);
+
   return (
     <div className={csx.templateDetails}>
-      <div className={csx.container}>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {confirmDeleteOpen && (
-              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
-            )}
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {confirmDeleteOpen && <ConfirmDelete template={template} onClose={closeConfirmDelete} />}
 
-            <div className={csx.actions}>
-              <NavLink to={`${match.url}/documentation`}>
-                <Button>
-                  <MenuBookIcon /> DOCS
-                </Button>
+          <header>
+            <NavLink to={`${match.url}/documentation`}>
+              <Button>
+                <MenuBookIcon /> DOCS
+              </Button>
+            </NavLink>
+
+            <a href={template.githubLink} target="_blank">
+              <Button>
+                <ShareIcon /> SOURCE
+              </Button>
+            </a>
+
+            <More>
+              <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                <EditIcon />
+                EDIT
               </NavLink>
+              <div className={csx.delete} onClick={openConfirmDelete}>
+                <DeleteIcon />
+                DELETE
+              </div>
+            </More>
+          </header>
 
-              <Link to={{ pathname: template.githubLink }} target="_blank">
-                <Button>
-                  <ShareIcon /> SOURCE
-                </Button>
-              </Link>
-              <More>
-                <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
-                  <EditIcon />
-                  EDIT
-                </NavLink>
-                <div className={csx.delete} onClick={openConfirmDelete}>
-                  <DeleteIcon />
-                  DELETE
-                </div>
-              </More>
-            </div>
+          <section>
+            <TemplateTags className={csx.tags} items={template.tags} />
 
-            <section>
-              <TemplateTags tags={template.tags} />
-            </section>
+            <TemplateStats stars={template.stars} watches={template.watches} />
 
-            <section className={csx.details}>
-              <span className={csx.watches}>
-                <VisibilityIcon />
-                {convertNumberToKFormat(template.watches)}
-              </span>
-              <span className={csx.stars}>
-                <StarBorderIcon />
-                {convertNumberToKFormat(template.stars)}
-              </span>
-              <p className={csx.createdBy}>
-                Created at {convertDate(template.createdDate)} by {template.addedBy}
-              </p>
-            </section>
+            <p className={csx.date}>
+              Created <span>{convertDate(template.createdDate)}</span>
+              {!!template.modifiedDate && (
+                <>
+                  {' '}
+                  and modified <span>{convertDate(template.modifiedDate)}</span>
+                </>
+              )}
+            </p>
 
-            <section>
-              <h2 className={csx.header}>
-                <span>{template.name}</span>
-              </h2>
+            <h1>{template.name}</h1>
 
-              <p className={csx.description}>{template.description}</p>
-            </section>
+            <span className={csx.description}>{template.description}</span>
 
-            <section className={csx.col}>
-              <h3 className={csx.header}>
-                <span>Tech stack</span>
-              </h3>
-              <ul className={`${csx.basicList} ${csx.technologies}`}>
-                {template.technologies.map(({ id, name }) => (
-                  <li key={id}>{name}</li>
-                ))}
-              </ul>
-            </section>
+            <div className={csx.technologies}>
+              <h5>Technologies</h5>
 
-            <section className={csx.col}>
-              <h3 className={csx.header}>
-                <span>Patterns</span>
-              </h3>
-              <ul className={`${csx.basicList} ${csx.patterns}`}>
-                {template.patterns.map(({ id, name }) => (
-                  <li key={id}>{name}</li>
-                ))}
-              </ul>
-            </section>
-
-            <section className={csx.col}>
-              <h3 className={csx.header}>
-                <span>Authors</span>
-              </h3>
-              <ul className={csx.authors}>
-                {template.contributors.map(({ name, avatar }) => (
-                  <li key={name}>
-                    <img src={avatar} />
+              <ul>
+                {template.technologies.map(technology => (
+                  <li key={technology.id}>
+                    <figure>
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" />
+                    </figure>
+                    <span>{technology.name}</span>
                   </li>
                 ))}
               </ul>
-            </section>
-          </>
-        )}
-      </div>
+            </div>
+
+            <div className={csx.patterns}>
+              <h5>Patterns</h5>
+
+              <Tags items={patternsNames} />
+            </div>
+
+            <div className={csx.contributors}>
+              <h5>Authors</h5>
+
+              <div>
+                {template.contributors.map(contributor => (
+                  <a
+                    target="_blank"
+                    key={contributor.name}
+                    href={`https://github.com/${contributor.name}`}
+                    title={contributor.name}
+                  >
+                    <Avatar src={contributor.avatar} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };

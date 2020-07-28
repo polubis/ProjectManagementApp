@@ -5,6 +5,6 @@
     min-height: 100vh;
     justify-content: center;
     display: grid;
-    grid-template-columns: 320px 320px 320px 320px;
+    grid-template-columns: repeat(4, 320px);
     grid-gap: 32px;
 }

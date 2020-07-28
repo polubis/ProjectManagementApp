@@ -71,7 +71,7 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
         onKeyPress={handleKeyPress}
       />
 
-      {error ? null : <TemplateTags tags={value} onClick={handleDelete} />}
+      {error ? null : <TemplateTags items={value} onClick={handleDelete} />}
 
       <IconButton disabled={validationError.invalid} onClick={handleConfirm}>
         <AddCircleOutlineIcon />
