@@ -1,133 +1,80 @@
 @import 'styles/mixins';
 
 .footer {
-  background-color: $primaryDark;
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  background: $primaryDark;
 
-  .jupiIo {
-    p {
-      height: 75px;
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column: 2/3;
+
+    .description {
+      @include labelThin;
     }
 
-    button {
-      width: 151px;
-      margin-top: 32px;
-      height: 40px;
-      background: $surfacePrimary;
-      color: $primary;
-    }
-  }
+    & > div {
+      @include col;
 
-  .newsletter {
-    div {
-      display: flex;
-      margin-top: 32px;
-
-      button {
-        height: 40px;
-        background: $surfacePrimary;
-        border: none;
-        padding: 0 4px !important;
-        color: $primary;
-        border-left: 2px solid $primaryDark;
-        border-radius: 0;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
+      h5 {
+        @include heading;
       }
 
-      .input {
-        @include label;
-        height: 40px;
-        padding: 9px 5px;
-        background: $surfacePrimary;
-        border: none;
-        max-width: 200px;
-        color: $primary;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+      .links {
+        display: grid;
+        grid-gap: 32px;
+        margin-top: auto;
 
-        &::placeholder {
-          color: $primary;
+        a {
+          @include link;
+          font-weight: $bold;
+          color: $white;
         }
       }
     }
 
-    p {
-      height: 75px;
-    }
-  }
+    .feedback {
+      padding: 32px 60px 42px 0;
 
-  .authors {
+      figure {
+        @include row;
 
-    p {
+        span {
+          @include heading;
+          margin-left: 18px;
+        }
+      }
 
-      span {
-        color: $primary;
+      .description {
+        margin: 28px 0 32px 0;
+      }
+
+      .links {
+        grid-template-columns: 1fr 1fr 1fr;
       }
     }
-  }
-}
 
-.basicSection {
-  @include col;
-  padding-top: 38px;
-  padding-bottom: 32px;
-  padding-left: 40px;
-  padding-right: 40px;
+    .newsletter {
+      padding: 36px 60px 42px 60px;
+      border-right: 1px solid $white;
+      border-left: 1px solid $white;
 
-  & > span {
-    @include heading;
-    height: 38px;
-    width: 191px;
+      .description {
+        margin: 32px 0;
+      }
 
-    figure {
-      @include row;
-
-      img {
-        margin-right: 16px;
+      .links {
+        grid-template-columns: 1fr 1fr;
       }
     }
-  }
 
-  & > p {
-    @include description;
-    margin-top: 35px;
-    max-width: 270px;
-  }
-}
+    .history {
+      padding: 36px 60px 42px 60px;
 
-.list {
-  @include rowBetween;
-  margin-top: 83px;
-
-  li {
-    color: $primary;
-    font-weight: bold;
-    transition: 0.3s color;
-  }
-
-  li:hover {
-    color: $secondary;
-  }
-}
-
-@media screen and (max-width: 1098px) {
-  .footer {
-    @include centered;
-    flex-flow: column;
-  }
-
-  .authors {
-    border-top: 1px solid white;
-  }
-}
-
-@media screen and (min-width: 1099px) {
-  .footer {
-    @include rowCenter;
-    flex-wrap: wrap;
-  }
-
-  .newsletter, .authors {
-    border-left: 1px solid white;
+      .description {
+        margin: 32px 0;
+      }
+    }
   }
 }

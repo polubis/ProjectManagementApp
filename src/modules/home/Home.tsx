@@ -1,17 +1,19 @@
 import React from 'react';
 
-import { Topbar, BasicInformation, TilesSection, RecommendedTemplates, HomeDescription, Footer } from '.';
+import Navbar from './navbar';
+import Footer from './footer';
+import { Ecosystem, Features, Search, RecommendedTemplates } from './sections';
 
 const Home = () => {
   return (
-    <div>
-      <Topbar />
-      <BasicInformation />
-      <TilesSection />
+    <>
+      <Navbar />
+      <Search />
+      <Features />
       <RecommendedTemplates />
-      <HomeDescription />
+      <Ecosystem />
       <Footer />
-    </div>
+    </>
   );
 };
 

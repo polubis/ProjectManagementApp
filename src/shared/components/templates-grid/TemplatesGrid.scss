@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+
+.templatesGrid {
+  width: 100%;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 32px;
+
+  .spaceholder {
+    width: 320px;
+    height: 444px;
+  }
+}

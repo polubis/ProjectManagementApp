@@ -1,0 +1,31 @@
+@import 'styles/mixins';
+
+.search {
+  @include centered;
+  flex-flow: column;
+  height: 618px;
+  border-bottom: 1px solid rgba($primary, 0.41);
+
+  h1,
+  p {
+    width: 470px;
+    text-align: center;
+  }
+
+  h1 {
+    @include headingBig;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  p {
+    @include descriptionBig;
+    margin: 32px 0 58px 0;
+
+    span {
+      color: $primary;
+    }
+  }
+}

@@ -14,6 +14,12 @@ import { TemplatesSearchFilters } from '..';
 
 import csx from './TemplatesSearch.scss';
 
+namespace TemplatesSearch {
+  export interface Props {
+    path?: string;
+  }
+}
+
 const [QUERY, TECHNOLOGIES] = [0, 1];
 
 const parseTechnologies = (technologiesIds: string) =>
@@ -29,7 +35,7 @@ const CONFIG: Form.Config = [
   }
 ];
 
-const TemplatesSearch = () => {
+const TemplatesSearch = ({ path = '/app/templates/all' }) => {
   const history = useHistory();
 
   const [query, technologiesIds] = useQueryParams('query', 'technologiesIds');
@@ -61,9 +67,9 @@ const TemplatesSearch = () => {
         patternsIds: JSON.stringify([])
       } as Partial<TemplatesSearchFilters>).toString();
 
-      history.push(`/app/templates/all?${url}`);
+      history.push(`${path}?${url}`);
     },
-    [fields]
+    [fields, path]
   );
 
   useEffect(() => {

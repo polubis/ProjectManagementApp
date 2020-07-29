@@ -1,0 +1,47 @@
+@import 'styles/mixins';
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr max(1200px) 1fr;
+  width: 100%;
+  padding: 80px 0 calc(80px - 32px) 0;
+  border-bottom: 1px solid rgba($primary, 0.41);
+  background: $surfacePrimary;
+
+  .wrapper {
+    @include centered;
+    grid-column: 2/3;
+    flex-flow: wrap;
+
+    .feature {
+      @include col;
+      align-items: center;
+      width: 368px;
+      height: 320px;
+      margin: 0 32px 32px 0;
+      padding: 64px 54px;
+      background: $primaryDark;
+      color: $white;
+      box-shadow: $shadowPrimary;
+      border-radius: 4px;
+
+      svg {
+        font-size: 42px;
+      }
+
+      p,
+      & > span {
+        text-align: center;
+      }
+
+      p {
+        @include heading;
+        margin: 24px 0 18px 0;
+      }
+
+      & > span {
+        @include description;
+      }
+    }
+  }
+}

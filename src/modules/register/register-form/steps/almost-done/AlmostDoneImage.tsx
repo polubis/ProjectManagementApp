@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AlmostDoneImage = () => {
+const AlmostDoneImage = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -198,3 +198,5 @@ export const AlmostDoneImage = () => {
     </svg>
   );
 };
+
+export default AlmostDoneImage;
