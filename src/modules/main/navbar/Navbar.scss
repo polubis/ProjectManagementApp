@@ -18,6 +18,11 @@
       &:first-of-type {
         @include headingMedium;
       }
+
+      a {
+        text-decoration: none;
+        color: $primary;
+      }
     }
 
     .divider {

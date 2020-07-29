@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { UserSection } from '.';
 
@@ -7,6 +8,11 @@ import csx from './Navbar.scss';
 
 const getBreadcrumbs = (pathname: string) => {
   return pathname.split('/');
+};
+
+const getLinkPath = (index: number, breadcrumbs: string[], basePath: string) => {
+  const path = `${basePath}/${breadcrumbs.slice(0, index + 1).join('/')}`;
+  return path;
 };
 
 export interface NavbarProps {
@@ -23,7 +29,9 @@ export const Navbar = ({ basePath }) => {
       <div className={csx.breadcrumbs}>
         {breadcrumbs.map((breadcrumb, idx) => (
           <React.Fragment key={idx}>
-            <div className={csx.breadcrumb}>{breadcrumb}</div>
+            <div className={csx.breadcrumb}>
+              <Link to={getLinkPath(idx, breadcrumbs, basePath)}>{breadcrumb}</Link>
+            </div>
             <div className={csx.divider}>{'>'}</div>
           </React.Fragment>
         ))}
