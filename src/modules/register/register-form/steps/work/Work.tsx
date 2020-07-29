@@ -33,23 +33,23 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
 
   const { technologies } = useTechnologiesProvider();
 
-  const handleSenioritySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([SENIORITY], [Select.select(e, value)]);
+  const handleSenioritySelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([SENIORITY], [{ ...fields[SENIORITY].value, [dataIdx]: checked }]);
     },
     [fields]
   );
 
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES], [dataIdx]: checked }]);
     },
     [fields]
   );
 
-  const handleExperienceSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([EXPERIENCE], [Select.select(e, value)]);
+  const handleExperienceSelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([EXPERIENCE], [{ ...fields[EXPERIENCE], [dataIdx]: checked }]);
     },
     [fields]
   );
@@ -81,7 +81,6 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           placeholder="Seniority..."
           items={SENIORITY_ITEMS}
           error={dirty ? fields[SENIORITY].error : ''}
-          value={fields[SENIORITY].value}
           onSelect={handleSenioritySelect}
         />
       </div>
@@ -101,7 +100,6 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           placeholder="Years of experience..."
           error={dirty ? fields[EXPERIENCE].error : ''}
           items={EXPERIENCE_ITEMS}
-          value={fields[EXPERIENCE].value}
           onSelect={handleExperienceSelect}
         />
       </div>
@@ -111,7 +109,6 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
         placeholder="Choose technologies..."
         error={dirty ? fields[TECHNOLOGIES].error : ''}
         items={mappedTechnologies}
-        value={fields[TECHNOLOGIES].value}
         onSelect={handleTechnologySelect}
       />
 

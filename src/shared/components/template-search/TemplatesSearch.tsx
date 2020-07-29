@@ -8,10 +8,11 @@ import { Select } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
-import { TemplateCategory } from 'core/api';
+import { TemplateCategory, Technology } from 'core/api';
 import { useTechnologiesProvider } from 'core/technologies';
 
 import csx from './TemplatesSearch.scss';
+import TechnologiesSelect from '../technologies-select/TechnologiesSelect';
 
 namespace TemplatesSearch {
   export interface Props {
@@ -21,11 +22,6 @@ namespace TemplatesSearch {
 
 const [QUERY, TECHNOLOGIES] = [0, 1];
 
-const parseTechnologies = (technologiesIds: string) =>
-  isJSONString(technologiesIds)
-    ? (JSON.parse(technologiesIds) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
-    : {};
-
 const CONFIG: Form.Config = [
   { label: 'Query', value: '' },
   {
@@ -33,6 +29,18 @@ const CONFIG: Form.Config = [
     value: {}
   }
 ];
+
+const parseTechnologies = (technologiesIds: string) =>
+  isJSONString(technologiesIds)
+    ? (JSON.parse(technologiesIds) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
+    : {};
+
+const mapTechnologies = (technologies: Technology[], value: { [key: number]: boolean }) => () =>
+  technologies.map(t => ({
+    label: t.name,
+    dataIdx: t.id,
+    value: !!value[t.id]
+  })) as TechnologiesSelect.Item[];
 
 const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }) => {
   const { location, push } = useHistory();
@@ -43,9 +51,9 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
 
   const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
 
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: TechnologiesSelect.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: checked }]);
     },
     [fields]
   );
@@ -76,8 +84,9 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
     directChange([QUERY, TECHNOLOGIES], [query, parseTechnologies(technologiesIds)]);
   }, [query, technologiesIds]);
 
-  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
-    technologies
+  const mappedTechnologies = useMemo(mapTechnologies(technologies, fields[TECHNOLOGIES].value), [
+    technologies,
+    fields[TECHNOLOGIES].value
   ]);
 
   return (
@@ -90,15 +99,7 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         onChange={change}
       />
 
-      <Select
-        label="Technologies *"
-        placeholder="All technologies"
-        className={csx.select}
-        openClass={csx.selectMenuOpen}
-        items={mappedTechnologies}
-        value={fields[TECHNOLOGIES].value}
-        onSelect={handleTechnologySelect}
-      />
+      <TechnologiesSelect items={mappedTechnologies} onSelect={handleTechnologySelect} />
 
       <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />

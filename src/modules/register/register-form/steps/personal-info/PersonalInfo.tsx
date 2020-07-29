@@ -19,9 +19,9 @@ namespace PersonalInfo {
 const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;
 
-  const handleGenderSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([GENDER], [Select.select(e, value)]);
+  const handleGenderSelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([GENDER], [{ [dataIdx]: checked }]);
     },
     [fields]
   );
@@ -68,7 +68,6 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
           placeholder="Choose gender..."
           error={dirty ? fields[GENDER].error : ''}
           items={GENDER_LIST}
-          value={fields[GENDER].value}
           onSelect={handleGenderSelect}
         />
       </div>

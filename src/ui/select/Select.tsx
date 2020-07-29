@@ -1,4 +1,5 @@
-import React, { useMemo, ChangeEvent } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { FixedSizeList } from 'react-window';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, Chip } from '@material-ui/core';
@@ -8,23 +9,18 @@ import { FieldBase, Menu, SelectItem, Checkbox, useMenu } from '..';
 import csx from './Select.scss';
 
 namespace Select {
-  export namespace Events {
-    export type Select = ChangeEvent<HTMLInputElement>;
-  }
-
-  export type OnSelect = (event: Events.Select, checked?: boolean) => void;
+  export type OnSelect = (dataIdx: string | number, checked: boolean) => void;
 
   export interface Item {
     dataIdx: number | string;
     label: string;
+    value?: boolean;
   }
 
   export interface Props {
     label: string;
     items: Item[];
-    value: { [key: string]: boolean };
     className?: string;
-    openClass?: string;
     error?: string;
     placeholder?: string;
     onSelect: OnSelect;
@@ -35,48 +31,50 @@ namespace Select {
   }
 }
 
+const MENU_WIDTH = 400;
+
+const getChecked = (items: Select.Item[]) => items.filter(({ value }) => value).reverse();
+
 const Select = ({
   label,
   placeholder = label,
   className,
-  openClass = csx.menuOpen,
   error,
-  value,
   items,
   onSelect
 }: Select.Props) => {
   const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
 
-  const selectedItems = useMemo(() => items.filter(({ dataIdx }) => value[dataIdx]).reverse(), [
-    items,
-    value
-  ]);
+  const checkedItems = useMemo(() => getChecked(items), [items]);
 
-  const mappedItems = useMemo(
+  const handleSelect: Checkbox.OnChange = useCallback(
+    (e, checked) => {
+      onSelect(e.currentTarget.getAttribute('data-idx'), checked);
+    },
+    [onSelect]
+  );
+
+  const itemData = useMemo(
     () =>
-      items.map(
-        ({ dataIdx, label }) =>
-          ({
-            dataIdx,
-            label,
-            value: !!value[dataIdx]
-          } as Checkbox.Props)
-      ),
-    [items, value]
+      ({
+        items,
+        onSelect: handleSelect
+      } as SelectItem.Data),
+    [items, handleSelect]
   );
 
   return (
     <FieldBase className={className} label={label} error={error}>
-      <div className={`${csx.select} ${isMenuOpen ? openClass : ''}`}>
+      <div className={`${csx.select} ${isMenuOpen ? csx.opened : ''}`}>
         <div className={csx.selectedItems}>
-          {selectedItems.length > 0 ? (
-            selectedItems.map(({ dataIdx, label }) => (
+          {checkedItems.length > 0 ? (
+            checkedItems.map(({ dataIdx, label }) => (
               <Chip
                 key={dataIdx}
                 data-idx={dataIdx}
                 label={label}
                 className={csx.selectedItem}
-                onClick={onSelect as any}
+                onClick={() => onSelect(dataIdx, false)}
                 size="small"
                 variant="outlined"
               />
@@ -91,14 +89,16 @@ const Select = ({
         </Button>
 
         {isMenuOpen && (
-          <Menu<Checkbox.Props, Select.MenuProps>
-            width={400}
-            anchorEl={anchorEl}
-            items={mappedItems}
-            onClose={closeMenu}
-            onSelect={onSelect}
-          >
-            {SelectItem}
+          <Menu keepMounted={false} width={MENU_WIDTH} anchorEl={anchorEl} onClose={closeMenu}>
+            <FixedSizeList
+              itemSize={40}
+              height={MENU_WIDTH}
+              width={MENU_WIDTH}
+              itemCount={itemData.items.length}
+              itemData={itemData}
+            >
+              {SelectItem}
+            </FixedSizeList>
           </Menu>
         )}
       </div>
@@ -106,15 +106,9 @@ const Select = ({
   );
 };
 
-Select.select = (
-  e: Select.Events.Select,
-  value: boolean,
-  values: { [key: string]: boolean } = {}
-) => ({ ...values, [+e.currentTarget.getAttribute('data-idx')]: value });
-
 Select.makeItems = (items: any[], idKey: string, labelKey: string) =>
   items.map(
-    (item) =>
+    item =>
       ({
         dataIdx: item[idKey],
         label: item[labelKey]
@@ -124,7 +118,6 @@ Select.makeItems = (items: any[], idKey: string, labelKey: string) =>
 Select.makeValues = (items: any[], idKey: string, value = true) =>
   items.reduce((prev, curr) => ({ ...prev, [curr[idKey]]: value }), {});
 
-Select.getChecked = (value: { [key: string]: boolean }) =>
-  Object.keys(value).filter((k) => value[k]);
+Select.getChecked = (value: { [key: string]: boolean }) => Object.keys(value).filter(k => value[k]);
 
 export default Select;

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { Button, Menu, MoreItem, useMenu } from '..';
+import { Button, Menu, useMenu } from '..';
 
 import csx from './More.scss';
 
@@ -10,7 +10,6 @@ namespace More {
   export type Props = {
     children: ReactElement[];
     width?: number;
-    itemSize?: number;
   };
 
   export namespace Events {
@@ -22,7 +21,7 @@ namespace More {
   }
 }
 
-const More = ({ children, itemSize = 48, width = 160 }: More.Props) => {
+const More = ({ children, width = 160 }: More.Props) => {
   const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
@@ -39,21 +38,24 @@ const More = ({ children, itemSize = 48, width = 160 }: More.Props) => {
 
   return (
     <>
-      <Button className={csx.moreBtn} onClick={openMenu}>
+      <Button className={csx.btn} onClick={openMenu}>
         MORE
         <ExpandMoreIcon />
       </Button>
 
       {isMenuOpen && (
-        <Menu<ReactElement, {}>
+        <Menu
+          keepMounted={false}
+          className={csx.menu}
           anchorEl={anchorEl}
-          items={enhancedChildren}
-          itemSize={itemSize}
-          height={children.length * itemSize}
           width={width}
           onClose={closeMenu}
         >
-          {MoreItem}
+          {enhancedChildren.map((children, idx) => (
+            <Button key={idx} theme="primaryTransparent">
+              {children}
+            </Button>
+          ))}
         </Menu>
       )}
     </>

@@ -4,6 +4,8 @@ import { Button, Select } from 'ui';
 
 import { Form } from 'utils';
 
+import { Technology, Pattern } from 'core/api';
+
 import { TagsField } from 'shared/components';
 
 import { useTechnologiesProvider } from 'core/technologies';
@@ -19,6 +21,20 @@ namespace TechDetails {
   }
 }
 
+const mapTechnologies = (technologies: Technology[], value: { [key: number]: boolean }) => () =>
+  technologies.map(t => ({
+    label: t.name,
+    dataIdx: t.id,
+    value: !!value[t.id]
+  })) as Select.Item[];
+
+const mapPatterns = (patterns: Pattern[], value: { [key: number]: boolean }) => () =>
+  patterns.map(t => ({
+    label: t.name,
+    dataIdx: t.id,
+    value: !!value[t.id]
+  })) as Select.Item[];
+
 const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
   const [{ fields, invalid, dirty }, _, directChange] = formManager;
 
@@ -26,16 +42,16 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
 
   const { technologies } = useTechnologiesProvider();
 
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: checked }]);
     },
     [fields]
   );
 
-  const handlePatternSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([PATTERNS], [Select.select(e, value, fields[PATTERNS].value)]);
+  const handlePatternSelect: Select.OnSelect = useCallback(
+    (dataIdx, checked) => {
+      directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: checked }]);
     },
     [fields]
   );
@@ -56,11 +72,15 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
     [fields]
   );
 
-  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
-    technologies
+  const mappedTechnologies = useMemo(mapTechnologies(technologies, fields[TECHNOLOGIES].value), [
+    technologies,
+    fields[TECHNOLOGIES].value
   ]);
 
-  const mappedPatterns = useMemo(() => Select.makeItems(patterns, 'id', 'name'), [patterns]);
+  const mappedPatterns = useMemo(mapPatterns(patterns, fields[PATTERNS].value), [
+    patterns,
+    fields[PATTERNS].value
+  ]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -69,7 +89,6 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
         placeholder="Select template technologies..."
         items={mappedTechnologies}
         error={dirty ? fields[TECHNOLOGIES].error : ''}
-        value={fields[TECHNOLOGIES].value}
         onSelect={handleTechnologySelect}
       />
 
@@ -78,7 +97,6 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
         placeholder="Select patterns..."
         items={mappedPatterns}
         error={dirty ? fields[PATTERNS].error : ''}
-        value={fields[PATTERNS].value}
         onSelect={handlePatternSelect}
       />
 

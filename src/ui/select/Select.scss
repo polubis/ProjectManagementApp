@@ -4,7 +4,7 @@
   @include row;
   padding: 0 !important;
 
-  &.menuOpen {
+  &.opened {
     background: $primaryDark;
     color: $white;
 

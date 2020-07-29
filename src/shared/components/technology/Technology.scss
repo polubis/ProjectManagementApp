@@ -1,0 +1,21 @@
+@import 'styles/mixins';
+
+.technology {
+  @include row;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  figure {
+    height: 32px;
+
+    img {
+      max-height: 100%;
+    }
+  }
+
+  span {
+    @include label;
+    margin-left: 4px;
+    color: $white;
+  }
+}

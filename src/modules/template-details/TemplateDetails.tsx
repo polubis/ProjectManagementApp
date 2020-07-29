@@ -14,7 +14,7 @@ import { convertDate } from 'utils';
 
 import { Template } from 'core/api';
 
-import { TemplateTags, TemplateStats } from 'shared/components';
+import { TemplateTags, TemplateStats, Technology } from 'shared/components';
 
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
@@ -105,16 +105,15 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             <div className={csx.technologies}>
               <h5>Technologies</h5>
 
-              <ul>
+              <div>
                 {template.technologies.map(technology => (
-                  <li key={technology.id}>
-                    <figure>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" />
-                    </figure>
-                    <span>{technology.name}</span>
-                  </li>
+                  <Technology
+                    key={technology.id}
+                    name={technology.name}
+                    avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
 
             <div className={csx.patterns}>
