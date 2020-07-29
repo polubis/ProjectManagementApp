@@ -14,7 +14,7 @@ namespace TemplatesGrid {
     loading: boolean;
     templates: Template[];
     spaceholdersCount?: number;
-    path?: string;
+    pathname?: string;
   }
 }
 
@@ -37,7 +37,7 @@ const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =
 const TemplatesGrid = ({
   loading,
   templates,
-  path,
+  pathname,
   spaceholdersCount = 12
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
@@ -45,7 +45,7 @@ const TemplatesGrid = ({
   const goToDetails = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const templateId = e.currentTarget.getAttribute('data-idx');
-      push(`${path ? path : location.pathname}/${templateId}`);
+      push(`${pathname ? pathname : location.pathname}/${templateId}`);
     },
     [location.pathname]
   );

@@ -30,7 +30,7 @@ export interface TemplatePayload {
   technologiesIds: number[];
 }
 
-export enum TemplatesCategories {
+export enum TemplateCategory {
   ALL = 'all',
   RECOMMENDED = 'recommended',
   TOP = 'top',
@@ -41,8 +41,17 @@ export enum TemplatesCategories {
 export interface TemplatesPayload {
   limit: number;
   page: number;
-  category: TemplatesCategories;
+  category: TemplateCategory;
   query: string;
   technologiesIds: string[];
   patternsIds: string[];
+}
+
+export interface TemplatesSearchFilters {
+  limit: string;
+  page: string;
+  category: TemplateCategory;
+  query: string;
+  technologiesIds: string;
+  patternsIds: string;
 }

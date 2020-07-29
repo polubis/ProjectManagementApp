@@ -5,7 +5,7 @@ import { Select } from 'ui';
 
 import { Form } from 'utils';
 
-import { addTemplate, TemplatePayload, editTemplate } from 'core/api';
+import { addTemplate, TemplatePayload, editTemplate, TemplateCategory } from 'core/api';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '.';
 
@@ -71,7 +71,7 @@ export const useTemplateManagement = (): Return => {
 
   useEffect(() => {
     if (state.id) {
-      history.replace(`/app/templates/all/${state.id}`);
+      history.replace(`/app/templates/${TemplateCategory.ALL}/${state.id}`);
     }
   }, [state.id]);
 

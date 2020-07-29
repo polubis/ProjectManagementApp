@@ -3,15 +3,12 @@ import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 
 import { withLazy } from 'utils';
 
+import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
 import { Navbar, Sidebar } from '.';
 
 import csx from './Main.scss';
-
-namespace Main {
-  export interface Props extends RouteChildrenProps {}
-}
 
 const Templates = withLazy(() => import('src/modules/templates'));
 
@@ -21,7 +18,7 @@ const TemplateDocumentation = withLazy(() => import('src/modules/template-docume
 
 const TemplateManagement = withLazy(() => import('src/modules/template-management'));
 
-const Main = ({ match }: Main.Props) => {
+const Main = ({ match }: RouteChildrenProps) => {
   return (
     <div className={csx.main}>
       <Navbar basePath={match.path} />
@@ -44,7 +41,7 @@ const Main = ({ match }: Main.Props) => {
           <Route
             exact
             path={`${match.path}/templates`}
-            render={() => <Redirect to={`${match.path}/templates/all`} />}
+            render={() => <Redirect to={`${match.path}/templates/${TemplateCategory.ALL}`} />}
           />
 
           <Route exact path={`${match.path}/templates/:category`} component={Templates} />
