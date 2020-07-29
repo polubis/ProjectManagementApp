@@ -6,24 +6,23 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { Select } from 'ui';
 
-import { Form, useQueryParams } from 'utils';
+import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
+import { TemplateCategory } from 'core/api';
 import { useTechnologiesProvider } from 'core/technologies';
-
-import { TemplatesSearchFilters } from '..';
 
 import csx from './TemplatesSearch.scss';
 
 namespace TemplatesSearch {
   export interface Props {
-    path?: string;
+    pathname?: string;
   }
 }
 
 const [QUERY, TECHNOLOGIES] = [0, 1];
 
 const parseTechnologies = (technologiesIds: string) =>
-  technologiesIds
+  isJSONString(technologiesIds)
     ? (JSON.parse(technologiesIds) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
     : {};
 
@@ -35,8 +34,8 @@ const CONFIG: Form.Config = [
   }
 ];
 
-const TemplatesSearch = ({ path = '/app/templates/all' }) => {
-  const history = useHistory();
+const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }) => {
+  const { location, push } = useHistory();
 
   const [query, technologiesIds] = useQueryParams('query', 'technologiesIds');
 
@@ -61,15 +60,16 @@ const TemplatesSearch = ({ path = '/app/templates/all' }) => {
 
       const [{ value: query }, { value: technologiesIds }] = fields;
 
-      const url = new URLSearchParams({
-        query,
-        technologiesIds: JSON.stringify(Select.getChecked(technologiesIds)),
-        patternsIds: JSON.stringify([])
-      } as Partial<TemplatesSearchFilters>).toString();
+      const search = Url(location)
+        .swap('technologiesIds', Select.getChecked(technologiesIds))
+        .swap('patternsIds', [])
+        .swap('query', query)
+        .delete('page')
+        .search();
 
-      history.push(`${path}?${url}`);
+      push(`${pathname}?${search}`);
     },
-    [fields, path]
+    [fields, location]
   );
 
   useEffect(() => {

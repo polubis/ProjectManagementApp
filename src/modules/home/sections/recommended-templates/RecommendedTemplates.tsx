@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { TemplatesCategories } from 'core/api';
+import { TemplateCategory } from 'core/api';
 
 import { TemplatesGrid } from 'shared/components';
 
@@ -15,7 +15,7 @@ const RecommendedTemplates = () => {
     getTemplates({
       page: 1,
       limit: 4,
-      category: TemplatesCategories.RECOMMENDED,
+      category: TemplateCategory.RECOMMENDED,
       query: '',
       technologiesIds: [],
       patternsIds: []
@@ -28,7 +28,7 @@ const RecommendedTemplates = () => {
         <h5>Recommended templates</h5>
 
         <TemplatesGrid
-          path="/app/templates/all"
+          pathname={`/app/templates/${TemplateCategory.RECOMMENDED}`}
           spaceholdersCount={4}
           loading={loading}
           templates={templates}
