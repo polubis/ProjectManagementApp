@@ -1,28 +1,15 @@
-import React, { useMemo } from 'react';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
+import React from 'react';
 
-import { Menu as MuiMenu, makeStyles, PopoverOrigin } from '@material-ui/core';
+import { Menu as MuiMenu, makeStyles, MenuProps } from '@material-ui/core';
 
 import { Palette } from 'styles';
 
 namespace Menu {
-  type BaseProps<T> = {
-    anchorEl: Element;
-    items: T[];
-    children: React.ComponentType<ListChildComponentProps>;
-    onClose(): void;
-    anchorOrigin?: PopoverOrigin;
-    transformOrigin?: PopoverOrigin;
+  type BaseProps = {
     width?: number;
-    height?: number;
-    itemSize?: number;
   };
 
-  export type Props<T, R> = BaseProps<T> & R;
-
-  export interface ChildrenProps<T> extends Omit<ListChildComponentProps, 'data'> {
-    data: T;
-  }
+  export type Props = Omit<MenuProps, 'open'> & BaseProps;
 
   export interface Styles {
     width: number;
@@ -37,63 +24,29 @@ const useStyles = makeStyles({
     color: Palette.primary,
     marginTop: '2px',
 
-    '& ul': {
-      padding: '6px 0',
-
-      '& label': {
-        margin: 0,
-        padding: '0 8px',
-
-        '& > span:first-of-type': {
-          padding: '12px'
-        }
-      }
+    '& > ul': {
+      padding: '6px 0'
     }
   }
 });
 
-const Menu = <T, R>({
-  anchorEl,
-  items,
-  children,
-  onClose,
+const Menu = ({
   anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
   transformOrigin = { vertical: 'top', horizontal: 'right' },
   width = 300,
-  height = 300,
-  itemSize = 40,
-  ...menuItemProps
-}: Menu.Props<T, R>) => {
+  ...props
+}: Menu.Props) => {
   const classes = useStyles({ width });
-
-  const itemData = useMemo(
-    () => ({
-      items,
-      ...menuItemProps
-    }),
-    [items, menuItemProps]
-  );
 
   return (
     <MuiMenu
       open
       getContentAnchorEl={null}
-      anchorEl={anchorEl}
       classes={classes}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
-      onClose={onClose}
-    >
-      <FixedSizeList
-        itemSize={itemSize}
-        height={height}
-        width={width}
-        itemCount={items.length}
-        itemData={itemData}
-      >
-        {children}
-      </FixedSizeList>
-    </MuiMenu>
+      {...props}
+    />
   );
 };
 

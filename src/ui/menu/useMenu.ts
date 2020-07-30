@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react';
 
-type Return = [
+type UseMenu = () => [
   Element,
   boolean,
-  (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+  (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   () => void
 ];
 
-export const useMenu = (): Return => {
+export const useMenu: UseMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const open = useCallback(({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const open = useCallback(({ currentTarget }: React.MouseEvent<HTMLElement, MouseEvent>) => {
     setAnchorEl(currentTarget);
   }, []);
 

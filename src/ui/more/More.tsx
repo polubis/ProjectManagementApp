@@ -2,33 +2,31 @@ import React, { ReactElement } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { Button, Menu, MoreItem, useMenu } from '..';
+import { Button, Menu, useMenu } from '..';
 
 import csx from './More.scss';
 
 namespace More {
   export type Props = {
     children: ReactElement[];
-    width?: number;
-    itemSize?: number;
   };
 
   export namespace Events {
-    export type OnClick = React.MouseEvent<HTMLElement, MouseEvent>;
+    export type Click = React.MouseEvent<HTMLElement, MouseEvent>;
   }
 
   export interface InjectedProps {
-    onClick(e: Events.OnClick): void;
+    onClick(e: Events.Click): void;
   }
 }
 
-const More = ({ children, itemSize = 48, width = 160 }: More.Props) => {
+const More = ({ children }: More.Props) => {
   const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
     React.cloneElement(child, {
       ...child.props,
-      onClick: (e: More.Events.OnClick) => {
+      onClick: (e: More.Events.Click) => {
         if (child.props.onClick) {
           child.props.onClick(e);
         }
@@ -45,15 +43,12 @@ const More = ({ children, itemSize = 48, width = 160 }: More.Props) => {
       </Button>
 
       {isMenuOpen && (
-        <Menu<ReactElement, {}>
-          anchorEl={anchorEl}
-          items={enhancedChildren}
-          itemSize={itemSize}
-          height={children.length * itemSize}
-          width={width}
-          onClose={closeMenu}
-        >
-          {MoreItem}
+        <Menu anchorEl={anchorEl} width={160} onClose={closeMenu}>
+          {enhancedChildren.map((children, idx) => (
+            <Button key={idx} theme="primaryTransparent" className={csx.item}>
+              {children}
+            </Button>
+          ))}
         </Menu>
       )}
     </>

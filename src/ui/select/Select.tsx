@@ -1,4 +1,5 @@
 import React, { useMemo, ChangeEvent } from 'react';
+import { FixedSizeList } from 'react-window';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, Chip } from '@material-ui/core';
@@ -65,6 +66,14 @@ const Select = ({
     [items, value]
   );
 
+  const itemData = useMemo(
+    () => ({
+      items: mappedItems,
+      onSelect
+    }),
+    [mappedItems, onSelect]
+  );
+
   return (
     <FieldBase className={className} label={label} error={error}>
       <div className={`${csx.select} ${isMenuOpen ? openClass : ''}`}>
@@ -91,14 +100,16 @@ const Select = ({
         </Button>
 
         {isMenuOpen && (
-          <Menu<Checkbox.Props, Select.MenuProps>
-            width={400}
-            anchorEl={anchorEl}
-            items={mappedItems}
-            onClose={closeMenu}
-            onSelect={onSelect}
-          >
-            {SelectItem}
+          <Menu anchorEl={anchorEl} width={400} onClose={closeMenu}>
+            <FixedSizeList
+              itemCount={items.length}
+              itemData={itemData}
+              itemSize={48}
+              height={300}
+              width={400}
+            >
+              {SelectItem}
+            </FixedSizeList>
           </Menu>
         )}
       </div>
