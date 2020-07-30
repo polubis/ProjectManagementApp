@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router';
+import { useRouteMatch, useHistory } from 'react-router';
 
 import { Select } from 'ui';
 
@@ -59,19 +59,28 @@ const makeConfig = (template: Template): Form.Config[] => {
 };
 
 export const useTemplateManagementConfig = (): Return => {
+  const { replace } = useHistory();
+
   const {
     params: { id }
   } = useRouteMatch<{ id: string }>();
 
   const [state, setState] = useState(makeInitState(id));
 
-  const { template, getTemplateDetails } = useTemplateDetailsProvider();
+  const { template, error, reset, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
     if (id) {
       getTemplateDetails(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      reset();
+      replace('/app/templates');
+    }
+  }, [error]);
 
   useEffect(() => {
     if (template) {

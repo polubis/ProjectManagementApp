@@ -8,6 +8,7 @@ namespace TemplateDetailsProvider {
     error: string;
     template: Template;
     getTemplateDetails?(id: string): Promise<void>;
+    reset?(): void;
   }
 }
 
@@ -20,11 +21,13 @@ const STATE: TemplateDetailsProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<any, typeof STATE> {
+  reset = () => {
+    this.setState({ ...STATE });
+  };
+
   getTemplateDetails = async (id: string): Promise<void> => {
     if (!this.state.loading) {
-      this.setState({
-        ...STATE
-      });
+      this.reset();
     }
 
     try {
@@ -38,7 +41,8 @@ class Provider extends React.Component<any, typeof STATE> {
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTemplateDetails: this.getTemplateDetails
+    getTemplateDetails: this.getTemplateDetails,
+    reset: this.reset
   };
 
   render() {

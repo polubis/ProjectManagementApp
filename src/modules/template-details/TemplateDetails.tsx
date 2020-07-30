@@ -71,7 +71,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               </Button>
             </a>
 
-            <TemplateAuthorGuard authorUsername={template.addedBy}>
+            <TemplateAuthorGuard>
               <More>
                 <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
                   <EditIcon />

@@ -20,11 +20,6 @@ namespace Guard {
   export interface Props {
     children: JSX.Element | Children.RenderProp;
   }
-
-  export interface AuthorProps {
-    children: JSX.Element;
-    author: string;
-  }
 }
 
 const Protected = ({ children }: Guard.Props) => {
