@@ -51,28 +51,12 @@
       }
     }
 
-    .technologies {
-      ul {
-        @include row;
-        flex-flow: wrap;
+    .technologies > div {
+      @include row;
+      flex-flow: wrap;
 
-        li {
-          @include row;
-          margin: 0 24px 24px 0;
-
-          figure {
-            height: 32px;
-
-            img {
-              max-height: 100%;
-            }
-          }
-
-          span {
-            @include label;
-            margin-left: 4px;
-          }
-        }
+      & > div {
+        margin: 0 24px 24px 0;
       }
     }
 

@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { Select } from 'ui';
+import { Select, SelectBase } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
 import { TemplateCategory } from 'core/api';
-import { useTechnologiesProvider } from 'core/technologies';
+
+import { TechnologySelect } from '..';
 
 import csx from './TemplatesSearch.scss';
 
@@ -39,15 +40,13 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
 
   const [query, technologiesIds] = useQueryParams('query', 'technologiesIds');
 
-  const { technologies } = useTechnologiesProvider();
-
   const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
 
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
-    [fields]
+    [fields[TECHNOLOGIES].value]
   );
 
   const handleSubmit = useCallback(
@@ -76,10 +75,6 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
     directChange([QUERY, TECHNOLOGIES], [query, parseTechnologies(technologiesIds)]);
   }, [query, technologiesIds]);
 
-  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
-    technologies
-  ]);
-
   return (
     <form className={csx.templatesSearch} onSubmit={handleSubmit}>
       <input
@@ -90,15 +85,7 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         onChange={change}
       />
 
-      <Select
-        label="Technologies *"
-        placeholder="All technologies"
-        className={csx.select}
-        openClass={csx.selectMenuOpen}
-        items={mappedTechnologies}
-        value={fields[TECHNOLOGIES].value}
-        onSelect={handleTechnologySelect}
-      />
+      <TechnologySelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect} />
 
       <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />
