@@ -15,7 +15,7 @@ import { convertDate } from 'utils';
 import { Template } from 'core/api';
 
 import { TemplateTags, TemplateStats } from 'shared/components';
-
+import { TemplateAuthorGuard } from 'shared/guards';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
@@ -71,16 +71,18 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               </Button>
             </a>
 
-            <More>
-              <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
-                <EditIcon />
-                EDIT
-              </NavLink>
-              <div className={csx.delete} onClick={openConfirmDelete}>
-                <DeleteIcon />
-                DELETE
-              </div>
-            </More>
+            <TemplateAuthorGuard>
+              <More>
+                <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                  <EditIcon />
+                  EDIT
+                </NavLink>
+                <div className={csx.delete} onClick={openConfirmDelete}>
+                  <DeleteIcon />
+                  DELETE
+                </div>
+              </More>
+            </TemplateAuthorGuard>
           </header>
 
           <section>
@@ -106,7 +108,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h5>Technologies</h5>
 
               <ul>
-                {template.technologies.map(technology => (
+                {template.technologies.map((technology) => (
                   <li key={technology.id}>
                     <figure>
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" />
@@ -127,7 +129,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h5>Authors</h5>
 
               <div>
-                {template.contributors.map(contributor => (
+                {template.contributors.map((contributor) => (
                   <a
                     target="_blank"
                     key={contributor.name}
