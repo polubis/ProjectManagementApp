@@ -7,12 +7,14 @@ import csx from './Checkbox.scss';
 namespace Checkbox {
   export interface Props {
     label: string;
-    value?: boolean;
-    variant?: 'default' | 'informing';
+    value: boolean;
     dataIdx?: number | string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+    variant?: 'default' | 'informing';
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
   }
 }
+
+const checkboxClasses = { root: csx.checkbox, checked: csx.checked };
 
 const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
   return (
@@ -25,7 +27,7 @@ const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Chec
         <MuiCheckbox
           checked={value}
           onChange={onChange}
-          classes={{ root: csx.checkbox, checked: csx.checked }}
+          classes={checkboxClasses}
           inputProps={
             {
               'data-idx': dataIdx
