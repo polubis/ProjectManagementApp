@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
 
 import csx from './Checkbox.scss';
 
 namespace Checkbox {
+  export type OnChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => void;
+
   export interface Props {
-    label: string;
+    label: ReactNode;
     value: boolean;
-    dataIdx?: number | string;
+    dataIdx?: string;
     variant?: 'default' | 'informing';
-    onChange: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+    onChange: OnChange;
   }
 }
 

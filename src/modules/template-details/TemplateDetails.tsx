@@ -14,7 +14,7 @@ import { convertDate } from 'utils';
 
 import { Template } from 'core/api';
 
-import { TemplateTags, TemplateStats } from 'shared/components';
+import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
@@ -107,16 +107,15 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             <div className={csx.technologies}>
               <h5>Technologies</h5>
 
-              <ul>
-                {template.technologies.map((technology) => (
-                  <li key={technology.id}>
-                    <figure>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" />
-                    </figure>
-                    <span>{technology.name}</span>
-                  </li>
+              <div>
+                {template.technologies.map(technology => (
+                  <TechnologyChip
+                    key={technology.id}
+                    name={technology.name}
+                    avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
 
             <div className={csx.patterns}>
@@ -129,7 +128,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <h5>Authors</h5>
 
               <div>
-                {template.contributors.map((contributor) => (
+                {template.contributors.map(contributor => (
                   <a
                     target="_blank"
                     key={contributor.name}

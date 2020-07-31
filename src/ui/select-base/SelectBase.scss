@@ -1,0 +1,23 @@
+@import 'styles/mixins';
+
+.menu {
+  header {
+    @include row;
+    padding: 0 20px;
+
+    & > input {
+      @include label;
+      height: 48px;
+      width: 100%;
+      margin-left: 10px;
+      color: $primary;
+      background: transparent;
+      border: none;
+
+      &::placeholder {
+        color: $primary;
+        font-weight: $thin;
+      }
+    }
+  }
+}
