@@ -10,7 +10,7 @@ import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 
-import { TechnologySelect } from '..';
+import { TechnologiesSelect } from '..';
 
 import csx from './TemplatesSearch.scss';
 
@@ -85,7 +85,7 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         onChange={change}
       />
 
-      <TechnologySelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect} />
+      <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect} />
 
       <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />

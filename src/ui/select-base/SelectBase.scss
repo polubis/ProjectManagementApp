@@ -1,1 +1,27 @@
 @import 'styles/mixins';
+
+.search {
+  @include row;
+  padding: 0 20px;
+
+  & > input {
+    @include label;
+    height: 54px;
+    width: 100%;
+    margin-left: 16px;
+    color: $primary;
+    background: transparent;
+    border: none;
+
+    &::placeholder {
+      color: $primary;
+      font-weight: $thin;
+    }
+  }
+}
+
+.list {
+  background: $surface;
+  border-top: 1px solid rgba($primary, 0.41);
+  padding: 8px 0;
+}

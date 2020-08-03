@@ -6,12 +6,14 @@ namespace TechnologyChip {
   export interface Props {
     name: string;
     avatar: string;
+    className?: string;
+    onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
   }
 }
 
-const TechnologyChip = ({ name, avatar }: TechnologyChip.Props) => {
+const TechnologyChip = ({ name, avatar, className = '', onClick }: TechnologyChip.Props) => {
   return (
-    <div className={csx.technologyChip}>
+    <div className={`${csx.technologyChip} ${className}`} onClick={onClick}>
       <figure>
         <img src={avatar} />
       </figure>

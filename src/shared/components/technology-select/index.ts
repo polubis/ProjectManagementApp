@@ -1,1 +1,1 @@
-export { default as TechnologySelect } from './TechnologySelect';
+export { default as TechnologiesSelect } from './TechnologiesSelect';
