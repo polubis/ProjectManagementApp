@@ -1,13 +1,23 @@
-import React, { ReactElement, ReactNode, ComponentType, useCallback, useMemo } from 'react';
+import React, {
+  ReactElement,
+  ComponentType,
+  Fragment,
+  useCallback,
+  useMemo,
+  useState,
+  cloneElement
+} from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
+
+import SearchIcon from '@material-ui/icons/Search';
+
+import { Form } from 'utils';
 
 import { Checkbox, Menu, useMenu } from '..';
 
-import csx from './SelectBase.scss';
+import SelectedItems from './selected-items';
 
-// ON OFF SEKCJI
-// SEARCH
-// WYBOR KOMPONENTU W STOPCE
+import csx from './SelectBase.scss';
 
 namespace SelectBase {
   export namespace Events {
@@ -15,6 +25,8 @@ namespace SelectBase {
   }
 
   export type OnSelect = (dataIdx: string, value: boolean) => void;
+
+  export type RenderSelectItem = (props: Item) => ReactElement;
 
   export interface Item {
     dataIdx: string;
@@ -27,16 +39,20 @@ namespace SelectBase {
     onSelect: Checkbox.OnChange;
   }
 
-  // Poprawic typowanie zeby bral tylko komponenty
-  export type Children = [ReactNode, ComponentType<ListChildComponentProps>];
-
   export interface Props {
-    children: Children;
+    children: ReactElement;
     items: Item[];
+    listItem: ComponentType<ListChildComponentProps>;
+    renderSelectedItem?: RenderSelectItem;
     height?: number;
     itemSize?: number;
+    searchable?: boolean;
     width?: number;
     onSelect: OnSelect;
+  }
+
+  export interface ChildrenInjectedProps {
+    onClick(e: Events.Click): void;
   }
 
   export interface ListChildProps extends Omit<ListChildComponentProps, 'data'> {
@@ -44,17 +60,22 @@ namespace SelectBase {
   }
 }
 
-const CONTROL = 0,
-  LIST_ITEM = 1;
+const filterItems = (phrase: string, items: SelectBase.Item[]) => () =>
+  phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
 
 const SelectBase = ({
   children,
   items,
+  listItem,
+  renderSelectedItem,
   height = 300,
   itemSize = 48,
+  searchable = true,
   width = 300,
   onSelect
 }: SelectBase.Props) => {
+  const [phrase, setPhrase] = useState('');
+
   const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
 
   const handleSelect: Checkbox.OnChange = useCallback(
@@ -64,9 +85,14 @@ const SelectBase = ({
     [onSelect]
   );
 
-  const enhancedChildren = React.Children.map(children, (child: ReactElement, idx) => {
-    if (idx === CONTROL) {
-      return React.cloneElement(child, {
+  const handleChange = useCallback((e: Form.Events.Change) => {
+    setPhrase(e.target.value);
+  }, []);
+
+  const enhancedControlComponent = React.Children.map(
+    children,
+    (child: ReactElement<SelectBase.ChildrenInjectedProps>) =>
+      cloneElement(child, {
         ...child.props,
         onClick: (e: SelectBase.Events.Click) => {
           if (child.props.onClick) {
@@ -75,35 +101,45 @@ const SelectBase = ({
 
           openMenu(e);
         }
-      });
-    }
+      })
+  );
 
-    return child;
-  });
+  const filteredItems = useMemo(filterItems(phrase, items), [phrase, items]);
 
   const itemsData: SelectBase.ListChildData = useMemo(
     () => ({
-      items,
+      items: filteredItems,
       onSelect: handleSelect
     }),
-    [items, handleSelect]
+    [filteredItems, handleSelect]
   );
 
   return (
     <>
-      {enhancedChildren[CONTROL]}
+      {enhancedControlComponent}
 
       {isMenuOpen && (
-        <Menu anchorEl={anchorEl} width={width} onClose={closeMenu}>
-          <FixedSizeList
-            itemCount={items.length}
-            itemData={itemsData}
-            itemSize={itemSize}
-            height={height}
-            width={width}
-          >
-            {children[LIST_ITEM]}
-          </FixedSizeList>
+        <Menu anchorEl={anchorEl} keepMounted={false} width={width} onClose={closeMenu}>
+          {searchable && (
+            <header className={csx.search}>
+              <SearchIcon />
+              <input placeholder="Filter items..." onChange={handleChange} />
+            </header>
+          )}
+
+          <div className={csx.list}>
+            <FixedSizeList
+              itemCount={filteredItems.length}
+              itemData={itemsData}
+              itemSize={itemSize}
+              height={height}
+              width={width}
+            >
+              {listItem}
+            </FixedSizeList>
+          </div>
+
+          {renderSelectedItem && <SelectedItems items={items} renderItem={renderSelectedItem} />}
         </Menu>
       )}
     </>

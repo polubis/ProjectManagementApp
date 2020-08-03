@@ -2,6 +2,8 @@
 
 .technologyChip {
   @include row;
+  @include noSelect;
+  cursor: pointer;
 
   figure {
     height: 32px;
@@ -13,6 +15,8 @@
 
   span {
     @include label;
+    flex-shrink: 0;
     margin-left: 4px;
+    color: $white;
   }
 }

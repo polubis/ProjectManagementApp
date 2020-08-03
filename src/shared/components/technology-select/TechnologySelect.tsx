@@ -1,13 +1,14 @@
-import React, { useMemo } from 'react';
-
-import CodeIcon from '@material-ui/icons/Code';
+import React, { memo } from 'react';
 
 import { Technology } from 'core/api';
 import { useTechnologiesProvider } from 'core/technologies';
 
-import { SelectBase, Button, Checkbox } from 'ui';
+import { SelectBase } from 'ui';
 
 import { TechnologyChip } from '..';
+
+import ControlButton from './control-button';
+import ListItem from './list-item';
 
 import csx from './TechnologySelect.scss';
 
@@ -18,34 +19,7 @@ namespace TechnologySelect {
   }
 }
 
-const TechnologySelectItem = ({
-  style,
-  index,
-  data: { items, onSelect }
-}: SelectBase.ListChildProps) => {
-  const { dataIdx, label, value } = items[index];
-
-  return (
-    <div style={style}>
-      <Checkbox
-        dataIdx={dataIdx}
-        label={
-          <TechnologyChip
-            name={label}
-            avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
-          />
-        }
-        value={value}
-        onChange={onSelect}
-      />
-    </div>
-  );
-};
-
-const getSelected = (value: { [key: string]: boolean }) => () =>
-  Object.values(value).filter(v => v).length;
-
-const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
+const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) =>
   technologies.map(
     ({ id, name }) =>
       ({
@@ -55,22 +29,29 @@ const makeItems = (technologies: Technology[], value: { [key: string]: boolean }
       } as SelectBase.Item)
   );
 
-const TechnologySelect = ({ value, onSelect }) => {
-  const { technologies } = useTechnologiesProvider();
+const TechnologySelect = memo(
+  ({ value, onSelect }: TechnologySelect.Props) => {
+    const { technologies } = useTechnologiesProvider();
 
-  const selectedCount = useMemo(getSelected(value), [value]);
-
-  const items = useMemo(makeItems(technologies, value), [technologies, value]);
-
-  return (
-    <SelectBase items={items} onSelect={onSelect}>
-      <Button className={csx.btn} theme="primaryTransparent">
-        <CodeIcon />
-        {selectedCount > 0 && <b>{selectedCount}</b>}
-      </Button>
-      {TechnologySelectItem}
-    </SelectBase>
-  );
-};
+    return (
+      <SelectBase
+        listItem={ListItem}
+        items={makeItems(technologies, value)}
+        renderSelectedItem={({ dataIdx, label }) => (
+          <TechnologyChip
+            avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+            className={csx.selectItem}
+            name={label}
+            onClick={() => onSelect(dataIdx, false)}
+          />
+        )}
+        onSelect={onSelect}
+      >
+        <ControlButton value={value} />
+      </SelectBase>
+    );
+  },
+  (prev, next) => prev.value === next.value
+);
 
 export default TechnologySelect;
