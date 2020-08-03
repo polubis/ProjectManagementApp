@@ -18,21 +18,17 @@ namespace TechnologySelect {
   }
 }
 
-const TechnologySelectItem = ({
-  style,
-  index,
-  data: { items, onSelect }
-}: SelectBase.ListChildProps) => {
+const ListItem = ({ style, index, data: { items, onSelect } }: SelectBase.ListChildProps) => {
   const { dataIdx, label, value } = items[index];
 
   return (
-    <div style={style}>
+    <div className={csx.listItem} style={style}>
       <Checkbox
         dataIdx={dataIdx}
         label={
           <TechnologyChip
-            name={label}
             avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+            name={label}
           />
         }
         value={value}
@@ -42,7 +38,7 @@ const TechnologySelectItem = ({
   );
 };
 
-const getSelected = (value: { [key: string]: boolean }) => () =>
+const getSelectedCount = (value: { [key: string]: boolean }) => () =>
   Object.values(value).filter(v => v).length;
 
 const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
@@ -58,17 +54,31 @@ const makeItems = (technologies: Technology[], value: { [key: string]: boolean }
 const TechnologySelect = ({ value, onSelect }) => {
   const { technologies } = useTechnologiesProvider();
 
-  const selectedCount = useMemo(getSelected(value), [value]);
+  const selectedCount = useMemo(getSelectedCount(value), [value]);
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
   return (
-    <SelectBase items={items} onSelect={onSelect}>
-      <Button className={csx.btn} theme="primaryTransparent">
+    <SelectBase
+      listItem={ListItem}
+      items={items}
+      renderSelectedItem={({ dataIdx, label }) => (
+        <TechnologyChip
+          avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+          className={csx.selectItem}
+          name={label}
+          onClick={() => onSelect(dataIdx, false)}
+        />
+      )}
+      onSelect={onSelect}
+    >
+      <Button
+        className={`${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
+        theme="primaryTransparent"
+      >
         <CodeIcon />
         {selectedCount > 0 && <b>{selectedCount}</b>}
       </Button>
-      {TechnologySelectItem}
     </SelectBase>
   );
 };
