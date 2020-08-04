@@ -1,115 +1,49 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
-import InfoIcon from '@material-ui/icons/Info';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import ExploreIcon from '@material-ui/icons/Explore';
-import WarningIcon from '@material-ui/icons/Warning';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
-import { Button } from 'ui';
-
-import { DocumentationSection } from './models';
-
-import { sectionsReducer } from './useSectionsReducer';
+import ContentTree from './content-tree';
 
 import csx from './TemplateDocumentation.scss';
 
-const SECTIONS_MOCKED: DocumentationSection[] = [
-  {
-    title: 'Basic informations',
-    icon: <InfoIcon />
-  },
-  {
-    title: 'Introduction',
-    icon: <MenuBookIcon />
-  },
-  {
-    title: 'Setup & Installation',
-    icon: <PowerSettingsNewIcon />
-  },
-  {
-    title: 'Guide',
-    icon: <ExploreIcon />,
-    subSection: ['Architecture', 'Design patterns', 'Components']
-  },
-  {
-    title: 'Issues',
-    icon: <WarningIcon />,
-    subSection: ['Performance in tree list', 'Issue with graph painting', 'Old dependencies']
-  }
+const mock = [
+  { id: 0, label: 'Basic informations', level: 0, childrenCount: 0, parentId: -1 },
+  { id: 1, label: 'Setup & Instalation', level: 0, childrenCount: 0, parentId: -1 },
+  { id: 2, label: 'Guide', level: 0, childrenCount: 3, parentId: 0 },
+  { id: 3, label: 'Frontend', level: 1, childrenCount: 3, parentId: 2 },
+  { id: 4, label: 'Backend', level: 2, childrenCount: 0, parentId: 3 },
+
+  { id: 5, label: 'Testing', level: 0, childrenCount: 1, parentId: -1 },
+  { id: 6, label: 'Deploy', level: 1, childrenCount: 1, parentId: 5 },
+  { id: 7, label: 'Production', level: 2, childrenCount: 0, parentId: 6 }
 ];
 
 const TemplateDocumentation = () => {
-  const [activeSection, setActiveSection] = useState(0);
-  const [sections, sectionsDispatcher] = useReducer(sectionsReducer, SECTIONS_MOCKED);
+  const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
 
-  const mapSection = (section: DocumentationSection[]) => {
-    const mappedSection = section.map((value, idx) => {
-      if (value.subSection)
-        return (
-          <li className={csx.listElement} key={value.title} data-idx={idx}>
-            <span
-              className={`${activeSection === idx ? csx.active : ''}`}
-              onClick={() => setActiveSection(idx)}
-            >
-              {value.icon}
-              {value.title}
-            </span>
+  const [expandedItems, setExpandedItems] = useState<ContentTree.ExpandedItems>({});
 
-            <ul className={csx.nestedList}>
-              {value.subSection.map((value) => (
-                <li>{value}</li>
-              ))}
-            </ul>
+  const handleClick: ContentTree.OnClick = useCallback(id => {
+    const { idx, item } = ContentTree.findById(id, mock);
 
-            <span
-              className={csx.listElement}
-              onClick={() => sectionsDispatcher({ type: 'addSubSection', sectionIndex: idx })}
-            >
-              <span>
-                <AddCircleOutlineIcon /> ADD SUBSECTION
-              </span>
-            </span>
-          </li>
-        );
-
-      return (
-        <li className={csx.listElement} key={value.title} data-idx={idx}>
-          <span
-            className={`${activeSection === idx ? csx.active : ''}`}
-            onClick={() => setActiveSection(idx)}
-          >
-            {value.icon}
-            {value.title}
-          </span>
-        </li>
-      );
-    });
-
-    mappedSection.push(
-      <li
-        className={csx.listElement}
-        onClick={() => sectionsDispatcher({ type: 'addMainSection' })}
-      >
-        <span>
-          <AddCircleOutlineIcon /> ADD SECTION
-        </span>
-      </li>
+    setActiveItem(item);
+    setExpandedItems(prevExpandedItems =>
+      ContentTree.makeExpandedItems(idx, mock, prevExpandedItems)
     );
+  }, []);
 
-    return mappedSection;
-  };
+  useEffect(() => {
+    setActiveItem(mock[0]);
+  }, []);
 
   return (
     <div className={csx.templateDocumentation}>
-      <ul className={csx.sectionList}>{mapSection(sections)}</ul>
-      <Button variant="icon" className={csx.button}>
-        <ChevronLeftIcon />
-        <ChevronRightIcon />
-      </Button>
+      <ContentTree
+        activeItem={activeItem}
+        expandedItems={expandedItems}
+        items={mock}
+        onClick={handleClick}
+      />
+
+      {activeItem && activeItem.label}
     </div>
   );
 };
