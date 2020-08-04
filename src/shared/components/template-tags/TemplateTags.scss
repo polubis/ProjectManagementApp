@@ -1,12 +1,12 @@
 @import 'styles/mixins';
 
 .templateTags {
-  &.clickable & > div:hover {
-    color: rgba($primary, 0.82);
-  }
-
   & > div {
     color: $primary;
+
+    &:hover {
+      color: rgba($primary, 0.82);
+    }
 
     &:not(:last-of-type)::after {
       background: $primary;

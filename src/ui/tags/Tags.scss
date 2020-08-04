@@ -3,34 +3,4 @@
 .tags {
   @include row;
   flex-flow: wrap;
-
-  &.clickable {
-    & > div {
-      @include noSelect;
-      cursor: pointer;
-
-      &:hover {
-        color: rgba($white, 0.82);
-      }
-    }
-  }
-
-  & > div {
-    @include row;
-    @include label;
-    color: $white;
-    margin-bottom: 10px;
-
-    &:not(:last-of-type) {
-      &::after {
-        content: '';
-        display: block;
-        width: 6px;
-        height: 6px;
-        margin: 0 10px;
-        border-radius: 50%;
-        background: $white;
-      }
-    }
-  }
 }

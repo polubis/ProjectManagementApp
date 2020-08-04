@@ -10,7 +10,8 @@ import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 
-import { TechnologiesSelect } from '..';
+import PatternsSelect from './patterns-select';
+import TechnologiesSelect from './technologies-select';
 
 import csx from './TemplatesSearch.scss';
 
@@ -20,15 +21,16 @@ namespace TemplatesSearch {
   }
 }
 
-const [QUERY, TECHNOLOGIES] = [0, 1];
+const [QUERY, PATTERNS, TECHNOLOGIES] = [0, 1, 2];
 
-const parseTechnologies = (technologiesIds: string) =>
-  isJSONString(technologiesIds)
-    ? (JSON.parse(technologiesIds) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
+const parseFromString = (str: string) =>
+  isJSONString(str)
+    ? (JSON.parse(str) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
     : {};
 
 const CONFIG: Form.Config = [
   { label: 'Query', value: '' },
+  { label: 'Patterns', value: {} },
   {
     label: 'Technologies',
     value: {}
@@ -38,15 +40,26 @@ const CONFIG: Form.Config = [
 const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }) => {
   const { location, push } = useHistory();
 
-  const [query, technologiesIds] = useQueryParams('query', 'technologiesIds');
+  const [query, patternsIds, technologiesIds] = useQueryParams(
+    'query',
+    'patternsIds',
+    'technologiesIds'
+  );
 
   const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
+
+  const handlePatternSelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
+    },
+    [fields]
+  );
 
   const handleTechnologySelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
       directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
-    [fields[TECHNOLOGIES].value]
+    [fields]
   );
 
   const handleSubmit = useCallback(
@@ -57,11 +70,11 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         return;
       }
 
-      const [{ value: query }, { value: technologiesIds }] = fields;
+      const [{ value: query }, { value: patternsIds }, { value: technologiesIds }] = fields;
 
       const search = Url(location)
         .swap('technologiesIds', Select.getChecked(technologiesIds))
-        .swap('patternsIds', [])
+        .swap('patternsIds', Select.getChecked(patternsIds))
         .swap('query', query)
         .delete('page')
         .search();
@@ -72,8 +85,11 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
   );
 
   useEffect(() => {
-    directChange([QUERY, TECHNOLOGIES], [query, parseTechnologies(technologiesIds)]);
-  }, [query, technologiesIds]);
+    directChange(
+      [QUERY, PATTERNS, TECHNOLOGIES],
+      [query, parseFromString(patternsIds), parseFromString(technologiesIds)]
+    );
+  }, [query, patternsIds, technologiesIds]);
 
   return (
     <form className={csx.templatesSearch} onSubmit={handleSubmit}>
@@ -84,6 +100,8 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         value={fields[QUERY].value}
         onChange={change}
       />
+
+      <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect} />
 
       <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect} />
 

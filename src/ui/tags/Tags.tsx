@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Tag } from '..';
+
 import csx from './Tags.scss';
 
 namespace Tags {
@@ -16,11 +18,9 @@ const Tags = ({ items, className = '', onClick }: Tags.Props) => {
   }
 
   return (
-    <div className={`${csx.tags} ${className} ${onClick ? csx.clickable : ''}`}>
-      {items.map((tag, idx) => (
-        <div key={tag} data-idx={idx} onClick={onClick}>
-          {tag}
-        </div>
+    <div className={`${csx.tags} ${className}`}>
+      {items.map((item, idx) => (
+        <Tag key={idx} label={item} dataIdx={idx} onClick={onClick} />
       ))}
     </div>
   );

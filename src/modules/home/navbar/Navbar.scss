@@ -5,7 +5,7 @@
   grid-template-columns: 1fr 1200px 1fr;
   height: 99px;
   background: $surfacePrimary;
-  border-bottom: 1px solid rgba($primary, 0.41);
+  border-bottom: 1px solid rgba($primary, 0.43);
 
   .wrapper {
     @include row;
