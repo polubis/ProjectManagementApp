@@ -1,0 +1,18 @@
+@import 'styles/mixins';
+
+.btn {
+  &.active {
+    color: $secondary;
+  }
+
+  & > span > svg {
+    margin-right: 0;
+  }
+
+  b {
+    @include linkSmall;
+    position: absolute;
+    top: 2px;
+    right: 12px;
+  }
+}

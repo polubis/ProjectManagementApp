@@ -58,7 +58,8 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
       />
 
       <div className={csx.loginActions}>
-        <Checkbox label="Remember me" />
+        {/* TODO: Replace later with correct value and on Change handler */}
+        <Checkbox label="Remember me" value={false} onChange={() => {}} />
         {disabled || <NavLink to="/forgot-password">Forgot password ?</NavLink>}
       </div>
 
