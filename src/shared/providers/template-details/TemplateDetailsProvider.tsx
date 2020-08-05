@@ -25,7 +25,7 @@ class Provider extends React.Component<any, typeof STATE> {
     this.setState({ ...STATE });
   };
 
-  getTemplateDetails = async (id: string): Promise<void> => {
+  getTemplateDetails = async (id: string) => {
     if (!this.state.loading) {
       this.reset();
     }

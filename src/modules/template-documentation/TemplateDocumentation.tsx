@@ -1,117 +1,102 @@
-import React, { useState, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import InfoIcon from '@material-ui/icons/Info';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import ExploreIcon from '@material-ui/icons/Explore';
-import WarningIcon from '@material-ui/icons/Warning';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import TemplateDocumentationProvider, {
+  useTemplateDocumentationProvider
+} from './TemplateDocumentationProvider';
 
-import { Button } from 'ui';
-
-import { DocumentationSection } from './models';
-
-import { sectionsReducer } from './useSectionsReducer';
+import ContentTree from './content-tree';
 
 import csx from './TemplateDocumentation.scss';
+import Toolbar from './toolbar/Toolbar';
+import ContentGrid from './content-grid/ContentGrid';
 
-const SECTIONS_MOCKED: DocumentationSection[] = [
-  {
-    title: 'Basic informations',
-    icon: <InfoIcon />
-  },
-  {
-    title: 'Introduction',
-    icon: <MenuBookIcon />
-  },
-  {
-    title: 'Setup & Installation',
-    icon: <PowerSettingsNewIcon />
-  },
-  {
-    title: 'Guide',
-    icon: <ExploreIcon />,
-    subSection: ['Architecture', 'Design patterns', 'Components']
-  },
-  {
-    title: 'Issues',
-    icon: <WarningIcon />,
-    subSection: ['Performance in tree list', 'Issue with graph painting', 'Old dependencies']
-  }
+const ROWS = 2,
+  COLS = 3;
+
+const makeInitContent = (rows, cols) => {
+  const tuples = rows * cols;
+
+  return Array.from({ length: tuples }, (_, idx) => idx).reduce((prev, idx) => {
+    return {
+      ...prev,
+      [idx]: {
+        Component: () => {}
+      }
+    };
+  }, {});
+};
+
+const Components = {
+  Carousel: () => <div>Carousel</div>,
+  ContentGrid: () => <div>ContentGrid</div>
+};
+
+const items = [
+  { id: 'Content grid', Component: () => <div>Content Grid</div>, type: 'Carousel' },
+  { id: 'Carousel', Component: () => <div>Carousel</div>, type: 'ContentGrid' },
+  { id: 'Carousel2', Component: () => <div>Carousel2</div>, type: 'Carousel' },
+  { id: 'Carusel 3', Component: () => <div>Carousel3</div>, type: 'Carousel' }
 ];
 
 const TemplateDocumentation = () => {
-  const [activeSection, setActiveSection] = useState(0);
-  const [sections, sectionsDispatcher] = useReducer(sectionsReducer, SECTIONS_MOCKED);
+  const [content, setContent] = useState(makeInitContent(ROWS, COLS));
 
-  const mapSection = (section: DocumentationSection[]) => {
-    const mappedSection = section.map((value, idx) => {
-      if (value.subSection)
-        return (
-          <li className={csx.listElement} key={value.title} data-idx={idx}>
-            <span
-              className={`${activeSection === idx ? csx.active : ''}`}
-              onClick={() => setActiveSection(idx)}
-            >
-              {value.icon}
-              {value.title}
-            </span>
+  const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
 
-            <ul className={csx.nestedList}>
-              {value.subSection.map((value) => (
-                <li>{value}</li>
-              ))}
-            </ul>
+  useEffect(() => {
+    getTemplateDocumentation('https://github.com/jamiebuilds/react-loadable');
+  }, []);
 
-            <span
-              className={csx.listElement}
-              onClick={() => sectionsDispatcher({ type: 'addSubSection', sectionIndex: idx })}
-            >
-              <span>
-                <AddCircleOutlineIcon /> ADD SUBSECTION
-              </span>
-            </span>
-          </li>
-        );
-
-      return (
-        <li className={csx.listElement} key={value.title} data-idx={idx}>
-          <span
-            className={`${activeSection === idx ? csx.active : ''}`}
-            onClick={() => setActiveSection(idx)}
-          >
-            {value.icon}
-            {value.title}
-          </span>
-        </li>
-      );
-    });
-
-    mappedSection.push(
-      <li
-        className={csx.listElement}
-        onClick={() => sectionsDispatcher({ type: 'addMainSection' })}
-      >
-        <span>
-          <AddCircleOutlineIcon /> ADD SECTION
-        </span>
-      </li>
-    );
-
-    return mappedSection;
+  const handleDragStart = e => {
+    e.dataTransfer.setData('id', e.target.id);
+    e.dataTransfer.setData('type', e.currentTarget.getAttribute('data-type'));
   };
+
+  const handleDrop = e => {
+    const id = e.currentTarget.getAttribute('data-id');
+    const type = e.dataTransfer.getData('type');
+
+    if (!id || !type) {
+      return;
+    }
+
+    setContent(prevContent => ({
+      ...prevContent,
+      [id]: {
+        ...prevContent[id],
+        Component: Components[type]
+      }
+    }));
+  };
+
+  const handleResizeFinish = (width, height) => {
+    console.log(width, height);
+  }
 
   return (
     <div className={csx.templateDocumentation}>
-      <ul className={csx.sectionList}>{mapSection(sections)}</ul>
-      <Button variant="icon" className={csx.button}>
-        <ChevronLeftIcon />
-        <ChevronRightIcon />
-      </Button>
+      <ContentGrid
+        content={content}
+        cols={COLS}
+        rows={ROWS}
+        onDragOver={() => {}}
+        onDrop={handleDrop}
+        onResizeFinish={handleResizeFinish}
+      />
+
+      <Toolbar>
+        {items.map(({ id, Component }) => (
+          <div key={id} draggable data-type="ContentGrid" onDragStart={handleDragStart}>
+            {Component()}
+          </div>
+        ))}
+      </Toolbar>
     </div>
   );
 };
 
-export default TemplateDocumentation;
+export default () => (
+  <TemplateDocumentationProvider>
+    <TemplateDocumentation />
+  </TemplateDocumentationProvider>
+);
