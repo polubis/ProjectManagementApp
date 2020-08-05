@@ -1,0 +1,32 @@
+@import 'styles/mixins';
+
+.toolbar {
+  @include row;
+  position: fixed;
+  bottom: 10px;
+  width: 500px;
+  background: $primary;
+  color: $white;
+  right: 0;
+  width: calc(100% - 400px);
+  padding: 10px;
+  z-index: 1;
+
+  .heading {
+    padding: 0 60px;
+  }
+
+  .slider {
+    @include row;
+    overflow-x: auto;
+    width: 75%;
+    height: 80px;
+
+    & > div {
+      flex-shrink: 0;
+      padding: 10px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+}
