@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
-
+import AdminIcon from '@material-ui/icons/SupervisorAccount';
 import { Logo } from 'ui';
 
 import { SidebarProps, SidebarLink } from '.';
@@ -19,7 +19,8 @@ const MARKER_HEIGHT = 30;
 const sidebarLinks: SidebarLink[] = [
   { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
   { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
-  { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> }
+  { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
+  { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
 ];
 
 const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {

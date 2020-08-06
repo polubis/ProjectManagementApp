@@ -20,7 +20,7 @@ const BASE_LINKS: Navbar.Link[] = [
 const IMPORTANT_LINKS: Navbar.Link[] = [
   { label: 'App', to: '/app' },
   { label: 'Register', to: '/register' },
-  { label: 'Log In', to: '/login' }
+  { label: 'Log In', to: '/login' },
 ];
 
 const Navbar = () => {

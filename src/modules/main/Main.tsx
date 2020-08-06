@@ -18,6 +18,8 @@ const TemplateDocumentation = withLazy(() => import('src/modules/template-docume
 
 const TemplateManagement = withLazy(() => import('src/modules/template-management'));
 
+const AdminPanel = withLazy(() => import('src/modules/admin'));
+
 const Main = ({ match }: RouteChildrenProps) => {
   return (
     <div className={csx.main}>
@@ -30,6 +32,7 @@ const Main = ({ match }: RouteChildrenProps) => {
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
+          <Route exact path={`${match.path}/admin`} component={AdminPanel} />
 
           <Guard.ProtectedRoute
             exact
