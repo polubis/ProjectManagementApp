@@ -7,7 +7,7 @@ namespace TemplateDetailsProvider {
     loading: boolean;
     error: string;
     template: Template;
-    getTemplateDetails?(id: string): Promise<void>;
+    getTemplateDetails?(id: string): void;
     reset?(): void;
   }
 }

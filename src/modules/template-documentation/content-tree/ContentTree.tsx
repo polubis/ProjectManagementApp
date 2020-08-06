@@ -1,7 +1,9 @@
-import React, { useCallback, useMemo, useRef, useState, useLayoutEffect } from 'react';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
+import React, { useCallback, useMemo } from 'react';
+import { FixedSizeList } from 'react-window';
 
-import ChevronIcon from '@material-ui/icons/ChevronRight';
+import { useSizeTracking } from 'utils';
+
+import TreeItem from './tree-item';
 
 import csx from './ContentTree.scss';
 
@@ -20,17 +22,6 @@ namespace ContentTree {
     parentId: number;
   };
 
-  export interface TreeChildData {
-    activeItem: Item | null;
-    expandedItems: ExpandedItems;
-    items: Item[];
-    onClick(e: Events.Click): void;
-  }
-
-  export interface TreeChildProps extends Omit<ListChildComponentProps, 'data'> {
-    data: TreeChildData;
-  }
-
   export type OnClick = (id: number) => void;
 
   export interface Props {
@@ -42,58 +33,25 @@ namespace ContentTree {
 }
 
 const TREE_PADDING = 38,
-  ITEM_INDENDATION = 20,
-  ULTER_ITEM_INDENDATION = 8,
+  ITEM_SIZE = 52,
   TREE_STYLES: React.CSSProperties = { padding: TREE_PADDING };
 
-const TreeItem = ({
-  style,
-  index,
-  data: { activeItem, expandedItems, items, onClick }
-}: ContentTree.TreeChildProps) => {
-  const { id, childrenCount, label, level } = items[index];
-
-  return (
-    <div
-      className={`${csx.treeItem} ${activeItem && activeItem.id === id ? csx.active : ''} ${
-        expandedItems[id] ? csx.expanded : ''
-      }`}
-      data-idx={id}
-      style={{
-        ...style,
-        paddingLeft: `${level * ITEM_INDENDATION +
-          (childrenCount > 0 || level === 0 ? 0 : ULTER_ITEM_INDENDATION)}px`
-      }}
-      onClick={onClick}
-    >
-      {childrenCount > 0 && <ChevronIcon />}
-      <span title={label}>{label}</span>
-    </div>
-  );
-};
-
-const filterItems = (expandedItems: ContentTree.ExpandedItems, items: ContentTree.Item[]) => () =>
-  items.filter(item => !item.level || !!expandedItems[item.parentId]);
-
-const findById = (
-  id: number,
-  items: ContentTree.Item[]
-): { idx: number; item: ContentTree.Item } => {
+const find = (id: number, items: ContentTree.Item[]): { idx: number; item: ContentTree.Item } => {
   const idx = items.findIndex(item => item.id === id);
 
   return { idx, item: items[idx] };
 };
 
-const makeExpandedItems = (
-  idx: number,
-  items: ContentTree.Item[],
+const expand = (idx: number, items: ContentTree.Item[]) => (
   prevExpandedItems: ContentTree.ExpandedItems
 ) => {
   const item = items[idx],
-    expanded = !!!prevExpandedItems[item.id],
-    expandedItems = {};
+    itemExpanded = !!prevExpandedItems[item.id],
+    expandedItems = { ...prevExpandedItems, [item.id]: !itemExpanded };
 
-  if (!expanded && !!item.childrenCount) {
+  const shouldCollapse = itemExpanded && !!item.childrenCount;
+
+  if (shouldCollapse) {
     for (let i = idx + 1; ({ length } = items), i < length; i++) {
       expandedItems[items[i].id] = false;
 
@@ -103,13 +61,14 @@ const makeExpandedItems = (
     }
   }
 
-  return { ...prevExpandedItems, [item.id]: expanded, ...expandedItems };
+  return expandedItems;
 };
 
-const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.Props) => {
-  const [size, setSize] = useState(null);
+const filterItems = (expandedItems: ContentTree.ExpandedItems, items: ContentTree.Item[]) => () =>
+  items.filter(item => !item.level || !!expandedItems[item.parentId]);
 
-  const ref = useRef(null);
+const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.Props) => {
+  const [ref, size] = useSizeTracking(TREE_PADDING * 2, TREE_PADDING * 2);
 
   const handleClick = useCallback(
     (e: ContentTree.Events.Click) => {
@@ -120,7 +79,7 @@ const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.
 
   const filteredItems = useMemo(filterItems(expandedItems, items), [expandedItems, items]);
 
-  const itemsData: ContentTree.TreeChildData = useMemo(
+  const itemsData: TreeItem.Data = useMemo(
     () => ({
       activeItem,
       expandedItems,
@@ -130,19 +89,13 @@ const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.
     [activeItem, expandedItems, filteredItems, onClick]
   );
 
-  useLayoutEffect(() => {
-    const { height, width } = ref.current.getBoundingClientRect() as ClientRect | DOMRect;
-
-    setSize({ height: height - TREE_PADDING * 2, width: width - TREE_PADDING * 2 });
-  }, []);
-
   return (
     <div className={csx.contentTree} ref={ref} style={TREE_STYLES}>
       {size && (
         <FixedSizeList
           itemCount={filteredItems.length}
           itemData={itemsData}
-          itemSize={52}
+          itemSize={ITEM_SIZE}
           height={size.height}
           width={size.width}
         >
@@ -153,8 +106,8 @@ const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.
   );
 };
 
-ContentTree.findById = findById;
+ContentTree.find = find;
 
-ContentTree.makeExpandedItems = makeExpandedItems;
+ContentTree.expand = expand;
 
 export default ContentTree;
