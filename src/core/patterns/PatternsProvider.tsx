@@ -7,7 +7,7 @@ namespace PatternsProvider {
     patterns: Pattern[];
     loading: boolean;
     error: string;
-    getPatterns?(): Promise<void>;
+    getPatterns?(): void;
   }
 
   export interface Props {

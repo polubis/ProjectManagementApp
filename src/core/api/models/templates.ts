@@ -55,3 +55,16 @@ export interface TemplatesSearchFilters {
   technologiesIds: string;
   patternsIds: string;
 }
+
+export interface TemplateDocumentationItem {
+  lineItems: {
+    type: string;
+    content: string;
+  };
+  children: TemplateDocumentationItem[];
+  type: null | string;
+}
+
+export interface TemplateDocumentation {
+  readmeLines: TemplateDocumentationItem[];
+}

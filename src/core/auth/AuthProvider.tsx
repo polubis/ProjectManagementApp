@@ -8,9 +8,9 @@ namespace AuthProvider {
     user: SelfUser;
     pending: boolean;
     authorized: boolean;
-    logIn?(payload: LogInPayload): Promise<void>;
+    logIn?(payload: LogInPayload): void;
     logInViaGithub?(): void;
-    logOut?(): Promise<void>;
+    logOut?(): void;
   }
 
   export interface Props extends RouteComponentProps {
