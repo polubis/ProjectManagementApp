@@ -1,128 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import csx from './ContentGrid.scss';
 
-interface Props {
-  content: any;
-  rows: number;
-  cols: number;
-  onDragOver: any;
-  onDrop: any;
-  onResizeFinish: any;
+namespace ContentGrid {
+  export type ContentMap = {
+    [key: number]: string;
+  };
+
+  export type ComponentsMap = {
+    [key: string]: (style: React.CSSProperties) => React.ReactElement;
+  };
+
+  export interface Props {
+    components: ComponentsMap;
+    content: ContentMap;
+    cols: number;
+    rows: number;
+  }
 }
 
-let startX, startY, startWidth, startHeight, resizedElId;
+const getLayoutStyle = (cols: number, rows: number): React.CSSProperties => {
+  const toFrFormat = (length: number) =>
+    Array.from({ length })
+      .map(() => '1fr')
+      .join(' ');
 
-const ContentGrid = ({ content, cols, rows, onDragOver, onDrop, onResizeFinish }: Props) => {
-  const [hoveredTuple, setHoveredTuple] = useState(-1);
+  return {
+    gridTemplateColumns: toFrFormat(cols),
+    gridTemplateRows: toFrFormat(rows)
+  };
+};
 
-  const [resizedElement, setResizedElement] = useState(null);
+const getPlaceholdersStyles = (mask: number[][]) =>
+  mask.reduce((acc, cols, rIdx) => {
+    const mappedCols = cols.map(
+      (_, cIdx) =>
+        ({
+          gridRow: `${rIdx + 1}/${rIdx + 1}`,
+          gridColumn: `${cIdx + 1}/${cIdx + 1}`
+        } as React.CSSProperties)
+    );
 
-  const [obscuredTuple, setObscuredTuple] = useState(-1);
+    return [...acc, ...mappedCols] as React.CSSProperties[];
+  }, [] as React.CSSProperties[]);
 
-  const handleDragOver = e => {
-    e.preventDefault();
-    e.stopPropagation();
+const getGridMask = (cols: number, rows: number) =>
+  Array.from({ length: rows }, (_, rIdx) =>
+    Array.from({ length: cols }).map((_, cIdx) => [rIdx + 1, cIdx + 1])
+  ).reduce((acc, curr) => [...acc, ...curr], [] as number[][]);
 
-    setObscuredTuple(+e.currentTarget.getAttribute('data-id'));
-    onDragOver();
+const getMask = (cols: number, rows: number) =>
+  Array.from({ length: rows }, () => Array.from({ length: cols }).map((_, cIdx) => cIdx));
+
+const getComponentStyle = (key: string, content: ContentGrid.ContentMap, gridMask: number[][]) => {
+  const findMin = (cords: number[][], idx: 0 | 1) => {
+    return cords.reduce((acc, curr) => {
+      return curr[idx] < acc ? curr[idx] : acc;
+    }, cords[0][idx]);
   };
 
-  const handleDrop = e => {
-    e.preventDefault();
-    onDrop(e);
+  const findMax = (cords: number[][], idx: 0 | 1) => {
+    return cords.reduce((acc, curr) => {
+      return curr[idx] > acc ? curr[idx] : acc;
+    }, cords[0][idx]);
   };
 
-  const handleMouseOver = e => {
-    setHoveredTuple(+e.currentTarget.getAttribute('data-id'));
-  };
+  const cords = Object.keys(content)
+    .filter((cKey) => content[cKey] === key)
+    .map((cKey) => gridMask[+cKey]);
 
-  const handleMouseOut = () => {
-    setHoveredTuple(-1);
-  };
+  if (cords.length === 0) {
+    return {};
+  }
 
-  const tupleCount = cols * rows;
+  const rowStart = findMin(cords, 0);
+  const rowEnd = findMax(cords, 0) + 1;
 
-  const spaces = Array.from({ length: tupleCount }, (_, idx) => idx);
+  const colStart = findMin(cords, 1);
+  const colEnd = findMax(cords, 1) + 1;
 
-  const gridTemplateRows = Array.from({ length: cols }, () => `1fr`).join(' ');
+  return {
+    gridColumn: `${colStart}/${colEnd}`,
+    gridRow: `${rowStart}/${rowEnd}`
+  } as React.CSSProperties;
+};
 
-  const gridTemplateColumns = Array.from({ length: cols }, () => `1fr`).join(' ');
+const ContentGrid = ({ content, components, cols, rows }: ContentGrid.Props) => {
+  const layoutStyle = getLayoutStyle(cols, rows);
 
-  const handleMove = e => {
-    const currWidth = startWidth + e.clientX - startX + 'px';
-    const currHeight = startHeight + e.clientY - startY + 'px';
+  const mask = getMask(cols, rows);
 
-    setResizedElement({ width: currWidth, height: currHeight, id: resizedElId });
-  };
-
-  console.log(resizedElement);
-
-  const handleUp = () => {
-    document.removeEventListener('mousemove', handleMove);
-    document.removeEventListener('mouseup', handleUp);
-
-    onResizeFinish(resizedElement.width, resizedElement.height);
-
-    setResizedElement(null);
-
-    startWidth = undefined;
-    startHeight = undefined;
-    startY = undefined;
-    startX = undefined;
-    resizedElId = undefined;
-  };
-
-  const handleResize = e => {
-    const tuple = document.getElementById('hovered-tuple');
-
-    startX = e.clientX;
-    startY = e.clientY;
-    startWidth = parseInt(document.defaultView.getComputedStyle(tuple).width, 10);
-    startHeight = parseInt(document.defaultView.getComputedStyle(tuple).height, 10);
-    resizedElId = hoveredTuple;
-
-    document.addEventListener('mousemove', handleMove, false);
-    document.addEventListener('mouseup', handleUp, false);
-  };
-
-  useEffect(() => {
-    document.addEventListener('dragend', () => {
-      setObscuredTuple(-1);
-    });
-  }, []);
+  const gridMask = getGridMask(cols, rows);
 
   return (
-    <div style={{ gridTemplateColumns, gridTemplateRows }} className={csx.contentGrid}>
-      {spaces.map((grid, idx) => (
-        <div
-          key={grid}
-          data-id={idx}
-          style={{ gridColumnStart: '', gridColumnEnd: '', gridRowStart: '', gridRowEnd: '' }}
-          onDragOver={handleDragOver}
-          onMouseOver={handleMouseOver}
-          onMouseLeave={handleMouseOut}
-          onDrop={handleDrop}
-        >
-          {content[grid].Component()}
-
-          {obscuredTuple === idx && <div className={csx.obscuredHighlight} />}
-
-          {hoveredTuple === idx && (
-            <div id="hovered-tuple" className={csx.hoveredHighlight}>
-              <div data-id={idx} onMouseDown={handleResize} />
-              <div data-id={idx} onMouseDown={handleResize} />
-            </div>
-          )}
-
-          {resizedElement && resizedElement.id === idx && (
-            <div
-              className={csx.resizedElement}
-              style={{ height: resizedElement.height, width: resizedElement.width }}
-            ></div>
-          )}
-        </div>
+    <div className={csx.contentGrid} style={layoutStyle}>
+      {Object.keys(components).map((key) => (
+        <React.Fragment key={key}>
+          {components[key]({ ...getComponentStyle(key, content, gridMask), background: 'red' })}
+        </React.Fragment>
       ))}
+
+      {getPlaceholdersStyles(mask)
+        .filter((_, idx) => !content.hasOwnProperty(idx))
+        .map((style, idx) => (
+          <div key={idx} className={csx.placeholder} style={style}>
+            {idx}
+          </div>
+        ))}
     </div>
   );
 };
