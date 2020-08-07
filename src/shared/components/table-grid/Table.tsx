@@ -20,11 +20,16 @@ namespace Table {
 const Table = ({ data }: Table.Props) => {
   return (
     <div className={csx.grid}>
-      {data.length > 0 && Object.keys(data[0]).map((key, i) => <div key={i}>{key}</div>)}
-        {/* add rows here */}
-      {/* {Object.entries(data).map(([_, entry], i) => (
-        <div key={i}>{entry.component || entry.value}</div>
-      ))} */}
+      {data.length > 0 
+        && Object.keys(data[0])
+          .map((key, i) => <span key={i}>
+            <strong>{key}</strong>
+          </span>)}
+      {data.map((entry, index) => 
+        Object.values(entry).map((cell,i) => 
+          cell.component || 
+          <span key={i}>{cell.value}</span>
+        ))}
     </div>
   );
 };

@@ -20,7 +20,6 @@ const getTableData = (technologies: Technology[]): Table.Row[] => {
 
     return row;
   });
-  console.log({tableData})
   return tableData;
 };
 
@@ -32,9 +31,7 @@ const Admin = () => {
   return (
     <div>
       Hello
-      {/* table */}
       <Table data={technologiesTableData} />
-      {/* endtable */}
     </div>
   );
 };
