@@ -1,15 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { Button, Select } from 'ui';
+import { Button, SelectBase, FieldBase } from 'ui';
 
 import { Form } from 'utils';
 
-import { TagsField } from 'shared/components';
-
-import { useTechnologiesProvider } from 'core/technologies';
-import { usePatternsProvider } from 'core/patterns';
+import { PatternsSelect, TagsField, TechnologiesSelect } from 'shared/components';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '../..';
+
+import SelectControl from './select-control';
 
 namespace TechDetails {
   export interface Props {
@@ -22,20 +21,16 @@ namespace TechDetails {
 const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
   const [{ fields, invalid, dirty }, _, directChange] = formManager;
 
-  const { patterns } = usePatternsProvider();
-
-  const { technologies } = useTechnologiesProvider();
-
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
     [fields]
   );
 
-  const handlePatternSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([PATTERNS], [Select.select(e, value, fields[PATTERNS].value)]);
+  const handlePatternSelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
     },
     [fields]
   );
@@ -56,31 +51,19 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
     [fields]
   );
 
-  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
-    technologies
-  ]);
-
-  const mappedPatterns = useMemo(() => Select.makeItems(patterns, 'id', 'name'), [patterns]);
-
   return (
     <form onSubmit={onSubmit}>
-      <Select
-        label="Technologies *"
-        placeholder="Select template technologies..."
-        items={mappedTechnologies}
-        error={dirty ? fields[TECHNOLOGIES].error : ''}
-        value={fields[TECHNOLOGIES].value}
-        onSelect={handleTechnologySelect}
-      />
+      <FieldBase label="Technologies *" error={dirty ? fields[TECHNOLOGIES].error : ''}>
+        <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
+          <SelectControl label="technologies" value={fields[TECHNOLOGIES].value} />
+        </TechnologiesSelect>
+      </FieldBase>
 
-      <Select
-        label="Patterns *"
-        placeholder="Select patterns..."
-        items={mappedPatterns}
-        error={dirty ? fields[PATTERNS].error : ''}
-        value={fields[PATTERNS].value}
-        onSelect={handlePatternSelect}
-      />
+      <FieldBase label="Patterns *" error={dirty ? fields[PATTERNS].error : ''}>
+        <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect}>
+          <SelectControl label="patterns" value={fields[PATTERNS].value} />
+        </PatternsSelect>
+      </FieldBase>
 
       <TagsField
         placeholder="Add tag and confirm with enter..."

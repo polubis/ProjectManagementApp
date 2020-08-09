@@ -21,7 +21,7 @@ namespace More {
 }
 
 const More = ({ children }: More.Props) => {
-  const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
+  const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
     React.cloneElement(child, {
@@ -42,7 +42,7 @@ const More = ({ children }: More.Props) => {
         <ExpandMoreIcon />
       </Button>
 
-      {isMenuOpen && (
+      {menuOpen && (
         <Menu anchorEl={anchorEl} width={160} onClose={closeMenu}>
           {enhancedChildren.map((children, idx) => (
             <Button key={idx} theme="primaryTransparent" className={csx.item}>

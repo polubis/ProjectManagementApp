@@ -1,25 +1,23 @@
-import React, { useCallback } from 'react';
-
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import React, { useCallback, ReactElement, useMemo } from 'react';
 
 import { SelectBase, Tag } from 'ui';
 
 import { Pattern } from 'core/api';
 import { usePatternsProvider } from 'core/patterns';
 
-import ControlButton from '../control-button';
 import ListItem from './list-item';
 
 import csx from './PatternsSelect.scss';
 
 namespace PatternsSelect {
   export interface Props {
+    children: ReactElement;
     value: { [key: string]: boolean };
     onSelect: SelectBase.OnSelect;
   }
 }
 
-const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) =>
+const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => () =>
   patterns.map(
     ({ id, name }) =>
       ({
@@ -29,7 +27,7 @@ const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) =>
       } as SelectBase.Item)
   );
 
-const PatternsSelect = ({ value, onSelect }: PatternsSelect.Props) => {
+const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => {
   const { patterns } = usePatternsProvider();
 
   const handleSelect = useCallback(
@@ -40,10 +38,12 @@ const PatternsSelect = ({ value, onSelect }: PatternsSelect.Props) => {
     [onSelect]
   );
 
+  const items = useMemo(makeItems(patterns, value), [patterns, value]);
+
   return (
     <SelectBase
       listItem={ListItem}
-      items={makeItems(patterns, value)}
+      items={items}
       renderSelectedItem={({ dataIdx, label }) => (
         <Tag
           key={dataIdx}
@@ -55,9 +55,7 @@ const PatternsSelect = ({ value, onSelect }: PatternsSelect.Props) => {
       )}
       onSelect={onSelect}
     >
-      <ControlButton value={value}>
-        <PlaylistAddIcon />
-      </ControlButton>
+      {children}
     </SelectBase>
   );
 };

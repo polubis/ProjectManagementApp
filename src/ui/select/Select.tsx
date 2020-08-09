@@ -46,7 +46,7 @@ const Select = ({
   items,
   onSelect
 }: Select.Props) => {
-  const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
+  const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const selectedItems = useMemo(() => items.filter(({ dataIdx }) => value[dataIdx]).reverse(), [
     items,
@@ -76,7 +76,7 @@ const Select = ({
 
   return (
     <FieldBase className={className} label={label} error={error}>
-      <div className={`${csx.select} ${isMenuOpen ? openClass : ''}`}>
+      <div className={`${csx.select} ${menuOpen ? openClass : ''}`}>
         <div className={csx.selectedItems}>
           {selectedItems.length > 0 ? (
             selectedItems.map(({ dataIdx, label }) => (
@@ -99,7 +99,7 @@ const Select = ({
           <ExpandMoreIcon />
         </Button>
 
-        {isMenuOpen && (
+        {menuOpen && (
           <Menu anchorEl={anchorEl} width={400} onClose={closeMenu}>
             <FixedSizeList
               itemCount={items.length}
