@@ -2,7 +2,9 @@ import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import { Button } from '@material-ui/core';
+import CodeIcon from '@material-ui/icons/Code';
 import SearchIcon from '@material-ui/icons/Search';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 import { Select, SelectBase } from 'ui';
 
@@ -10,8 +12,9 @@ import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 
-import PatternsSelect from './patterns-select';
-import TechnologiesSelect from './technologies-select';
+import { PatternsSelect, TechnologiesSelect } from 'shared/components';
+
+import ControlButton from './control-button';
 
 import csx from './TemplatesSearch.scss';
 
@@ -64,9 +67,9 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
 
   const handleSubmit = useCallback(
     (e: Form.Events.Submit) => {
-      const isInvalid = submit(e);
+      const invalid = submit(e);
 
-      if (isInvalid) {
+      if (invalid) {
         return;
       }
 
@@ -101,9 +104,17 @@ const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }
         onChange={change}
       />
 
-      <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect} />
+      <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect}>
+        <ControlButton value={fields[PATTERNS].value}>
+          <PlaylistAddIcon />
+        </ControlButton>
+      </PatternsSelect>
 
-      <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect} />
+      <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
+        <ControlButton value={fields[TECHNOLOGIES].value}>
+          <CodeIcon />
+        </ControlButton>
+      </TechnologiesSelect>
 
       <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />

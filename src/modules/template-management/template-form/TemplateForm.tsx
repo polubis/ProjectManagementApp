@@ -52,9 +52,9 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
     (e: Form.Events.Submit) => {
       const [_, __, ___, submit] = formManagers[activeStep];
 
-      const isInvalid = submit(e);
+      const invalid = submit(e);
 
-      if (isInvalid) {
+      if (invalid) {
         return;
       }
 

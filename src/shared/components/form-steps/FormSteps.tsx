@@ -37,7 +37,7 @@ const FormSteps = memo(
 
     return <Steps steps={decoratedSteps} />;
   },
-  (prevProps, nextProps) => prevProps.formManagers === nextProps.formManagers
+  (prev, next) => prev.formManagers === next.formManagers
 );
 
 export default FormSteps;
