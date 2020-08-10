@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navbar from '../../shared/components/navbar';
-import Footer from './footer';
+import Footer from '../../shared/components/footer';
 import { Ecosystem, Features, Search, RecommendedTemplates } from './sections';
 
 const Home = () => {
