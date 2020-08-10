@@ -56,6 +56,13 @@ export interface TemplatesSearchFilters {
   patternsIds: string;
 }
 
+export interface TemplateDocumentationHeading {
+  childrenCount: number;
+  id: number;
+  parentId: number;
+  type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
+}
+
 export interface TemplateDocumentationItem {
   lineItems: {
     type: string;
@@ -66,5 +73,6 @@ export interface TemplateDocumentationItem {
 }
 
 export interface TemplateDocumentation {
+  headings: TemplateDocumentationHeading[];
   readmeLines: TemplateDocumentationItem[];
 }

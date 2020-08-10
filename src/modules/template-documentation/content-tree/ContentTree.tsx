@@ -37,7 +37,7 @@ const TREE_PADDING = 38,
   TREE_STYLES: React.CSSProperties = { padding: TREE_PADDING };
 
 const find = (id: number, items: ContentTree.Item[]): { idx: number; item: ContentTree.Item } => {
-  const idx = items.findIndex(item => item.id === id);
+  const idx = items.findIndex((item) => item.id === id);
 
   return { idx, item: items[idx] };
 };
@@ -55,7 +55,7 @@ const expand = (idx: number, items: ContentTree.Item[]) => (
     for (let i = idx + 1; ({ length } = items), i < length; i++) {
       expandedItems[items[i].id] = false;
 
-      if (item.level === items[item.id].level) {
+      if (item.level === items[i].level) {
         break;
       }
     }
@@ -65,7 +65,7 @@ const expand = (idx: number, items: ContentTree.Item[]) => (
 };
 
 const filterItems = (expandedItems: ContentTree.ExpandedItems, items: ContentTree.Item[]) => () =>
-  items.filter(item => !item.level || !!expandedItems[item.parentId]);
+  items.filter((item) => !item.level || !!expandedItems[item.parentId]);
 
 const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.Props) => {
   const [ref, size] = useSizeTracking(TREE_PADDING * 2, TREE_PADDING * 2);
@@ -107,7 +107,6 @@ const ContentTree = ({ activeItem, expandedItems, items, onClick }: ContentTree.
 };
 
 ContentTree.find = find;
-
 ContentTree.expand = expand;
 
 export default ContentTree;

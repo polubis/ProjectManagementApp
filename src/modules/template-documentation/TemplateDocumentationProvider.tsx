@@ -1,12 +1,12 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
-import { TemplateDocumentationItem, getTemplateDocumentation } from 'core/api';
+import { getTemplateDocumentation, TemplateDocumentation } from 'core/api';
 
 namespace TemplateDocumentationProvider {
   export interface State {
     loading: boolean;
     error: string;
-    documentation: TemplateDocumentationItem[];
+    documentation: TemplateDocumentation;
     getTemplateDocumentation?(url: string): void;
   }
 
@@ -18,7 +18,7 @@ namespace TemplateDocumentationProvider {
 const STATE: TemplateDocumentationProvider.State = {
   loading: true,
   error: '',
-  documentation: []
+  documentation: { headings: [], readmeLines: [] }
 };
 
 const Context = createContext(STATE);
@@ -30,7 +30,7 @@ class Provider extends React.Component<TemplateDocumentationProvider.Props, type
     }
 
     try {
-      const { readmeLines: documentation } = await getTemplateDocumentation(url);
+      const documentation = await getTemplateDocumentation(url);
 
       this.setState({ ...STATE, loading: false, documentation });
     } catch (error) {

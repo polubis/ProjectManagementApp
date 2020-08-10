@@ -38,8 +38,9 @@ const TreeItem = ({
       data-idx={id}
       style={{
         ...style,
-        paddingLeft: `${level * ITEM_INDENDATION +
-          (childrenCount > 0 || level === 0 ? 0 : ULTER_ITEM_INDENDATION)}px`
+        paddingLeft: `${
+          level * ITEM_INDENDATION + (level === 0 ? 0 : level * ULTER_ITEM_INDENDATION)
+        }px`
       }}
       onClick={onClick}
     >
