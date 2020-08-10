@@ -1,0 +1,33 @@
+@import 'styles/mixins';
+
+.adminTabCategories {
+  @include rowCenter;
+  position: relative;
+
+  .category {
+    @include link;
+    color: $primary;
+    padding: 9px 20px;
+    text-transform: capitalize;
+
+    &:not(:last-of-type) {
+      margin-right: 30px;
+    }
+
+    &.active {
+      background: $secondary;
+      color: $black;
+    }
+  }
+
+  & > a {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .unfoldIcon {
+      transform: rotate(90deg);
+  }
+}

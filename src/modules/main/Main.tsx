@@ -4,6 +4,7 @@ import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 import { withLazy } from 'utils';
 
 import { TemplateCategory } from 'core/api';
+import { AdminTabCategory } from '../admin/admin-tab-categories/AdminTabCategories';
 import { Guard } from 'core/auth';
 
 import { Navbar, Sidebar } from '.';
@@ -32,7 +33,9 @@ const Main = ({ match }: RouteChildrenProps) => {
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
-          <Route exact path={`${match.path}/admin`} component={AdminPanel} />
+
+          <Route path={`${match.path}/admin/:category`} component={AdminPanel} />
+          <Redirect from={`${match.path}/admin`} to={`${match.path}/admin/${AdminTabCategory.TECHNOLOGIES}`} />
 
           <Guard.ProtectedRoute
             exact
