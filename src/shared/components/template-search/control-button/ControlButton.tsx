@@ -1,4 +1,4 @@
-import React, { memo, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import { makeStyles } from '@material-ui/core';
 
@@ -25,31 +25,28 @@ const useStyles = makeStyles({
 const getSelectedCount = (value: { [key: string]: boolean }) =>
   Object.values(value).filter(v => v).length;
 
-const ControlButton = memo(
-  ({ children, loading, value, onClick }: ControlButton.Props) => {
-    const classes = useStyles();
+const ControlButton = ({ children, loading, value, onClick }: ControlButton.Props) => {
+  const classes = useStyles();
 
-    const selectedCount = getSelectedCount(value);
+  const selectedCount = getSelectedCount(value);
 
-    return (
-      <Button
-        className={`${classes.btn} ${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
-        disabled={loading}
-        theme="primaryTransparent"
-        onClick={onClick}
-      >
-        {loading ? (
-          <Loader size="small" />
-        ) : (
-          <>
-            {children}
-            <b>{selectedCount > 0 ? selectedCount : 'All'}</b>
-          </>
-        )}
-      </Button>
-    );
-  },
-  (prev, next) => prev.value === next.value
-);
+  return (
+    <Button
+      className={`${classes.btn} ${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
+      disabled={loading}
+      theme="primaryTransparent"
+      onClick={onClick}
+    >
+      {loading ? (
+        <Loader size="small" />
+      ) : (
+        <>
+          {children}
+          <b>{selectedCount > 0 ? selectedCount : 'All'}</b>
+        </>
+      )}
+    </Button>
+  );
+};
 
 export default ControlButton;
