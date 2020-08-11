@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+
+import { TemplateDocumentation } from 'core/api';
 
 import { Loader } from 'ui';
 
@@ -9,18 +11,30 @@ import TemplateDocumentationProvider, {
 
 import csx from './TemplateDocumentation.scss';
 
-const mock = [
-  { id: 0, label: 'Basic informations', level: 0, childrenCount: 0, parentId: -1 },
-  { id: 1, label: 'Setup & Instalation', level: 0, childrenCount: 0, parentId: -1 },
-  { id: 2, label: 'Guide', level: 0, childrenCount: 3, parentId: 0 },
-  { id: 3, label: 'Frontend', level: 1, childrenCount: 2, parentId: 2 },
-  { id: 4, label: 'Backend', level: 2, childrenCount: 0, parentId: 3 },
-  { id: 5, label: 'PHP', level: 2, childrenCount: 0, parentId: 3 },
+const makeContentTreeItems = ({ headings, readmeLines }: TemplateDocumentation) => () => {
+  if (!headings.length) {
+    return [];
+  }
 
-  { id: 6, label: 'Testing', level: 0, childrenCount: 1, parentId: -1 },
-  { id: 7, label: 'Deploy', level: 1, childrenCount: 1, parentId: 6 },
-  { id: 8, label: 'Production', level: 2, childrenCount: 0, parentId: 7 }
-];
+  const getLevel = (type: string) => +type.slice(1);
+
+  const minLevel = headings.reduce((acc, { type }) => {
+    const level = getLevel(type);
+
+    return level < acc ? level : acc;
+  }, getLevel(headings[0].type));
+
+  return headings.map(
+    ({ id, childrenCount, parentId, type }) =>
+      ({
+        id,
+        childrenCount,
+        parentId,
+        label: readmeLines[id].lineItems[0].content,
+        level: getLevel(type) - minLevel
+      } as ContentTree.Item)
+  );
+};
 
 const TemplateDocumentation = () => {
   const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
@@ -29,16 +43,30 @@ const TemplateDocumentation = () => {
 
   const [expandedItems, setExpandedItems] = useState<ContentTree.ExpandedItems>({});
 
-  const handleClick: ContentTree.OnClick = useCallback(id => {
-    const { idx, item } = ContentTree.find(id, mock);
+  const treeItems = useMemo(makeContentTreeItems(documentation), [documentation]);
 
-    setActiveItem(item);
-    setExpandedItems(ContentTree.expand(idx, mock));
-  }, []);
+  const handleClick: ContentTree.OnClick = useCallback(
+    (id) => {
+      const { idx, item } = ContentTree.find(id, treeItems);
+
+      setActiveItem(item);
+      setExpandedItems(ContentTree.expand(idx, treeItems));
+    },
+    [treeItems]
+  );
 
   useEffect(() => {
     getTemplateDocumentation('https://github.com/jamiebuilds/react-loadable');
   }, []);
+
+  useEffect(() => {
+    if (treeItems.length > 0) {
+      const [firstItem] = treeItems;
+
+      setActiveItem(firstItem);
+      setExpandedItems(ContentTree.expand(0, treeItems));
+    }
+  }, [treeItems]);
 
   return (
     <div className={csx.templateDocumentation}>
@@ -49,7 +77,7 @@ const TemplateDocumentation = () => {
           <ContentTree
             activeItem={activeItem}
             expandedItems={expandedItems}
-            items={mock}
+            items={treeItems}
             onClick={handleClick}
           />
 
