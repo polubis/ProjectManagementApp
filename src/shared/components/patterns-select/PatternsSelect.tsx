@@ -28,7 +28,7 @@ const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => ()
   );
 
 const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => {
-  const { patterns } = usePatternsProvider();
+  const { loading, patterns } = usePatternsProvider();
 
   const handleSelect = useCallback(
     (e: Tag.Events.Click) => {
@@ -42,6 +42,7 @@ const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => 
 
   return (
     <SelectBase
+      loading={loading}
       listItem={ListItem}
       items={items}
       renderSelectedItem={({ dataIdx, label }) => (

@@ -2,8 +2,20 @@
 
 .loader {
   margin: auto;
+  flex-shrink: 0;
+  border: 3px solid $primary;
+  border-radius: 50%;
+  border-top: 4px solid transparent;
+  border-right: 4px solid transparent;
+  animation: animate 1s linear infinite;
 
-  circle {
-    color: $primary;
+  @keyframes animate {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

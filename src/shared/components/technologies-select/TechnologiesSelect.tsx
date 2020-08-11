@@ -30,12 +30,13 @@ const makeItems = (technologies: Technology[], value: { [key: string]: boolean }
   );
 
 const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
-  const { technologies } = useTechnologiesProvider();
+  const { loading, technologies } = useTechnologiesProvider();
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
   return (
     <SelectBase
+      loading={loading}
       listItem={ListItem}
       items={items}
       renderSelectedItem={({ dataIdx, label }) => (
