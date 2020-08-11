@@ -43,6 +43,7 @@ namespace SelectBase {
     items: Item[];
     listItem: ComponentType<ListChildComponentProps>;
     renderSelectedItem?: RenderSelectItem;
+    loading?: boolean;
     height?: number;
     itemSize?: number;
     searchable?: boolean;
@@ -51,6 +52,7 @@ namespace SelectBase {
   }
 
   export interface ChildrenInjectedProps {
+    loading: boolean;
     menuOpen: boolean;
     onClick(e: Events.Click): void;
   }
@@ -71,6 +73,7 @@ const SelectBase = ({
   items,
   listItem,
   renderSelectedItem,
+  loading = false,
   height = 300,
   itemSize = 48,
   searchable = true,
@@ -97,6 +100,7 @@ const SelectBase = ({
     (child: ReactElement<SelectBase.ChildrenInjectedProps>) =>
       cloneElement(child, {
         ...child.props,
+        loading,
         menuOpen,
         onClick: (e: SelectBase.Events.Click) => {
           if (child.props.onClick) {
