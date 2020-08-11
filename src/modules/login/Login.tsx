@@ -8,8 +8,7 @@ import { useAuthProvider } from 'core/auth';
 
 import LoginForm from './login-form';
 
-import Navbar from "shared/components/navbar";
-import Footer from "shared/components/footer";
+import { Footer, Navbar } from 'shared/components';
 
 import csx from './Login.scss';
 

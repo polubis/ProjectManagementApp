@@ -4,8 +4,7 @@ import { useTechnologiesProvider } from 'core/technologies';
 
 import RegisterForm from './register-form';
 
-import Navbar from "shared/components/navbar";
-import Footer from "shared/components/footer";
+import { Footer, Navbar } from 'shared/components';
 
 import csx from './Register.scss';
 
