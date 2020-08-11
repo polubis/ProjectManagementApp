@@ -1,7 +1,6 @@
 import React, {
   ReactElement,
   ComponentType,
-  Fragment,
   useCallback,
   useMemo,
   useState,
@@ -44,6 +43,7 @@ namespace SelectBase {
     items: Item[];
     listItem: ComponentType<ListChildComponentProps>;
     renderSelectedItem?: RenderSelectItem;
+    loading?: boolean;
     height?: number;
     itemSize?: number;
     searchable?: boolean;
@@ -52,6 +52,8 @@ namespace SelectBase {
   }
 
   export interface ChildrenInjectedProps {
+    loading: boolean;
+    menuOpen: boolean;
     onClick(e: Events.Click): void;
   }
 
@@ -63,11 +65,15 @@ namespace SelectBase {
 const filterItems = (phrase: string, items: SelectBase.Item[]) => () =>
   phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
 
+const getSelected = (value: { [key: string]: boolean }) =>
+  Object.keys(value).filter((k) => value[k]);
+
 const SelectBase = ({
   children,
   items,
   listItem,
   renderSelectedItem,
+  loading = false,
   height = 300,
   itemSize = 48,
   searchable = true,
@@ -76,7 +82,7 @@ const SelectBase = ({
 }: SelectBase.Props) => {
   const [phrase, setPhrase] = useState('');
 
-  const [anchorEl, isMenuOpen, openMenu, closeMenu] = useMenu();
+  const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const handleSelect: Checkbox.OnChange = useCallback(
     (e, value) => {
@@ -94,6 +100,8 @@ const SelectBase = ({
     (child: ReactElement<SelectBase.ChildrenInjectedProps>) =>
       cloneElement(child, {
         ...child.props,
+        loading,
+        menuOpen,
         onClick: (e: SelectBase.Events.Click) => {
           if (child.props.onClick) {
             child.props.onClick(e);
@@ -118,7 +126,7 @@ const SelectBase = ({
     <>
       {enhancedControlComponent}
 
-      {isMenuOpen && (
+      {menuOpen && (
         <Menu anchorEl={anchorEl} keepMounted={false} width={width} onClose={closeMenu}>
           {searchable && (
             <header className={csx.search}>
@@ -145,5 +153,7 @@ const SelectBase = ({
     </>
   );
 };
+
+SelectBase.getSelected = getSelected;
 
 export default SelectBase;

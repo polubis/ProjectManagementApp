@@ -7,12 +7,14 @@ import {
   EDIT_TEMPLATE,
   DELETE_TEMPLATE,
   TemplatePayload,
-  Template
+  Template,
+  TemplateDocumentation
 } from '..';
 
-export const getTemplates = (url: string) => {
-  return core.get<Template[]>(`${GET_TEMPLATES}${url}`);
-};
+export const getTemplateDocumentation = (url: string) =>
+  core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${url}`);
+
+export const getTemplates = (url: string) => core.get<Template[]>(`${GET_TEMPLATES}${url}`);
 
 export const getTemplateDetails = (id: string) =>
   core.get<Template>(`${GET_TEMPLATE_DETAILS}${id}`);

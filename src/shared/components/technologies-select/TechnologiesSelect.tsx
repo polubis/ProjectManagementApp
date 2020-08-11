@@ -1,6 +1,4 @@
-import React from 'react';
-
-import CodeIcon from '@material-ui/icons/Code';
+import React, { useMemo, ReactElement } from 'react';
 
 import { SelectBase } from 'ui';
 
@@ -9,19 +7,19 @@ import { useTechnologiesProvider } from 'core/technologies';
 
 import { TechnologyChip } from 'shared/components';
 
-import ControlButton from '../control-button';
 import ListItem from './list-item';
 
 import csx from './TechnologiesSelect.scss';
 
 namespace TechnologiesSelect {
   export interface Props {
+    children: ReactElement;
     value: { [key: string]: boolean };
     onSelect: SelectBase.OnSelect;
   }
 }
 
-const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) =>
+const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
   technologies.map(
     ({ id, name }) =>
       ({
@@ -31,13 +29,16 @@ const makeItems = (technologies: Technology[], value: { [key: string]: boolean }
       } as SelectBase.Item)
   );
 
-const TechnologiesSelect = ({ value, onSelect }: TechnologiesSelect.Props) => {
-  const { technologies } = useTechnologiesProvider();
+const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
+  const { loading, technologies } = useTechnologiesProvider();
+
+  const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
   return (
     <SelectBase
+      loading={loading}
       listItem={ListItem}
-      items={makeItems(technologies, value)}
+      items={items}
       renderSelectedItem={({ dataIdx, label }) => (
         <TechnologyChip
           avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
@@ -48,9 +49,7 @@ const TechnologiesSelect = ({ value, onSelect }: TechnologiesSelect.Props) => {
       )}
       onSelect={onSelect}
     >
-      <ControlButton value={value}>
-        <CodeIcon />
-      </ControlButton>
+      {children}
     </SelectBase>
   );
 };

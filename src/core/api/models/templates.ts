@@ -55,3 +55,24 @@ export interface TemplatesSearchFilters {
   technologiesIds: string;
   patternsIds: string;
 }
+
+export interface TemplateDocumentationHeading {
+  childrenCount: number;
+  id: number;
+  parentId: number;
+  type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
+}
+
+export interface TemplateDocumentationItem {
+  lineItems: {
+    type: string;
+    content: string;
+  };
+  children: TemplateDocumentationItem[];
+  type: null | string;
+}
+
+export interface TemplateDocumentation {
+  headings: TemplateDocumentationHeading[];
+  readmeLines: TemplateDocumentationItem[];
+}

@@ -1,117 +1,95 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 
-import InfoIcon from '@material-ui/icons/Info';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import ExploreIcon from '@material-ui/icons/Explore';
-import WarningIcon from '@material-ui/icons/Warning';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { TemplateDocumentation } from 'core/api';
 
-import { Button } from 'ui';
+import { Loader } from 'ui';
 
-import { DocumentationSection } from './models';
-
-import { sectionsReducer } from './useSectionsReducer';
+import ContentTree from './content-tree';
+import TemplateDocumentationProvider, {
+  useTemplateDocumentationProvider
+} from './TemplateDocumentationProvider';
 
 import csx from './TemplateDocumentation.scss';
 
-const SECTIONS_MOCKED: DocumentationSection[] = [
-  {
-    title: 'Basic informations',
-    icon: <InfoIcon />
-  },
-  {
-    title: 'Introduction',
-    icon: <MenuBookIcon />
-  },
-  {
-    title: 'Setup & Installation',
-    icon: <PowerSettingsNewIcon />
-  },
-  {
-    title: 'Guide',
-    icon: <ExploreIcon />,
-    subSection: ['Architecture', 'Design patterns', 'Components']
-  },
-  {
-    title: 'Issues',
-    icon: <WarningIcon />,
-    subSection: ['Performance in tree list', 'Issue with graph painting', 'Old dependencies']
+const makeContentTreeItems = ({ headings, readmeLines }: TemplateDocumentation) => () => {
+  if (!headings.length) {
+    return [];
   }
-];
+
+  const getLevel = (type: string) => +type.slice(1);
+
+  const minLevel = headings.reduce((acc, { type }) => {
+    const level = getLevel(type);
+
+    return level < acc ? level : acc;
+  }, getLevel(headings[0].type));
+
+  return headings.map(
+    ({ id, childrenCount, parentId, type }) =>
+      ({
+        id,
+        childrenCount,
+        parentId,
+        label: readmeLines[id].lineItems[0].content,
+        level: getLevel(type) - minLevel
+      } as ContentTree.Item)
+  );
+};
 
 const TemplateDocumentation = () => {
-  const [activeSection, setActiveSection] = useState(0);
-  const [sections, sectionsDispatcher] = useReducer(sectionsReducer, SECTIONS_MOCKED);
+  const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
 
-  const mapSection = (section: DocumentationSection[]) => {
-    const mappedSection = section.map((value, idx) => {
-      if (value.subSection)
-        return (
-          <li className={csx.listElement} key={value.title} data-idx={idx}>
-            <span
-              className={`${activeSection === idx ? csx.active : ''}`}
-              onClick={() => setActiveSection(idx)}
-            >
-              {value.icon}
-              {value.title}
-            </span>
+  const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
 
-            <ul className={csx.nestedList}>
-              {value.subSection.map((value) => (
-                <li>{value}</li>
-              ))}
-            </ul>
+  const [expandedItems, setExpandedItems] = useState<ContentTree.ExpandedItems>({});
 
-            <span
-              className={csx.listElement}
-              onClick={() => sectionsDispatcher({ type: 'addSubSection', sectionIndex: idx })}
-            >
-              <span>
-                <AddCircleOutlineIcon /> ADD SUBSECTION
-              </span>
-            </span>
-          </li>
-        );
+  const treeItems = useMemo(makeContentTreeItems(documentation), [documentation]);
 
-      return (
-        <li className={csx.listElement} key={value.title} data-idx={idx}>
-          <span
-            className={`${activeSection === idx ? csx.active : ''}`}
-            onClick={() => setActiveSection(idx)}
-          >
-            {value.icon}
-            {value.title}
-          </span>
-        </li>
-      );
-    });
+  const handleClick: ContentTree.OnClick = useCallback(
+    (id) => {
+      const { idx, item } = ContentTree.find(id, treeItems);
 
-    mappedSection.push(
-      <li
-        className={csx.listElement}
-        onClick={() => sectionsDispatcher({ type: 'addMainSection' })}
-      >
-        <span>
-          <AddCircleOutlineIcon /> ADD SECTION
-        </span>
-      </li>
-    );
+      setActiveItem(item);
+      setExpandedItems(ContentTree.expand(idx, treeItems));
+    },
+    [treeItems]
+  );
 
-    return mappedSection;
-  };
+  useEffect(() => {
+    getTemplateDocumentation('https://github.com/jamiebuilds/react-loadable');
+  }, []);
+
+  useEffect(() => {
+    if (treeItems.length > 0) {
+      const [firstItem] = treeItems;
+
+      setActiveItem(firstItem);
+      setExpandedItems(ContentTree.expand(0, treeItems));
+    }
+  }, [treeItems]);
 
   return (
     <div className={csx.templateDocumentation}>
-      <ul className={csx.sectionList}>{mapSection(sections)}</ul>
-      <Button variant="icon" className={csx.button}>
-        <ChevronLeftIcon />
-        <ChevronRightIcon />
-      </Button>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <ContentTree
+            activeItem={activeItem}
+            expandedItems={expandedItems}
+            items={treeItems}
+            onClick={handleClick}
+          />
+
+          {activeItem && activeItem.label}
+        </>
+      )}
     </div>
   );
 };
 
-export default TemplateDocumentation;
+export default () => (
+  <TemplateDocumentationProvider>
+    <TemplateDocumentation />
+  </TemplateDocumentationProvider>
+);

@@ -1,0 +1,31 @@
+@import 'styles/mixins';
+
+.treeItem {
+  @include row;
+  @include headingSmall;
+  padding-right: 12px;
+  color: $primary;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary;
+  }
+
+  &.active {
+    color: $secondary;
+  }
+
+  &.expanded svg {
+    transform: rotate(90deg) translateY(6px);
+  }
+
+  svg {
+    margin-right: 4px;
+    transform: translateX(-6px);
+  }
+
+  span {
+    @include dottedText;
+    @include noSelect;
+  }
+}
