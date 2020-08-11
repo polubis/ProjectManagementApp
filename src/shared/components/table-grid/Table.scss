@@ -1,4 +1,8 @@
 .grid {
+    .header {
+        text-transform: uppercase;
+    }
+
     display: grid;
     grid-template-columns: repeat(7, 7fr);
     // border-top: 1px solid white;

@@ -1,59 +1,37 @@
-import React, { useMemo } from 'react';
-import { Avatar } from '@material-ui/core';
-import Table from '../../shared/components/table-grid';
-import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
-import { Technology } from 'core/api';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import csx from './Admin.scss';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import AdminTabCategories from './admin-tab-categories/AdminTabCategories';
-
-const getTableData = (technologies: Technology[]): Table.Row[] => {
-  const tableData = technologies.slice(0, 10).map((tech) => {
-    const row: Table.Row = {
-      id: {
-        value: tech.id
-      },
-      name: {
-        value: tech.name
-      },
-      description: {
-        value: tech.description.substr(0, 100)
-      },
-      created: {
-        value: '19/Apr/2020',
-      },
-      modified: {
-        value: '19/Apr/2020',
-      },
-      addedBy: {
-        value: 'by przemo',
-        component: <div>By przemo</div>,
-      },
-      icon: {
-        component: <MoreHorizIcon></MoreHorizIcon>
-      }
-    }
-
-    return row;
-  });
-  return tableData;
-};
+import AdminTabCategories, { AdminTabCategory } from './admin-tab-categories/AdminTabCategories';
+import TechnologiesTab from './technologies-tab/TechnologiesTab';
+import PatternsTab from './patterns-tab/PatternsTab';
 
 const Admin = () => {
-  const { technologies, loading } = useTechnologiesProvider();
+  const { category } = useParams();
 
-  const technologiesTableData = useMemo(() => getTableData(technologies), [technologies, loading]);
+  const renderTabContent = () => {
+    let component: JSX.Element;
+    switch (category) {
+      case AdminTabCategory.TECHNOLOGIES:
+        component = <TechnologiesTab />;
+        break;
+      case AdminTabCategory.PATTERNS:
+        component = <PatternsTab />;
+        break;
+    }
+
+    return component;
+  };
+
+  const tabContent = React.useMemo(renderTabContent, [category]);
 
   return (
     <div className={csx.container}>
       <AdminTabCategories />
-      <Table data={technologiesTableData} />
+      {/* <TechnologiesTab />
+      <PatternsTab /> */}
+      {tabContent}
     </div>
   );
 };
 
-export default () => (
-  <TechnologiesProvider>
-    <Admin />
-  </TechnologiesProvider>
-);
+export default Admin;

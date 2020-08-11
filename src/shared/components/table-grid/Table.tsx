@@ -14,15 +14,15 @@ namespace Table {
 
   export interface Props {
     data: Row[];
+    header: string[];
   }
 }
 
-const Table = ({ data }: Table.Props) => {
+const Table = ({ data, header }: Table.Props) => {
   return (
     <div className={csx.grid}>
-      {data.length > 0 &&
-        Object.keys(data[0]).map((key, i) => (
-          <span key={i}>
+      {header.map((key, i) => (
+          <span className={csx.header} key={i}>
             <strong>{key}</strong>
           </span>
         ))}

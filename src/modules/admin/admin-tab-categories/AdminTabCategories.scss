@@ -2,7 +2,19 @@
 
 .adminTabCategories {
   @include rowCenter;
-  position: relative;
+  margin: 30px 0;
+
+  .tabs {
+    align-content: center;
+    display: flex;
+    margin-left: auto;
+  }
+
+  .addButton {
+    align-content: flex-end;
+    display: flex;
+    margin-left: auto;
+  }
 
   .category {
     @include link;
@@ -28,6 +40,6 @@
   }
 
   .unfoldIcon {
-      transform: rotate(90deg);
+    transform: rotate(90deg);
   }
 }

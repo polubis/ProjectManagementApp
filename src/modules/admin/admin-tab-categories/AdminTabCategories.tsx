@@ -42,6 +42,7 @@ const AdminTabCategories = () => {
 
   return (
     <section className={csx.adminTabCategories}>
+      <div className={csx.tabs}>
       {ADMIN_TAB_CATEGORIES.map((category) => (
         <MuiButton
 				key={category}
@@ -52,10 +53,13 @@ const AdminTabCategories = () => {
 				{category}
 			</MuiButton>
       ))}
+      </div>
+      <div className={csx.addButton}>
       <Button>
         <UnfoldMoreIcon className={csx.unfoldIcon} />
         ADD TECHNOLOGY
       </Button>
+      </div>
     </section>
   );
 };
