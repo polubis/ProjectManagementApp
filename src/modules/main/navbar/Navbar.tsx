@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { UserSection } from '.';
+import UserSection from './user-section';
 
 import csx from './Navbar.scss';
 

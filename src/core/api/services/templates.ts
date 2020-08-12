@@ -1,6 +1,5 @@
-import { core } from 'core/api';
-
 import {
+  core,
   GET_TEMPLATES,
   GET_TEMPLATE_DETAILS,
   ADD_TEMPLATE,

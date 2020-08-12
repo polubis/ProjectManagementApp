@@ -6,6 +6,8 @@ import { Palette } from 'styles';
 
 namespace Menu {
   type BaseProps = {
+    background?: string;
+    boxShadow?: string;
     width?: number;
   };
 
@@ -13,14 +15,16 @@ namespace Menu {
 
   export interface Styles {
     width: number;
+    boxShadow: string;
+    background: string;
   }
 }
 
 const useStyles = makeStyles({
   paper: {
-    width: (props: Menu.Styles) => props.width + 'px',
-    boxShadow: Palette.shadowPrimary,
-    background: Palette.surfacePrimary,
+    width: ({ width }: Menu.Styles) => width + 'px',
+    boxShadow: ({ boxShadow }: Menu.Styles) => boxShadow,
+    background: ({ background }: Menu.Styles) => background,
     color: Palette.primary,
     marginTop: '2px',
 
@@ -33,10 +37,12 @@ const useStyles = makeStyles({
 const Menu = ({
   anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
   transformOrigin = { vertical: 'top', horizontal: 'right' },
+  background = Palette.surfacePrimary,
+  boxShadow = Palette.shadowPrimary,
   width = 300,
   ...props
 }: Menu.Props) => {
-  const classes = useStyles({ width });
+  const classes = useStyles({ background, boxShadow, width });
 
   return (
     <MuiMenu

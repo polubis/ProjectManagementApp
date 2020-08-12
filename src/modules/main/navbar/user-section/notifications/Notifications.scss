@@ -1,0 +1,15 @@
+@import 'styles/mixins';
+
+.header {
+  @include headingSmall;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba($primary, 0.43);
+  text-align: center;
+  color: $white;
+}
+
+.unreadedIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
