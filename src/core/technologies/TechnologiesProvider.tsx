@@ -7,6 +7,7 @@ namespace TechnologiesProvider {
     loading: boolean;
     error: string;
     technologies: Technology[];
+    getTechnologies?: Function;
   }
 
   export interface Props {
@@ -23,18 +24,18 @@ const STATE: TechnologiesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
-  componentDidMount() {
-    this.getTechnologies();
-  }
-
-  getTechnologies = async () => {
+  // componentDidMount() {
+  //   this.getTechnologies();
+  // }
+ // REPLACE THAT
+  getTechnologies = async (query: string) => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
 
     try {
-      const technologies = await getTechnologies();
-      
+      const technologies = await getTechnologies(query);
+      console.log(technologies);
       this.setState({ ...STATE, loading: false, technologies });
     } catch (error) {
       this.setState({ ...STATE, loading: false, error });
@@ -42,7 +43,8 @@ class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE>
   };
 
   readonly state: typeof STATE = {
-    ...STATE
+    ...STATE,
+    getTechnologies: this.getTechnologies
   };
 
   render() {
