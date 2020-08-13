@@ -36,7 +36,7 @@ const Navbar = () => {
 
         <div className={`${csx.links} ${csx.baseLinks}`}>
           {BASE_LINKS.map(({ label, to }) => (
-            <NavLink key={to} to={to} activeClassName={csx.activeLink}>
+            <NavLink key={to} to={to} activeClassName={csx.activeLink} exact={true}>
               {label}
             </NavLink>
           ))}
@@ -44,7 +44,7 @@ const Navbar = () => {
 
         <div className={`${csx.links} ${csx.importantLinks}`}>
           {IMPORTANT_LINKS.map(({ label, to }) => (
-            <NavLink key={to} to={to}>
+            <NavLink key={to} to={to} activeClassName={csx.activeLink}>
               {label}
             </NavLink>
           ))}

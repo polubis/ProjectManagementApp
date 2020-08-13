@@ -1,4 +1,6 @@
+export * from './footer';
 export * from './form-steps';
+export * from './navbar';
 export * from './patterns-select';
 export * from './tags-field';
 export * from './technology-chip';
