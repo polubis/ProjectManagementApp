@@ -15,16 +15,28 @@
     color: $secondary;
   }
 
-  &.expanded svg {
+  &.expanded > svg {
     transform: rotate(90deg) translateY(6px);
   }
 
-  svg {
+  .dot {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: rgba($primary, 0.43);
+    border: 2px solid $surfacePrimary;
+  }
+
+  & > svg {
     margin-right: 4px;
     transform: translateX(-6px);
   }
 
-  span {
+  .label {
     @include dottedText;
     @include noSelect;
   }
