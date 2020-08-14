@@ -74,12 +74,12 @@ const RegisterForm = () => {
   );
 
   const handleBack = useCallback(() => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
   }, []);
 
   useEffect(() => {
     if (created) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
     }
   }, [created]);
 
