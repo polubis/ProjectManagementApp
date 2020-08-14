@@ -1,0 +1,44 @@
+@import 'styles/mixins';
+
+.templateAdded {
+  @include row;
+  @include noSelect;
+  width: 100%;
+
+  figure {
+    @include centered;
+    flex-shrink: 0;
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba($primary, 0.43);
+    color: $primary;
+    border-radius: 50%;
+
+    & > svg {
+      font-size: 18px;
+    }
+  }
+
+  .content {
+    @include labelSmall;
+    margin: 0 16px 0 12px;
+    color: $white;
+
+    b {
+      color: $primary;
+    }
+  }
+
+  .divider {
+    height: 12px;
+    width: 1px;
+    margin: 0 12px 0 auto;
+    background: rgba($primary, 0.43);
+  }
+
+  .date {
+    @include labelExtraSmall;
+    flex-shrink: 0;
+    color: $white;
+  }
+}

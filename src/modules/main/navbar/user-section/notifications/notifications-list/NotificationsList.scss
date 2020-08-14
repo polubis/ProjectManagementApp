@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.list {
+  @include col;
+  padding: 32px;
+}

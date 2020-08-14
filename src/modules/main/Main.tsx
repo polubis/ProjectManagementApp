@@ -8,6 +8,8 @@ import { Guard } from 'core/auth';
 
 import { Navbar, Sidebar } from '.';
 
+import NotificationsProvider from 'shared/providers/notifications';
+
 import csx from './Main.scss';
 
 const Templates = withLazy(() => import('src/modules/templates'));
@@ -61,4 +63,8 @@ const Main = ({ match }: RouteChildrenProps) => {
   );
 };
 
-export default Main;
+export default (props: RouteChildrenProps) => (
+  <NotificationsProvider>
+    <Main {...props} />
+  </NotificationsProvider>
+);
