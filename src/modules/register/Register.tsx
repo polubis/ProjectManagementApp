@@ -13,11 +13,11 @@ const Register = () => {
 
   return (
     <>
-      <Navbar/>
-      <div className={csx.register}>{!loadingTechnologies && <RegisterForm/>}</div>
-      <Footer/>
+      <Navbar />
+      <div className={csx.register}>{!loadingTechnologies && <RegisterForm />}</div>
+      <Footer />
     </>
-  )
+  );
 };
 
 export default Register;

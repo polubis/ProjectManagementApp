@@ -1,3 +1,4 @@
+export * from './email-sent';
 export * from './footer';
 export * from './form-steps';
 export * from './navbar';
