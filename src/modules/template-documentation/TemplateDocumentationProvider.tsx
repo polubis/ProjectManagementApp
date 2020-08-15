@@ -7,7 +7,7 @@ namespace TemplateDocumentationProvider {
     loading: boolean;
     error: string;
     documentation: TemplateDocumentation;
-    getTemplateDocumentation?(url: string): void;
+    getTemplateDocumentation?(templateId: string): void;
   }
 
   export interface Props {
@@ -24,13 +24,13 @@ const STATE: TemplateDocumentationProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TemplateDocumentationProvider.Props, typeof STATE> {
-  getTemplateDocumentation = async (url: string) => {
+  getTemplateDocumentation = async (templateId: string) => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
 
     try {
-      const documentation = await getTemplateDocumentation(url);
+      const documentation = await getTemplateDocumentation(templateId);
 
       this.setState({ ...STATE, loading: false, documentation });
     } catch (error) {

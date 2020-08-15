@@ -10,8 +10,8 @@ import {
   TemplateDocumentation
 } from '..';
 
-export const getTemplateDocumentation = (url: string) =>
-  core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${url}`);
+export const getTemplateDocumentation = (templateId: string) =>
+  core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${templateId}`);
 
 export const getTemplates = (url: string) => core.get<Template[]>(`${GET_TEMPLATES}${url}`);
 

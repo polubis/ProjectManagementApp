@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { RouteChildrenProps } from "react-router";
 
 import { TemplateDocumentation } from 'core/api';
 
@@ -10,6 +11,10 @@ import TemplateDocumentationProvider, {
 } from './TemplateDocumentationProvider';
 
 import csx from './TemplateDocumentation.scss';
+
+namespace TemplateDocumentation {
+  export interface Props extends RouteChildrenProps<{ id: string }> {}
+}
 
 const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () => {
   if (!headings.length) {
@@ -39,7 +44,7 @@ const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () =>
   );
 };
 
-const TemplateDocumentation = () => {
+const TemplateDocumentation = ({ match }: TemplateDocumentation.Props) => {
   const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
 
   const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
@@ -59,8 +64,8 @@ const TemplateDocumentation = () => {
   );
 
   useEffect(() => {
-    getTemplateDocumentation('https://github.com/jamiebuilds/react-loadable');
-  }, []);
+    getTemplateDocumentation(match.params.id);
+  }, [match.params.id]);
 
   useEffect(() => {
     if (treeItems.length > 0) {
@@ -89,8 +94,8 @@ const TemplateDocumentation = () => {
   );
 };
 
-export default () => (
+export default (props: TemplateDocumentation.Props) => (
   <TemplateDocumentationProvider>
-    <TemplateDocumentation />
+    <TemplateDocumentation {...props} />
   </TemplateDocumentationProvider>
 );
