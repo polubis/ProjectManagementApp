@@ -11,6 +11,7 @@ namespace TechnologiesProvider {
   }
 
   export interface Props {
+    getOnInit?: boolean;
     children: ReactNode;
   }
 }
@@ -24,11 +25,13 @@ const STATE: TechnologiesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
-  // componentDidMount() {
-  //   this.getTechnologies();
-  // }
- // REPLACE THAT
-  getTechnologies = async (query: string) => {
+  componentDidMount() {
+    if(this.props.getOnInit) {
+      this.getTechnologies();
+    }
+  }
+
+  getTechnologies = async (query?: string) => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }

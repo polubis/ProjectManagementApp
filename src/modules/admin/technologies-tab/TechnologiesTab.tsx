@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import Table from 'shared/components/table-grid';
 import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
 import { Technology } from 'core/api';
-import { Avatar } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import TechnologiesSearch from './technologies-search/TechnologiesSearch';
 import { useTechnologiesSearch } from './technologies-search/useTechnologiesSearch';
@@ -39,7 +38,7 @@ const getTableData = (technologies: Technology[]): Table.Row[] => {
 
     return row;
   });
-  console.log(tableData)
+  
   return tableData;
 };
 

@@ -8,7 +8,7 @@ import { TemplatesPayload, TemplatesSearchFilters } from 'core/api';
 import { useTechnologiesProvider } from 'core/technologies/TechnologiesProvider';
 
 export const useTechnologiesSearch = () => {
-  const { replace, location } = useHistory();
+  const { location } = useHistory();
 
   const { getTechnologies } = useTechnologiesProvider();
 
