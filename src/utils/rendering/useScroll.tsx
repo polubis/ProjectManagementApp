@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 
-import { throttle } from 'utils';
+import { throttle } from '..';
 
 export const useScroll = (offset = 0) => {
   const [bottomExceeded, setIsBottomExceeded] = useState(false);

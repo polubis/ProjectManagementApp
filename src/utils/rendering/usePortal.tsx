@@ -1,7 +1,9 @@
 import { useEffect, useMemo, ReactPortal, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-export const usePortal = (): ((children: ReactNode) => ReactPortal | null) => {
+type UsePortal = () => (children: ReactNode) => ReactPortal | null;
+
+export const usePortal: UsePortal = () => {
   const el = useMemo(() => {
     return document.createElement('div');
   }, []);
