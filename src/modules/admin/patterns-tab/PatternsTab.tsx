@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import Table from 'shared/components/table-grid';
 import PatternsProvider, { usePatternsProvider } from 'core/patterns';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Search, { usePatternsSearch } from '../search';
 
 const header = ['', 'name', 'description', 'created', 'modified', 'added by', ''];
 
@@ -40,10 +41,15 @@ const getTableData = (patterns) => {
 
 const PatternsTab = () => {
   const { patterns, loading } = usePatternsProvider();
+  usePatternsSearch();
 
   const patternsTableData = useMemo(() => getTableData(patterns), [patterns, loading]);
 
-  return <Table data={patternsTableData} header={header} />;
+  return <div>
+    <Search name="Pattern" pathname="/app/admin/patterns" />
+    <Table data={patternsTableData} header={header} />
+  </div>
+  
 };
 
 export default () => (

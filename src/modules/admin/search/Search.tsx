@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import csx from './TechnologiesSearch.scss';
+import csx from './Search.scss';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
@@ -14,8 +14,17 @@ const CONFIG: Form.Config = [
 
 const QUERY = 0;
 
-const TechnologiesSearch = ({ pathname = `/app/admin/technologies` }) => {
+namespace Search {
+  export interface Props {
+    name: string;
+    pathname: string;
+  }
+}
+
+const AdminSearch = (props: Search.Props): JSX.Element=> {
   const { location, push } = useHistory();
+
+  const { name, pathname } = props;
 
   const [query] = useQueryParams(
     'query'
@@ -51,10 +60,10 @@ const TechnologiesSearch = ({ pathname = `/app/admin/technologies` }) => {
   }, [query]);
 
   return (
-    <form className={csx.technologiesSearch} onSubmit={handleSubmit}>
+    <form className={csx.search} onSubmit={handleSubmit}>
       <input
         data-idx={QUERY}
-        placeholder="Find your technology..."
+        placeholder={`Find your ${name}...`}
         className={csx.input}
         value={fields[QUERY].value}
         onChange={change}
@@ -66,4 +75,6 @@ const TechnologiesSearch = ({ pathname = `/app/admin/technologies` }) => {
   );
 };
 
-export default TechnologiesSearch;
+const Search = AdminSearch;
+
+export default Search;

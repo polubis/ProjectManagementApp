@@ -21,20 +21,19 @@ const ADMIN_TAB_CATEGORIES: AdminTabCategory[] = [
 ];
 
 const AdminTabCategories = () => {
-	const { location, push } = useHistory();
-	
-	const {
-		params: { category: activeCategory }
-	} = useRouteMatch<{ category: AdminTabCategory }>();
+  const { location, push } = useHistory();
 
-	const handleClick = useCallback(
+  const {
+    params: { category: activeCategory }
+  } = useRouteMatch<{ category: AdminTabCategory }>();
+
+  const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       const newCategory = e.currentTarget.getAttribute('data-category') as AdminTabCategory;
-
-      const url = Url(location)
+      const url = Url({ ...location, search: '' })
         .replace(activeCategory, newCategory)
-				.value();
-				
+        .value();
+
       push(url);
     },
     [location]
@@ -43,20 +42,20 @@ const AdminTabCategories = () => {
   return (
     <section className={csx.adminTabCategories}>
       <div className={csx.tabs}>
-      {ADMIN_TAB_CATEGORIES.map((category) => (
-        <MuiButton
-				key={category}
-				data-category={category}
-				className={`${csx.category} ${category === activeCategory ? csx.active : ''}`}
-				onClick={handleClick}
-			>
-				{category}
-			</MuiButton>
-      ))}
+        {ADMIN_TAB_CATEGORIES.map((category) => (
+          <MuiButton
+            key={category}
+            data-category={category}
+            className={`${csx.category} ${category === activeCategory ? csx.active : ''}`}
+            onClick={handleClick}
+          >
+            {category}
+          </MuiButton>
+        ))}
       </div>
       <div className={csx.addButton}>
-      <Button>
-        <UnfoldMoreIcon className={csx.unfoldIcon} />
+        <Button>
+          <UnfoldMoreIcon className={csx.unfoldIcon} />
         ADD TECHNOLOGY
       </Button>
       </div>

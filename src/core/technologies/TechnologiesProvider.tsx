@@ -7,7 +7,7 @@ namespace TechnologiesProvider {
     loading: boolean;
     error: string;
     technologies: Technology[];
-    getTechnologies?: Function;
+    getTechnologies?(query?: string): void;
   }
 
   export interface Props {

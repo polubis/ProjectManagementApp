@@ -1,9 +1,5 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router';
-
-import { useScroll, Url } from 'utils';
-
-import { TemplatesPayload, TemplatesSearchFilters } from 'core/api';
 
 import { useTechnologiesProvider } from 'core/technologies/TechnologiesProvider';
 

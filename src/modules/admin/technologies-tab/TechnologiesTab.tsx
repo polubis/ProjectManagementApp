@@ -4,8 +4,7 @@ import Table from 'shared/components/table-grid';
 import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
 import { Technology } from 'core/api';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import TechnologiesSearch from './technologies-search/TechnologiesSearch';
-import { useTechnologiesSearch } from './technologies-search/useTechnologiesSearch';
+import Search, { useTechnologiesSearch } from '../search';
 
 const header = ['', 'name', 'description', 'created', 'modified', 'added by', ''];
 
@@ -38,7 +37,7 @@ const getTableData = (technologies: Technology[]): Table.Row[] => {
 
     return row;
   });
-  
+
   return tableData;
 };
 
@@ -50,7 +49,7 @@ const TechnologiesTab = () => {
 
   return (
     <div>
-      <TechnologiesSearch />
+      <Search name="Technology" pathname="/app/admin/technologies" />
       <Table data={technologiesTableData} header={header} />;
     </div>
   );
