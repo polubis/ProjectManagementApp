@@ -1,2 +1,2 @@
-export * from './isJsonString';
+export * from './isJSONString';
 export * from './isRefType';
