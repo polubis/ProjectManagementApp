@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 
-import { TemplateDocumentation } from 'core/api';
+import { Loader, Tree } from 'ui';
 
-import { Loader } from 'ui';
+import { TemplateDocumentation } from 'core/api';
 
 import ContentTree from './content-tree';
 import TemplateDocumentationProvider, {
@@ -35,25 +35,25 @@ const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () =>
         parentId,
         label: text,
         level: getLevel(type) - minLevel
-      } as ContentTree.Item)
+      } as Tree.Item)
   );
 };
 
 const TemplateDocumentation = () => {
   const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
 
-  const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
+  const [activeItem, setActiveItem] = useState<Tree.Item | null>(null);
 
-  const [expandedItems, setExpandedItems] = useState<ContentTree.ExpandedItems>({});
+  const [expandedItems, setExpandedItems] = useState<Tree.ExpandedItems>({});
 
   const treeItems = useMemo(makeContentTreeItems(documentation), [documentation]);
 
-  const handleClick: ContentTree.OnClick = useCallback(
-    (id) => {
-      const { idx, item } = ContentTree.find(id, treeItems);
+  const handleClick: Tree.OnClick = useCallback(
+    id => {
+      const { idx, item } = Tree.find(id, treeItems);
 
       setActiveItem(item);
-      setExpandedItems(ContentTree.expand(idx, treeItems));
+      setExpandedItems(Tree.expand(idx, treeItems));
     },
     [treeItems]
   );
@@ -65,7 +65,7 @@ const TemplateDocumentation = () => {
   useEffect(() => {
     if (treeItems.length > 0) {
       setActiveItem(treeItems[0]);
-      setExpandedItems(ContentTree.expand(0, treeItems));
+      setExpandedItems(Tree.expand(0, treeItems));
     }
   }, [treeItems]);
 

@@ -28,7 +28,6 @@ const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =
 /** 
  * Renders grid components based on given data
  * 
- * @param props
  * @param props.loading Displays spaceholders if truthy
  * @param props.templates Templates to display
  * @param props.path Path prefix to rediect

@@ -36,11 +36,10 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
 
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
-  const { template, error, reset, loading, getTemplateDetails } = useTemplateDetailsProvider();
+  const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
     if (error) {
-      reset();
       replace('/app/templates');
     }
   }, [error]);
