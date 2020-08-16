@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { RouteChildrenProps } from "react-router";
+import { RouteChildrenProps, useHistory } from "react-router";
 
 import { TemplateDocumentation } from 'core/api';
 
@@ -45,7 +45,9 @@ const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () =>
 };
 
 const TemplateDocumentation = ({ match }: TemplateDocumentation.Props) => {
-  const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
+  const { replace } = useHistory();
+
+  const { documentation, loading, getTemplateDocumentation, error, reset } = useTemplateDocumentationProvider();
 
   const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
 
@@ -62,6 +64,13 @@ const TemplateDocumentation = ({ match }: TemplateDocumentation.Props) => {
     },
     [treeItems]
   );
+
+  useEffect(() => {
+    if (error) {
+      reset();
+      replace(`/app/templates`);
+    }
+  }, [error]);
 
   useEffect(() => {
     getTemplateDocumentation(match.params.id);
