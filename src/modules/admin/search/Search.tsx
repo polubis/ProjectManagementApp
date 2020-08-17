@@ -17,14 +17,13 @@ const QUERY = 0;
 namespace Search {
   export interface Props {
     name: string;
-    pathname: string;
   }
 }
 
 const AdminSearch = (props: Search.Props): JSX.Element=> {
   const { location, push } = useHistory();
 
-  const { name, pathname } = props;
+  const { name } = props;
 
   const [query] = useQueryParams(
     'query'
@@ -47,7 +46,7 @@ const AdminSearch = (props: Search.Props): JSX.Element=> {
         .delete('page')
         .search();
 
-      push(`${pathname}?${search}`);
+      push(`${location.pathname}?${search}`);
     },
     [fields, location]
   );

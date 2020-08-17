@@ -49,7 +49,7 @@ const TechnologiesTab = () => {
 
   return (
     <div>
-      <Search name="Technology" pathname="/app/admin/technologies" />
+      <Search name="Technology" />
       <Table data={technologiesTableData} header={header} />;
     </div>
   );
