@@ -8,7 +8,6 @@ namespace TemplateDocumentationProvider {
     error: string;
     documentation: TemplateDocumentation;
     getTemplateDocumentation?(templateId: string): void;
-    reset?(): void;
   }
 
   export interface Props {
@@ -25,10 +24,6 @@ const STATE: TemplateDocumentationProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TemplateDocumentationProvider.Props, typeof STATE> {
-  reset = () => {
-    this.setState({ ...STATE });
-  };
-
   getTemplateDocumentation = async (templateId: string) => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
@@ -45,8 +40,7 @@ class Provider extends React.Component<TemplateDocumentationProvider.Props, type
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTemplateDocumentation: this.getTemplateDocumentation,
-    reset: this.reset
+    getTemplateDocumentation: this.getTemplateDocumentation
   };
 
   render() {

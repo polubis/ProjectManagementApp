@@ -47,7 +47,7 @@ const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () =>
 const TemplateDocumentation = ({ match }: TemplateDocumentation.Props) => {
   const { replace } = useHistory();
 
-  const { documentation, loading, getTemplateDocumentation, error, reset } = useTemplateDocumentationProvider();
+  const { documentation, loading, getTemplateDocumentation, error } = useTemplateDocumentationProvider();
 
   const [activeItem, setActiveItem] = useState<ContentTree.Item | null>(null);
 
@@ -67,7 +67,6 @@ const TemplateDocumentation = ({ match }: TemplateDocumentation.Props) => {
 
   useEffect(() => {
     if (error) {
-      reset();
       replace(`/app/templates`);
     }
   }, [error]);
