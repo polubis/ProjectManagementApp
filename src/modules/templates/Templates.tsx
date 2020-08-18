@@ -13,7 +13,7 @@ import csx from './Templates.scss';
 const Templates = () => {
   const { location } = useHistory();
 
-  const { templates, loading } = useTemplatesProvider();
+  const { loading, templates } = useTemplatesProvider();
 
   useTemplatesSearch();
 
@@ -21,7 +21,7 @@ const Templates = () => {
     <div className={csx.templates}>
       <TemplatesCategories />
       <TemplatesSearch pathname={location.pathname} />
-      <TemplatesGrid loading={loading} templates={templates} />
+      <TemplatesGrid loading={loading} spaceholdersCount={20} templates={templates} />
     </div>
   );
 };

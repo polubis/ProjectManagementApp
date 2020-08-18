@@ -24,7 +24,7 @@ namespace Tree {
 
   export interface Props {
     activeItem: Item | null;
-    children?: React.ComponentType<ListChildComponentProps>;
+    children: React.ComponentType<ListChildComponentProps>;
     expandedItems: ExpandedItems;
     items: Item[];
     onClick: OnClick;
@@ -45,7 +45,7 @@ namespace Tree {
 const ITEM_SIZE = 52;
 
 const find = (id: number, items: Tree.Item[]): { idx: number; item: Tree.Item } => {
-  const idx = items.findIndex(item => item.id === id);
+  const idx = items.findIndex((item) => item.id === id);
 
   return { idx, item: items[idx] };
 };
@@ -71,9 +71,9 @@ const expand = (idx: number, items: Tree.Item[]) => (prevExpandedItems: Tree.Exp
 };
 
 const filterItems = (expandedItems: Tree.ExpandedItems, items: Tree.Item[]) => () =>
-  items.filter(item => !item.level || !!expandedItems[item.parentId]);
+  items.filter((item) => !item.level || !!expandedItems[item.parentId]);
 
-const Tree = ({ activeItem, children = null, expandedItems, items, onClick }: Tree.Props) => {
+const Tree = ({ activeItem, children, expandedItems, items, onClick }: Tree.Props) => {
   const [ref, size] = useSizeTracking();
 
   const handleClick = useCallback(

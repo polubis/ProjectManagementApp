@@ -24,7 +24,7 @@ export const useTemplatesSearch = () => {
 
   const bottomExceeded = useScroll(1000);
 
-  const { getTemplates, allLoaded } = useTemplatesProvider();
+  const { getTemplates, loading, allLoaded } = useTemplatesProvider();
 
   const parsedFilters = useMemo(() => parse(filters), [filters]);
 
@@ -37,7 +37,7 @@ export const useTemplatesSearch = () => {
   }, [location.key]);
 
   useEffect(() => {
-    if (bottomExceeded && !allLoaded) {
+    if (bottomExceeded && !allLoaded && !loading) {
       const url = Url(location)
         .swap('page', parsedFilters.page + 1)
         .value();
