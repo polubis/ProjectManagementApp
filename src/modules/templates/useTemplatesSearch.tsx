@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { useScroll, Url } from 'utils';
+import { debounce, useScroll, Url, distinctUntilChanged } from 'utils';
 
 import { TemplatesPayload, TemplatesSearchFilters } from 'core/api';
 
@@ -28,8 +28,12 @@ export const useTemplatesSearch = () => {
 
   const parsedFilters = useMemo(() => parse(filters), [filters]);
 
+  const decoratedGetTemplates = useMemo(() => debounce(distinctUntilChanged(getTemplates), 200), [
+    getTemplates
+  ]);
+
   useEffect(() => {
-    getTemplates(parsedFilters);
+    decoratedGetTemplates(parsedFilters);
   }, [location.key]);
 
   useEffect(() => {
@@ -37,7 +41,7 @@ export const useTemplatesSearch = () => {
       const url = Url(location)
         .swap('page', parsedFilters.page + 1)
         .value();
-        
+
       replace(url);
     }
   }, [bottomExceeded, allLoaded]);
