@@ -1,4 +1,4 @@
 export * from './usePortal';
-export * from './useScroll';
+export * from './useBottomScrollDetection';
 export * from './useSizeTracking';
 export * from './withLazy';

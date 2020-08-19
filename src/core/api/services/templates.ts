@@ -1,3 +1,6 @@
+import { from } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 import {
   core,
   GET_TEMPLATES,
@@ -13,7 +16,8 @@ import {
 export const getTemplateDocumentation = (url: string) =>
   core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${url}`);
 
-export const getTemplates = (url: string) => core.get<Template[]>(`${GET_TEMPLATES}${url}`);
+export const getTemplates = (url: string) =>
+  from(core.get<Template[]>(`${GET_TEMPLATES}${url}`)).pipe(delay(5000));
 
 export const getTemplateDetails = (id: string) =>
   core.get<Template>(`${GET_TEMPLATE_DETAILS}${id}`);

@@ -21,12 +21,12 @@ export const [ADD_TEMPLATE] = makePaths('Templates')('');
 const makeCoreInstance = () => {
   const parseSuccess: Api.Parser.Success<CoreResponse> = ({ data: { data } }) => data;
 
-  const parseError: Api.Parser.Error<CoreResponse> = ({ response: { data, statusText } }) => {
-    if (data && data.hasErrors) {
-      return data.errors[0];
+  const parseError: Api.Parser.Error<CoreResponse> = ({ response }) => {
+    if (response.data && response.data.hasErrors) {
+      return response.data.errors[0];
     }
 
-    return statusText;
+    return response.statusText;
   };
 
   const ERRORS_BLACK_LIST = [GET_SELF];

@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { debounce, useScroll, Url, distinctUntilChanged } from 'utils';
+import { useBottomScrollDetection, Url } from 'utils';
 
 import { TemplatesPayload, TemplatesSearchFilters } from 'core/api';
 
@@ -9,7 +9,7 @@ import { useTemplatesProvider } from './TemplatesProvider';
 
 import { useTemplatesFilters } from '.';
 
-const parse = (filters: TemplatesSearchFilters): TemplatesPayload => ({
+const parse = (filters: TemplatesSearchFilters) => (): TemplatesPayload => ({
   ...filters,
   page: +filters.page,
   limit: +filters.limit,
@@ -22,27 +22,23 @@ export const useTemplatesSearch = () => {
 
   const filters = useTemplatesFilters();
 
-  const bottomExceeded = useScroll(1000);
+  const bottomExceeded = useBottomScrollDetection();
 
-  const { getTemplates, allLoaded } = useTemplatesProvider();
+  const { getTemplates, allLoaded, loading } = useTemplatesProvider();
 
-  const parsedFilters = useMemo(() => parse(filters), [filters]);
-
-  const decoratedGetTemplates = useMemo(() => debounce(distinctUntilChanged(getTemplates), 200), [
-    getTemplates
-  ]);
+  const parsedFilters = useMemo(parse(filters), [filters]);
 
   useEffect(() => {
-    decoratedGetTemplates(parsedFilters);
+    getTemplates(parsedFilters);
   }, [location.key]);
 
   useEffect(() => {
-    if (bottomExceeded && !allLoaded) {
+    if (bottomExceeded && !allLoaded && !loading) {
       const url = Url(location)
         .swap('page', parsedFilters.page + 1)
         .value();
 
       replace(url);
     }
-  }, [bottomExceeded, allLoaded]);
+  }, [bottomExceeded, allLoaded, loading]);
 };
