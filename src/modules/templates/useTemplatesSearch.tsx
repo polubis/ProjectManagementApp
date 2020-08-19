@@ -22,7 +22,7 @@ export const useTemplatesSearch = () => {
 
   const filters = useTemplatesFilters();
 
-  const bottomExceeded = useScroll(1000);
+  const bottomExceeded = useScroll();
 
   const { getTemplates, loading, allLoaded } = useTemplatesProvider();
 

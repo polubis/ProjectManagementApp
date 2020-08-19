@@ -1,23 +1,26 @@
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fromEvent } from 'rxjs';
+import { tap, map, debounceTime } from 'rxjs/operators';
 
-import { throttle } from '..';
-
-export const useScroll = (offset = 0) => {
-  const [bottomExceeded, setIsBottomExceeded] = useState(false);
-
-  const onScroll = useCallback(() => {
-    setIsBottomExceeded(window.innerHeight + window.scrollY >= document.body.offsetHeight - offset);
-  }, []);
+export const useScroll = (debounce = 100, offset = 1000) => {
+  const [bottom, setBottom] = useState(false);
 
   useEffect(() => {
-    const debouncedOnScroll = throttle(onScroll, 200);
+    const toBottomExceeded = () =>
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - offset;
 
-    document.addEventListener('scroll', debouncedOnScroll);
+    const sub = fromEvent(document, 'scroll')
+      .pipe(
+        map(toBottomExceeded),
+        debounceTime(debounce),
+        tap((bottom) => setBottom(bottom))
+      )
+      .subscribe();
 
     return () => {
-      document.removeEventListener('scroll', debouncedOnScroll);
+      sub.unsubscribe();
     };
   }, []);
 
-  return bottomExceeded;
+  return bottom;
 };
