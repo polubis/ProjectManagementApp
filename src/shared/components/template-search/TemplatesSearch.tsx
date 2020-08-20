@@ -10,8 +10,6 @@ import { Select, SelectBase } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
-import { TemplateCategory } from 'core/api';
-
 import { PatternsSelect, TechnologiesSelect } from 'shared/components';
 
 import ControlButton from './control-button';
@@ -20,7 +18,7 @@ import csx from './TemplatesSearch.scss';
 
 namespace TemplatesSearch {
   export interface Props {
-    pathname?: string;
+    pathname: string;
   }
 }
 
@@ -40,7 +38,7 @@ const CONFIG: Form.Config = [
   }
 ];
 
-const TemplatesSearch = ({ pathname = `/app/templates/${TemplateCategory.ALL}` }) => {
+const TemplatesSearch = ({ pathname }) => {
   const { location, push } = useHistory();
 
   const [query, patternsIds, technologiesIds] = useQueryParams(

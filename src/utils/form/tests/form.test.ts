@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { Form, V } from '..';
 
-describe('useManager', () => {
+describe('useManager()', () => {
   const [_STATE_] = [0];
 
   const _CONFIG_: Form.Config = [
@@ -10,7 +10,7 @@ describe('useManager', () => {
     { label: 'Password', fns: [V.req, V.min(8), V.max(20)] }
   ];
 
-  it('creates initial state correctly', () => {
+  it('creates initial state', () => {
     const state: Form.State = {
       invalid: false,
       dirty: false,

@@ -3,10 +3,11 @@ import { useHistory } from 'react-router';
 
 import { TemplatesGrid, TemplatesSearch } from 'shared/components';
 
-import TemplatesCategories from './templates-categories';
 import TemplatesProvider, { useTemplatesProvider } from './TemplatesProvider';
+import { TemplatesCategories } from './components';
+import { useSearch, useRouteValidation } from './hooks';
 
-import { useTemplatesSearch } from '.';
+import { LIMIT } from '.';
 
 import csx from './Templates.scss';
 
@@ -15,19 +16,23 @@ const Templates = () => {
 
   const { loading, templates } = useTemplatesProvider();
 
-  useTemplatesSearch();
+  useSearch();
 
   return (
     <div className={csx.templates}>
       <TemplatesCategories />
       <TemplatesSearch pathname={location.pathname} />
-      <TemplatesGrid loading={loading} spaceholdersCount={20} templates={templates} />
+      <TemplatesGrid loading={loading} spaceholdersCount={LIMIT} templates={templates} />
     </div>
   );
 };
 
-export default () => (
-  <TemplatesProvider>
-    <Templates />
-  </TemplatesProvider>
-);
+export default () => {
+  useRouteValidation();
+
+  return (
+    <TemplatesProvider>
+      <Templates />
+    </TemplatesProvider>
+  );
+};

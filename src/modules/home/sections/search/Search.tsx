@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { TemplateCategory } from 'core/api';
+
 import { TemplatesSearch } from 'shared/components';
 
 import csx from './Search.scss';
@@ -16,7 +18,7 @@ const Search = () => {
         prepared by developers community from around the world
       </p>
 
-      <TemplatesSearch />
+      <TemplatesSearch pathname={`/app/templates/${TemplateCategory.ALL}`} />
     </section>
   );
 };
