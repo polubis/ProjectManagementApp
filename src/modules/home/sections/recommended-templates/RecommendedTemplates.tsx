@@ -9,7 +9,7 @@ import TemplatesProvider, { useTemplatesProvider } from 'src/modules/templates/T
 import csx from './RecommendedTemplates.scss';
 
 const RecommendedTemplates = () => {
-  const { templates, loading, getTemplates } = useTemplatesProvider();
+  const { templates, pendingRequests, getTemplates } = useTemplatesProvider();
 
   useEffect(() => {
     getTemplates({
@@ -30,7 +30,7 @@ const RecommendedTemplates = () => {
         <TemplatesGrid
           pathname={`/app/templates/${TemplateCategory.RECOMMENDED}`}
           spaceholdersCount={4}
-          loading={loading}
+          loading={!!pendingRequests}
           templates={templates}
         />
       </div>

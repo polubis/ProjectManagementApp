@@ -49,7 +49,7 @@ const TemplatesGrid = ({
     [location.pathname]
   );
 
-  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading]);
+  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading, spaceholdersCount]);
 
   return (
     <section className={csx.templatesGrid}>

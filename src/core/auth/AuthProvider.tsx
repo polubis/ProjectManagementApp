@@ -27,11 +27,7 @@ const STATE: AuthProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
-  componentDidMount() {
-    this.authorize();
-  }
-
-  authorize = async () => {
+  private _authorize = async () => {
     if (!this.state.pending) {
       this.setState({ ...STATE });
     }
@@ -71,6 +67,10 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     }
   };
 
+  componentDidMount() {
+    this._authorize();
+  }
+
   readonly state: typeof STATE = {
     ...STATE,
     logIn: this.logIn,
@@ -78,9 +78,7 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     logInViaGithub
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const AuthProvider = withRouter(Provider);

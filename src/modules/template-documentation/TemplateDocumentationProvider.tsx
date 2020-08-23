@@ -43,9 +43,7 @@ class Provider extends React.Component<TemplateDocumentationProvider.Props, type
     getTemplateDocumentation: this.getTemplateDocumentation
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TemplateDocumentationProvider = Provider;
