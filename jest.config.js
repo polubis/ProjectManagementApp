@@ -8,5 +8,9 @@ module.exports = {
   },
   moduleDirectories: ['node_modules', 'src'],
   testPathIgnorePatterns: ['/node_modules/', '/public/'],
-  setupFilesAfterEnv: ['<rootDir>/config/setup.jest.ts']
+  setupFilesAfterEnv: ['<rootDir>/config/setup.jest.ts'],
+  globals: {
+    __IMAGES_PATH__: 'images',
+    __CORE_API_PATH__: 'https://web-api-c.azurewebsites.net/api/'
+  }
 };

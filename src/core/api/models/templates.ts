@@ -47,15 +47,6 @@ export interface TemplatesPayload {
   patternsIds: string[];
 }
 
-export interface TemplatesSearchFilters {
-  limit: string;
-  page: string;
-  category: TemplateCategory;
-  query: string;
-  technologiesIds: string;
-  patternsIds: string;
-}
-
 export interface TemplateDocumentationHeading {
   childrenCount: number;
   id: number;

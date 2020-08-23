@@ -8,8 +8,10 @@ import { Button } from 'ui';
 
 import { Url } from 'utils';
 
-import { TemplateCategory, TEMPLATES_CATEGORIES } from 'core/api';
+import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
+
+import { CATEGORIES, TemplatesRouteProps } from '../..';
 
 import csx from './TemplatesCategories.scss';
 
@@ -18,16 +20,13 @@ const TemplatesCategories = () => {
 
   const {
     params: { category: activeCategory }
-  } = useRouteMatch<{ category: TemplateCategory }>();
+  } = useRouteMatch<TemplatesRouteProps>();
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       const newCategory = e.currentTarget.getAttribute('data-category') as TemplateCategory;
 
-      const url = Url(location)
-        .delete('page')
-        .replace(activeCategory, newCategory)
-        .value();
+      const url = Url(location).delete('page').replace(activeCategory, newCategory).value();
 
       push(url);
     },
@@ -36,7 +35,7 @@ const TemplatesCategories = () => {
 
   return (
     <section className={csx.templatesCategories}>
-      {TEMPLATES_CATEGORIES.map(category => (
+      {CATEGORIES.map((category) => (
         <MuiButton
           key={category}
           data-category={category}

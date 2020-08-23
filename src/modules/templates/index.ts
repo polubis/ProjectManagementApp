@@ -1,6 +1,6 @@
 import Templates from './Templates';
 
-export * from './useTemplatesFilters';
-export * from './useTemplatesSearch';
+export * from './models';
+export * from './utils';
 
 export default Templates;
