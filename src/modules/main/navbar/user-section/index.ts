@@ -1,1 +1,3 @@
-export * from './UserSection';
+import UserSection from './UserSection';
+
+export default UserSection;

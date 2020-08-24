@@ -11,26 +11,29 @@ import TemplateDocumentationProvider, {
 
 import csx from './TemplateDocumentation.scss';
 
-const makeContentTreeItems = ({ headings, readmeLines }: TemplateDocumentation) => () => {
+const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () => {
   if (!headings.length) {
     return [];
   }
 
   const getLevel = (type: string) => +type.slice(1);
 
-  const minLevel = headings.reduce((acc, { type }) => {
-    const level = getLevel(type);
+  const getMinLevel = () =>
+    headings.reduce((acc, { type }) => {
+      const level = getLevel(type);
 
-    return level < acc ? level : acc;
-  }, getLevel(headings[0].type));
+      return level < acc ? level : acc;
+    }, getLevel(headings[0].type));
+
+  const minLevel = getMinLevel();
 
   return headings.map(
-    ({ id, childrenCount, parentId, type }) =>
+    ({ id, childrenCount, parentId, text, type }) =>
       ({
         id,
         childrenCount,
         parentId,
-        label: readmeLines[id].lineItems[0].content,
+        label: text,
         level: getLevel(type) - minLevel
       } as ContentTree.Item)
   );
@@ -61,9 +64,7 @@ const TemplateDocumentation = () => {
 
   useEffect(() => {
     if (treeItems.length > 0) {
-      const [firstItem] = treeItems;
-
-      setActiveItem(firstItem);
+      setActiveItem(treeItems[0]);
       setExpandedItems(ContentTree.expand(0, treeItems));
     }
   }, [treeItems]);

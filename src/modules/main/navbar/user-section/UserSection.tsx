@@ -7,9 +7,11 @@ import { Button } from 'ui';
 
 import { Guard } from 'core/auth';
 
+import Notifications from './notifications';
+
 import csx from './UserSection.scss';
 
-export const UserSection = () => {
+const UserSection = () => {
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
@@ -19,6 +21,10 @@ export const UserSection = () => {
               <span>Hi, {username}</span>
               <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
             </div>
+
+            <div className={csx.divider} />
+
+            <Notifications />
 
             <div className={csx.divider} />
 
@@ -43,3 +49,5 @@ export const UserSection = () => {
     </div>
   );
 };
+
+export default UserSection;
