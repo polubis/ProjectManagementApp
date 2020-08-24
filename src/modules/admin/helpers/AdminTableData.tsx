@@ -14,18 +14,18 @@ const formatValue = (value: string, cutIndex: number) : string =>
     ? value.substr(0, cutIndex - 3) + '...'
     : value;
 
-export const getTableData = (data) => {
-    const tableData = data.map((item) => {
+export const getTableData = (data) => { // @TODO Add the interface when backend will provide full model
+    const tableData : Table.Row[] = data.map((item) => {
       const row: Table.Row = {
         id: {
           component: <p className={csx.id}>{item.id}</p>
         },
         name: {
-          component: <p className={csx.name}>{formatValue(item.name, 31)}</p>
+          component: <p title={item.name} className={csx.name}>{formatValue(item.name, 31)}</p>
 
         },
         description: {
-        component: <p className={csx.description}>{formatValue(item.description, 94)}</p>
+        component: <p title={item.description} className={csx.description}>{formatValue(item.description, 94)}</p>
         },
         created: {
           value: '19 / Apr / 2020'

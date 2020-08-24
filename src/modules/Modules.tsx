@@ -7,23 +7,10 @@ import TechnologiesProvider from 'core/technologies';
 
 import ModulesRouter from './ModulesRouter';
 import { useLocation } from 'react-router-dom';
-
-import { AdminTabCategory } from './admin/admin-tab-categories/AdminTabCategories';
-
-const shouldLoadTechnologies = (pathname: string, search: string): boolean =>
-  search.length === 0 &&
-  !pathname.includes(`/${AdminTabCategory.TECHNOLOGIES}`)
-  && pathname.split('/').pop() !== 'admin';
-// because of redirect from '/admin/' to 'admin/technolgies'
-// because of redirect from '/templates/' to 'templates/all'
-
-const shouldLoadPatterns = (pathname: string, search: string): boolean =>
-  search.length === 0 && !pathname.includes(`/${AdminTabCategory.PATTERNS}`);
+import { shouldLoadPatterns, shouldLoadTechnologies } from './shouldLoadDataOnInit';
 
 const Modules = () => {
   const { pathname, search } = useLocation();
-
-  console.log({ pathname, search });
 
   return (
     <>

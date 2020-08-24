@@ -27,8 +27,6 @@ const Admin = () => {
   return (
     <div className={csx.container}>
       <AdminTabCategories />
-      {/* <TechnologiesTab />
-      <PatternsTab /> */}
       {tabContent}
     </div>
   );

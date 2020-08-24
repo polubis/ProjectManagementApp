@@ -38,7 +38,6 @@ class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE>
 
     try {
       const technologies = await getTechnologies(query);
-      console.log(technologies);
       this.setState({ ...STATE, loading: false, technologies });
     } catch (error) {
       this.setState({ ...STATE, loading: false, error });
