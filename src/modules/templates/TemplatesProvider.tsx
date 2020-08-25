@@ -1,10 +1,21 @@
 import React, { createContext, useContext, ReactNode } from 'react';
+import { Subject, Subscription, throwError } from 'rxjs';
+import {
+  tap,
+  filter,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  catchError,
+  concatMap,
+  takeUntil
+} from 'rxjs/operators';
 
 import { getTemplates, Template, TemplatesPayload } from 'core/api';
 
 namespace TemplatesProvider {
   export interface State {
-    loading: boolean;
+    pendingRequests: number;
     allLoaded: boolean;
     error: string;
     templates: Template[];
@@ -17,7 +28,7 @@ namespace TemplatesProvider {
 }
 
 const STATE: TemplatesProvider.State = {
-  loading: true,
+  pendingRequests: 1,
   allLoaded: false,
   error: '',
   templates: []
@@ -26,48 +37,123 @@ const STATE: TemplatesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
-  makeUrl = ({ page, limit, query, category, technologiesIds, patternsIds }: TemplatesPayload) => {
-    const technologiesPart = technologiesIds.map(id => `technologiesIds=${id}`).join('&');
-    const patternsPart = patternsIds.map(id => `patternsIds=${id}`).join('&');
+  private _loadRequest = new Subject<TemplatesPayload>();
+
+  private _loadRequest$ = this._loadRequest.asObservable();
+
+  private _loadMoreRequest = new Subject<TemplatesPayload>();
+
+  private _loadMoreRequest$ = this._loadMoreRequest.asObservable();
+
+  private _subs = new Subscription();
+
+  private _makeUrl = ({
+    page,
+    limit,
+    query,
+    category,
+    technologiesIds,
+    patternsIds
+  }: TemplatesPayload) => {
+    const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
+    const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
 
     return `?page=${page}&limit=${limit}&query=${query}${
       technologiesPart ? `&${technologiesPart}` : ''
     }${patternsPart ? `&${patternsPart}` : ''}`;
   };
 
-  getTemplates = async (payload: TemplatesPayload) => {
-    const { limit, page } = payload;
-    const loadingMore = page > 1;
+  private _areAllLoaded = ({ limit }: TemplatesPayload, { length }: Template[]) => length < limit;
 
-    if (loadingMore && this.state.allLoaded) {
-      return;
-    }
+  private _handleLoadRequest = () => {
+    const initLoad = () => this.setState({ ...STATE });
 
-    this.setState({ ...STATE, templates: loadingMore ? this.state.templates : [] });
+    const handleGetTemplates = (payload: TemplatesPayload) => {
+      const handleSuccess = (templates: Template[]) => {
+        this.setState({
+          allLoaded: this._areAllLoaded(payload, templates),
+          pendingRequests: 0,
+          error: '',
+          templates
+        });
+      };
 
-    try {
-      let templates = await getTemplates(this.makeUrl(payload));
+      const handleError = (error: string) => {
+        this.setState({ ...STATE, pendingRequests: 0, error });
 
-      const allLoaded = templates.length < limit;
+        return throwError(error);
+      };
 
-      if (loadingMore) {
-        templates = [...this.state.templates, ...templates];
-      }
+      return getTemplates(this._makeUrl(payload)).pipe(tap(handleSuccess), catchError(handleError));
+    };
 
-      this.setState({ loading: false, templates, allLoaded, error: '' });
-    } catch (error) {
-      this.setState({ ...STATE, loading: false, error });
+    return this._loadRequest$
+      .pipe(debounceTime(150), distinctUntilChanged(), tap(initLoad), switchMap(handleGetTemplates))
+      .subscribe();
+  };
+
+  private _handleLoadMoreRequest = () => {
+    const isLoadingAllowed = () => !this.state.allLoaded;
+
+    const initLoad = () => {
+      this.setState(({ pendingRequests }) => ({
+        pendingRequests: pendingRequests + 1
+      }));
+    };
+
+    const handleGetTemplates = (payload: TemplatesPayload) => {
+      const handleSuccess = (templates: Template[]) => {
+        this.setState((prevState) => ({
+          allLoaded: this._areAllLoaded(payload, templates),
+          error: '',
+          pendingRequests: prevState.pendingRequests - 1,
+          templates: [...prevState.templates, ...templates]
+        }));
+      };
+
+      const handleError = (error: string) => {
+        this.setState(({ pendingRequests }) => ({ pendingRequests: pendingRequests - 1, error }));
+
+        return throwError(error);
+      };
+
+      return getTemplates(this._makeUrl(payload)).pipe(
+        takeUntil(this._loadRequest$),
+        tap(handleSuccess),
+        catchError(handleError)
+      );
+    };
+
+    return this._loadMoreRequest$
+      .pipe(filter(isLoadingAllowed), tap(initLoad), concatMap(handleGetTemplates))
+      .subscribe();
+  };
+
+  getTemplates = (payload: TemplatesPayload) => {
+    const loadingMore = payload.page > 1 && !this.state.allLoaded;
+
+    if (loadingMore) {
+      this._loadMoreRequest.next(payload);
+    } else {
+      this._loadRequest.next(payload);
     }
   };
+
+  componentDidMount() {
+    this._subs.add(this._handleLoadRequest());
+    this._subs.add(this._handleLoadMoreRequest());
+  }
+
+  componentWillUnmount() {
+    this._subs.unsubscribe();
+  }
 
   readonly state: typeof STATE = {
     ...STATE,
     getTemplates: this.getTemplates
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TemplatesProvider = Provider;

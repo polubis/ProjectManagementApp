@@ -23,11 +23,7 @@ const STATE: NotificationsProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<NotificationsProvider.Props, typeof STATE> {
-  componentDidMount() {
-    this.getNotifications();
-  }
-
-  getNotifications = async () => {
+  private _getNotifications = async () => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
@@ -43,13 +39,15 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
     }
   };
 
+  componentDidMount() {
+    this._getNotifications();
+  }
+
   readonly state: typeof STATE = {
     ...STATE
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const NotificationsProvider = Provider;

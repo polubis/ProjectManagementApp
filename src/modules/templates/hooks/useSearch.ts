@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { debounce, Url, distinctUntilChanged, ScrollObserver } from 'utils';
+import { Url, ScrollObserver } from 'utils';
 
 import { TemplatesPayload } from 'core/api';
 
@@ -24,20 +24,16 @@ export const useSearch = () => {
 
   const filters = useFilters();
 
-  const { getTemplates, allLoaded, loading } = useTemplatesProvider();
+  const { getTemplates, allLoaded } = useTemplatesProvider();
 
   const parsedFilters = useMemo(parse(filters), [filters]);
 
-  const decoratedGetTemplates = useMemo(() => debounce(distinctUntilChanged(getTemplates), 200), [
-    getTemplates
-  ]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     let obs: ScrollObserver;
-
-    if (obs) {
-      obs.unsubscribe();
-    }
 
     const onEmit = ({ bottom }: ScrollObserver.Position) => {
       const incremenPage = () => {
@@ -48,19 +44,21 @@ export const useSearch = () => {
         replace(url);
       };
 
-      if (!loading && !allLoaded && bottom) {
+      if (!allLoaded && bottom) {
         incremenPage();
       }
     };
 
-    obs = new ScrollObserver(document, onEmit);
+    if (!obs) {
+      obs = new ScrollObserver(document, onEmit);
+    }
 
     return () => {
       obs.unsubscribe();
     };
-  }, [allLoaded, location, loading, parsedFilters]);
+  }, [allLoaded, parsedFilters]);
 
   useEffect(() => {
-    decoratedGetTemplates(parsedFilters);
+    getTemplates(parsedFilters);
   }, [location.key]);
 };

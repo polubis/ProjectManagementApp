@@ -7,7 +7,6 @@ namespace PatternsProvider {
     patterns: Pattern[];
     loading: boolean;
     error: string;
-    getPatterns?(): void;
   }
 
   export interface Props {
@@ -24,11 +23,7 @@ const STATE: PatternsProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
-  componentDidMount() {
-    this.getPatterns();
-  }
-
-  getPatterns = async () => {
+  private _getPatterns = async () => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
@@ -42,14 +37,15 @@ class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
     }
   };
 
+  componentDidMount() {
+    this._getPatterns();
+  }
+
   readonly state: typeof STATE = {
-    ...STATE,
-    getPatterns: this.getPatterns
+    ...STATE
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const PatternsProvider = Provider;
