@@ -7,12 +7,12 @@ namespace TechnologiesProvider {
     loading: boolean;
     error: string;
     technologies: Technology[];
-    getTechnologies?(query?: string): void;
+    getTechnologies?(query: string): void;
   }
 
   export interface Props {
-    getOnInit?: boolean;
     children: ReactNode;
+    getOnMount?: boolean;
   }
 }
 
@@ -26,12 +26,12 @@ const Context = createContext(STATE);
 
 class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
   componentDidMount() {
-    if(this.props.getOnInit) {
+    if(this.props.getOnMount) {
       this.getTechnologies();
     }
   }
 
-  getTechnologies = async (query?: string) => {
+  getTechnologies = async (query = '') => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }

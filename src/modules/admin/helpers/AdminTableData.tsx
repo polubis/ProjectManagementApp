@@ -28,10 +28,10 @@ export const getTableData = (data) => { // @TODO Add the interface when backend 
         component: <p title={item.description} className={csx.description}>{formatValue(item.description, 94)}</p>
         },
         created: {
-          value: '19 / Apr / 2020'
+          component: '19 / Apr / 2020'
         },
         modified: {
-          value: '19 / Apr / 2020'
+          component: '19 / Apr / 2020'
         },
         addedBy: {
           component:

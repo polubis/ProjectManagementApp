@@ -16,8 +16,8 @@ const Modules = () => {
     <>
       <AlertsManager />
       <AuthProvider>
-        <PatternsProvider getOnInit={shouldLoadPatterns(pathname, search)}>
-          <TechnologiesProvider getOnInit={shouldLoadTechnologies(pathname, search)}>
+        <PatternsProvider getOnMount={shouldLoadPatterns(pathname, search)}>
+          <TechnologiesProvider getOnMount={shouldLoadTechnologies(pathname, search)}>
             <ModulesRouter />
           </TechnologiesProvider>
         </PatternsProvider>
