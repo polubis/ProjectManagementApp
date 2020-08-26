@@ -1,14 +1,23 @@
+@import 'styles/mixins';
+
+
 .grid {
-  font-size: 14px;
-  margin-top: 100px;
-  width: 1345px;
-  display: grid;
+  > div:first-child {
+    font-size: 14px;
+    // margin-top: 100px;
+    // width: 1345px;
+    display: grid;
+    
+    grid-template-columns: repeat(7, 1fr);
 
-  .header {
-    text-transform: uppercase;
-  }
+    .header {
+      text-transform: uppercase;
+    }
 
-  span {
-    padding: 20px 10px;
+    span {
+      display: flex;
+      align-items: center;
+      padding: 20px 10px;
+    }
   }
 }
