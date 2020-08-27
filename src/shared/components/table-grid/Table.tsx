@@ -1,11 +1,9 @@
-import React, { useMemo } from 'react';
-
 import csx from './Table.scss';
-import { FixedSizeList } from 'react-window';
+import React, { useMemo } from 'react';
+import { FixedSizeList, FixedSizeListProps } from 'react-window';
 
 namespace Table {
   export interface Cell {
-    width?: number;
     component: JSX.Element | string | number;
   }
 
@@ -13,55 +11,37 @@ namespace Table {
     [key: string]: Cell;
   }
 
+  export type TableConfig = Omit<FixedSizeListProps, 'children' | 'itemCount'>;
+
   export interface Props {
     data: Row[];
-    header: string[];
+    config: TableConfig;
   }
 }
 
-const Table = ({ data, header }: Table.Props) => {
-  const renderTableBody = useMemo(
-    () =>
-      data.map((entry) =>
-        Object.values(entry).map((cell, i) => <span key={i}>{cell.component}</span>)
-      ),
-    [data, header]
-  );
-
-  const headerToData = header.reduce(
-    (prev: Object, x: string, i: number) => ({ ...prev, [i]: { component: x } }),
-    {}
-  );
-
+const Table = ({ data, config }: Table.Props) => {
   const Row = ({ index, style }) => {
-    let currentWidth = 70;
-    const row = Object.values(data[index]).map((cell, i) => {
-      const renderCell = (
-        <span
-          style={{ ...style, left: currentWidth, top: index * style.height, width: '' }}
-          key={i + index}
-        >
-          {cell.component}
-        </span>
-      );
+    const cells = Object.values(data[index]).map((cell, i) => (
+      <div key={i + index}>{cell.component}</div>
+    ));
 
-      currentWidth += cell.width + 40;
-
-      return renderCell;
-    });
-    return <>{row}</>;
+    return (
+      <div
+        key={index}
+        className={csx.grid}
+        style={{
+          ...style,
+          gridTemplateColumns: `repeat(${Object.keys(data[index]).length}, 1fr)`
+        }}
+      >
+        {cells}
+      </div>
+    );
   };
 
   return (
     <div>
-      <FixedSizeList
-        className={csx.grid}
-        height={500}
-        width={1350}
-        itemData={data}
-        itemCount={data.length}
-        itemSize={80}
-      >
+      <FixedSizeList itemCount={data.length} {...config}>
         {Row}
       </FixedSizeList>
     </div>

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import Table from 'shared/components/table-grid';
 import PatternsProvider, { usePatternsProvider } from 'core/patterns';
+import React, { useMemo } from 'react';
 import Search, { usePatternsSearch } from '../search';
-import { getTableData, header } from '../helpers/AdminTableData';
+import Table from 'shared/components/table-grid';
+import { CONFIG, getTableData } from '../helpers/AdminTableData';
 import { Loader } from 'ui';
 
 const PatternsTab = () => {
@@ -17,7 +17,7 @@ const PatternsTab = () => {
 
   return <div>
     <Search name="Pattern" />
-    <Table data={patternsTableData} header={header} />
+    <Table data={patternsTableData} config={CONFIG} />
   </div>
 
 };

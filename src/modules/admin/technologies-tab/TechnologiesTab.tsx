@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-
+import Search, { useTechnologiesSearch } from '../search';
 import Table from 'shared/components/table-grid';
 import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
-import Search, { useTechnologiesSearch } from '../search';
-import { getTableData, header } from '../helpers/AdminTableData';
+import { CONFIG, getTableData } from '../helpers/AdminTableData';
 import { Loader } from 'ui';
+
 
 const TechnologiesTab = () => {
   const { technologies, loading } = useTechnologiesProvider();
@@ -13,13 +13,13 @@ const TechnologiesTab = () => {
   const technologiesTableData = useMemo(() => getTableData(technologies), [technologies, loading]);
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
     <div>
       <Search name="Technology" />
-      <Table data={technologiesTableData} header={header} />
+      <Table data={technologiesTableData} config={CONFIG} />
     </div>
   );
 };

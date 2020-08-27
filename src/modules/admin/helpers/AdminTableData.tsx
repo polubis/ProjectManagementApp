@@ -1,22 +1,17 @@
-import React from 'react';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Avatar from '@material-ui/core/Avatar';
-import Table from 'shared/components/table-grid';
-
 import csx from './AdminTableData.scss';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import React from 'react';
+import Table from 'shared/components/table-grid';
 
 const avatarUrl = 'https://cdn.pixabay.com/photo/2018/04/28/13/18/man-3357275_960_720.png';
 
-export const header = ['', 'name', 'description', 'created', 'modified', 'added by', ''];
+const header = ['', 'name', 'description', 'created', 'modified', 'added by', ''];
 
-const WIDTHS = {
-  id: 30,
-  name: 226,
-  description: 347,
-  created: 110,
-  modified: 110,
-  addedBy: 90,
-  icon: 80
+export const CONFIG: Table.TableConfig = {
+  height: 500,
+  width: 1350,
+  itemSize: 80
 };
 
 const formatValue = (value: string, cutIndex: number): string =>
@@ -27,11 +22,9 @@ export const getTableData = (data) => {
   const tableData: Table.Row[] = data.map((item) => {
     const row: Table.Row = {
       id: {
-        width: WIDTHS.id,
         component: <p className={csx.id}>{item.id}</p>
       },
       name: {
-        width: WIDTHS.name,
         component: (
           <p title={item.name} className={csx.name}>
             {formatValue(item.name, 31)}
@@ -39,7 +32,6 @@ export const getTableData = (data) => {
         )
       },
       description: {
-        width: WIDTHS.description,
         component: (
           <p title={item.description} className={csx.description}>
             {formatValue(item.description, 94)}
@@ -47,24 +39,20 @@ export const getTableData = (data) => {
         )
       },
       created: {
-        width: WIDTHS.created,
         component: '19 / Apr / 2020'
       },
       modified: {
-        width: WIDTHS.modified,
         component: '19 / Apr / 2020'
       },
       addedBy: {
-        width: WIDTHS.addedBy,
         component: (
-          <div className={csx.avatarContainer}>
+          <div className={csx.addedBy}>
             <Avatar className={csx.avatar} src={avatarUrl} />
             <p>by przemo</p>
           </div>
         )
       },
       icon: {
-        width: WIDTHS.created,
         component: <MoreHorizIcon />
       }
     };
@@ -77,8 +65,7 @@ export const getTableData = (data) => {
       (prev, x, i) => ({
         ...prev,
         [i]: {
-          component: x,
-          width: Object.values(WIDTHS)[i]
+          component: <div className={csx[x]}>{x}</div>
         }
       }),
       {}
