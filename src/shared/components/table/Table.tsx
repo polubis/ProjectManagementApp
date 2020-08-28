@@ -28,7 +28,7 @@ const Table = ({ data, config }: Table.Props) => {
     return (
       <div
         key={index}
-        className={csx.grid}
+        className={csx.table}
         style={{
           ...style,
           gridTemplateColumns: `repeat(${Object.keys(data[index]).length}, 1fr)`

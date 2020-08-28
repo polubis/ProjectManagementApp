@@ -5,14 +5,12 @@
   margin: 30px 0;
 
   .tabs {
-    align-content: center;
-    display: flex;
+    @include row;
     margin-left: auto;
   }
 
   .addButton {
-    align-content: flex-end;
-    display: flex;
+    @include rowEnd;
     margin-left: auto;
   }
 

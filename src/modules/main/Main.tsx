@@ -4,14 +4,18 @@ import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 import { withLazy } from 'utils';
 
 import { TemplateCategory } from 'core/api';
-import { AdminTabCategory } from '../admin/admin-tab-categories/AdminTabCategories';
 import { Guard } from 'core/auth';
 
+import AdminTabCategory from '../admin/models';
 import { Navbar, Sidebar } from '.';
 
 import NotificationsProvider from 'shared/providers/notifications';
 
 import csx from './Main.scss';
+
+const Admin = withLazy(() => import('../admin'));
+
+const AdminPanel = withLazy(() => import('src/modules/admin'));
 
 const Templates = withLazy(() => import('src/modules/templates'));
 
@@ -20,8 +24,6 @@ const TemplateDetails = withLazy(() => import('src/modules/template-details'));
 const TemplateDocumentation = withLazy(() => import('src/modules/template-documentation'));
 
 const TemplateManagement = withLazy(() => import('src/modules/template-management'));
-
-const AdminPanel = withLazy(() => import('src/modules/admin'));
 
 const Main = ({ match }: RouteChildrenProps) => {
   return (
@@ -32,12 +34,17 @@ const Main = ({ match }: RouteChildrenProps) => {
 
       <main>
         <Switch>
+          <Route
+            exact
+            path={`${match.path}/admin`}
+            render={() => <Redirect to={`${match.path}/admin/${AdminTabCategory.TECHNOLOGIES}`} />}
+          />
+
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
 
           <Route path={`${match.path}/admin/:category`} component={AdminPanel} />
-          <Redirect from={`${match.path}/admin`} to={`${match.path}/admin/${AdminTabCategory.TECHNOLOGIES}`} />
 
           <Guard.ProtectedRoute
             exact

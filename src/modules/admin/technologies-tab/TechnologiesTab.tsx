@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react';
-import Search, { useTechnologiesSearch } from '../search';
-import Table from 'shared/components/table-grid';
-import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
-import { CONFIG, getTableData } from '../helpers/AdminTableData';
-import { Loader } from 'ui';
 
+import Table from 'shared/components/table';
+
+import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
+
+import { CONFIG, getTableData } from '../helpers/AdminTableData';
+import Search, { useTechnologiesSearch } from '../search';
+
+import { Loader } from 'ui';
 
 const TechnologiesTab = () => {
   const { technologies, loading } = useTechnologiesProvider();
+
   useTechnologiesSearch();
 
   const technologiesTableData = useMemo(() => getTableData(technologies), [technologies, loading]);

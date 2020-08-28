@@ -8,9 +8,7 @@ import csx from './Search.scss';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
-const CONFIG: Form.Config = [
-  { label: 'Query', value: '' }
-]
+const CONFIG: Form.Config = [{ label: 'Query', value: '' }];
 
 const QUERY = 0;
 
@@ -20,18 +18,16 @@ namespace Search {
   }
 }
 
-const AdminSearch = (props: Search.Props): JSX.Element=> {
+const AdminSearch = (props: Search.Props) => {
   const { location, push } = useHistory();
 
   const { name } = props;
 
-  const [query] = useQueryParams(
-    'query'
-  );
-  
+  const [query] = useQueryParams('query');
+
   const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
 
-	const handleSubmit = useCallback(
+  const handleSubmit = useCallback(
     (e: Form.Events.Submit) => {
       const invalid = submit(e);
 
@@ -41,10 +37,7 @@ const AdminSearch = (props: Search.Props): JSX.Element=> {
 
       const [{ value: query }] = fields;
 
-      const search = Url(location)
-        .swap('query', query)
-        .delete('page')
-        .search();
+      const search = Url(location).swap('query', query).delete('page').search();
 
       push(`${location.pathname}?${search}`);
     },
@@ -52,10 +45,7 @@ const AdminSearch = (props: Search.Props): JSX.Element=> {
   );
 
   useEffect(() => {
-    directChange(
-      [QUERY],
-      [query]
-    );
+    directChange([QUERY], [query]);
   }, [query]);
 
   return (
@@ -67,7 +57,7 @@ const AdminSearch = (props: Search.Props): JSX.Element=> {
         value={fields[QUERY].value}
         onChange={change}
       />
-			<Button type="submit" className={csx.confirmSearchBtn}>
+      <Button type="submit" className={csx.confirmSearchBtn}>
         <SearchIcon />
       </Button>
     </form>

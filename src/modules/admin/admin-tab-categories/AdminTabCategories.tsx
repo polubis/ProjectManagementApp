@@ -8,12 +8,9 @@ import { Button } from 'ui';
 
 import { Url } from 'utils';
 
-import csx from './AdminTabCategories.scss';
+import AdminTabCategory from '../models';
 
-export enum AdminTabCategory {
-  TECHNOLOGIES = 'technologies',
-  PATTERNS = 'patterns'
-}
+import csx from './AdminTabCategories.scss';
 
 const ADMIN_TAB_CATEGORIES: AdminTabCategory[] = [
   AdminTabCategory.TECHNOLOGIES,

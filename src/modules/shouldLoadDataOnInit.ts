@@ -1,4 +1,4 @@
-import { AdminTabCategory } from './admin/admin-tab-categories/AdminTabCategories';
+import AdminTabCategory from './admin/models';
 
 export const shouldLoadTechnologies = (pathname: string, search: string): boolean =>
   search.length === 0
