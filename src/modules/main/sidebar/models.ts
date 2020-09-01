@@ -7,4 +7,6 @@ export interface SidebarLink {
   
   export interface SidebarProps {
     basePath: string;
+    isSidebarOpen: boolean;
+    changeSidebarState(): void; 
   }

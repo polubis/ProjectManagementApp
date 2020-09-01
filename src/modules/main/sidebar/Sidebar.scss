@@ -26,14 +26,7 @@
           border-radius: 0;
           color: $primary;
 
-          & > span {
-            @include col;
 
-            & > span {
-              margin-top: 6px;
-              @include linkSmall;
-            }
-          }
         }
 
         &.active button {

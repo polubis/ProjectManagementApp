@@ -5,8 +5,10 @@ import { Button } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
+import Menu from '@material-ui/icons/Menu';
+import Close from '@material-ui/icons/Close';
 
-import { Logo } from 'ui';
+import { IMGS_PATH } from 'consts';
 
 import { SidebarProps, SidebarLink } from '.';
 
@@ -32,7 +34,7 @@ const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {
   });
 };
 
-export const Sidebar = ({ basePath }: SidebarProps) => {
+export const Sidebar = ({ basePath, isSidebarOpen, changeSidebarState }: SidebarProps) => {
   const { pathname } = useLocation();
 
   const activeLinkIdx = getActiveLinkIdx(pathname.replace(basePath, ''), sidebarLinks);
@@ -40,8 +42,20 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
   return (
     <aside className={csx.sidebar}>
       <div className={csx.sidebarContent}>
-        <figure className={csx.logo}>
-          <Logo />
+        <figure className={csx.logo} >
+          {isSidebarOpen 
+            ? 
+              <div style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <img height="30px" src={IMGS_PATH + '/Logo.png'} />
+                <p style={{marginLeft:"10px"}}>Jupi.io</p>
+                <p style={{marginLeft:"10px"}} onClick={()=>changeSidebarState()}><Close /></p>
+              </div>
+
+
+            : <Menu onClick={()=>changeSidebarState()} />}
         </figure>
 
         <div className={csx.links}>
@@ -55,9 +69,17 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
               to={`${basePath}${path}`}
             >
               <Button>
-                {icon}
-                <span>{label}</span>
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}>
+                    {icon}
+                    <p>{isSidebarOpen && label}</p>
+                </div> 
+
               </Button>
+
             </NavLink>
           ))}
           <span
