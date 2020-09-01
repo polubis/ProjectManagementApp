@@ -25,8 +25,6 @@ const makeResult = (invalid: boolean, text: string): V.Result => ({
 const V = {
   makeResult,
 
-  truthy: (value: any) => makeResult(!value, `Field is required`),
-
   req: (value: string | any[]) =>
     makeResult(
       Array.isArray(value) ? value.length === 0 : value.trim() === '',

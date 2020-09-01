@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Modal, InputField, TextareaField } from 'ui';
+import { Button, Modal, InputField, TextareaField, FileField } from 'ui';
 
 import { Form, V } from 'utils';
 
@@ -15,7 +15,11 @@ namespace TechnologyForm {
 const CONFIG: Form.Config = [
   { label: 'Name', fns: [V.req] },
   { label: 'Description', fns: [V.req] },
-  { label: 'Picture', value: null, fns: [V.truthy] }
+  {
+    label: 'Picture',
+    value: [],
+    fns: [({ length }: FileList) => V.makeResult(!length, 'Field is required')]
+  }
 ];
 
 const [NAME, DESCRIPTION, PICTURE] = Array.from({ length: CONFIG.length }, (_, i) => i);
@@ -44,7 +48,13 @@ const TechnologyForm = ({}: TechnologyForm.Props) => {
           placeholder="Type description..."
         />
 
-        <input hidden type="file" name="myImage" accept="image/*" />
+        <FileField
+          data-idx={PICTURE}
+          error={dirty ? fields[PICTURE].error : ''}
+          label="Picture *"
+          value={fields[PICTURE].value}
+          onChange={change}
+        />
 
         <Button disabled={dirty && invalid} type="submit">
           CREATE
