@@ -18,6 +18,7 @@
     margin: 0 auto;
     border: 2px solid $error;
     background: $surfacePrimary;
+    box-shadow: $shadowPrimary;
   }
 
   header {
@@ -42,10 +43,6 @@
   .field {
     width: 100%;
     margin: 32px 0 68px 0;
-
-    input {
-      border-color: $primary;
-    }
   }
 
   footer {

@@ -11,7 +11,9 @@
 
   .content {
     position: relative;
-    background: $surfacePrimary;
+    max-height: 96vh;
+    max-width: 96vw;
+    background: $surface;
     box-shadow: $shadowPrimary;
     border-radius: 10px;
   }

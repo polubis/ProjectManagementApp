@@ -5,6 +5,7 @@ export * from './navbar';
 export * from './patterns-select';
 export * from './tags-field';
 export * from './technology-chip';
+export * from './technology-form';
 export * from './technologies-select';
 export * from './template-stats';
 export * from './template-tags';

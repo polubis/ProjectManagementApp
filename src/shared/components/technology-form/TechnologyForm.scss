@@ -1,0 +1,26 @@
+@import 'styles/mixins';
+
+.technologyForm {
+  @include col;
+  width: 424px;
+
+  form {
+    @include colCenter;
+    width: 100%;
+    padding: 90px 48px 28px 48px;
+
+    & > * {
+      width: 100%;
+    }
+
+    & > div {
+      &:not(:last-of-type) {
+        margin-bottom: 28px;
+      }
+    }
+
+    & > button {
+      margin-top: 82px;
+    }
+  }
+}
