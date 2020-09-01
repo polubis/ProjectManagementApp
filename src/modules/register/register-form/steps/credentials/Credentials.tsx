@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Button, InputField } from 'ui';
+import { Button, InputField, FileField } from 'ui';
 
 import { Form } from 'utils';
 
@@ -35,6 +35,16 @@ const Credentials = ({ formManager, onSubmit }: Credentials.Props) => {
 
   return (
     <form onSubmit={onSubmit}>
+      {console.log(fields[USERNAME].value)}
+      <FileField
+        data-idx={0}
+        label="Picture"
+        value={fields[USERNAME].value ? fields[USERNAME].value[0] : null}
+        error="Invalid something"
+        formats="PNG, JPEG, XML"
+        onChange={change}
+      />
+
       <InputField
         data-idx={USERNAME}
         label="Username *"

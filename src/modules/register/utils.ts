@@ -31,7 +31,7 @@ export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).
 
 export const BASE_CONFIG: Form.Config[] = [
   [
-    { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
+    { label: 'Username' },
     { label: 'Email', fns: [V.req, V.email] },
     {
       label: 'Password',
