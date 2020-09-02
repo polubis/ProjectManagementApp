@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
 
 import { withLazy } from 'utils';
@@ -22,14 +22,12 @@ const TemplateManagement = withLazy(() => import('src/modules/template-managemen
 
 const Main = ({ match }: RouteChildrenProps) => {
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const changeSidebarState = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className={csx.main} style={{gridTemplateColumns: isSidebarOpen ? "150px 1fr" : "50px 1fr"}}>
+    <div className={csx.main}>
       <Navbar basePath={match.path} />
 
-      <Sidebar basePath={match.path} isSidebarOpen={isSidebarOpen} changeSidebarState={()=>changeSidebarState()} />
+      <Sidebar basePath={match.path} />
 
       <main>
         <Switch>

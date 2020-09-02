@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { Button } from '@material-ui/core';
@@ -34,28 +34,31 @@ const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {
   });
 };
 
-export const Sidebar = ({ basePath, isSidebarOpen, changeSidebarState }: SidebarProps) => {
+export const Sidebar = ({ basePath }: SidebarProps) => {
   const { pathname } = useLocation();
 
   const activeLinkIdx = getActiveLinkIdx(pathname.replace(basePath, ''), sidebarLinks);
+
+  const isSidebarOpen = true;
+
+  const [open, setOpen] = useState(false);
+
+  const toggleOpen = () => setOpen(!open);
 
   return (
     <aside className={csx.sidebar}>
       <div className={csx.sidebarContent}>
         <figure className={csx.logo} >
-          {isSidebarOpen 
+          {open
             ? 
-              <div style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}>
-                <img height="30px" src={IMGS_PATH + '/Logo.png'} />
-                <p style={{marginLeft:"10px"}}>Jupi.io</p>
-                <p style={{marginLeft:"10px"}} onClick={()=>changeSidebarState()}><Close /></p>
-              </div>
-
-
-            : <Menu onClick={()=>changeSidebarState()} />}
+            <div className={csx.tile}>
+              
+                <p><img height="25" src={IMGS_PATH + '/Logo.png'} /></p>
+                <p>Jupi.io</p>
+                <p><Close onClick={toggleOpen} /></p>
+              
+            </div>
+            : <Menu onClick={toggleOpen} />}
         </figure>
 
         <div className={csx.links}>
@@ -70,12 +73,8 @@ export const Sidebar = ({ basePath, isSidebarOpen, changeSidebarState }: Sidebar
             >
               <Button>
 
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center'
-                }}>
-                    {icon}
-                    <p>{isSidebarOpen && label}</p>
+                <div className={csx.tile}>
+                    {icon}{open && label}
                 </div> 
 
               </Button>
