@@ -5,12 +5,13 @@ import { Button } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
-import Menu from '@material-ui/icons/Menu';
-import Close from '@material-ui/icons/Close';
+import Cancel from '@material-ui/icons/Cancel';
 
-import { IMGS_PATH } from 'consts';
+import { Logo } from 'ui';
 
 import { SidebarProps, SidebarLink } from '.';
+
+import {Portal} from './portal';
 
 import csx from './Sidebar.scss';
 
@@ -39,27 +40,18 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
 
   const activeLinkIdx = getActiveLinkIdx(pathname.replace(basePath, ''), sidebarLinks);
 
-  const isSidebarOpen = true;
-
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
 
   return (
     <aside className={csx.sidebar}>
+      
       <div className={csx.sidebarContent}>
-        <figure className={csx.logo} >
-          {open
-            ? 
-            <div className={csx.tile}>
-              
-                <p><img height="25" src={IMGS_PATH + '/Logo.png'} /></p>
-                <p>Jupi.io</p>
-                <p><Close onClick={toggleOpen} /></p>
-              
-            </div>
-            : <Menu onClick={toggleOpen} />}
+        <figure className={csx.logo} onClick={toggleOpen}>
+          {open ? <Cancel fontSize='large' /> : <Logo />}
         </figure>
+        {open && <Portal basePath={basePath} sidebarLinks={sidebarLinks} close={toggleOpen}/>}
 
         <div className={csx.links}>
           {sidebarLinks.map(({ path, label, icon, exact }) => (
@@ -72,11 +64,8 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
               to={`${basePath}${path}`}
             >
               <Button>
-
-                <div className={csx.tile}>
-                    {icon}{open && label}
-                </div> 
-
+                {icon}
+                <span>{label}</span>
               </Button>
 
             </NavLink>
@@ -86,7 +75,9 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
             style={{
               height: `${MARKER_HEIGHT}px`,
               top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
-              transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
+              transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`,
+              left: open && `197px`,
+              zIndex: 7
             }}
           />
         </div>
