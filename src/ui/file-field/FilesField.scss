@@ -1,0 +1,41 @@
+@import 'styles/mixins';
+
+.filesField {
+  @include centered;
+  flex-flow: column;
+  height: 124px !important;
+  padding: 32px 48px;
+  border-radius: 4px !important;
+  cursor: pointer;
+
+  & > h3 {
+    @include headingSmall;
+    text-align: center;
+  }
+
+  & > span {
+    @include labelSmall;
+    @include dottedMultilineText;
+    -webkit-line-clamp: 2;
+    text-align: center;
+    margin-top: 8px;
+    color: $white;
+  }
+
+  .files {
+    @include row;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      height: 50px;
+      width: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+    }
+  }
+}
