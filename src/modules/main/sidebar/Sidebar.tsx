@@ -49,8 +49,9 @@ export const Sidebar = ({ basePath }: SidebarProps) => {
       
       <div className={csx.sidebarContent}>
         <figure className={csx.logo} onClick={toggleOpen}>
-          {open ? <Cancel fontSize='large' /> : <Logo />}
+          <Logo />
         </figure>
+
         {open && <Portal basePath={basePath} sidebarLinks={sidebarLinks} close={toggleOpen}/>}
 
         <div className={csx.links}>
