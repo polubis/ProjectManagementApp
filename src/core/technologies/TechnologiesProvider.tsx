@@ -49,9 +49,7 @@ class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE>
     getTechnologies: this.getTechnologies
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TechnologiesProvider = Provider;

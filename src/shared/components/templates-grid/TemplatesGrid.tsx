@@ -13,7 +13,7 @@ namespace TemplatesGrid {
   export interface Props {
     loading: boolean;
     templates: Template[];
-    spaceholdersCount?: number;
+    spaceholdersCount: number;
     pathname?: string;
   }
 }
@@ -25,10 +25,9 @@ const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =
       ))
     : null;
 
-/** 
+/**
  * Renders grid components based on given data
- * 
- * @param props
+ *
  * @param props.loading Displays spaceholders if truthy
  * @param props.templates Templates to display
  * @param props.path Path prefix to rediect
@@ -38,7 +37,7 @@ const TemplatesGrid = ({
   loading,
   templates,
   pathname,
-  spaceholdersCount = 12
+  spaceholdersCount
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
@@ -50,11 +49,11 @@ const TemplatesGrid = ({
     [location.pathname]
   );
 
-  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading]);
+  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading, spaceholdersCount]);
 
   return (
     <section className={csx.templatesGrid}>
-      {templates.map(template => (
+      {templates.map((template) => (
         <TemplateTile key={template.id} template={template} onClick={goToDetails} />
       ))}
       {spaceholders}

@@ -67,7 +67,7 @@ export const useTemplateManagementConfig = (): Return => {
 
   const [state, setState] = useState(makeInitState(id));
 
-  const { template, error, reset, getTemplateDetails } = useTemplateDetailsProvider();
+  const { template, error, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
     if (id) {
@@ -77,7 +77,6 @@ export const useTemplateManagementConfig = (): Return => {
 
   useEffect(() => {
     if (error) {
-      reset();
       replace('/app/templates');
     }
   }, [error]);

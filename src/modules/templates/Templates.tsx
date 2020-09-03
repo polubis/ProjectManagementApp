@@ -1,33 +1,46 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useHistory } from 'react-router';
 
 import { TemplatesGrid, TemplatesSearch } from 'shared/components';
 
-import TemplatesCategories from './templates-categories';
 import TemplatesProvider, { useTemplatesProvider } from './TemplatesProvider';
+import { TemplatesCategories } from './components';
+import { useSearch, useRouteValidation } from './hooks';
 
-import { useTemplatesSearch } from '.';
+import { LIMIT } from '.';
 
 import csx from './Templates.scss';
+
+const calcSpaceholdersCount = (pendingRequests: number) => () => pendingRequests * LIMIT;
 
 const Templates = () => {
   const { location } = useHistory();
 
-  const { templates, loading } = useTemplatesProvider();
+  const { pendingRequests, templates } = useTemplatesProvider();
 
-  useTemplatesSearch();
+  useSearch();
+
+  const spaceholdersCount = useMemo(calcSpaceholdersCount(pendingRequests), [pendingRequests]);
 
   return (
     <div className={csx.templates}>
       <TemplatesCategories />
       <TemplatesSearch pathname={location.pathname} />
-      <TemplatesGrid loading={loading} templates={templates} />
+      <TemplatesGrid
+        loading={!!pendingRequests}
+        spaceholdersCount={spaceholdersCount}
+        templates={templates}
+      />
     </div>
   );
 };
 
-export default () => (
-  <TemplatesProvider>
-    <Templates />
-  </TemplatesProvider>
-);
+export default () => {
+  useRouteValidation();
+
+  return (
+    <TemplatesProvider>
+      <Templates />
+    </TemplatesProvider>
+  );
+};

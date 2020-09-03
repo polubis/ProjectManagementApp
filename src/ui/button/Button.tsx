@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { Button as MuiButton, IconButton as MuiIconButton } from '@material-ui/core';
 
@@ -16,25 +16,26 @@ namespace Button {
   }
 }
 
-const Button = ({
-  children,
-  variant = 'default',
-  theme = 'primaryDark',
-  ...btnProps
-}: Button.Props) => {
-  if (variant === 'icon') {
+const Button = forwardRef(
+  ({ children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props, ref) => {
+    if (variant === 'icon') {
+      return (
+        <MuiIconButton
+          {...(btnProps as any)}
+          classes={{ root: `${csx.iconButton} ${csx[theme]}` }}
+          ref={ref}
+        >
+          {children}
+        </MuiIconButton>
+      );
+    }
+
     return (
-      <MuiIconButton {...(btnProps as any)} classes={{ root: `${csx.iconButton} ${csx[theme]}` }}>
+      <MuiButton {...(btnProps as any)} classes={{ root: `${csx.button} ${csx[theme]}` }} ref={ref}>
         {children}
-      </MuiIconButton>
+      </MuiButton>
     );
   }
-
-  return (
-    <MuiButton {...(btnProps as any)} classes={{ root: `${csx.button} ${csx[theme]}` }}>
-      {children}
-    </MuiButton>
-  );
-};
+);
 
 export default Button;

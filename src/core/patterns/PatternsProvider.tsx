@@ -25,11 +25,6 @@ const STATE: PatternsProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
-  componentDidMount() {
-    if(this.props.getOnMount) {
-      this.getPatterns();
-    }
-  }
 
   getPatterns = async (query = '') => {
     if (!this.state.loading) {
@@ -45,14 +40,17 @@ class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
     }
   };
 
+  componentDidMount() {
+    if (this.props.getOnMount) {
+      this.getPatterns();
+    }
+  }
+
   readonly state: typeof STATE = {
-    ...STATE,
-    getPatterns: this.getPatterns
+    ...STATE
   };
 
-  render() {
-    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
-  }
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const PatternsProvider = Provider;

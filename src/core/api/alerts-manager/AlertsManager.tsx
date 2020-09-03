@@ -7,13 +7,13 @@ import { core } from '..';
 const AlertsManager = () => {
   const [alerts, setAlerts] = useState<string[]>([]);
 
-  const closeAlert = useCallback((idx: number) => {
-    setAlerts(prevAlerts => prevAlerts.filter((_, aIdx) => aIdx !== idx));
+  const closeAlert: Alert.OnClose = useCallback((idx) => {
+    setAlerts((prevAlerts) => prevAlerts.filter((_, aIdx) => aIdx !== idx));
   }, []);
 
   useEffect(() => {
     const addAlert = (err: string) => {
-      setAlerts(prevAlerts => [...prevAlerts, err]);
+      setAlerts((prevAlerts) => [...prevAlerts, err]);
     };
 
     core.subscribe(addAlert);
@@ -24,7 +24,7 @@ const AlertsManager = () => {
   return (
     <>
       {alerts.map((alert, idx) => (
-        <Alert key={idx} message={alert} type="error" onClose={() => closeAlert(idx)} />
+        <Alert key={idx} idx={idx} message={alert} type="error" onClose={closeAlert} />
       ))}
     </>
   );

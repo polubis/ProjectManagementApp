@@ -4,20 +4,9 @@ import { pipe } from 'ramda';
 
 import { useQueryParams, isJSONString } from 'utils';
 
-import { TemplateCategory, TemplatesSearchFilters, TEMPLATES_CATEGORIES } from 'core/api';
+import { TemplateCategory } from 'core/api';
 
-const PAGE = 1;
-
-const LIMIT = 25;
-
-const FILTERS: TemplatesSearchFilters = {
-  page: '' + PAGE,
-  limit: '' + LIMIT,
-  category: TEMPLATES_CATEGORIES[0],
-  technologiesIds: '[]',
-  patternsIds: '[]',
-  query: ''
-};
+import { LIMIT, FILTERS, isValidCategory, TemplatesSearchFilters, TemplatesRouteProps } from '..';
 
 const parseLimit = (limit: string) => (filters: TemplatesSearchFilters) =>
   !limit || isNaN(+limit) || +limit < LIMIT ? filters : { ...filters, limit };
@@ -29,41 +18,34 @@ const parseQuery = (query: string) => (filters: TemplatesSearchFilters) => ({ ..
 
 const parseCategory = (category: TemplateCategory) => (
   filters: TemplatesSearchFilters
-): TemplatesSearchFilters =>
-  !TEMPLATES_CATEGORIES.includes(category) ? filters : { ...filters, category };
+): TemplatesSearchFilters => (isValidCategory(category) ? { ...filters, category } : filters);
 
 const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: string) => (
   filters: TemplatesSearchFilters
 ) =>
-  !isJSONString(value) || (JSON.parse(value) as string[]).some(id => isNaN(+id))
+  !isJSONString(value) || (JSON.parse(value) as string[]).some((id) => isNaN(+id))
     ? filters
     : { ...filters, [key]: value };
 
-const parsePatterns = parseDictionary('patternsIds');
-
-const parseTechnologies = parseDictionary('technologiesIds');
-
-export const useTemplatesFilters = () => {
+export const useFilters = () => {
   const {
     params: { category }
-  } = useRouteMatch<{ category: TemplateCategory }>();
+  } = useRouteMatch<TemplatesRouteProps>();
 
   const queryParams = useQueryParams('limit', 'page', 'query', 'technologiesIds', 'patternsIds');
 
   const [limit, page, query, technologiesIds, patternsIds] = queryParams;
 
-  const filters = useMemo(
+  return useMemo(
     () =>
       pipe(
         parseLimit(limit),
         parsePage(page),
         parseCategory(category),
         parseQuery(query),
-        parsePatterns(patternsIds),
-        parseTechnologies(technologiesIds)
+        parseDictionary('patternsIds')(patternsIds),
+        parseDictionary('technologiesIds')(technologiesIds)
       )(FILTERS),
     [category, ...queryParams]
   );
-
-  return filters;
 };
