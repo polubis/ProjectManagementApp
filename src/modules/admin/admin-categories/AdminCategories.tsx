@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { NavLink, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import { Button as MuiButton } from '@material-ui/core';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
@@ -8,25 +8,25 @@ import { Button } from 'ui';
 
 import { Url } from 'utils';
 
-import AdminTabCategory from '../models';
+import { Category } from '../models';
 
-import csx from './AdminTabCategories.scss';
+import csx from './AdminCategories.scss';
 
-const ADMIN_TAB_CATEGORIES: AdminTabCategory[] = [
-  AdminTabCategory.TECHNOLOGIES,
-  AdminTabCategory.PATTERNS
+const ADMIN_CATEGORIES: Category[] = [
+  Category.TECHNOLOGIES,
+  Category.PATTERNS
 ];
 
-const AdminTabCategories = () => {
+const AdminCategories = () => {
   const { location, push } = useHistory();
 
   const {
     params: { category: activeCategory }
-  } = useRouteMatch<{ category: AdminTabCategory }>();
+  } = useRouteMatch<{ category: Category }>();
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const newCategory = e.currentTarget.getAttribute('data-category') as AdminTabCategory;
+      const newCategory = e.currentTarget.getAttribute('data-category') as Category;
       const url = Url({ ...location, search: '' })
         .replace(activeCategory, newCategory)
         .value();
@@ -37,9 +37,9 @@ const AdminTabCategories = () => {
   );
 
   return (
-    <section className={csx.adminTabCategories}>
+    <section className={csx.adminCategories}>
       <div className={csx.tabs}>
-        {ADMIN_TAB_CATEGORIES.map((category) => (
+        {ADMIN_CATEGORIES.map((category) => (
           <MuiButton
             key={category}
             data-category={category}
@@ -60,4 +60,4 @@ const AdminTabCategories = () => {
   );
 };
 
-export default AdminTabCategories;
+export default AdminCategories;

@@ -1,3 +1,3 @@
-import { AdminTabCategory } from './AdminTabCategory';
+import { Category, CATEGORIES } from './Categories';
 
-export default AdminTabCategory;
+export { Category, CATEGORIES};

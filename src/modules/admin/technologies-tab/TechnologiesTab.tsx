@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import Table from 'shared/components/table';
+import Table from 'src/ui/table';
 
 import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
 

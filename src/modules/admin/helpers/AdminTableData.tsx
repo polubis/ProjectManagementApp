@@ -1,8 +1,12 @@
-import Avatar from '@material-ui/core/Avatar';
-import csx from './AdminTableData.scss';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import React from 'react';
-import Table from 'shared/components/table';
+
+import Avatar from '@material-ui/core/Avatar';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+import Table from 'src/ui/table';
+
+import csx from './AdminTableData.scss';
+
 
 const avatarUrl = 'https://cdn.pixabay.com/photo/2018/04/28/13/18/man-3357275_960_720.png';
 

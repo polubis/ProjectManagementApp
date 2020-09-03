@@ -47,7 +47,8 @@ class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
   }
 
   readonly state: typeof STATE = {
-    ...STATE
+    ...STATE,
+    getPatterns: this.getPatterns
   };
 
   render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;

@@ -6,16 +6,14 @@ import { withLazy } from 'utils';
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
-import AdminTabCategory from '../admin/models';
 import { Navbar, Sidebar } from '.';
 
+import { Category } from '../admin/models';
 import NotificationsProvider from 'shared/providers/notifications';
 
 import csx from './Main.scss';
 
-const Admin = withLazy(() => import('../admin'));
-
-const AdminPanel = withLazy(() => import('src/modules/admin'));
+const Admin = withLazy(() => import('src/modules/admin'));
 
 const Templates = withLazy(() => import('src/modules/templates'));
 
@@ -36,15 +34,15 @@ const Main = ({ match }: RouteChildrenProps) => {
         <Switch>
           <Route
             exact
-            path={`${match.path}/admin`}
-            render={() => <Redirect to={`${match.path}/admin/${AdminTabCategory.TECHNOLOGIES}`} />}
+            path={`${match.path}/admin/dictionaries`}
+            render={() => <Redirect to={`${match.path}/admin/dictionaries/${Category.TECHNOLOGIES}`} />}
           />
 
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
 
-          <Route path={`${match.path}/admin/:category`} component={AdminPanel} />
+          <Route path={`${match.path}/admin/dictionaries/:category`} component={Admin} />
 
           <Guard.ProtectedRoute
             exact

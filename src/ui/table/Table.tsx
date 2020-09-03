@@ -1,6 +1,8 @@
-import csx from './Table.scss';
-import React, { useMemo } from 'react';
+import React from 'react';
+
 import { FixedSizeList, FixedSizeListProps } from 'react-window';
+
+import csx from './Table.scss';
 
 namespace Table {
   export interface Cell {

@@ -20,7 +20,7 @@ const sidebarLinks: SidebarLink[] = [
   { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
   { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
   { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
-  { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
+  { label: 'Admin', path: '/admin/dictionaries', icon: <AdminIcon /> }
 ];
 
 const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {
