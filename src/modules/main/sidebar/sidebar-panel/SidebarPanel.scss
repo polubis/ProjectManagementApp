@@ -1,0 +1,32 @@
+@import 'styles/mixins';
+
+.sidebarPanel {
+    @include col;
+    border-right: 1px solid rgba($primary, 0.43);
+    background: $surface;
+    position: absolute;
+    z-index: 6;
+    height: 100vh;
+    width: 200px;
+
+    .logo {
+        @include row;
+        margin: 30px auto 78px auto;
+        color: $primary;
+      }
+    
+    p{
+        margin-left: 5px;
+        margin-right: 20px;
+        color: $white;
+        font-family: $fontPrimary;
+    }
+
+    .tile{
+        @include row;
+        text-transform: capitalize;
+    }
+    
+}
+
+

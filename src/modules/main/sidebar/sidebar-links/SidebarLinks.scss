@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.links {
+    position: relative;
+
+    .link {
+      @include rowCenter;
+
+      button {
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+        color: $primary;
+
+        & > span {
+          @include col;
+
+          & > span {
+            margin-top: 6px;
+            @include linkSmall;
+          }
+        }
+
+      }
+
+      &.active button {
+        color: $secondary;
+      }
+      
+    }
+
+    .marker {
+      position: absolute;
+      right: -2px;
+      width: 4px;
+      background: $secondary;
+      border-radius: 39px;
+      transition: transform 0.3s;
+    }
+  }
