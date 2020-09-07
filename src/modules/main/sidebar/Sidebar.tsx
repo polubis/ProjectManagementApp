@@ -13,12 +13,10 @@ import csx from './Sidebar.scss';
 export const Sidebar = ({ basePath }: SidebarProps) => {
   const [open, setOpen] = useState(false);
 
-  const toggleOpen = useCallback(
-    () => {
-      setOpen(!open)
-    },
-    [open],
-  )
+  const toggleOpen = () => {
+      setOpen(!open);
+    }
+    
 
   const link = (icon, label) => {
   return(<Button>{icon}<div className={csx.tile}>{label}</div></Button>)
