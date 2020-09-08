@@ -1,14 +1,49 @@
 {
-    "rules": {
-        "no-any": false,
-        "no-empty": true,
-        "no-empty-interface": true,
-        "no-duplicate-imports": true,
-        "no-duplicate-variable": true,
-        "no-unused-variable": true,
-        "triple-equals": true,
-        "prefer-const": true,
-        "arrow-return-shorthand": true,
-        "no-invalid-template-strings": true
-    }
+  "rules": {
+    "no-any": false,
+    "no-empty": true,
+    "no-empty-interface": true,
+    "no-duplicate-imports": true,
+    "no-duplicate-variable": true,
+    "triple-equals": true,
+    "prefer-const": true,
+    "no-invalid-template-strings": true,
+    "arrow-return-shorthand": [true, "multiline"],
+    "no-unnecessary-callback-wrapper": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "arrow-call-signature",
+      "arrow-parameter",
+      "property-declaration"
+    ],
+
+    "ordered-imports": true,
+    "object-literal-sort-keys": [
+      true,
+      "ignore-blank-lines",
+      "ignore-case",
+      "locale-compare",
+      "match-declaration-order",
+      "shorthand-first"
+    ],
+    "no-duplicate-super": true,
+    "no-duplicate-switch-case": true,
+    "no-shadowed-variable": true,
+    "no-sparse-arrays": true,
+    "no-switch-case-fall-through": true,
+    "no-tautology-expression": true,
+    "variable-name": {
+      "options": ["check-format", "allow-leading-underscore", "allow-pascal-case"]
+    },
+    "curly": [true, "ignore-same-line"],
+    "eofline": true,
+    "import-spacing": true,
+    "max-line-length": [true, 140],
+    "no-trailing-whitespace": true,
+    "no-consecutive-blank-lines": [true, 2],
+    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
+    "semicolon": [true, "always"]
+  }
 }
