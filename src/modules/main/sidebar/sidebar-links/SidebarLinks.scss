@@ -16,8 +16,8 @@
           @include col;
 
           & > span {
-            margin-top: 6px;
             @include linkSmall;
+            margin-top: 6px;
           }
         }
 

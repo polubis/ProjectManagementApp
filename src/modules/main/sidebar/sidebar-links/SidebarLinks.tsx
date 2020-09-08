@@ -1,13 +1,11 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 
-
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { SidebarLink } from '..';
-
 
 import csx from './SidebarLinks.scss'
 
@@ -31,14 +29,14 @@ const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {
   });
 };
 
-export const SidebarLinks = ({basePath,component}) => {
+export const SidebarLinks = ({ basePath, component }) => {
 
   const { pathname } = useLocation();
 
   const activeLinkIdx = getActiveLinkIdx(pathname.replace(basePath, ''), sidebarLinks);
 
-    return (
-      <div className={csx.links}>
+  return (
+    <div className={csx.links}>
       {sidebarLinks.map(({ path, label, icon, exact }) => (
         <NavLink
           key={label}
@@ -48,7 +46,7 @@ export const SidebarLinks = ({basePath,component}) => {
           style={{ height: `${LINK_HEIGHT}px` }}
           to={`${basePath}${path}`}
         >
-          {component(icon,label)}
+          {component(icon, label)}
 
         </NavLink>
       ))}
@@ -61,5 +59,5 @@ export const SidebarLinks = ({basePath,component}) => {
         }}
       />
     </div>
-    )
+  )
 }
