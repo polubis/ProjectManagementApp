@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouteMatch, useHistory } from 'react-router';
 
-import { Select } from 'ui';
-
 import { Form } from 'utils';
 
 import { Template } from 'core/api';
@@ -29,6 +27,9 @@ interface State {
 
 type Return = State;
 
+const createValues = (items: any[], idKey: string, value = true) =>
+  items.reduce((prev, curr) => ({ ...prev, [curr[idKey]]: value }), {});
+
 const makeInitState = (id?: string): State => ({
   loading: !!id,
   config: BASE_CONFIG
@@ -47,11 +48,11 @@ const makeConfig = (template: Template): Form.Config[] => {
   };
   techDetailsConfig[TECHNOLOGIES] = {
     ...techDetailsConfig[TECHNOLOGIES],
-    value: Select.makeValues(template.technologies, 'id')
+    value: createValues(template.technologies, 'id')
   };
   techDetailsConfig[PATTERNS] = {
     ...techDetailsConfig[PATTERNS],
-    value: Select.makeValues(template.patterns, 'id')
+    value: createValues(template.patterns, 'id')
   };
   techDetailsConfig[TAGS] = { ...techDetailsConfig[TAGS], value: template.tags };
 
