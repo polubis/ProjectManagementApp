@@ -6,7 +6,7 @@ export const LOG_IN_VIA_GITHUB = 'GithubAuthorization/SignIn';
 
 export const [LOG_IN, LOG_OUT] = makePaths('Authorization')('SignIn', 'SignOut');
 
-export const [REGISTER, GET_SELF] = makePaths('Account')('Register', 'GetCurrentUserData');
+export const [FORGOT_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')('ForgottenPassword', 'Register', 'GetCurrentUserData');
 
 export const [GET_PATTERNS] = makePaths('TemplatePatterns')('Search');
 
