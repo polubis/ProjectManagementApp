@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Button, InputField, Checkbox } from 'ui';
 
-import { Form, V } from 'utils';
+import { Form } from 'utils';
 
 import { LogInPayload } from 'core/api';
+
+import { Field, FormBuilder } from 'src/modules/form-builder';
 
 import csx from './LoginForm.scss';
 
@@ -16,45 +18,54 @@ namespace LoginForm {
   }
 }
 
-const BASE_CONFIG: Form.Config = [
-  { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
-  { label: 'Password', fns: [V.req, V.min(2), V.max(50)] }
-];
+const req = (value: string) => !value;
+const min = (ln: number) => (value: string) => value.length < ln;
+const max = (ln: number) => (value: string) => value.length > ln;
 
-const [USERNAME, PASSWORD] = [0, 1];
+const config = {
+  login: new Field('', [req, min(2), max(50)]),
+  password: new Field('', [req, min(2), max(50)])
+};
+
+const form = new FormBuilder(config);
 
 const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
-  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(BASE_CONFIG);
+  const [formData, setFormData] = useState(form);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, key: keyof typeof config): void => {
+      formData.update({ [key]: e.target.value });
+      setFormData(new FormBuilder(formData.fields));
+    },
+    [formData]
+  );
 
   const handleSubmit = (e: Form.Events.Submit) => {
-    if (submit(e)) {
-      return;
-    }
+    e.preventDefault();
 
-    const [{ value: login }, { value: password }] = fields;
-
-    onSubmit({ login, password });
+    onSubmit({
+      login: form.fields.login.value,
+      password: form.fields.password.value
+    });
   };
 
   return (
     <form className={csx.loginForm} onSubmit={handleSubmit}>
       <InputField
-        data-idx={USERNAME}
-        label={BASE_CONFIG[USERNAME].label}
-        placeholder={`${BASE_CONFIG[USERNAME].label}...`}
-        error={dirty ? fields[USERNAME].error : ''}
-        value={fields[USERNAME].value}
-        onChange={change}
+        label="Login"
+        placeholder="Login..."
+        error={formData.fields.login.invalid ? 'Invalid login' : ''}
+        value={formData.fields.login.value}
+        onChange={e => handleChange(e, 'login')}
       />
 
       <InputField
-        data-idx={PASSWORD}
         type="password"
-        label={BASE_CONFIG[PASSWORD].label}
-        placeholder={`${BASE_CONFIG[PASSWORD].label}...`}
-        error={dirty ? fields[PASSWORD].error : ''}
-        value={fields[PASSWORD].value}
-        onChange={change}
+        label="Password"
+        placeholder="Password..."
+        error={formData.fields.password.invalid ? 'Invalid password' : ''}
+        value={formData.fields.password.value}
+        onChange={e => handleChange(e, 'password')}
       />
 
       <div className={csx.loginActions}>
@@ -63,7 +74,7 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
         {disabled || <NavLink to="/forgot-password">Forgot password ?</NavLink>}
       </div>
 
-      <Button type="submit" disabled={disabled || (dirty && invalid)}>
+      <Button type="submit" disabled={disabled || formData.invalid}>
         SUBMIT
       </Button>
     </form>
