@@ -70,8 +70,7 @@ describe('FormBuilder', () => {
     const email = 'exampleuser@gmail.com';
     const username = 'example-user';
 
-    const form = new FormBuilder(fields);
-    form.update({ email, username });
+    const form = new FormBuilder(fields).update({ email, username });
 
     expect(form.fields.email.value).toBe(email);
     expect(form.fields.username.value).toBe(username);
@@ -84,8 +83,7 @@ describe('FormBuilder', () => {
     };
     const username = 'example-user';
 
-    const form = new FormBuilder(fields);
-    form.update({ username });
+    const form = new FormBuilder(fields).update({ username });
 
     expect(form.fields.email.invalid).toBeTruthy();
     expect(form.fields.username.invalid).toBeFalsy();

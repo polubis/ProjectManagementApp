@@ -36,7 +36,8 @@ export class FormBuilder<T> {
     );
   }
 
-  public update<F>(values: F): void {
+  /** IMMUTABLE CHAIN OF RESP PATTERN */
+  public update<F>(values: F): FormBuilder<T> {
     const fields = Object.keys(values).reduce((acc, key): Partial<T> => {
       const field = { ...this.fields[key], value: values[key] } as Field<any>;
 
@@ -46,9 +47,6 @@ export class FormBuilder<T> {
       };
     }, {} as Partial<T>);
 
-    this.fields = {
-      ...this.fields,
-      ...fields
-    };
+    return new FormBuilder<T>({ ...this.fields, ...fields });
   }
 }

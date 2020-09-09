@@ -32,8 +32,7 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, key: keyof typeof config): void => {
-      form.update({ [key]: e.target.value });
-      setForm(new FormBuilder(form.fields));
+      setForm(form.update({ [key]: e.target.value }));
     },
     [form]
   );
