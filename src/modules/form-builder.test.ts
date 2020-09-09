@@ -1,6 +1,7 @@
-import { Form, Field } from './form-builder';
+import { KeysBuilder, Form, Field } from './form-builder';
 
 // TDD
+
 describe('Field', () => {
   it('creates value object', () => {
     // ARRANGE
@@ -11,6 +12,20 @@ describe('Field', () => {
 
     // ASSERT
     expect(field).toEqual({ invalid: false, value, validators } as Field<typeof value>);
+  });
+});
+
+describe('KeysBuilder', () => {
+  it('builds keys', () => {
+    const fields = {
+      email: new Field(''),
+      username: new Field('')
+    };
+
+    expect(new KeysBuilder(fields).build()).toEqual([
+      'email',
+      'username'
+    ] as (keyof typeof fields)[]);
   });
 });
 
@@ -92,7 +107,7 @@ describe('Form', () => {
 
 // MOVE TO FORM BUILDER PATTERN
 
-// const keysBuilder = new KeysBuilder();
-// const fieldsBuilder = new FieldsBuilder();
+// const keysBuilder = new KeysBuilder(fields); DONE
+// const fieldsBuilder = new FieldsBuilder(fields);
 // const form = new Form(keysBuilder, fieldsBuilder)
 // form.build();

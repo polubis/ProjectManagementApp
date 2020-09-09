@@ -6,6 +6,14 @@ export class Field<T> {
   constructor(public value: T, public validators: Validator<T>[] = [], public invalid = false) {}
 }
 
+export class KeysBuilder<T> {
+  constructor(private _obj: T) {}
+
+  public build(): Keys<T> {
+    return Object.keys(this._obj) as Keys<T>;
+  }
+}
+
 export class Form<T> {
   keys: Keys<T>;
 
