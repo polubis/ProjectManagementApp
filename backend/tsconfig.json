@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+    "allowJs": false,
     "importHelpers": true,
     "jsx": "react",
     "alwaysStrict": true,
@@ -14,18 +14,26 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "strictNullChecks": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "typeRoots": ["node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
+      "@controllers": ["src/controllers"],
+      "@db": ["src/db"],
+      "@middlewares": ["src/middlewares"],
+      "@models": ["src/models"],
+      "@services": ["src/services"],
+      "@utils": ["src/utils"],
+      "@ws": ["src/ws"],
+      "@consts": ["src/consts"]
     },
     "esModuleInterop": true,
     "outDir": "./build"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }

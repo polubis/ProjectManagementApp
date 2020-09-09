@@ -51,9 +51,20 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^3.6.1",
     "mongoose": "^5.10.3",
     "reflect-metadata": "^0.1.13",
     "websocket": "^1.0.32"
+  },
+  "_moduleAliases": {
+    "@controllers": "build/controllers",
+    "@db": "build/db",
+    "@middlewares": "build/middlewares",
+    "@models": "build/models",
+    "@services": "build/services",
+    "@utils": "build/utils",
+    "@ws": "build/ws",
+    "@consts": "build/consts"
   }
 }

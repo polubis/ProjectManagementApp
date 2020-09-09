@@ -2,17 +2,13 @@ import BodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Express } from 'express';
 import { Server } from 'http';
-import dotenv from 'dotenv';
-
-import Controllers from './controllers';
-import { DBConnection } from './db';
-import { WSConnection } from './ws';
-// import { ErrorHandler } from './middleware';
+import { Controllers } from '@controllers';
+import { DBConnection } from '@db';
+import { WSConnection } from '@ws';
+// import { ErrorHandler } from '@middlewares';
 import { Mongoose } from 'mongoose';
 import WebSocketServer from 'websocket/lib/WebSocketServer';
 import ValidateRequests from './ws/ValidateRequests';
-
-dotenv.config();
 
 class App {
   private app: Express;

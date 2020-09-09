@@ -1,4 +1,5 @@
 import mongoose, { Mongoose, ConnectionOptions } from 'mongoose';
+import { DB_URI } from '@consts';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -8,7 +9,7 @@ class Connection {
 
   constructor() {
     this.createConnectionOptions();
-    this.createConnection();
+    this.createConnection(DB_URI);
   }
 
   private createConnectionOptions(): void {
@@ -18,12 +19,10 @@ class Connection {
     };
   }
 
-  private createConnection = async (
-    dbURI = process.env.DB_URI,
-  ): Promise<void> => {
+  private createConnection = async (DB_URI: string): Promise<void> => {
     try {
-      this.connection = await mongoose.connect(dbURI, this.connectionOptions);
-      console.log(`Successfully connected to ${dbURI}`);
+      this.connection = await mongoose.connect(DB_URI, this.connectionOptions);
+      console.log(`Successfully connected to ${DB_URI}`);
     } catch (err) {
       return console.error('Database connection:', err);
     }
