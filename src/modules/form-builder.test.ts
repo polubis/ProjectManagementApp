@@ -89,3 +89,10 @@ describe('Form', () => {
     expect(form.fields.username.invalid).toBeFalsy();
   });
 });
+
+// MOVE TO FORM BUILDER PATTERN
+
+// const keysBuilder = new KeysBuilder();
+// const fieldsBuilder = new FieldsBuilder();
+// const form = new Form(keysBuilder, fieldsBuilder)
+// form.build();
