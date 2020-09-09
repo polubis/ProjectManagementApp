@@ -1,11 +1,11 @@
-import Form, { FormBuilder } from '..';
+import Form, { Builder } from '..';
 
 describe('Form', () => {
   it('Creates form', () => {
     class User {
       constructor(public id: number, public name: string) {}
     }
-    class UserBuilder implements FormBuilder<User> {
+    class UserBuilder implements Builder<User> {
       user: User;
 
       create = () => {

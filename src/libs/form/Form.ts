@@ -1,14 +1,10 @@
-/** Determines the shape of the builder object. */
-export interface FormBuilder<R> {
-  create(): void;
-  get(): R;
-}
+import { Builder } from '.';
 
 /** Director in Builder design pattern. */
 export default class Form {
   /** Takes an object and calls a sequence of methods. */
-  construct<R>({ create, get }: FormBuilder<R>) {
+  construct = <R>({ create, get }: Builder<R>): R => {
     create();
     return get();
-  }
+  };
 }
