@@ -9,19 +9,17 @@ export class Field<T> {
 export class FormBuilder<T> {
   keys: Keys<T>;
 
-  fields: T;
-
   get invalid() {
     return this.keys.some(key => ((this.fields[key] as any) as Field<any>).invalid);
   }
 
-  constructor(private _fields: T) {
+  constructor(public fields: T) {
     this._setKeys();
     this._setFields();
   }
 
   private _setKeys(): void {
-    this.keys = Object.keys(this._fields) as Keys<T>;
+    this.keys = Object.keys(this.fields) as Keys<T>;
   }
 
   private _makeField({ validators, value }: Field<any>): Field<any> {
@@ -31,7 +29,7 @@ export class FormBuilder<T> {
 
   private _setFields(): void {
     this.fields = this.keys.reduce(
-      (acc, key): T => ({ ...acc, [key]: this._makeField(this._fields[key] as any) }),
+      (acc, key): T => ({ ...acc, [key]: this._makeField(this.fields[key] as any) }),
       {} as T
     );
   }

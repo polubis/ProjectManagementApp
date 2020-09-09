@@ -1,7 +1,7 @@
 import { FormBuilder, Field } from './form-builder';
 
 // TDD
-describe('Value', () => {
+describe('Field', () => {
   it('creates value object', () => {
     // ARRANGE
     const [value, validators] = ['', []];
