@@ -6,9 +6,10 @@ import { withLazy } from 'utils';
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
-import { Navbar, Sidebar } from '.';
-
 import NotificationsProvider from 'shared/providers/notifications';
+
+import Navbar from './navbar';
+import Sidebar from './sidebar';
 
 import csx from './Main.scss';
 
@@ -21,8 +22,6 @@ const TemplateDocumentation = withLazy(() => import('src/modules/template-docume
 const TemplateManagement = withLazy(() => import('src/modules/template-management'));
 
 const Main = ({ match }: RouteChildrenProps) => {
-
-
   return (
     <div className={csx.main}>
       <Navbar basePath={match.path} />

@@ -1,1 +1,3 @@
-export * from './SidebarPanel';
+import SidebarPanel from './SidebarPanel';
+
+export default SidebarPanel;

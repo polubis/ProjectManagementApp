@@ -1,30 +1,42 @@
-import React from 'react'
+import React, { useCallback } from 'react';
 
-import Cancel from '@material-ui/icons/Cancel';
 import { Button } from '@material-ui/core';
 
 import { Logo } from 'ui';
 
-import { SidebarLinks } from '../sidebar-links'
+import SidebarLinks from '../sidebar-links';
 
-import csx from './SidebarPanel.scss'
+import csx from './SidebarPanel.scss';
 
-
-export const SidebarPanel = ({ onClose, basePath }) => {
-
-    const renderLink = (icon, label) => {
-        return (<Button><div className={csx.tile}>{icon}{label}</div></Button>)
-    }
-
-    return (
-        <div className={csx.sidebarPanel}>
-
-            <figure className={csx.logo}>
-                <Logo /><p>Jupi.io</p><Cancel fontSize='default' onClick={onClose} />
-            </figure>
-
-            <SidebarLinks basePath={basePath} component={(icon, label) => renderLink(icon, label)} />
-
-        </div>
-    )
+namespace SidebarPanel {
+  export interface Props {
+    basePath: string;
+    onClose(): void;
+  }
 }
+
+const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
+  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
+    return (
+      <Button className={csx.link}>
+        {icon}
+        <span>{label}</span>
+      </Button>
+    );
+  }, []);
+
+  return (
+    <div className={csx.sidebarPanel}>
+      <div className={csx.logo} onClick={onClose}>
+        <figure>
+          <Logo />
+        </figure>
+        <span>Jupi.io</span>
+      </div>
+
+      <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+    </div>
+  );
+};
+
+export default SidebarPanel;

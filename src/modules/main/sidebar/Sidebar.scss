@@ -12,10 +12,13 @@
 
     .logo {
       margin: 30px auto 78px auto;
+      cursor: pointer;
     }
 
-    .tile{
-      text-transform: capitalize;
+    .link {
+      & > span {
+        text-transform: capitalize;
+      }
     }
   }
 }
