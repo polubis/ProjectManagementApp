@@ -28,7 +28,7 @@ Server setup:
 - `test-watch-silent` - interactive watch mode to automatically re-run tests & prevent printing messages through console
 
 [typescript]: https://www.typescriptlang.org/
-[typescript-4-0]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0-2.html
+[typescript-4-0]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html
 [jest]: https://facebook.github.io/jest/
 [eslint]: https://github.com/eslint/eslint
 [prettier]: https://prettier.io

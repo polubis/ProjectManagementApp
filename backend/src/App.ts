@@ -9,6 +9,7 @@ import { WSConnection } from '@ws';
 import { Mongoose } from 'mongoose';
 import WebSocketServer from 'websocket/lib/WebSocketServer';
 import ValidateRequests from './ws/ValidateRequests';
+import { __PORT__ } from '@consts';
 
 class App {
   private app: Express;
@@ -29,7 +30,7 @@ class App {
   private configure = () => {
     this.app = express();
 
-    this.app.set('port', process.env.PORT || 8080);
+    this.app.set('port', __PORT__ || 8080);
 
     this.app.use(BodyParser.json());
     this.app.use(BodyParser.urlencoded({ extended: true }));

@@ -1,5 +1,5 @@
 import mongoose, { Mongoose, ConnectionOptions } from 'mongoose';
-import { DB_URI } from '@consts';
+import { __DB_URI__ } from '@consts';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -9,7 +9,7 @@ class Connection {
 
   constructor() {
     this.createConnectionOptions();
-    this.createConnection(DB_URI);
+    this.createConnection(__DB_URI__);
   }
 
   private createConnectionOptions(): void {
