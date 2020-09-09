@@ -36,7 +36,8 @@
       "core/*": ["src/core/*"],
       "mocks": ["src/mocks"],
       "services*": ["src/services/*"],
-      "styles": ["src/styles"]
+      "styles": ["src/styles"],
+      "libs": ["src/libs"],
     },
     "plugins": [
       {
