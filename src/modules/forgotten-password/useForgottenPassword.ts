@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { forgotPassword, ForgotPasswordPayload } from 'core/api';
+import { forgottenPassword, ForgottenPasswordPayload } from 'core/api';
 
 interface State {
   pending: boolean;
@@ -8,7 +8,7 @@ interface State {
   sent: boolean;
 }
 
-type Return = [State, (formManagers: ForgotPasswordPayload) => Promise<void>];
+type Return = [State, (credentials: ForgottenPasswordPayload) => Promise<void>];
 
 const STATE: State = {
   pending: false,
@@ -16,15 +16,15 @@ const STATE: State = {
   sent: false
 };
 
-export const useForgotPassword = (): Return => {
+export const useForgottenPassword = (): Return => {
   const [state, setState] = useState(STATE);
 
-  const handleForgotPassword = useCallback(
-    async (credentials: ForgotPasswordPayload) => {
+  const handleForgottenPassword = useCallback(
+    async (credentials: ForgottenPasswordPayload) => {
       setState({ ...STATE, pending: true });
 
       try {
-        await forgotPassword(credentials);
+        await forgottenPassword(credentials);
 
         setState({ ...STATE, sent: true });
       } catch (error) {
@@ -32,5 +32,5 @@ export const useForgotPassword = (): Return => {
       }
     }, []);
 
-  return [state, handleForgotPassword];
+  return [state, handleForgottenPassword];
 };

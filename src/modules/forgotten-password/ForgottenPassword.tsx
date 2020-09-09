@@ -5,18 +5,18 @@ import { Button } from "ui";
 
 import { EmailSent, Footer, Navbar } from 'shared/components';
 
-import ForgotPasswordForm from './forgot-password-form';
-import { useForgotPassword } from './useForgotPassword';
+import ForgottenPasswordForm from './forgotten-password-form';
+import { useForgottenPassword } from './useForgottenPassword';
 
-import csx from './ForgotPassword.scss';
+import csx from './ForgottenPassword.scss';
 
-const ForgotPassword = () => {
-  const [{ pending, sent }, handleRegister] = useForgotPassword();
+const ForgottenPassword = () => {
+  const [{ pending, sent }, handleRegister] = useForgottenPassword();
 
   return (
     <>
       <Navbar/>
-      <div className={sent ? csx.sent : csx.forgotPassword}>
+      <div className={sent ? csx.sent : csx.forgottenPassword}>
         {sent
           ? <EmailSent
             label="Email sent"
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
           </EmailSent>
           : <>
             <h5>Password recovery</h5>
-            <ForgotPasswordForm disabled={pending} onSubmit={handleRegister}/>
+            <ForgottenPasswordForm disabled={pending} onSubmit={handleRegister}/>
           </>
         }
       </div>
@@ -37,4 +37,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgottenPassword;

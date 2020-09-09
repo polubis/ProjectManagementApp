@@ -19,6 +19,6 @@ export interface RegisterPayload {
   confirmPassword: string;
 }
 
-export interface ForgotPasswordPayload {
+export interface ForgottenPasswordPayload {
   username: string;
 }

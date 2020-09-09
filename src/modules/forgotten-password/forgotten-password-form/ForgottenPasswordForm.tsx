@@ -5,14 +5,14 @@ import { Button, InputField } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { ForgotPasswordPayload } from 'core/api';
+import { ForgottenPasswordPayload } from 'core/api';
 
-import csx from './ForgotPasswordForm.scss';
+import csx from './ForgottenPasswordForm.scss';
 
-namespace ForgotPasswordForm {
+namespace ForgottenPasswordForm {
   export interface Props {
     disabled: boolean;
-    onSubmit(credentials: ForgotPasswordPayload): void;
+    onSubmit(credentials: ForgottenPasswordPayload): void;
   }
 }
 
@@ -22,7 +22,7 @@ const BASE_CONFIG: Form.Config = [
 
 const USERNAME = 0;
 
-const ForgotPasswordForm = ({disabled, onSubmit}: ForgotPasswordForm.Props) => {
+const ForgottenPasswordForm = ({disabled, onSubmit}: ForgottenPasswordForm.Props) => {
   const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(BASE_CONFIG);
 
   const handleSubmit = async (e: Form.Events.Submit) => {
@@ -37,7 +37,7 @@ const ForgotPasswordForm = ({disabled, onSubmit}: ForgotPasswordForm.Props) => {
 
   return (
     <>
-        <form className={csx.forgotPasswordForm} onSubmit={handleSubmit}>
+        <form className={csx.forgottenPasswordForm} onSubmit={handleSubmit}>
           <InputField
             data-idx={USERNAME}
             label={`${BASE_CONFIG[USERNAME].label} *`}
@@ -48,7 +48,7 @@ const ForgotPasswordForm = ({disabled, onSubmit}: ForgotPasswordForm.Props) => {
           />
 
           <div className={csx.actions}>
-            <NavLink to="/forgot-password">Forgot username or email?</NavLink>
+            <NavLink to="/forgotten-password">Forgot username or email?</NavLink>
           </div>
 
           <Button type="submit" disabled={disabled || (dirty && invalid)}>
@@ -59,4 +59,4 @@ const ForgotPasswordForm = ({disabled, onSubmit}: ForgotPasswordForm.Props) => {
   );
 };
 
-export default ForgotPasswordForm;
+export default ForgottenPasswordForm;
