@@ -6,7 +6,7 @@ export class Field<T> {
   constructor(public value: T, public validators: Validator<T>[] = [], public invalid = false) {}
 }
 
-export class FormBuilder<T> {
+export class Form<T> {
   keys: Keys<T>;
 
   get invalid() {
@@ -35,7 +35,7 @@ export class FormBuilder<T> {
   }
 
   /** IMMUTABLE CHAIN OF RESP PATTERN */
-  public update<F>(values: F): FormBuilder<T> {
+  public update<F>(values: F): Form<T> {
     const fields = Object.keys(values).reduce((acc, key): Partial<T> => {
       const field = { ...this.fields[key], value: values[key] } as Field<any>;
 
@@ -45,6 +45,6 @@ export class FormBuilder<T> {
       };
     }, {} as Partial<T>);
 
-    return new FormBuilder<T>({ ...this.fields, ...fields });
+    return new Form<T>({ ...this.fields, ...fields });
   }
 }

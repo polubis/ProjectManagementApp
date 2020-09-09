@@ -1,4 +1,4 @@
-import { FormBuilder, Field } from './form-builder';
+import { Form, Field } from './form-builder';
 
 // TDD
 describe('Field', () => {
@@ -14,7 +14,7 @@ describe('Field', () => {
   });
 });
 
-describe('FormBuilder', () => {
+describe('Form', () => {
   const req = <T>(value: T): boolean => !value;
   const minLength = (ln: number) => (value: string | any[]): boolean => value.length < ln;
 
@@ -28,7 +28,7 @@ describe('FormBuilder', () => {
     };
 
     // ACT
-    const form = new FormBuilder(fields);
+    const form = new Form(fields);
 
     // ASSERT
     expect(form.fields).toEqual({
@@ -57,7 +57,7 @@ describe('FormBuilder', () => {
       username: new Field('')
     };
 
-    const form = new FormBuilder(fields);
+    const form = new Form(fields);
 
     expect(form.keys).toEqual(['email', 'username'] as (keyof typeof fields)[]);
   });
@@ -70,7 +70,7 @@ describe('FormBuilder', () => {
     const email = 'exampleuser@gmail.com';
     const username = 'example-user';
 
-    const form = new FormBuilder(fields).update({ email, username });
+    const form = new Form(fields).update({ email, username });
 
     expect(form.fields.email.value).toBe(email);
     expect(form.fields.username.value).toBe(username);
@@ -83,7 +83,7 @@ describe('FormBuilder', () => {
     };
     const username = 'example-user';
 
-    const form = new FormBuilder(fields).update({ username });
+    const form = new Form(fields).update({ username });
 
     expect(form.fields.email.invalid).toBeTruthy();
     expect(form.fields.username.invalid).toBeFalsy();

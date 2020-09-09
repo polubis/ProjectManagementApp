@@ -3,11 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, InputField, Checkbox } from 'ui';
 
-import { Form } from 'utils';
-
 import { LogInPayload } from 'core/api';
 
-import { Field, FormBuilder } from 'src/modules/form-builder';
+import { Field, Form } from 'src/modules/form-builder';
 
 import csx from './LoginForm.scss';
 
@@ -28,7 +26,7 @@ const config = {
 };
 
 const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
-  const [form, setForm] = useState(new FormBuilder(config));
+  const [form, setForm] = useState(new Form(config));
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, key: keyof typeof config): void => {
@@ -37,7 +35,7 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
     [form]
   );
 
-  const handleSubmit = (e: Form.Events.Submit) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     onSubmit({
