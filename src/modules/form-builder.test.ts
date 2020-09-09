@@ -20,7 +20,7 @@ describe('FormBuilder', () => {
 
   it('creates fields property', () => {
     // ARRANGE
-    const config = {
+    const fields = {
       email: new Field('', [req, minLength(2)]),
       phoneNumber: new Field(223224112, [req]),
       username: new Field('dsd', [req]),
@@ -28,49 +28,49 @@ describe('FormBuilder', () => {
     };
 
     // ACT
-    const form = new FormBuilder(config);
+    const form = new FormBuilder(fields);
 
     // ASSERT
     expect(form.fields).toEqual({
       email: {
-        ...config.email,
+        ...fields.email,
         invalid: true
       },
       phoneNumber: {
-        ...config.phoneNumber,
+        ...fields.phoneNumber,
         invalid: false
       },
       username: {
-        ...config.username,
+        ...fields.username,
         invalid: false
       },
       zipCode: {
-        ...config.zipCode,
+        ...fields.zipCode,
         invalid: false
       }
-    } as typeof config);
+    } as typeof fields);
   });
 
-  it('extracts keys from config', () => {
-    const config = {
+  it('extracts keys from fields', () => {
+    const fields = {
       email: new Field(''),
       username: new Field('')
     };
 
-    const form = new FormBuilder(config);
+    const form = new FormBuilder(fields);
 
-    expect(form.keys).toEqual(['email', 'username'] as (keyof typeof config)[]);
+    expect(form.keys).toEqual(['email', 'username'] as (keyof typeof fields)[]);
   });
 
   it('updates values', () => {
-    const config = {
+    const fields = {
       email: new Field(''),
       username: new Field('')
     };
     const email = 'exampleuser@gmail.com';
     const username = 'example-user';
 
-    const form = new FormBuilder(config);
+    const form = new FormBuilder(fields);
     form.update({ email, username });
 
     expect(form.fields.email.value).toBe(email);
@@ -78,13 +78,13 @@ describe('FormBuilder', () => {
   });
 
   it('validates values', () => {
-    const config = {
+    const fields = {
       email: new Field('', [req]),
       username: new Field('', [req])
     };
     const username = 'example-user';
 
-    const form = new FormBuilder(config);
+    const form = new FormBuilder(fields);
     form.update({ username });
 
     expect(form.fields.email.invalid).toBeTruthy();

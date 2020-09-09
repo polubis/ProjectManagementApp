@@ -27,17 +27,15 @@ const config = {
   password: new Field('', [req, min(2), max(50)])
 };
 
-const form = new FormBuilder(config);
-
 const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
-  const [formData, setFormData] = useState(form);
+  const [form, setForm] = useState(new FormBuilder(config));
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, key: keyof typeof config): void => {
-      formData.update({ [key]: e.target.value });
-      setFormData(new FormBuilder(formData.fields));
+      form.update({ [key]: e.target.value });
+      setForm(new FormBuilder(form.fields));
     },
-    [formData]
+    [form]
   );
 
   const handleSubmit = (e: Form.Events.Submit) => {
@@ -54,8 +52,8 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
       <InputField
         label="Login"
         placeholder="Login..."
-        error={formData.fields.login.invalid ? 'Invalid login' : ''}
-        value={formData.fields.login.value}
+        error={form.fields.login.invalid ? 'Invalid login' : ''}
+        value={form.fields.login.value}
         onChange={e => handleChange(e, 'login')}
       />
 
@@ -63,8 +61,8 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
         type="password"
         label="Password"
         placeholder="Password..."
-        error={formData.fields.password.invalid ? 'Invalid password' : ''}
-        value={formData.fields.password.value}
+        error={form.fields.password.invalid ? 'Invalid password' : ''}
+        value={form.fields.password.value}
         onChange={e => handleChange(e, 'password')}
       />
 
@@ -74,7 +72,7 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
         {disabled || <NavLink to="/forgot-password">Forgot password ?</NavLink>}
       </div>
 
-      <Button type="submit" disabled={disabled || formData.invalid}>
+      <Button type="submit" disabled={disabled || form.invalid}>
         SUBMIT
       </Button>
     </form>
