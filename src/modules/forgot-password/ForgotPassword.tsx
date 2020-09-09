@@ -3,11 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import { Button } from "ui";
 
+import { EmailSent, Footer, Navbar } from 'shared/components';
+
 import ForgotPasswordForm from './forgot-password-form';
-
 import { useForgotPassword } from './useForgotPassword';
-
-import {EmailSent, Footer, Navbar} from 'shared/components';
 
 import csx from './ForgotPassword.scss';
 
@@ -18,12 +17,8 @@ const ForgotPassword = () => {
     <>
       <Navbar/>
       <div className={sent ? csx.sent : csx.forgotPassword}>
-        {!sent
-          ? <>
-            <h5>Password recovery</h5>
-            <ForgotPasswordForm disabled={pending} onSubmit={handleRegister}/>
-          </>
-          : <EmailSent
+        {sent
+          ? <EmailSent
             label="Email sent"
             description="Check your email and follow instructions"
           >
@@ -31,6 +26,10 @@ const ForgotPassword = () => {
               <Button>OK</Button>
             </NavLink>
           </EmailSent>
+          : <>
+            <h5>Password recovery</h5>
+            <ForgotPasswordForm disabled={pending} onSubmit={handleRegister}/>
+          </>
         }
       </div>
       <Footer/>
