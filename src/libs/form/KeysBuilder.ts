@@ -13,7 +13,5 @@ export default class KeysBuilder<T> implements Builder<Keys<T>> {
     this.keys = Object.keys(this._obj) as Keys<T>;
   };
 
-  get = (): Keys<T> => {
-    return this.keys;
-  };
+  get = (): Keys<T> => this.keys;
 }
