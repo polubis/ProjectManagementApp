@@ -1,11 +1,11 @@
-import Form, { Builder } from '..';
+import { Director, IBuilder } from '..';
 
-describe('Form', () => {
-  it('Creates form', () => {
+describe('Director', () => {
+  it('Creates object', () => {
     class User {
       constructor(public id: number, public name: string) {}
     }
-    class UserBuilder implements Builder<User> {
+    class UserBuilder implements IBuilder<User> {
       user: User;
 
       create = () => {
@@ -14,10 +14,10 @@ describe('Form', () => {
 
       get = () => this.user;
     }
-    const form = new Form();
+    const director = new Director();
     const userBuilder = new UserBuilder();
 
-    const user = form.construct(userBuilder);
+    const user = director.construct(userBuilder);
 
     expect(user).toEqual(new User(0, 'Pablo'));
   });
