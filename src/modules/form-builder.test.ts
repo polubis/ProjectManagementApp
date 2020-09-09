@@ -1,6 +1,8 @@
-import { KeysBuilder, Form, Field } from './form-builder';
+import { KeysBuilder, Form, Field, FieldsBuilder } from './form-builder';
 
 // TDD
+const req = <T>(value: T): boolean => !value;
+const minLength = (ln: number) => (value: string | any[]): boolean => value.length < ln;
 
 describe('Field', () => {
   it('creates value object', () => {
@@ -29,10 +31,31 @@ describe('KeysBuilder', () => {
   });
 });
 
-describe('Form', () => {
-  const req = <T>(value: T): boolean => !value;
-  const minLength = (ln: number) => (value: string | any[]): boolean => value.length < ln;
+describe('FieldsBuilder', () => {
+  it('build fields', () => {
+    const fields = {
+      email: new Field(''),
+      username: new Field('')
+    };
 
+    expect(new FieldsBuilder(fields, new KeysBuilder(fields).build()).build()).toEqual(fields);
+  });
+
+  it('build validates fields', () => {
+    const fields = {
+      email: new Field('', [req]),
+      username: new Field('')
+    };
+
+    const fieldsBuilder = new FieldsBuilder(fields, new KeysBuilder(fields).build());
+    const newFields = fieldsBuilder.build();
+
+    expect(newFields.email.invalid).toBeTruthy();
+    expect(newFields.username.invalid).toBeFalsy();
+  });
+});
+
+describe('Form', () => {
   it('creates fields property', () => {
     // ARRANGE
     const fields = {
@@ -108,6 +131,6 @@ describe('Form', () => {
 // MOVE TO FORM BUILDER PATTERN
 
 // const keysBuilder = new KeysBuilder(fields); DONE
-// const fieldsBuilder = new FieldsBuilder(fields);
-// const form = new Form(keysBuilder, fieldsBuilder)
-// form.build();
+// const fieldsBuilder = new FieldsBuilder(fields); DONE
+// const formBuilder = new FormBuilder(keysBuilder, fieldsBuilder)
+// formBuilder.build();

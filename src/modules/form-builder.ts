@@ -2,15 +2,35 @@ type Validator<T> = (value: T) => boolean;
 
 type Keys<T> = (keyof T)[];
 
+interface FormBuilderElement<T> {
+  build(): T;
+}
+
 export class Field<T> {
   constructor(public value: T, public validators: Validator<T>[] = [], public invalid = false) {}
 }
 
-export class KeysBuilder<T> {
+export class KeysBuilder<T> implements FormBuilderElement<Keys<T>> {
   constructor(private _obj: T) {}
 
-  public build(): Keys<T> {
+  build(): Keys<T> {
     return Object.keys(this._obj) as Keys<T>;
+  }
+}
+
+export class FieldsBuilder<T> implements FormBuilderElement<T> {
+  constructor(private _fields: T, private _keys: Keys<T>) {}
+
+  // DECORATOR PATTERN
+  private _decorateField({ validators, value }: Field<any>): Field<any> {
+    return { invalid: validators.some(fn => fn(value)), validators, value };
+  }
+
+  build(): T {
+    return this._keys.reduce(
+      (acc, key): T => ({ ...acc, [key]: this._decorateField(this._fields[key] as any) }),
+      {} as T
+    );
   }
 }
 
@@ -43,7 +63,7 @@ export class Form<T> {
   }
 
   /** IMMUTABLE CHAIN OF RESP PATTERN */
-  public update<F>(values: F): Form<T> {
+  update<F>(values: F): Form<T> {
     const fields = Object.keys(values).reduce((acc, key): Partial<T> => {
       const field = { ...this.fields[key], value: values[key] } as Field<any>;
 
