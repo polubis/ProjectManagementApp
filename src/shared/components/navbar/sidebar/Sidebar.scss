@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.sidebar {
+  display: none;
+
+  @include media-max-width(1000px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    height: 100vh;
+    width: 300px;
+    padding-top: 8rem;
+    background-color: $surfacePrimary;
+    border-left: 1px solid rgba(51, 129, 225, 0.43);
+    transition: transform 0.3s ease-in-out;
+
+    .wrapper {
+      outline: none;
+
+      a {
+        @include centered;
+        @include link;
+        position: relative;
+        height: 90px;
+        font-weight: $bold;
+        color: $primary;
+
+        &.activeLink {
+          color: $secondary;
+
+          &::before {
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}

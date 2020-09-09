@@ -8,6 +8,10 @@
   background: $surfacePrimary;
   cursor: pointer;
 
+  @include mobile {
+    width: 100%;
+  }
+
   figure {
     height: 72px;
     margin: 52px auto 18px auto;

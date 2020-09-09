@@ -7,9 +7,17 @@
   background: $surfacePrimary;
   border-bottom: 1px solid rgba($primary, 0.43);
 
+  @include laptop {
+    grid-template-columns: 1fr 15fr 1fr;
+  }
+
   .wrapper {
     @include row;
     grid-column: 2/3;
+
+    @include media-max-width(1000px) {
+      justify-content: space-between;
+    }
 
     .logo {
       @include row;
@@ -23,6 +31,10 @@
     .links {
       display: grid;
       grid-gap: 24px;
+
+      @include media-max-width(1000px) {
+        display: none;
+      }
 
       a {
         @include centered;

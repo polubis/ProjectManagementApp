@@ -8,6 +8,10 @@
   border-bottom: 1px solid rgba($primary, 0.43);
   background: $surfacePrimary;
 
+  @include laptop {
+    grid-template-columns: 1fr 100fr 1fr;
+  }
+
   .wrapper {
     @include centered;
     grid-column: 2/3;
@@ -18,12 +22,17 @@
       align-items: center;
       width: 368px;
       height: 320px;
-      margin: 0 32px 32px 0;
+      margin: 0 16px 32px 16px;
       padding: 64px 54px;
       background: $primaryDark;
       color: $white;
       box-shadow: $shadowPrimary;
       border-radius: 4px;
+
+      @include mobile {
+        width: auto;
+        height: auto;
+      }
 
       svg {
         font-size: 42px;

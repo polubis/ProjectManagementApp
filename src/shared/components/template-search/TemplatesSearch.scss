@@ -7,6 +7,11 @@
   background: $surfacePrimary;
   border-radius: 4px;
 
+  @include tablet {
+    max-width: 840px;
+    width: 95%;
+  }
+
   .input {
     @include label;
     width: 100%;
@@ -16,6 +21,12 @@
     background: transparent;
     border: none;
     color: $primary;
+
+    @include mobile {
+      font-size: 12px;
+      padding: 0px 15px;
+      text-overflow: ellipsis;
+    }
 
     &::placeholder {
       color: $primary;
