@@ -1,0 +1,20 @@
+@import 'styles/mixins';
+
+.dataField {
+  position: relative;
+
+  .expandBtn {
+    position: absolute;
+    bottom: 24px;
+    right: 4px;
+    color: $primary;
+
+    svg {
+      font-size: 20px;
+    }
+  }
+
+  input {
+    padding-right: 54px !important;
+  }
+}

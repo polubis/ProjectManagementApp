@@ -1,6 +1,6 @@
 import { Form, V } from 'utils';
 
-import { Select } from 'ui';
+import { Select, SelectBase } from 'ui';
 
 export const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = [0, 1, 2, 3, 4];
 export const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
@@ -8,9 +8,9 @@ export const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
 export const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 export const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
 
-export const GENDER_LIST: Select.Item[] = [
-  { dataIdx: 0, label: 'Male' },
-  { dataIdx: 1, label: 'Female' }
+export const GENDER_LIST: SelectBase.Item[] = [
+  { dataIdx: '0', label: 'Male', value: false },
+  { dataIdx: '1', label: 'Female', value: false }
 ];
 
 export const SENIORITY_ITEMS: Select.Item[] = [
