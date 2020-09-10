@@ -2,15 +2,19 @@ import { CORE_API_PATH } from 'consts';
 
 import {
   core,
+  ForgottenPasswordPayload,
   LogInPayload,
   RegisterPayload,
   SelfUser,
   LOG_IN,
   LOG_OUT,
   LOG_IN_VIA_GITHUB,
+  FORGOTTEN_PASSWORD,
   REGISTER,
   GET_SELF
 } from '..';
+
+export const forgottenPassword = (payload: ForgottenPasswordPayload) => core.get(FORGOTTEN_PASSWORD, { params: payload });
 
 export const logIn = (payload: LogInPayload) => core.post<SelfUser>(LOG_IN, payload);
 
