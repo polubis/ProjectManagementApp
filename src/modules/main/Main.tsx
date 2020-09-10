@@ -6,10 +6,10 @@ import { withLazy } from 'utils';
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
-import { Navbar, Sidebar } from '.';
-
-import { Category } from '../admin/models';
 import NotificationsProvider from 'shared/providers/notifications';
+
+import Navbar from './navbar';
+import Sidebar from './sidebar';
 
 import csx from './Main.scss';
 

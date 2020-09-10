@@ -1,76 +1,48 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
 
 import { Button } from '@material-ui/core';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ProjectsIcon from '@material-ui/icons/Work';
-import TemplatesIcon from '@material-ui/icons/LibraryBooks';
-import AdminIcon from '@material-ui/icons/SupervisorAccount';
 import { Logo } from 'ui';
 
-import { SidebarProps, SidebarLink } from '.';
+import SidebarPanel from './sidebar-panel';
+import SidebarLinks from './sidebar-links';
 
 import csx from './Sidebar.scss';
 
-const LINK_HEIGHT = 80;
+namespace Sidebar {
+  export interface Props {
+    basePath: string;
+  }
+}
 
-const MARKER_HEIGHT = 30;
+const Sidebar = ({ basePath }: Sidebar.Props) => {
+  const [open, setOpen] = useState(false);
 
-const sidebarLinks: SidebarLink[] = [
-  { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
-  { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
-  { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
-  { label: 'Admin', path: '/admin/dictionaries', icon: <AdminIcon /> }
-];
+  const toggleOpen = useCallback(() => {
+    setOpen(prevOpen => !prevOpen);
+  }, []);
 
-const getActiveLinkIdx = (pathname: string, links: SidebarLink[]) => {
-  return links.findIndex(({ path, exact }) => {
-    if (exact) {
-      return path === pathname;
-    }
-
-    return pathname.includes(path);
-  });
-};
-
-export const Sidebar = ({ basePath }: SidebarProps) => {
-  const { pathname } = useLocation();
-
-  const activeLinkIdx = getActiveLinkIdx(pathname.replace(basePath, ''), sidebarLinks);
+  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
+    return (
+      <Button className={csx.link}>
+        {icon}
+        <span>{label}</span>
+      </Button>
+    );
+  }, []);
 
   return (
     <aside className={csx.sidebar}>
       <div className={csx.sidebarContent}>
-        <figure className={csx.logo}>
+        <figure className={csx.logo} onClick={toggleOpen}>
           <Logo />
         </figure>
 
-        <div className={csx.links}>
-          {sidebarLinks.map(({ path, label, icon, exact }) => (
-            <NavLink
-              key={label}
-              exact={exact}
-              activeClassName={csx.active}
-              className={csx.link}
-              style={{ height: `${LINK_HEIGHT}px` }}
-              to={`${basePath}${path}`}
-            >
-              <Button>
-                {icon}
-                <span>{label}</span>
-              </Button>
-            </NavLink>
-          ))}
-          <span
-            className={csx.marker}
-            style={{
-              height: `${MARKER_HEIGHT}px`,
-              top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
-              transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
-            }}
-          />
-        </div>
+        <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+
+        {open && <SidebarPanel basePath={basePath} onClose={toggleOpen} />}
       </div>
     </aside>
   );
 };
+
+export default Sidebar;

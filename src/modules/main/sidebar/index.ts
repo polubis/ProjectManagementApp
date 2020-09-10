@@ -1,2 +1,3 @@
-export * from './Sidebar';
-export * from './models';
+import Sidebar from './Sidebar';
+
+export default Sidebar;
