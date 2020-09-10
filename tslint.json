@@ -2,7 +2,7 @@
     "rules": {
         "no-any": false,
         "no-empty": true,
-        "no-empty-interface": true,
+        "no-empty-interface": false,
         "no-duplicate-imports": true,
         "no-duplicate-variable": true,
         "no-unused-variable": true,
