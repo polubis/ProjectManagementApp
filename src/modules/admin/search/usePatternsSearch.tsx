@@ -6,6 +6,8 @@ import { usePatternsProvider } from 'core/patterns/PatternsProvider';;
 export const usePatternsSearch = () => {
   const { location } = useHistory();
 
+  console.log({ location })
+
   const { getPatterns } = usePatternsProvider();
 
   useEffect(() => {

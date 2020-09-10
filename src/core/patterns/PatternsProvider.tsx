@@ -12,7 +12,6 @@ namespace PatternsProvider {
 
   export interface Props {
     children: ReactNode;
-    getOnMount?: boolean;
   }
 }
 
@@ -39,12 +38,6 @@ class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
       this.setState({ ...STATE, loading: false, error });
     }
   };
-
-  componentDidMount() {
-    if (this.props.getOnMount) {
-      this.getPatterns();
-    }
-  }
 
   readonly state: typeof STATE = {
     ...STATE,

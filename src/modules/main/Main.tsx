@@ -5,6 +5,7 @@ import { withLazy } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
+import { Category as AdminCategory } from 'src/modules/admin/models';
 
 import NotificationsProvider from 'shared/providers/notifications';
 
@@ -34,15 +35,13 @@ const Main = ({ match }: RouteChildrenProps) => {
         <Switch>
           <Route
             exact
-            path={`${match.path}/admin/dictionaries`}
-            render={() => <Redirect to={`${match.path}/admin/dictionaries/${Category.TECHNOLOGIES}`} />}
+            path={`${match.path}/admin/dictionaries/:category?`}
+            component={Admin}
           />
 
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 
           <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
-
-          <Route path={`${match.path}/admin/dictionaries/:category`} component={Admin} />
 
           <Guard.ProtectedRoute
             exact

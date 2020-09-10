@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
+import AdminIcon from '@material-ui/icons/SupervisorAccount';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
@@ -28,7 +29,8 @@ const LINK_HEIGHT = 80,
   LINKS: SidebarLinks.Item[] = [
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
     { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
-    { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> }
+    { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
+    { label: 'Admin', path: '/admin/dictionaries', icon: <AdminIcon /> }
   ];
 
 const getActiveLinkIdx = (basePath: string, pathname: string) => () => {

@@ -12,7 +12,6 @@ namespace TechnologiesProvider {
 
   export interface Props {
     children: ReactNode;
-    getOnMount?: boolean;
   }
 }
 
@@ -25,12 +24,6 @@ const STATE: TechnologiesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
-  componentDidMount() {
-    if(this.props.getOnMount) {
-      this.getTechnologies();
-    }
-  }
-
   getTechnologies = async (query = '') => {
     if (!this.state.loading) {
       this.setState({ ...STATE });

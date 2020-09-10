@@ -5,6 +5,7 @@ import { Category } from './models';
 import AdminCategories from './admin-categories/AdminCategories';
 import TechnologiesTab from './technologies-tab/TechnologiesTab';
 import PatternsTab from './patterns-tab/PatternsTab';
+import { useRouteValidation } from './hooks';
 
 import csx from './Admin.scss';
 
@@ -15,6 +16,8 @@ const tabs = {
 
 const Admin = () => {
   const { category } = useParams();
+
+  useRouteValidation();
 
   return (
     <div className={csx.adminContainer}>

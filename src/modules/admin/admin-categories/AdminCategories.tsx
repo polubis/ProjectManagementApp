@@ -9,13 +9,9 @@ import { Button } from 'ui';
 import { Url } from 'utils';
 
 import { Category } from '../models';
+import { CATEGORIES } from '../utils';
 
 import csx from './AdminCategories.scss';
-
-const ADMIN_CATEGORIES: Category[] = [
-  Category.TECHNOLOGIES,
-  Category.PATTERNS
-];
 
 const AdminCategories = () => {
   const { location, push } = useHistory();
@@ -39,7 +35,7 @@ const AdminCategories = () => {
   return (
     <section className={csx.adminCategories}>
       <div className={csx.tabs}>
-        {ADMIN_CATEGORIES.map((category) => (
+        {CATEGORIES.map((category) => (
           <MuiButton
             key={category}
             data-category={category}

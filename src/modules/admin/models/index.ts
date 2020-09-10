@@ -1,3 +1,1 @@
-import { Category, CATEGORIES } from './Categories';
-
-export { Category, CATEGORIES};
+export * from './models';
