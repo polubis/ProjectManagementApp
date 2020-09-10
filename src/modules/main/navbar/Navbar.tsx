@@ -15,11 +15,13 @@ const getLinkPath = (index: number, breadcrumbs: string[], basePath: string) => 
   return path;
 };
 
-export interface NavbarProps {
-  basePath: string;
+namespace Navbar {
+  export interface Props {
+    basePath: string;
+  }
 }
 
-export const Navbar = ({ basePath }) => {
+const Navbar = ({ basePath }: Navbar.Props) => {
   const location = useLocation();
 
   const breadcrumbs = getBreadcrumbs(location.pathname.replace(`${basePath}/`, ''));
@@ -41,3 +43,5 @@ export const Navbar = ({ basePath }) => {
     </nav>
   );
 };
+
+export default Navbar;
