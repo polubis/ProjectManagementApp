@@ -1,31 +1,45 @@
 import React, { memo } from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { IconButton } from '@material-ui/core';
 
-import { Button, SelectBase, FieldBase } from 'ui';
+import { SelectBase, FieldBase } from 'ui';
 
 import csx from './SimpleSelect.scss';
 
 namespace SimpleSelectControl {
     export interface Props extends Partial<SelectBase.ChildrenInjectedProps> {
         label: string;
-        value: string[];
+        list: SelectBase.Item[];
+        value: Object;
     }
 }
 
-const SimpleSelect = memo(({ value, label, menuOpen, onClick }: SimpleSelectControl.Props) => {
+const SimpleSelect = memo(({ label, list, value, menuOpen, onClick }: SimpleSelectControl.Props) => {
 
-    const placeholderRender = value.join(', ');
+    const selectedRender = (): string => {
+        let render = '';
+        list.map(e => {
+            if (e.value) {
+                if (render.length === 0) render += e.label;
+                else render = `${render}, ${e.label}`;
+            }
+        })
+        return render;
+    }
 
     return (
         <div>
             <FieldBase className={csx.dataField} label={label}>
-                <input readOnly placeholder={placeholderRender} />
-                <Button className={csx.expandBtn} theme="primaryTransparent" onClick={onClick}>
+                <input
+                    className={menuOpen ? csx.open : ''}
+                    readOnly
+                    placeholder={selectedRender() !== '' ? selectedRender() : label}
+                />
+                <IconButton className={csx.expandBtn} onClick={onClick}>
                     <ExpandMoreIcon />
-                </Button>
+                </IconButton>
             </FieldBase>
-
         </div>
     );
 });

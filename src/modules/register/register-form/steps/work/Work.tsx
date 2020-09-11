@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import { Button, InputField, Select } from 'ui';
+import { Button, InputField, SelectBase, Select, SimpleSelect } from 'ui';
 
 import { Form } from 'utils';
 
-import { useTechnologiesProvider } from 'core/technologies';
+import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
 
 import { WorkImage } from '.';
 
@@ -15,8 +15,10 @@ import {
   EXPERIENCE,
   TECHNOLOGIES,
   SENIORITY_ITEMS,
-  EXPERIENCE_ITEMS
+  EXPERIENCE_ITEMS,
 } from '../../..';
+
+import ListItem from '../list-item';
 
 import csx from './Work.scss';
 
@@ -28,35 +30,48 @@ namespace Work {
   }
 }
 
+const TECHNOLOGIES_ITEMS: SelectBase.Item[] = [];
+
 const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
+  useEffect(() => {
+    technologies.map(e => { TECHNOLOGIES_ITEMS.push({ dataIdx: e.id + '', label: e.name + '', value: false }) });
+  }, [])
+
   const [{ dirty, fields, invalid }, change, directChange] = formManager;
 
   const { technologies } = useTechnologiesProvider();
 
-  const handleSenioritySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([SENIORITY], [Select.select(e, value)]);
+  const handleSenioritySelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      SENIORITY_ITEMS.map(e => {
+        if (e.dataIdx === dataIdx) e.value = !e.value;
+        else e.value = false;
+      })
+      directChange([SENIORITY], [value === true ? { [dataIdx]: SENIORITY_ITEMS[dataIdx].value } : {}]);
     },
     [fields]
   );
 
-  const handleTechnologySelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([TECHNOLOGIES], [Select.select(e, value, fields[TECHNOLOGIES].value)]);
+  const handleTechnologySelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      TECHNOLOGIES_ITEMS.map(e => {
+        if (e.dataIdx === dataIdx) e.value = !e.value;
+      })
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
     [fields]
   );
 
-  const handleExperienceSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([EXPERIENCE], [Select.select(e, value)]);
+  const handleExperienceSelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      EXPERIENCE_ITEMS.map(e => {
+        if (e.dataIdx === dataIdx) e.value = !e.value;
+        else e.value = false;
+      })
+      directChange([EXPERIENCE], [value === true ? { [dataIdx]: EXPERIENCE_ITEMS[dataIdx].value } : {}]);
     },
     [fields]
   );
-
-  const mappedTechnologies = useMemo(() => Select.makeItems(technologies, 'id', 'name'), [
-    technologies
-  ]);
 
   return (
     <form className={csx.work} onSubmit={onSubmit}>
@@ -76,13 +91,15 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           onChange={change}
         />
 
-        <Select
-          label="Seniority"
-          placeholder="Seniority..."
+        <SelectBase
+          children={<SimpleSelect
+            list={SENIORITY_ITEMS}
+            value={fields[SENIORITY].value}
+            label="Seniority..." />}
+          listItem={ListItem}
           items={SENIORITY_ITEMS}
-          error={dirty ? fields[SENIORITY].error : ''}
-          value={fields[SENIORITY].value}
           onSelect={handleSenioritySelect}
+          searchable={false}
         />
       </div>
 
@@ -96,23 +113,27 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           onChange={change}
         />
 
-        <Select
-          label="Years of experience"
-          placeholder="Years of experience..."
-          error={dirty ? fields[EXPERIENCE].error : ''}
+        <SelectBase
+          children={<SimpleSelect
+            list={EXPERIENCE_ITEMS}
+            value={fields[EXPERIENCE].value}
+            label="Years of experience..." />}
+          listItem={ListItem}
           items={EXPERIENCE_ITEMS}
-          value={fields[EXPERIENCE].value}
           onSelect={handleExperienceSelect}
+          searchable={false}
         />
       </div>
 
-      <Select
-        label="Technologies"
-        placeholder="Choose technologies..."
-        error={dirty ? fields[TECHNOLOGIES].error : ''}
-        items={mappedTechnologies}
-        value={fields[TECHNOLOGIES].value}
+      <SelectBase
+        children={<SimpleSelect
+          list={TECHNOLOGIES_ITEMS}
+          value={fields[TECHNOLOGIES].value}
+          label="Choose technologies..." />}
+        listItem={ListItem}
+        items={TECHNOLOGIES_ITEMS}
         onSelect={handleTechnologySelect}
+        searchable={false}
       />
 
       <footer>

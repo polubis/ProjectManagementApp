@@ -6,7 +6,7 @@ import { Form } from 'utils';
 
 import { FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER, GENDER_LIST } from '../../..';
 
-import ListItem from './list-item';
+import ListItem from '../list-item';
 
 import csx from './PersonalInfo.scss';
 
@@ -21,14 +21,16 @@ namespace PersonalInfo {
 const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;
 
-  // const handleGenderSelect = useCallback(
-  //   (e) => {
-  //     console.log(fields)
-  //     directChange([GENDER], [{...fields,e}]);
-      
-  //   },
-  //   [fields]
-  // );
+  const handleGenderSelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      GENDER_LIST.map(e => {
+        if (e.dataIdx === dataIdx) e.value = !e.value;
+        else e.value = false;
+      })
+      directChange([GENDER], [value === true ? { [dataIdx]: GENDER_LIST[dataIdx].value } : {}]);
+    },
+    [fields]
+  );
 
   const handleBirthDateChange = useCallback(
     (date: string) => {
@@ -36,10 +38,6 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
     },
     [fields]
   );
-
-  const placeholderRender = GENDER_LIST.map(e => {
-    return e.label;
-  })
 
   return (
     <form className={csx.personalInfo} onSubmit={onSubmit}>
@@ -72,14 +70,16 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
         />
 
         <SelectBase
-          children={<SimpleSelect value={placeholderRender} label="Gender" />}
+          children={<SimpleSelect
+            list={GENDER_LIST}
+            value={fields[GENDER].value}
+            label="Gender..." />}
           listItem={ListItem}
           items={GENDER_LIST}
           onSelect={handleGenderSelect}
           searchable={false}
           height={100}
         />
-
       </div>
 
       <footer>

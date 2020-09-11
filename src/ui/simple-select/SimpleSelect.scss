@@ -8,6 +8,8 @@
     bottom: 24px;
     right: 4px;
     color: $primary;
+    border-radius: 0;
+    border-left: 1px solid $primary;
 
     svg {
       font-size: 20px;
@@ -16,5 +18,9 @@
 
   input {
     padding-right: 54px !important;
+  }
+
+  .open {
+    background: $primaryDark;
   }
 }
