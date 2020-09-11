@@ -1,5 +1,14 @@
 {
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
+    "prettier": [ true, { "printWidth": 100,
+      "singleQuote": true,
+      "jsxSingleQuote": false,
+      "bracketSpacing": true,
+      "semi": true,
+      "trailingComma": "none",
+      "endOfLine": "crlf" } ],
     "no-any": false,
     "no-empty": true,
     "no-empty-interface": true,
@@ -18,14 +27,12 @@
       "arrow-parameter",
       "property-declaration"
     ],
-
     "ordered-imports": true,
     "object-literal-sort-keys": [
       true,
       "ignore-blank-lines",
       "ignore-case",
       "locale-compare",
-      "match-declaration-order",
       "shorthand-first"
     ],
     "no-duplicate-super": true,
@@ -43,7 +50,6 @@
     "max-line-length": [true, 140],
     "no-trailing-whitespace": true,
     "no-consecutive-blank-lines": [true, 2],
-    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
-    "semicolon": [true, "always"]
+    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"]
   }
 }
