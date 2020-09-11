@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { Button, InputField, SelectBase, Select, SimpleSelect } from 'ui';
+import { Button, InputField, SelectBase, SimpleSelect } from 'ui';
 
 import { Form } from 'utils';
 
-import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
+import { useTechnologiesProvider } from 'core/technologies';
 
 import { WorkImage } from '.';
 
