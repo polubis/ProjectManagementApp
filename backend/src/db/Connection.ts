@@ -1,7 +1,5 @@
 import mongoose, { Mongoose, ConnectionOptions } from 'mongoose';
 import { __DB_URI__ } from '@consts';
-import dotenv from 'dotenv';
-dotenv.config();
 
 class Connection {
   public connection: Mongoose;

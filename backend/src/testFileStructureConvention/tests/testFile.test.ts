@@ -1,8 +1,9 @@
-import { greeter } from '../src/testFile';
+import { greeter } from '../testFile';
+import { Controllers } from '@controllers';
 
 describe('greeter function', () => {
   jest.useFakeTimers();
-
+  console.log(Controllers);
   const name = 'Czaroslaw';
   let hello: string;
 

@@ -7,7 +7,7 @@
     "build": "tsc -p tsconfig.json && node ./build/Server.js",
     "build-watch": "tsc -w -p tsconfig.json",
     "clean": "rimraf coverage build tmp",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts",
     "test": "jest",
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
