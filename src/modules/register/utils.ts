@@ -1,32 +1,17 @@
 import { Form, V } from 'utils';
 
-import { Select } from 'ui';
-
 export const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = [0, 1, 2, 3, 4];
 export const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
 export const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
 export const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 export const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
 
-export const GENDER_LIST: Select.Item[] = [
-  { dataIdx: 0, label: 'Male' },
-  { dataIdx: 1, label: 'Female' }
-];
+export const GENDERS = ['Male', 'Female'];
 
-export const SENIORITY_ITEMS: Select.Item[] = [
-  { dataIdx: 0, label: 'Junior' },
-  { dataIdx: 1, label: 'Mid' },
-  { dataIdx: 2, label: 'Regular' },
-  { dataIdx: 3, label: 'Pro' },
-  { dataIdx: 4, label: 'Senior' }
-];
+export const SENIORITY_ITEMS = ['Junior', 'Mid', 'Regular', 'Pro', 'Senior'];
 
-export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map(
-  (idx) =>
-    ({
-      dataIdx: idx,
-      label: idx !== 1 ? `${idx} years` : `${idx} year`
-    } as Select.Item)
+export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map(idx =>
+  idx !== 1 ? `${idx} years` : `${idx} year`
 );
 
 export const BASE_CONFIG: Form.Config[] = [

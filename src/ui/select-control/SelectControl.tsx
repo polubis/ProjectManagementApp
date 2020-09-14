@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -8,22 +8,21 @@ import csx from './SelectControl.scss';
 
 namespace SelectControl {
   export interface Props extends Partial<SelectBase.ChildrenInjectedProps> {
-    label: string;
+    label: string | ((selected: string[]) => string);
+    placeholder: string;
     value: { [key: string]: boolean };
   }
 }
 
-const SelectControl = memo(({ label, menuOpen, value, onClick }: SelectControl.Props) => {
-  const { length } = SelectBase.getSelected(value);
+const SelectControl = ({ label, placeholder, menuOpen, value, onClick }: SelectControl.Props) => {
+  const selected = SelectBase.getSelected(value);
 
   return (
     <div className={`${csx.selectControl} ${menuOpen ? csx.menuOpen : ''}`}>
-      {length > 0 ? (
-        <span>
-          {length} {label} were selected
-        </span>
+      {selected.length > 0 ? (
+        <span>{typeof label === 'string' ? label : label(selected)}</span>
       ) : (
-        <span className={csx.placeholder}>Select {label}</span>
+        <span className={csx.placeholder}>{placeholder}</span>
       )}
 
       <Button className={csx.toggleBtn} theme="primaryTransparent" onClick={onClick}>
@@ -31,6 +30,6 @@ const SelectControl = memo(({ label, menuOpen, value, onClick }: SelectControl.P
       </Button>
     </div>
   );
-});
+};
 
 export default SelectControl;

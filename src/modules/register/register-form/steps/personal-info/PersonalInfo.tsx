@@ -1,10 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { Button, DateField, InputField, Select } from 'ui';
+import {
+  Button,
+  DateField,
+  InputField,
+  SelectBase,
+  FieldBase,
+  SimpleSelect,
+  SelectControl
+} from 'ui';
 
 import { Form } from 'utils';
 
-import { FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER, GENDER_LIST } from '../../..';
+import { FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER, GENDERS } from '../../..';
 
 import csx from './PersonalInfo.scss';
 
@@ -16,12 +24,22 @@ namespace PersonalInfo {
   }
 }
 
+const makeGenderItems = (value: { [key: string]: boolean }) => () =>
+  GENDERS.map(
+    (item, idx) =>
+      ({
+        dataIdx: '' + idx,
+        label: item,
+        value: !!value[idx]
+      } as SelectBase.Item)
+  );
+
 const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => {
   const [{ dirty, fields, invalid }, change, directChange] = formManager;
 
-  const handleGenderSelect = useCallback(
-    (e: Select.Events.Select, value: boolean) => {
-      directChange([GENDER], [Select.select(e, value)]);
+  const handleGenderSelect: SelectBase.OnSelect = useCallback(
+    (dataIdx, value) => {
+      directChange([GENDER], [{ [dataIdx]: value }]);
     },
     [fields]
   );
@@ -32,6 +50,8 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
     },
     [fields]
   );
+
+  const mappedGenderItems = useMemo(makeGenderItems(fields[GENDER].value), [fields]);
 
   return (
     <form className={csx.personalInfo} onSubmit={onSubmit}>
@@ -63,14 +83,15 @@ const PersonalInfo = ({ formManager, onBack, onSubmit }: PersonalInfo.Props) => 
           onSelect={handleBirthDateChange}
         />
 
-        <Select
-          label="Gender"
-          placeholder="Choose gender..."
-          error={dirty ? fields[GENDER].error : ''}
-          items={GENDER_LIST}
-          value={fields[GENDER].value}
-          onSelect={handleGenderSelect}
-        />
+        <FieldBase label="Gender *" error={dirty ? fields[GENDER].error : ''}>
+          <SimpleSelect items={mappedGenderItems} onSelect={handleGenderSelect}>
+            <SelectControl
+              label={selected => mappedGenderItems[+selected[0]].label}
+              placeholder="Select gender..."
+              value={fields[GENDER].value}
+            ></SelectControl>
+          </SimpleSelect>
+        </FieldBase>
       </div>
 
       <footer>

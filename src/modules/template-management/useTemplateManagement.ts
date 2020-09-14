@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 
-import { Select } from 'ui';
+import { SelectBase } from 'ui';
 
 import { Form } from 'utils';
 
@@ -36,8 +36,8 @@ const makePayload = ([
     name,
     description,
     githubLink,
-    technologiesIds: Select.getChecked(technologies).map(k => +k),
-    patternsIds: Select.getChecked(patterns).map(k => +k),
+    technologiesIds: SelectBase.getSelected(technologies).map(k => +k),
+    patternsIds: SelectBase.getSelected(patterns).map(k => +k),
     tags
   };
 };

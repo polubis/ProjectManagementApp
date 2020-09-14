@@ -65,9 +65,6 @@ namespace SelectBase {
 const filterItems = (phrase: string, items: SelectBase.Item[]) => () =>
   phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
 
-const getSelected = (value: { [key: string]: boolean }) =>
-  Object.keys(value).filter((k) => value[k]);
-
 const SelectBase = ({
   children,
   items,
@@ -154,6 +151,7 @@ const SelectBase = ({
   );
 };
 
-SelectBase.getSelected = getSelected;
+SelectBase.getSelected = (value: { [key: string]: boolean }) =>
+  Object.keys(value).filter(k => value[k]);
 
 export default SelectBase;

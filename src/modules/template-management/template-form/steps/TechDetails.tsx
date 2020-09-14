@@ -1,14 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
-import { Button, SelectBase, FieldBase } from 'ui';
+import { Button, SelectBase, FieldBase, SelectControl } from 'ui';
 
 import { Form } from 'utils';
 
 import { PatternsSelect, TagsField, TechnologiesSelect } from 'shared/components';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '../..';
-
-import SelectControl from './select-control';
 
 namespace TechDetails {
   export interface Props {
@@ -55,13 +53,21 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
     <form onSubmit={onSubmit}>
       <FieldBase label="Technologies *" error={dirty ? fields[TECHNOLOGIES].error : ''}>
         <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
-          <SelectControl label="technologies" value={fields[TECHNOLOGIES].value} />
+          <SelectControl
+            label={({ length }) => `${length} technolog${length > 1 ? 'ies' : 'y'} selected`}
+            placeholder="Select technologies..."
+            value={fields[TECHNOLOGIES].value}
+          />
         </TechnologiesSelect>
       </FieldBase>
 
       <FieldBase label="Patterns *" error={dirty ? fields[PATTERNS].error : ''}>
         <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect}>
-          <SelectControl label="patterns" value={fields[PATTERNS].value} />
+          <SelectControl
+            label={({ length }) => `${length} pattern${length > 1 ? 's' : ''} selected`}
+            placeholder="Select patterns..."
+            value={fields[PATTERNS].value}
+          />
         </PatternsSelect>
       </FieldBase>
 
