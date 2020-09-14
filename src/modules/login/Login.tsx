@@ -13,15 +13,15 @@ import { Footer, Navbar } from 'shared/components';
 import csx from './Login.scss';
 
 const Login = () => {
-  const { logIn, logInViaGithub, pending } = useAuthProvider();
+  const { logIn, logInViaGithub } = useAuthProvider();
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className={csx.login}>
         <h5>Log In</h5>
 
-        <LoginForm disabled={pending} onSubmit={logIn} />
+        <LoginForm onSubmit={logIn} />
 
         <div className={csx.divider}>
           <div />
@@ -29,11 +29,11 @@ const Login = () => {
           <div />
         </div>
 
-        <Button variant="icon" disabled={pending} onClick={logInViaGithub}>
+        <Button variant="icon" onClick={logInViaGithub}>
           <img src={IMGS_PATH + '/GithubLogo.png'} />
         </Button>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
