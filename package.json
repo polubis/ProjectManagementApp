@@ -10,7 +10,7 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test-watch-silent": "jest --watch --silent",
-    "lint": "tslint --project .",
+    "lint": "tslint --project ."
   },
   "author": "Adrian Połubiński",
   "license": "ISC",

@@ -50,6 +50,7 @@
     "max-line-length": [true, 140],
     "no-trailing-whitespace": true,
     "no-consecutive-blank-lines": [true, 2],
-    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"]
+    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
+    "no-namespace": false
   }
 }
