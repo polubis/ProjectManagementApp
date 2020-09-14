@@ -7,7 +7,7 @@ namespace PatternsProvider {
     patterns: Pattern[];
     loading: boolean;
     error: string;
-    getPatterns?(query: string): void;
+    getPatterns?(query?: string): void;
   }
 
   export interface Props {

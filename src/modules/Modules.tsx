@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { AlertsManager } from 'core/api';
 import AuthProvider from 'core/auth';

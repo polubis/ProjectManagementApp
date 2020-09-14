@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect, RouteChildrenProps } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { useHistory } from 'react-router-dom';
 
 import { Category } from './models';

@@ -18,8 +18,8 @@ const ModulesRouter = () => {
   const { getTechnologies } = useTechnologiesProvider();
 
   useEffect(() => {
-    getPatterns('');
-    getTechnologies('');
+    getPatterns();
+    getTechnologies();
   }, []);
 
   return (
