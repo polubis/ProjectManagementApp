@@ -11,11 +11,9 @@ namespace SelectedItems {
   }
 }
 
-const getSelected = (items: SelectBase.Item[]) => items.filter(({ value }) => value);
-
 const SelectedItems = memo(
   ({ items, renderItem }: SelectedItems.Props) => {
-    const selectedItems = getSelected(items);
+    const selectedItems = items.filter(({ value }) => value);
 
     if (!selectedItems.length) {
       return null;

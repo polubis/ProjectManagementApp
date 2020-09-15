@@ -3,6 +3,7 @@
 .search {
   @include row;
   padding: 0 20px;
+  border-bottom: 1px solid rgba($primary, 0.43);
 
   & > input {
     @include label;
@@ -22,6 +23,5 @@
 
 .list {
   background: $surface;
-  border-top: 1px solid rgba($primary, 0.43);
   padding: 8px 0;
 }

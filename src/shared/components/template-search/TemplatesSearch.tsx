@@ -6,7 +6,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import SearchIcon from '@material-ui/icons/Search';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-import { Select, SelectBase } from 'ui';
+import { SelectBase } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
@@ -74,8 +74,8 @@ const TemplatesSearch = ({ pathname }) => {
       const [{ value: query }, { value: patternsIds }, { value: technologiesIds }] = fields;
 
       const search = Url(location)
-        .swap('technologiesIds', Select.getChecked(technologiesIds))
-        .swap('patternsIds', Select.getChecked(patternsIds))
+        .swap('technologiesIds', SelectBase.getSelected(technologiesIds))
+        .swap('patternsIds', SelectBase.getSelected(patternsIds))
         .swap('query', query)
         .delete('page')
         .search();
