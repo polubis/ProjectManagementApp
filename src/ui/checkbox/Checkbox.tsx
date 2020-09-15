@@ -1,11 +1,9 @@
 import React, { ReactNode } from 'react';
 
-import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
-
 import csx from './Checkbox.scss';
 
 namespace Checkbox {
-  export type OnChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => void;
+  export type OnChange = (e: React.ChangeEvent<HTMLInputElement>, value?: boolean) => void;
 
   export interface Props {
     label: ReactNode;
@@ -16,28 +14,18 @@ namespace Checkbox {
   }
 }
 
-const checkboxClasses = { root: csx.checkbox, checked: csx.checked };
-
 const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
   return (
-    <FormControlLabel
-      label={label}
-      classes={{
-        root: `${csx.checkboxLabel} ${csx[variant]}`
-      }}
-      control={
-        <MuiCheckbox
-          checked={value}
-          onChange={onChange}
-          classes={checkboxClasses}
-          inputProps={
-            {
-              'data-idx': dataIdx
-            } as any
-          }
-        />
-      }
-    />
+    <label className={`${csx.checkboxLabel} ${csx[variant]}`}>
+      <input
+        type="checkbox"
+        checked={value}
+        className={`${csx.checkbox} ${value ? csx.checked : ''}`}
+        onChange={onChange}
+        data-idx={dataIdx}
+      ></input>
+      <span>{label}</span>
+    </label>
   );
 };
 

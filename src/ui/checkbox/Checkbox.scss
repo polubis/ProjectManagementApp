@@ -1,15 +1,31 @@
 @import 'styles/mixins';
 
 .checkbox {
-  color: $primary !important;
+  cursor: inherit;
+  width: 20px !important;
+  height: 20px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 2px solid $primary;
+  border-radius: 20%;
+  margin-right: 15px;
+  margin-top: -2px;
+  flex-shrink: 0;
 
-  .checked {
-    color: $primary !important;
+  &.checked {
+    background-color: $primary;
   }
 }
 
 .checkboxLabel {
   @include noSelect;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 16px;
+  margin-left: -5px;
 
   &.default {
     & > span:last-of-type {
