@@ -2,16 +2,15 @@
 
 .checkbox {
   cursor: inherit;
-  width: 20px !important;
-  height: 20px !important;
+  width: 20px;
+  height: 20px;
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;
   border: 2px solid $primary;
   border-radius: 20%;
-  margin-right: 15px;
-  margin-top: -2px;
+  margin: -2px 15px 0 0;
   flex-shrink: 0;
 
   &.checked {
@@ -21,11 +20,9 @@
 
 .checkboxLabel {
   @include noSelect;
+  @include row;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  margin-right: 16px;
-  margin-left: -5px;
+  margin: 0 16px 0 -5px;
 
   &.default {
     & > span:last-of-type {
