@@ -10,7 +10,9 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test-watch-silent": "jest --watch --silent",
-    "lint": "tslint --project ."
+    "lint": "tslint --project .",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "prettier-format": "prettier --config .prettierrc **/*.ts --write"
   },
   "author": "Adrian Połubiński",
   "license": "ISC",

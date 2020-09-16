@@ -2,13 +2,18 @@
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "prettier": [ true, { "printWidth": 100,
-      "singleQuote": true,
-      "jsxSingleQuote": false,
-      "bracketSpacing": true,
-      "semi": true,
-      "trailingComma": "none",
-      "endOfLine": "crlf" } ],
+    "prettier": [
+      true,
+      {
+        "printWidth": 100,
+        "singleQuote": true,
+        "jsxSingleQuote": false,
+        "bracketSpacing": true,
+        "semi": true,
+        "trailingComma": "none",
+        "endOfLine": "crlf"
+      }
+    ],
     "no-any": false,
     "no-empty": true,
     "no-empty-interface": true,
@@ -42,7 +47,11 @@
     "no-switch-case-fall-through": true,
     "no-tautology-expression": true,
     "variable-name": {
-      "options": ["check-format", "allow-leading-underscore", "allow-pascal-case"]
+      "options": [
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
     },
     "curly": [true, "ignore-same-line"],
     "eofline": true,
@@ -50,7 +59,13 @@
     "max-line-length": [true, 140],
     "no-trailing-whitespace": true,
     "no-consecutive-blank-lines": [true, 2],
-    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
     "no-namespace": false
   }
 }
