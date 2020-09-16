@@ -1,10 +1,8 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
 
-import { IconButton } from '@material-ui/core';
-
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-import { FieldBase } from 'ui';
+import { FieldBase, Button } from 'ui';
 
 import { V } from 'utils';
 
@@ -73,9 +71,9 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
 
       {error ? null : <TemplateTags items={value} onClick={handleDelete} />}
 
-      <IconButton disabled={validationError.invalid} onClick={handleConfirm}>
+      <Button variant="icon" disabled={validationError.invalid} onClick={handleConfirm}>
         <AddCircleOutlineIcon />
-      </IconButton>
+      </Button>
     </FieldBase>
   );
 };

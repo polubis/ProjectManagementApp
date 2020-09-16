@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
 
 import CalendarIcon from '@material-ui/icons/CalendarToday';
-import { IconButton } from '@material-ui/core';
 
 import { Form } from 'utils';
 
-import { FieldBase, DatePicker } from 'ui';
+import { FieldBase, DatePicker, Button } from 'ui';
 
 import csx from './DateField.scss';
 
@@ -40,9 +39,9 @@ const DateField = ({ label, error, onSelect, ...inputProps }: DateField.Props) =
       )}
       <FieldBase label={label} error={error} className={csx.dateField}>
         <input {...inputProps} placeholder="DD/MM/YYYY" />
-        <IconButton className={csx.expandBtn} onClick={togglePicker}>
+        <Button variant="icon" className={csx.expandBtn} onClick={togglePicker}>
           <CalendarIcon />
-        </IconButton>
+        </Button>
       </FieldBase>
     </>
   );

@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
-import { Button } from '@material-ui/core';
 import CodeIcon from '@material-ui/icons/Code';
 import SearchIcon from '@material-ui/icons/Search';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-import { Select, SelectBase } from 'ui';
+import { Select, SelectBase, Button } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 

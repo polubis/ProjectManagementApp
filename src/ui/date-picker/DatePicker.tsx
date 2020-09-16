@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 
-import { IconButton, Button as MuiButton } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -117,13 +116,13 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
 
       <section>
         <div className={csx.yearPicker}>
-          <IconButton onClick={onPrevMonthClick}>
+          <Button variant="icon" onClick={onPrevMonthClick}>
             <ChevronLeftIcon />
-          </IconButton>
+          </Button>
           <span>{year}</span>
-          <IconButton onClick={onNextMonthClick}>
+          <Button variant="icon" onClick={onNextMonthClick}>
             <ChevronRightIcon />
-          </IconButton>
+          </Button>
         </div>
 
         <div className={csx.dayPicker}>
@@ -131,24 +130,24 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
             <div key={symbol}>{symbol}</div>
           ))}
           {prevDays.map((day) => (
-            <MuiButton key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
+            <Button key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
               {day}
-            </MuiButton>
+            </Button>
           ))}
           {days.map((day) => (
-            <MuiButton
+            <Button
               key={day}
               data-idx={day}
               className={day === activeDate.day ? csx.activeDay : ''}
               onClick={onDayClick}
             >
               {day}
-            </MuiButton>
+            </Button>
           ))}
           {nextDays.map((day) => (
-            <MuiButton key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
+            <Button key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
               {day}
-            </MuiButton>
+            </Button>
           ))}
         </div>
       </section>

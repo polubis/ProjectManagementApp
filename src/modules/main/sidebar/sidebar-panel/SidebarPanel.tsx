@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Button } from '@material-ui/core';
-
-import { Logo } from 'ui';
+import { Logo, Button } from 'ui';
 
 import SidebarLinks from '../sidebar-links';
 
@@ -18,7 +16,7 @@ namespace SidebarPanel {
 const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
   const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
     return (
-      <Button className={csx.link}>
+      <Button theme="primaryTransparent" className={csx.link}>
         {icon}
         <span>{label}</span>
       </Button>

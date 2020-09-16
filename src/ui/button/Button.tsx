@@ -4,6 +4,14 @@ import { Button as MuiButton, IconButton as MuiIconButton } from '@material-ui/c
 
 import csx from './Button.scss';
 
+const Btn = (props, children) => {
+  return React.createElement(
+    'button',
+    props,
+    children
+  );
+}
+
 namespace Button {
   export interface Props
     extends React.DetailedHTMLProps<
@@ -20,20 +28,22 @@ const Button = forwardRef(
   ({ children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props, ref) => {
     if (variant === 'icon') {
       return (
-        <MuiIconButton
+        <button
           {...(btnProps as any)}
-          classes={{ root: `${csx.iconButton} ${csx[theme]}` }}
+          className={`${csx[theme]} ${csx.iconButton}`}
           ref={ref}
         >
           {children}
-        </MuiIconButton>
+        </button>
+        
       );
     }
 
     return (
-      <MuiButton {...(btnProps as any)} classes={{ root: `${csx.button} ${csx[theme]}` }} ref={ref}>
+      <button {...(btnProps as any)} className={`${csx[theme]}`} ref={ref}>
         {children}
-      </MuiButton>
+      </button>
+        
     );
   }
 );

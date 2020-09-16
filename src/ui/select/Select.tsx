@@ -2,9 +2,9 @@ import React, { useMemo, ChangeEvent } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Button, Chip } from '@material-ui/core';
+import { Chip } from '@material-ui/core';
 
-import { FieldBase, Menu, SelectItem, Checkbox, useMenu } from '..';
+import { FieldBase, Menu, SelectItem, Checkbox, useMenu, Button } from '..';
 
 import csx from './Select.scss';
 
@@ -91,8 +91,8 @@ const Select = ({
               />
             ))
           ) : (
-            <span className={csx.placeholder}>{placeholder}</span>
-          )}
+              <span className={csx.placeholder}>{placeholder}</span>
+            )}
         </div>
 
         <Button className={csx.toggleBtn} onClick={openMenu}>
