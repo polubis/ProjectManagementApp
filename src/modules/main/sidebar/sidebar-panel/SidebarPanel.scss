@@ -19,24 +19,4 @@
       margin-left: 18px;
     }
   }
-
-  p {
-    margin-left: 5px;
-    margin-right: 20px;
-    color: $white;
-    font-family: $fontPrimary;
-  }
-
-  .link {
-    & > span:first-of-type {
-      flex-flow: row;
-      justify-content: flex-start;
-      padding-left: 42px;
-
-      & > span {
-        @include labelSmall;
-        margin: 0 0 0 12px;
-      }
-    }
-  }
 }

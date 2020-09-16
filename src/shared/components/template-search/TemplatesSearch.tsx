@@ -113,7 +113,7 @@ const TemplatesSearch = ({ pathname }) => {
         </ControlButton>
       </TechnologiesSelect>
 
-      <Button type="submit" className={csx.confirmSearchBtn}>
+      <Button type="submit" theme="primaryTransparent" style={csx.confirmSearchBtn}>
         <SearchIcon />
       </Button>
     </form>

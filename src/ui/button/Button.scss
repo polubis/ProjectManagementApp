@@ -3,25 +3,14 @@
 button {
   box-sizing: border-box;
   min-width: 64px;
-  padding: 6px 16px;
   border: none;
   outline: none;
   background-color: transparent;
   position: relative;
   padding: 9px 20px !important;
-  cursor: pointer;
-
-  & {
-    text-transform: capitalize;
-  }
-
-  & > span {
-    @include label;
-
-    svg {
-      margin-right: 12px;
-    }
-  }
+  cursor: pointer; 
+  font-size: 14px;
+  border-radius: 4px;
 
   &.primaryDark {
     background: $primaryDark;
@@ -66,4 +55,14 @@ button {
 .iconButton {
   width: 50px;
   height: 50px;
+  display: inline-flex;
+}
+
+.textIcon{
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 10px;;
+  }
 }

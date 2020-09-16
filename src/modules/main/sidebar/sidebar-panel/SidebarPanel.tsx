@@ -16,7 +16,7 @@ namespace SidebarPanel {
 const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
   const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
     return (
-      <Button theme="primaryTransparent" className={csx.link}>
+      <Button theme="primaryTransparent" variant="texticon">
         {icon}
         <span>{label}</span>
       </Button>

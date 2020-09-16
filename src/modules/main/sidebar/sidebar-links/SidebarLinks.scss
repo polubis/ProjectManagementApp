@@ -6,22 +6,6 @@
   .link {
     @include rowCenter;
 
-    button {
-      width: 100%;
-      padding: 0;
-      border-radius: 0;
-      color: $primary;
-
-      & > span {
-        @include col;
-
-        & > span {
-          @include linkSmall;
-          margin-top: 6px;
-        }
-      }
-    }
-
     &.active button {
       color: $secondary;
     }

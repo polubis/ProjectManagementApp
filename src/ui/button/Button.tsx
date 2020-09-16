@@ -15,36 +15,38 @@ const Btn = (props, children) => {
 namespace Button {
   export interface Props
     extends React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
     > {
     children: React.ReactNode;
-    variant?: 'default' | 'icon';
+    variant?: 'default' | 'icon' | 'texticon';
     theme?: 'primaryDark' | 'primaryTransparent' | 'danger';
+    style?: Object;
   }
 }
 
 const Button = forwardRef(
-  ({ children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props, ref) => {
-    if (variant === 'icon') {
-      return (
-        <button
-          {...(btnProps as any)}
-          className={`${csx[theme]} ${csx.iconButton}`}
-          ref={ref}
-        >
-          {children}
-        </button>
-        
-      );
+  ({ children, variant = 'default', theme = 'primaryDark', style, ...btnProps }: Button.Props, ref) => {
+    switch (variant) {
+      case 'icon':
+        return (
+          <button {...(btnProps as any)} className={`${csx[theme]} ${csx.iconButton} ${style}`} ref={ref} >
+            {children}
+          </button>
+        );
+      case 'texticon':
+        return (
+          <button {...(btnProps as any)} className={`${csx[theme]} ${csx.textIcon} ${style}`} ref={ref}>
+            {children}
+          </button>
+        )
+      default:
+        return (
+          <button {...(btnProps as any)} className={`${csx[theme]} ${style}`} ref={ref}>
+            {children}
+          </button>
+        )
     }
-
-    return (
-      <button {...(btnProps as any)} className={`${csx[theme]}`} ref={ref}>
-        {children}
-      </button>
-        
-    );
   }
 );
 

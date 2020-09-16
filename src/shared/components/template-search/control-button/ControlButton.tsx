@@ -32,7 +32,7 @@ const ControlButton = ({ children, loading, value, onClick }: ControlButton.Prop
 
   return (
     <Button
-      className={`${classes.btn} ${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
+      style={`${classes.btn} ${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
       disabled={loading}
       theme="primaryTransparent"
       onClick={onClick}

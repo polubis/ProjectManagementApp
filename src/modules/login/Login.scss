@@ -4,6 +4,7 @@
   @include centered;
   flex-flow: column;
   min-height: 100vh;
+  margin-right: 30px;
 
   h5 {
     @include headingBig;

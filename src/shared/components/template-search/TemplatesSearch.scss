@@ -86,9 +86,8 @@
   .confirmSearchBtn {
     @include text;
     height: 100%;
-    flex-shrink: 0;
     border-radius: 0;
-    border-left: 1px solid rgba($primary, 0.43);
+    border-left: 1px solid rgba($primary, 0.43) !important;
     color: $primary;
 
     svg {
