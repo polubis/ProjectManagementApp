@@ -31,6 +31,7 @@ namespace SelectBase {
     dataIdx: string;
     label: string;
     value: boolean;
+    pictureUrl?: string;
   }
 
   export interface ListChildData {
@@ -152,6 +153,6 @@ const SelectBase = ({
 };
 
 SelectBase.getSelected = (value: { [key: string]: boolean }) =>
-  Object.keys(value).filter(k => value[k]);
+  Object.keys(value).filter((k) => value[k]);
 
 export default SelectBase;

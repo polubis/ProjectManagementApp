@@ -21,11 +21,12 @@ namespace TechnologiesSelect {
 
 const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
   technologies.map(
-    ({ id, name }) =>
+    ({ id, name, pictureUrl }) =>
       ({
         dataIdx: '' + id,
         label: name,
-        value: !!value[id]
+        value: !!value[id],
+        pictureUrl
       } as SelectBase.Item)
   );
 
@@ -39,9 +40,9 @@ const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Pr
       loading={loading}
       listItem={ListItem}
       items={items}
-      renderSelectedItem={({ dataIdx, label }) => (
+      renderSelectedItem={({ dataIdx, label, pictureUrl }) => (
         <TechnologyChip
-          avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+          avatar={pictureUrl}
           className={csx.selectItem}
           name={label}
           onClick={() => onSelect(dataIdx, false)}

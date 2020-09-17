@@ -119,11 +119,11 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Technologies</h5>
 
                 <div>
-                  {template.technologies.map(technology => (
+                  {template.technologies.map((technology) => (
                     <TechnologyChip
                       key={technology.id}
                       name={technology.name}
-                      avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                      avatar={technology.pictureUrl}
                     />
                   ))}
                 </div>
@@ -139,7 +139,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Authors</h5>
 
                 <div>
-                  {template.contributors.map(contributor => (
+                  {template.contributors.map((contributor) => (
                     <a
                       target="_blank"
                       key={contributor.name}
