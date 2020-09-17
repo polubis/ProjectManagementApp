@@ -35,14 +35,19 @@ const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Pr
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
+  const getPictureUrl = (items: SelectBase.Item[], dataIdx: string): string => {
+    const index = parseInt(dataIdx) - 1;
+    return items[index]['pictureUrl'];
+  };
+
   return (
     <SelectBase
       loading={loading}
       listItem={ListItem}
       items={items}
-      renderSelectedItem={({ dataIdx, label, pictureUrl }) => (
+      renderSelectedItem={({ dataIdx, label }) => (
         <TechnologyChip
-          avatar={pictureUrl}
+          avatar={getPictureUrl(items, dataIdx)}
           className={csx.selectItem}
           name={label}
           onClick={() => onSelect(dataIdx, false)}

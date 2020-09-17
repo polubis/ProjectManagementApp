@@ -7,7 +7,8 @@ import { TechnologyChip } from 'shared/components';
 import csx from './ListItem.scss';
 
 const ListItem = ({ style, index, data: { items, onSelect } }: SelectBase.ListChildProps) => {
-  const { dataIdx, label, value, pictureUrl } = items[index];
+  const { dataIdx, label, value } = items[index];
+  const pictureUrl = items[index]['pictureUrl'];
 
   return (
     <div className={csx.listItem} style={style}>

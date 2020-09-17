@@ -31,7 +31,6 @@ namespace SelectBase {
     dataIdx: string;
     label: string;
     value: boolean;
-    pictureUrl?: string;
   }
 
   export interface ListChildData {
