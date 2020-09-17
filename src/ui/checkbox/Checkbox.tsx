@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 
 import csx from './Checkbox.scss';
 
@@ -15,10 +15,7 @@ namespace Checkbox {
 }
 
 const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
-  const [isChecked, setIsChecked] = useState(value);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
     onChange(event, event.target.checked);
   };
 
@@ -26,8 +23,8 @@ const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Chec
     <label className={`${csx.checkboxLabel} ${csx[variant]}`}>
       <input
         type="checkbox"
-        checked={isChecked}
-        className={`${csx.checkbox} ${isChecked ? csx.checked : ''}`}
+        checked={value}
+        className={`${csx.checkbox} ${value ? csx.checked : ''}`}
         onChange={handleChange}
         data-idx={dataIdx}
       ></input>
