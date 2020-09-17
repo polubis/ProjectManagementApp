@@ -38,7 +38,7 @@ const UserSection = () => {
       <Guard.Unprotected>
         <>
           <NavLink to="/login">
-            <Button className={csx.logInBtn}>LOG IN</Button>
+            <Button style={csx.logInBtn}>LOG IN</Button>
           </NavLink>
 
           <NavLink to="/register">

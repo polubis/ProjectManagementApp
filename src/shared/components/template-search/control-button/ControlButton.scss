@@ -1,6 +1,8 @@
 @import 'styles/mixins';
 
 .btn {
+  padding: 0 !important;
+  vertical-align: middle;
   &.active {
     color: $secondary;
   }

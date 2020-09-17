@@ -2,7 +2,6 @@
 
 button {
   box-sizing: border-box;
-  min-width: 64px;
   border: none;
   outline: none;
   background-color: transparent;
@@ -11,6 +10,9 @@ button {
   cursor: pointer; 
   font-size: 14px;
   border-radius: 4px;
+  font-family: $fontPrimary;
+  font-size: 14px;
+  font-weight: $medium;
 
   &.primaryDark {
     background: $primaryDark;
