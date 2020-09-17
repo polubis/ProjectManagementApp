@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Footer, Navbar } from 'shared/components';
 
-import { Ecosystem, Features, Search, RecommendedTemplates } from './sections';
+import { Ecosystem, Features, Search, TopTemplates } from './sections';
 
 const Home = () => {
   return (
@@ -10,7 +10,7 @@ const Home = () => {
       <Navbar />
       <Search />
       <Features />
-      <RecommendedTemplates />
+      <TopTemplates />
       <Ecosystem />
       <Footer />
     </>

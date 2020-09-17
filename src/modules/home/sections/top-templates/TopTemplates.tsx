@@ -6,16 +6,16 @@ import { TemplatesGrid } from 'shared/components';
 
 import TemplatesProvider, { useTemplatesProvider } from 'src/modules/templates/TemplatesProvider';
 
-import csx from './RecommendedTemplates.scss';
+import csx from './TopTemplates.scss';
 
-const RecommendedTemplates = () => {
+const TopTemplates = () => {
   const { templates, pendingRequests, getTemplates } = useTemplatesProvider();
 
   useEffect(() => {
     getTemplates({
       page: 1,
       limit: 4,
-      category: TemplateCategory.RECOMMENDED,
+      category: TemplateCategory.TOP,
       query: '',
       technologiesIds: [],
       patternsIds: []
@@ -23,12 +23,12 @@ const RecommendedTemplates = () => {
   }, []);
 
   return (
-    <section className={csx.recommendedTemplates}>
+    <section className={csx.topTemplates}>
       <div className={csx.wrapper}>
-        <h5>Recommended templates</h5>
+        <h5>Top templates</h5>
 
         <TemplatesGrid
-          pathname={`/app/templates/${TemplateCategory.RECOMMENDED}`}
+          pathname={`/app/templates/${TemplateCategory.TOP}`}
           spaceholdersCount={4}
           loading={!!pendingRequests}
           templates={templates}
@@ -40,6 +40,6 @@ const RecommendedTemplates = () => {
 
 export default () => (
   <TemplatesProvider>
-    <RecommendedTemplates />
+    <TopTemplates />
   </TemplatesProvider>
 );

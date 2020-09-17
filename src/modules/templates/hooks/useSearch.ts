@@ -27,6 +27,7 @@ export const useSearch = () => {
   const { getTemplates, allLoaded } = useTemplatesProvider();
 
   const parsedFilters = useMemo(parse(filters), [filters]);
+  console.log(parsedFilters);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -1,4 +1,4 @@
 export * from './ecosystem';
 export * from './features';
-export * from './recommended-templates';
+export * from './top-templates';
 export * from './search';
