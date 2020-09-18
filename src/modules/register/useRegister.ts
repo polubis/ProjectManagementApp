@@ -31,7 +31,22 @@ const makePayload = ([
     { value: confirmPassword }
   ] = credentialsManager[0].fields;
 
-  const [{ value: firstName }, { value: lastName }] = personalInfoManager[0].fields;
+  const [
+    { value: firstName },
+    { value: lastName },
+    { value: birthDate },
+    { value: sex }
+  ] = personalInfoManager[0].fields;
+
+  const [
+    { value: position },
+    { value: seniority },
+    { value: company },
+    { value: yearsOfExperience },
+    { value: technologiesIds }
+  ] = workManager[0].fields;
+
+  const [{ value: companyRegulations }, { value: commercialInfo }] = almostDoneManager[0].fields;
 
   return {
     username,
@@ -39,7 +54,16 @@ const makePayload = ([
     password,
     confirmPassword,
     firstName,
-    lastName
+    lastName,
+    birthDate,
+    sex,
+    position,
+    seniority,
+    company,
+    yearsOfExperience,
+    technologiesIds,
+    companyRegulations,
+    commercialInfo
   };
 };
 
@@ -51,6 +75,7 @@ export const useRegister = (): Return => {
 
     try {
       await register(makePayload(formManagers));
+      console.log(formManagers);
 
       setState({ ...STATE, created: true });
     } catch (error) {
