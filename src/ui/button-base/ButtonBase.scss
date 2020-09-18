@@ -1,0 +1,63 @@
+@import "styles/mixins";
+
+.button {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: $primaryDark;
+    position: relative;
+    padding: 9px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: $fontPrimary;
+    font-size: 14px;
+    font-weight: $medium;
+    color: $white;
+    margin: 0;
+}
+
+.icon {
+    @include centered;
+}
+
+.texticon {
+    @include row;
+    svg {
+        margin-right: 5px;
+    }
+}
+
+.transparent {
+    background-color: transparent;
+    color: $primary;
+
+    &.disabled {
+        color: rgba($primary, 0.6);
+    }
+}
+
+.sea {
+    background-color: $surfacePrimary;
+}
+
+.cloud {
+    background-color: $primary;
+}
+
+.calm {
+    background-color: $ok;
+}
+
+.angry {
+    background-color: $error;
+}
+
+.default,
+.sea,
+.cloud,
+.calm,
+.angry {
+    &.disabled {
+        opacity: 0.6;
+    }
+}
