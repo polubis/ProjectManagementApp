@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 
 import csx from './Checkbox.scss';
 
@@ -15,19 +15,24 @@ namespace Checkbox {
 }
 
 const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event, event.target.checked);
-  };
+  const handleChange = useCallback(
+    (event) => {
+      onChange(event, event.target.checked);
+    },
+    [onChange]
+  );
 
   return (
     <label className={`${csx.checkboxLabel} ${csx[variant]}`}>
-      <input
-        type="checkbox"
-        checked={value}
-        className={`${csx.checkbox} ${value ? csx.checked : ''}`}
-        onChange={handleChange}
-        data-idx={dataIdx}
-      ></input>
+      <div className={`${csx.checkboxBase}`}>
+        <input
+          type="checkbox"
+          checked={value}
+          className={`${csx.checkbox} ${value ? csx.checked : ''}`}
+          onChange={handleChange}
+          data-idx={dataIdx}
+        />
+      </div>
       <span>{label}</span>
     </label>
   );
