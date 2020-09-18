@@ -19,7 +19,12 @@ namespace TechnologiesSelect {
   }
 }
 
-const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
+type TechnologiesSelectItem = SelectBase.Item & Pick<Technology, 'pictureUrl'>;
+
+const makeItems = (
+  technologies: Technology[],
+  value: { [key: string]: boolean }
+) => (): TechnologiesSelectItem[] =>
   technologies.map(
     ({ id, name, pictureUrl }) =>
       ({
@@ -27,7 +32,7 @@ const makeItems = (technologies: Technology[], value: { [key: string]: boolean }
         label: name,
         value: !!value[id],
         pictureUrl
-      } as SelectBase.Item)
+      } as TechnologiesSelectItem)
   );
 
 const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
@@ -35,19 +40,14 @@ const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Pr
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
-  const getPictureUrl = (items: SelectBase.Item[], dataIdx: string): string => {
-    const index = parseInt(dataIdx) - 1;
-    return items[index]['pictureUrl'];
-  };
-
   return (
     <SelectBase
       loading={loading}
       listItem={ListItem}
       items={items}
-      renderSelectedItem={({ dataIdx, label }) => (
+      renderSelectedItem={({ dataIdx, label, pictureUrl }: TechnologiesSelectItem) => (
         <TechnologyChip
-          avatar={getPictureUrl(items, dataIdx)}
+          avatar={pictureUrl}
           className={csx.selectItem}
           name={label}
           onClick={() => onSelect(dataIdx, false)}
