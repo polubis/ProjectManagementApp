@@ -4,7 +4,7 @@
     box-sizing: border-box;
     border: none;
     outline: none;
-    background-color: $primaryDark;
+    background: $primaryDark;
     position: relative;
     padding: 9px 20px;
     cursor: pointer;
@@ -28,7 +28,7 @@
 }
 
 .transparent {
-    background-color: transparent;
+    background: transparent;
     color: $primary;
 
     &.disabled {
@@ -37,19 +37,19 @@
 }
 
 .sea {
-    background-color: $surfacePrimary;
+    background: $surfacePrimary;
 }
 
 .cloud {
-    background-color: $primary;
+    background: $primary;
 }
 
 .calm {
-    background-color: $ok;
+    background: $ok;
 }
 
 .angry {
-    background-color: $error;
+    background: $error;
 }
 
 .default,
