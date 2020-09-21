@@ -15,13 +15,11 @@ namespace ButtonBase {
 }
 
 const ButtonBase = forwardRef(
-    ({ disabled = false, color="default", variant, ...btnProps }: ButtonBase.Props, ref) => {
+    ({ disabled = false, color = "default", variant, ...btnProps }: ButtonBase.Props, ref) => {
         return <button
             {...(btnProps as any)}
             className={`${csx.button} ${btnProps.className} ${csx[variant]} ${csx[color]} ${disabled && csx.disabled}`}
-            ref={ref} >
-
-        </button>
+            ref={ref} />
     }
 );
 export default ButtonBase;
