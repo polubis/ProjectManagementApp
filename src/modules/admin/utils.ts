@@ -1,4 +1,4 @@
-import { Category } from '../models';
+import { Category } from '.';
 
 export const CATEGORIES: Category[] = [
     Category.TECHNOLOGIES,

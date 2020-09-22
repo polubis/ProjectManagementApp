@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import React, { useCallback, useEffect } from 'react';
 
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import csx from './Search.scss';
+import { Form, useQueryParams, Url } from 'utils';
 
-import { Form, useQueryParams, Url, isJSONString } from 'utils';
+import csx from './Search.scss';
 
 const CONFIG: Form.Config = [{ label: 'Query', value: '' }];
 

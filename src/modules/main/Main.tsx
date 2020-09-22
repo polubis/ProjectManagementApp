@@ -5,7 +5,6 @@ import { withLazy } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
-import { Category as AdminCategory } from 'src/modules/admin/models';
 
 import NotificationsProvider from 'shared/providers/notifications';
 
@@ -33,11 +32,9 @@ const Main = ({ match }: RouteChildrenProps) => {
 
       <main>
         <Switch>
-          <Route
-            exact
-            path={`${match.path}/admin/dictionaries/:category?`}
-            component={Admin}
-          />
+          {/* <Route exact path={`${match.path}/admin`} component={Admin} /> */}
+
+          <Route exact path={`${match.path}/admin/dictionaries/:category?`} component={Admin} />
 
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useRouteMatch } from 'react-router';
 
-import { Category } from './models';
-import AdminCategories from './admin-categories/AdminCategories';
+import { AdminRouteProps, Category } from './models'
+import AdminCategories from './admin-categories';
 import TechnologiesTab from './technologies-tab/TechnologiesTab';
 import PatternsTab from './patterns-tab/PatternsTab';
 import { useRouteValidation } from './hooks';
@@ -15,7 +15,9 @@ const tabs = {
 };
 
 const Admin = () => {
-  const { category } = useParams();
+  const {
+    params: { category }
+  } = useRouteMatch<AdminRouteProps>();
 
   useRouteValidation();
 

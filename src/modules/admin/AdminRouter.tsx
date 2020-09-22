@@ -11,7 +11,7 @@ const AdminRouter = () => {
       <Route
         exact
         path={`${location.pathname}`}
-        render={() => <Redirect to={`${location.pathname}/${Category.TECHNOLOGIES}`} />}
+        render={() => <Redirect to={`${location.pathname}/dictionaries/${Category.TECHNOLOGIES}`} />}
       />
     </Switch>
   );

@@ -16,6 +16,7 @@ export * from './select-base';
 export * from './steps';
 export * from './step-header';
 export * from './spaceholder';
+export * from './table';
 export * from './tag';
 export * from './tags';
 export * from './textarea-field';

@@ -8,8 +8,7 @@ import { Button } from 'ui';
 
 import { Url } from 'utils';
 
-import { Category } from '../models';
-import { CATEGORIES } from '../utils';
+import { Category, CATEGORIES } from '..';
 
 import csx from './AdminCategories.scss';
 

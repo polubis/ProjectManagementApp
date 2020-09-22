@@ -8,7 +8,6 @@ import TechnologiesProvider from 'core/technologies';
 import ModulesRouter from './ModulesRouter';
 
 const Modules = () => {
-
   return (
     <>
       <AlertsManager />

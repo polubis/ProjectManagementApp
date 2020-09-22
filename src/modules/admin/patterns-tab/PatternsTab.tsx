@@ -1,16 +1,18 @@
-import PatternsProvider, { usePatternsProvider } from 'core/patterns';
 import React, { useMemo } from 'react';
+
+import PatternsProvider, { usePatternsProvider } from 'core/patterns';
+
 import Search, { usePatternsSearch } from '../search';
-import Table from 'src/ui/table';
 import { CONFIG, getTableData } from '../helpers/AdminTableData';
-import { Loader } from 'ui';
+
+import { Loader, Table } from 'ui';
 
 const PatternsTab = () => {
   const { patterns, loading } = usePatternsProvider();
 
   usePatternsSearch();
 
-  const patternsTableData = useMemo(() => getTableData(patterns), [patterns, loading]);
+  const patternsTableData = useMemo(() => getTableData(patterns), [patterns]);
 
   if (loading) {
     return <Loader />;

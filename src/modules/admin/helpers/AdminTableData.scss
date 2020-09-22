@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .description {
   width: 347px;
   word-wrap: none;
@@ -14,8 +16,7 @@
 }
 
 .addedBy {
-  display: flex;
-  align-items: center;
+  @include row;
   width: 87px;
 
   .avatar {

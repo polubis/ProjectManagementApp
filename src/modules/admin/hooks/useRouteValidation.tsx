@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useRouteMatch, useHistory } from 'react-router';
 
-import { AdminRouteProps } from '../models'
-import { Category } from '../models';
-import { isValidCategory } from '../utils';
+import { AdminRouteProps, Category, isValidCategory } from '..'
 
 import { Url } from 'utils';
 
@@ -17,14 +15,13 @@ export const useRouteValidation = () => {
 
   useEffect(() => {
     if (!category) {
-      const url = Url(location).concat(`/${Category.PATTERNS}`).value();
+      const url = Url(location).concat(`/${Category.TECHNOLOGIES}`).value();
 
       replace(url);
     }
 
     else if (!isValidCategory(category)) {
-      const url = Url(location).replace(category, Category.PATTERNS).value();
-      console.log(url)
+      const url = Url(location).replace(category, Category.TECHNOLOGIES).value();
 
       replace(url);
     }
