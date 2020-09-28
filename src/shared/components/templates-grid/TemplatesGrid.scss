@@ -1,14 +1,32 @@
-@import 'styles/mixins';
+@import "styles/mixins";
 
 .templatesGrid {
   width: 100%;
   justify-content: center;
   display: grid;
-  grid-template-columns: repeat(4, auto);
   grid-gap: 32px;
+  grid-template-columns: repeat(1, auto);
 
   .spaceholder {
     width: 320px;
     height: 444px;
+  }
+}
+
+@media screen and (min-width: 910px) {
+  .templatesGrid {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .templatesGrid {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (min-width: 1650px) {
+  .templatesGrid {
+    grid-template-columns: repeat(4, auto);
   }
 }
