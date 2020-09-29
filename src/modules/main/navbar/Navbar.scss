@@ -9,6 +9,7 @@
 
   .breadcrumbs {
     @include row;
+    margin-right: auto;
 
     .breadcrumb {
       @include headingSmall;
@@ -40,9 +41,5 @@
     width: 1px;
     margin: 0 32px;
     background: rgba($primary, 0.43);
-  }
-
-  & > a {
-    margin-left: auto;
   }
 }
