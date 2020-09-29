@@ -6,6 +6,20 @@
   width: 100%;
   padding: 80px 32px;
 
+  .templatesGrid {
+    @include max-width(1450px) {
+      grid-template-columns: repeat(3, auto);
+    }
+
+    @include max-width(1150px) {
+      grid-template-columns: repeat(2, auto);
+    }
+
+    @include max-width(750px) {
+      grid-template-columns: repeat(1, auto);
+    }
+  }
+
   .wrapper {
     @include col;
     grid-column: 2/3;

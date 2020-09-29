@@ -2,8 +2,7 @@
 
 .templatesCategories {
   @include rowCenter;
-
-  @media (max-width: 868px) {
+  @include max-width(868px) {
     flex-flow: column;
   }
 
@@ -17,8 +16,8 @@
       margin: 0 30px 0 0;
     }
 
-    @media (max-width: 868px) {
-      &:not(:last-of-type) { 
+    @include max-width(868px) {
+      &:not(:last-of-type) {
         margin: 0 0 30px 0;
       }
     }

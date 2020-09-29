@@ -19,7 +19,7 @@
     padding: 62px 0;
     width: 740px;
 
-    @media (max-width: 1000px) {
+    @include max-width(1000px) {
       width: 100%;
     }
 

@@ -13,7 +13,7 @@
   }
 
   .templatesSearch {
-    @media (max-width: 1080px) {
+    @include max-width(1080px) {
       width: 100%;
     }
   }

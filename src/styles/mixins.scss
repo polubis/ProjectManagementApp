@@ -1,4 +1,5 @@
-@import './palette.scss';
+@import './palette';
+@import './media';
 
 @mixin col {
   display: flex;
