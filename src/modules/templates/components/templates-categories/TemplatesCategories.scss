@@ -2,7 +2,10 @@
 
 .templatesCategories {
   @include rowCenter;
-  position: relative;
+
+  @media (max-width: 868px) {
+    flex-flow: column;
+  }
 
   .category {
     @include link;
@@ -11,19 +14,18 @@
     text-transform: capitalize;
 
     &:not(:last-of-type) {
-      margin-right: 30px;
+      margin: 0 30px 0 0;
+    }
+
+    @media (max-width: 868px) {
+      &:not(:last-of-type) { 
+        margin: 0 0 30px 0;
+      }
     }
 
     &.active {
       background: $secondary;
       color: $black;
     }
-  }
-
-  & > a {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
   }
 }

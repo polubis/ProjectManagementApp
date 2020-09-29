@@ -22,8 +22,6 @@ const UserSection = () => {
               <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
             </div>
 
-            <div className={csx.divider} />
-
             <Notifications />
 
             <div className={csx.divider} />

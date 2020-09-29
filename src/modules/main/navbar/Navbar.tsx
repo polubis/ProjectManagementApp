@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
+import AddTemplateIcon from '@material-ui/icons/Queue';
+
+import { Button } from 'ui';
+
+import { Guard } from 'core/auth';
 
 import UserSection from './user-section';
 
@@ -24,7 +30,14 @@ namespace Navbar {
 const Navbar = ({ basePath }: Navbar.Props) => {
   const location = useLocation();
 
-  const breadcrumbs = getBreadcrumbs(location.pathname.replace(`${basePath}/`, ''));
+  const breadcrumbs = useMemo(() => getBreadcrumbs(location.pathname.replace(`${basePath}/`, '')), [
+    location,
+    basePath
+  ]);
+
+  const isTemplatesRoute = useMemo(() => location.pathname.includes('templates'), [
+    location.pathname
+  ]);
 
   return (
     <nav className={csx.navbar}>
@@ -34,10 +47,23 @@ const Navbar = ({ basePath }: Navbar.Props) => {
             <div className={csx.breadcrumb}>
               <Link to={getLinkPath(idx, breadcrumbs, basePath)}>{breadcrumb}</Link>
             </div>
-            <div className={csx.divider}>{'>'}</div>
+            <div className={csx.breadcrumbDivider}>{'>'}</div>
           </React.Fragment>
         ))}
       </div>
+
+      {isTemplatesRoute && (
+        <Guard.Protected>
+          <NavLink replace to="/app/templates/management">
+            <Button>
+              <AddTemplateIcon />
+              CREATE TEMPLATE
+            </Button>
+          </NavLink>
+        </Guard.Protected>
+      )}
+
+      <div className={csx.divider} />
 
       <UserSection />
     </nav>

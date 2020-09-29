@@ -25,7 +25,7 @@
       }
     }
 
-    .divider {
+    .breadcrumbDivider {
       color: $primary;
       margin: 0 6px;
 
@@ -33,5 +33,16 @@
         display: none;
       }
     }
+  }
+
+  .divider {
+    height: 30px;
+    width: 1px;
+    margin: 0 32px;
+    background: rgba($primary, 0.43);
+  }
+
+  & > a {
+    margin-left: auto;
   }
 }
