@@ -11,6 +11,7 @@ import csx from './TemplatesGrid.scss';
 
 namespace TemplatesGrid {
   export interface Props {
+    className?: string;
     loading: boolean;
     templates: Template[];
     spaceholdersCount: number;
@@ -34,10 +35,11 @@ const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =
  * @param props.spaceholdersCount Numbers of spaceholders to render when `loading` is truthy
  */
 const TemplatesGrid = ({
+  className = '',
   loading,
   templates,
   pathname,
-  spaceholdersCount
+  spaceholdersCount,
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
@@ -52,7 +54,7 @@ const TemplatesGrid = ({
   const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading, spaceholdersCount]);
 
   return (
-    <section className={csx.templatesGrid}>
+    <section className={`${csx.templatesGrid} ${className}`}>
       {templates.map((template) => (
         <TemplateTile key={template.id} template={template} onClick={goToDetails} />
       ))}
