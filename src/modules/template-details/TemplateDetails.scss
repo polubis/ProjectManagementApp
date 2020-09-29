@@ -15,8 +15,13 @@
   }
 
   & > section {
-    width: 400px;
-    margin: 10px auto;
+    align-self: center;
+    padding: 62px 0;
+    width: 740px;
+
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
 
     .tags {
       margin: 32px 0 18px 0;
