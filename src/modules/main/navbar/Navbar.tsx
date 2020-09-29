@@ -12,25 +12,19 @@ import UserSection from './user-section';
 
 import csx from './Navbar.scss';
 
-const getBreadcrumbs = (pathname: string) => {
-  return pathname.split('/');
-};
-
-const getLinkPath = (index: number, breadcrumbs: string[], basePath: string) => {
-  const path = `${basePath}/${breadcrumbs.slice(0, index + 1).join('/')}`;
-  return path;
-};
-
 namespace Navbar {
   export interface Props {
     basePath: string;
   }
 }
 
+const getLinkPath = (index: number, breadcrumbs: string[], basePath: string): string =>
+  `${basePath}/${breadcrumbs.slice(0, index + 1).join('/')}`;
+
 const Navbar = ({ basePath }: Navbar.Props) => {
   const location = useLocation();
 
-  const breadcrumbs = useMemo(() => getBreadcrumbs(location.pathname.replace(`${basePath}/`, '')), [
+  const breadcrumbs = useMemo(() => location.pathname.replace(`${basePath}/`, '').split('/'), [
     location,
     basePath
   ]);
@@ -54,16 +48,18 @@ const Navbar = ({ basePath }: Navbar.Props) => {
 
       {isTemplatesRoute && (
         <Guard.Protected>
-          <NavLink replace to="/app/templates/management">
-            <Button>
-              <AddTemplateIcon />
-              CREATE TEMPLATE
-            </Button>
-          </NavLink>
+          <>
+            <NavLink replace to="/app/templates/management">
+              <Button>
+                <AddTemplateIcon />
+                CREATE TEMPLATE
+              </Button>
+            </NavLink>
+
+            <div className={csx.divider} />
+          </>
         </Guard.Protected>
       )}
-
-      <div className={csx.divider} />
 
       <UserSection />
     </nav>
