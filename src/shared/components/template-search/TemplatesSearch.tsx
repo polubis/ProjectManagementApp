@@ -18,6 +18,7 @@ import csx from './TemplatesSearch.scss';
 
 namespace TemplatesSearch {
   export interface Props {
+    className?: string;
     pathname: string;
   }
 }
@@ -38,7 +39,7 @@ const CONFIG: Form.Config = [
   }
 ];
 
-const TemplatesSearch = ({ pathname }) => {
+const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
   const { location, push } = useHistory();
 
   const [query, patternsIds, technologiesIds] = useQueryParams(
@@ -93,7 +94,7 @@ const TemplatesSearch = ({ pathname }) => {
   }, [query, patternsIds, technologiesIds]);
 
   return (
-    <form className={csx.templatesSearch} onSubmit={handleSubmit}>
+    <form className={`${csx.templatesSearch} ${className}`} onSubmit={handleSubmit}>
       <input
         data-idx={QUERY}
         placeholder="Find your template..."

@@ -8,8 +8,9 @@
   border-bottom: 1px solid rgba($primary, 0.43);
   background: $surfacePrimary;
 
-  @include desktop {
-    grid-template-columns: 1fr 100fr 1fr;
+  @include max-width(1328px) {
+    grid-template-columns: 1fr;
+    padding: 80px 32px calc(80px - 32px) 32px;
   }
 
   .wrapper {
@@ -28,11 +29,6 @@
       color: $white;
       box-shadow: $shadowPrimary;
       border-radius: 4px;
-
-      @include mobile {
-        width: auto;
-        height: auto;
-      }
 
       svg {
         font-size: 42px;

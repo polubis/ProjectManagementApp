@@ -14,7 +14,7 @@ const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = useCallback(() => {
-    setSidebarOpen(sidebarOpen => !sidebarOpen);
+    setSidebarOpen(prevSidebarOpen => !prevSidebarOpen);
   }, []);
 
   return (
@@ -26,6 +26,7 @@ const Navbar = () => {
           </figure>
           <span>Jupi.io</span>
         </div>
+        
         <div className={`${csx.links} ${csx.baseLinks}`}>
           {BASE_LINKS.map(link => (
             <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />

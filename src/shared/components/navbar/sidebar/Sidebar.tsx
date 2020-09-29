@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { usePortal } from 'utils';
 
 import { BASE_LINKS, IMPORTANT_LINKS } from '..';
 
 import csx from './Sidebar.scss';
 
-const Sidebar = () => {
-  return (
-    <nav className={csx.sidebar}>
-      <div className={csx.wrapper}>
-        <div>
-          {BASE_LINKS.map(link => (
-            <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
-          ))}
-        </div>
+const Sidebar = memo(
+  () => {
+    const render = usePortal();
 
-        <div>
-          {IMPORTANT_LINKS.map(link => (
-            <NavLink key={link.to} activeClassName={csx.activeLink} {...link} />
-          ))}
-        </div>
-      </div>
-    </nav>
-  );
-};
+    return render(
+      <nav className={csx.sidebar}>
+        {BASE_LINKS.map(link => (
+          <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
+        ))}
+
+        {IMPORTANT_LINKS.map(link => (
+          <NavLink key={link.to} activeClassName={csx.activeLink} {...link} />
+        ))}
+      </nav>
+    );
+  },
+  () => true
+);
 
 export default Sidebar;

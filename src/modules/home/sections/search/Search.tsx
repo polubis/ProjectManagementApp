@@ -18,7 +18,10 @@ const Search = () => {
         prepared by developers community from around the world
       </p>
 
-      <TemplatesSearch pathname={`/app/templates/${TemplateCategory.ALL}`} />
+      <TemplatesSearch
+        className={csx.templatesSearch}
+        pathname={`/app/templates/${TemplateCategory.ALL}`}
+      />
     </section>
   );
 };
