@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouteMatch, useHistory } from 'react-router';
 
-import { Select } from 'ui';
-
 import { Form } from 'utils';
 
 import { Template } from 'core/api';
@@ -47,11 +45,14 @@ const makeConfig = (template: Template): Form.Config[] => {
   };
   techDetailsConfig[TECHNOLOGIES] = {
     ...techDetailsConfig[TECHNOLOGIES],
-    value: Select.makeValues(template.technologies, 'id')
+    value: template.technologies.reduce(
+      (prev, technology) => ({ ...prev, [technology.id]: true }),
+      {}
+    )
   };
   techDetailsConfig[PATTERNS] = {
     ...techDetailsConfig[PATTERNS],
-    value: Select.makeValues(template.patterns, 'id')
+    value: template.patterns.reduce((prev, pattern) => ({ ...prev, [pattern.id]: true }), {})
   };
   techDetailsConfig[TAGS] = { ...techDetailsConfig[TAGS], value: template.tags };
 

@@ -1,11 +1,15 @@
 @import 'styles/mixins';
 
-.item {
+.listItem {
   & > label {
     height: 100%;
     width: 100%;
-    margin-right: 0;
     margin-left: 0;
+    margin-right: 0;
     padding: 0 10px;
+
+    & > span:last-of-type {
+      padding-left: 0 !important;
+    }
   }
 }

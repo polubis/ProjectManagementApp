@@ -6,7 +6,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import SearchIcon from '@material-ui/icons/Search';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-import { Select, SelectBase } from 'ui';
+import { SelectBase } from 'ui';
 
 import { Form, useQueryParams, Url, isJSONString } from 'utils';
 
@@ -18,6 +18,7 @@ import csx from './TemplatesSearch.scss';
 
 namespace TemplatesSearch {
   export interface Props {
+    className?: string;
     pathname: string;
   }
 }
@@ -38,7 +39,7 @@ const CONFIG: Form.Config = [
   }
 ];
 
-const TemplatesSearch = ({ pathname }) => {
+const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
   const { location, push } = useHistory();
 
   const [query, patternsIds, technologiesIds] = useQueryParams(
@@ -74,8 +75,8 @@ const TemplatesSearch = ({ pathname }) => {
       const [{ value: query }, { value: patternsIds }, { value: technologiesIds }] = fields;
 
       const search = Url(location)
-        .swap('technologiesIds', Select.getChecked(technologiesIds))
-        .swap('patternsIds', Select.getChecked(patternsIds))
+        .swap('technologiesIds', SelectBase.getSelected(technologiesIds))
+        .swap('patternsIds', SelectBase.getSelected(patternsIds))
         .swap('query', query)
         .delete('page')
         .search();
@@ -93,7 +94,7 @@ const TemplatesSearch = ({ pathname }) => {
   }, [query, patternsIds, technologiesIds]);
 
   return (
-    <form className={csx.templatesSearch} onSubmit={handleSubmit}>
+    <form className={`${csx.templatesSearch} ${className}`} onSubmit={handleSubmit}>
       <input
         data-idx={QUERY}
         placeholder="Find your template..."
