@@ -1,57 +1,55 @@
 @import 'styles/mixins';
 
-.burger {
+.sidebarTrigger {
   display: none;
 
-  @include media-max-width(1000px) {
+  &.active {
+    @include max-width(1000px) {
+      position: fixed;
+      right: 5vw;
+
+      div {
+        &:nth-child(1) {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: translate(100%);
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  &.inactive {
+    @include max-width(1000px) {
+      div {
+        transform: translate(0);
+      }
+    }
+  }
+
+  @include max-width(1000px) {
     @include col;
     justify-content: space-around;
-    height: 2rem;
-    width: 2rem;
+    height: 32px;
+    width: 32px;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
-    box-sizing: border-box;
     z-index: 11;
 
-    div {
-      width: 2rem;
+    & > div {
+      width: 32px;
       height: 0.25rem;
       background-color: $primary;
       border-radius: 10px;
       transform-origin: 1px;
       transition: all 0.3s linear;
-    }
-  }
-}
-
-.burgerActive {
-  @include media-max-width(1000px) {
-    position: fixed;
-    right: 5vw;
-
-    div {
-      &:nth-child(1) {
-        transform: rotate(45deg);
-      }
-
-      &:nth-child(2) {
-        transform: translate(100%);
-        opacity: 0;
-      }
-
-      &:nth-child(3) {
-        transform: rotate(-45deg);
-      }
-    }
-  }
-}
-
-.burgerInactive {
-  @include media-max-width(1000px) {
-    div {
-      transform: translate(0);
     }
   }
 }

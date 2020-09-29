@@ -3,7 +3,7 @@
 .sidebar {
   display: none;
 
-  @include media-max-width(1000px) {
+  @include max-width(1000px) {
     display: block;
     position: fixed;
     top: 0;

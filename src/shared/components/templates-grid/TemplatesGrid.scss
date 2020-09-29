@@ -7,15 +7,15 @@
   grid-template-columns: repeat(4, auto);
   grid-gap: 32px;
 
-  @include media-max-width(1450px) {
+  @include max-width(1450px) {
     grid-template-columns: repeat(3, auto);
   }
 
-  @include media-max-width(1150px) {
+  @include max-width(1150px) {
     grid-template-columns: repeat(2, auto);
   }
 
-  @include media-max-width(750px) {
+  @include max-width(750px) {
     grid-template-columns: repeat(1, auto);
   }
 

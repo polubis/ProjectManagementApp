@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { memo } from 'react';
+
 import csx from './SidebarTrigger.scss';
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
-  const burgerClass = sidebarOpen ? csx.burgerActive : csx.burgerInactive;
-  return (
-    <button className={`${csx.burger} ${burgerClass}`} onClick={() => setSidebarOpen()}>
-      <div />
-      <div />
-      <div />
-    </button>
-  );
-};
+namespace SidebarTrigger {
+  export interface Props {
+    active: boolean;
+    onClick(): void;
+  }
+}
 
-export default Sidebar;
+const SidebarTrigger = memo(
+  ({ active, onClick }: SidebarTrigger.Props) => {
+    return (
+      <button
+        className={`${csx.sidebarTrigger} ${active ? csx.active : csx.inactive}`}
+        onClick={onClick}
+      >
+        <div />
+        <div />
+        <div />
+      </button>
+    );
+  },
+  (prev, next) => prev.active === next.active
+);
+
+export default SidebarTrigger;

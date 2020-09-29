@@ -1,1 +1,3 @@
-export { default as SidebarTrigger } from './SidebarTrigger';
+import SidebarTrigger from './SidebarTrigger';
+
+export default SidebarTrigger;

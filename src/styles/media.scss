@@ -1,39 +1,39 @@
 $mobile: 425px;
 $tablet: 900px;
-$laptop: 1300px;
+$desktop: 1300px;
 
-@mixin media-max-width($width) {
+@mixin max-width($width) {
   @media (max-width: $width) {
     @content;
   }
 }
 
-@mixin media-min-width($width) {
+@mixin min-width($width) {
   @media (min-width: $width) {
     @content;
   }
 }
 
-@mixin media-between-width($min-width, $max-width) {
+@mixin between-width($min-width, $max-width) {
   @media (min-width: $min-width) and (max-width: $max-width) {
     @content;
   }
 }
 
 @mixin mobile() {
-  @include media-max-width($mobile) {
+  @include max-width($mobile) {
     @content;
   }
 }
 
 @mixin tablet() {
-  @include media-max-width($tablet) {
+  @include max-width($tablet) {
     @content;
   }
 }
 
-@mixin laptop() {
-  @include media-max-width($laptop) {
+@mixin desktop() {
+  @include max-width($desktop) {
     @content;
   }
 }

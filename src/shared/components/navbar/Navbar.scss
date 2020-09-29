@@ -7,7 +7,7 @@
   background: $surfacePrimary;
   border-bottom: 1px solid rgba($primary, 0.43);
 
-  @include laptop {
+  @include desktop {
     grid-template-columns: 1fr 15fr 1fr;
   }
 
@@ -15,7 +15,7 @@
     @include row;
     grid-column: 2/3;
 
-    @include media-max-width(1000px) {
+    @include max-width(1000px) {
       justify-content: space-between;
     }
 
@@ -32,7 +32,7 @@
       display: grid;
       grid-gap: 24px;
 
-      @include media-max-width(1000px) {
+      @include max-width(1000px) {
         display: none;
       }
 

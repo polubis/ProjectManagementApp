@@ -5,7 +5,7 @@
   grid-template-columns: 1fr 1200px 1fr;
   background: $primaryDark;
 
-  @include laptop {
+  @include desktop {
     grid-template-columns: 1fr 100fr 1fr;
   }
 
@@ -14,7 +14,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-column: 2/3;
 
-    @include media-max-width(950px) {
+    @include max-width(950px) {
       display: flex;
       flex-direction: column;
     }
@@ -46,7 +46,7 @@
     .feedback {
       padding: 32px 60px 42px 0;
 
-      @include laptop {
+      @include desktop {
         padding-left: 60px;
       }
 
@@ -73,7 +73,7 @@
       border-right: 1px solid $white;
       border-left: 1px solid $white;
 
-      @include media-max-width(950px) {
+      @include max-width(950px) {
         border-right: 0;
         border-left: 0;
         border-top: 1px solid $white;
