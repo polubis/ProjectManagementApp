@@ -3,20 +3,37 @@
 .ecosystem {
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
-  padding: 148px 0 ;
+  padding: 148px 60px;
   border-top: 1px solid rgba($primary, 0.43);
   background: $surfacePrimary;
+
+  @include max-width(1328px) {
+    grid-template-columns: 1fr;
+    padding: 148px 32px;
+  }
 
   .wrapper {
     @include rowBetween;
     grid-column: 2/3;
 
+    @include max-width(1328px) {
+      grid-column: unset;
+      flex-flow: column-reverse;
+    }
+
     .text {
       @include col;
       width: 470px;
 
+      @include max-width(700px) {
+        width: 100%;
+      }
+
       h1 {
         @include headingBig;
+        @include max-width(1328px) {
+          margin-top: 28px;
+        }
 
         & > span {
           color: $primary;
@@ -26,6 +43,12 @@
       & > span {
         @include descriptionBig;
         margin: 32px 0 58px 0;
+      }
+    }
+
+    svg {
+      @include max-width(700px) {
+        width: 100%;
       }
     }
   }

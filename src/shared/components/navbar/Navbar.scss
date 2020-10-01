@@ -6,10 +6,23 @@
   height: 99px;
   background: $surfacePrimary;
   border-bottom: 1px solid rgba($primary, 0.43);
+  padding: 0 60px;
+
+  @include max-width(1328px) {
+    grid-template-columns: 1fr;
+    padding: 0 32px;
+  }
 
   .wrapper {
     @include row;
     grid-column: 2/3;
+
+    @include max-width(1328px) {
+      grid-column: unset;
+    }
+    @include max-width(1000px) {
+      justify-content: space-between;
+    }
 
     .logo {
       @include row;
@@ -23,6 +36,10 @@
     .links {
       display: grid;
       grid-gap: 24px;
+
+      @include max-width(1000px) {
+        display: none;
+      }
 
       a {
         @include centered;

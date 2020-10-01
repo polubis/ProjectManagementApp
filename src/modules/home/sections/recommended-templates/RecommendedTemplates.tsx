@@ -28,6 +28,7 @@ const RecommendedTemplates = () => {
         <h5>Recommended templates</h5>
 
         <TemplatesGrid
+          className={csx.templatesGrid}
           pathname={`/app/templates/${TemplateCategory.RECOMMENDED}`}
           spaceholdersCount={4}
           loading={!!pendingRequests}
