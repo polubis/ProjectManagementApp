@@ -1,3 +1,3 @@
 import { core, Technology, GET_TECHNOLOGIES } from '..';
 
-export const getTechnologies = () => core.get<Technology[]>(GET_TECHNOLOGIES);
+export const getTechnologies = (query: string) => core.get<Technology[]>(GET_TECHNOLOGIES + query);

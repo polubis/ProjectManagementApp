@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
 import { Button } from '@material-ui/core';
-
 import { Logo } from 'ui';
 
 import SidebarPanel from './sidebar-panel';

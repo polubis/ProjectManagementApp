@@ -22,6 +22,11 @@
   justify-content: center;
 }
 
+@mixin rowEnd {
+  display: flex;
+  align-content: flex-end;
+}
+
 @mixin centered {
   display: flex;
   align-items: center;

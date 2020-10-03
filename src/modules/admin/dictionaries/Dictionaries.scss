@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.dictionaries {
+  @include colCenter;
+  padding: 60px;
+}
