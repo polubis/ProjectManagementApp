@@ -30,7 +30,7 @@ const LINK_HEIGHT = 80,
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
     { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
     { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
-    { label: 'Admin', path: '/admin/dictionaries', icon: <AdminIcon /> }
+    { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
   ];
 
 const getActiveLinkIdx = (basePath: string, pathname: string) => () => {

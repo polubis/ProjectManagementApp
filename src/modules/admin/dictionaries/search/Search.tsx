@@ -18,7 +18,7 @@ namespace Search {
   }
 }
 
-const AdminSearch = (props: Search.Props) => {
+const Search = (props: Search.Props) => {
   const { location, push } = useHistory();
 
   const { name } = props;
@@ -37,7 +37,10 @@ const AdminSearch = (props: Search.Props) => {
 
       const [{ value: query }] = fields;
 
-      const search = Url(location).swap('query', query).delete('page').search();
+      const search = Url(location)
+        .swap('query', query)
+        .delete('page')
+        .search();
 
       push(`${location.pathname}?${search}`);
     },
@@ -63,7 +66,5 @@ const AdminSearch = (props: Search.Props) => {
     </form>
   );
 };
-
-const Search = AdminSearch;
 
 export default Search;

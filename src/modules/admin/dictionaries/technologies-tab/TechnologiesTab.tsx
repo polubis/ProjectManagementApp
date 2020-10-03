@@ -1,27 +1,25 @@
 import React, { useMemo } from 'react';
 
+import { Table } from 'ui';
+
 import TechnologiesProvider, { useTechnologiesProvider } from 'core/technologies';
 
-import { CONFIG, getTableData } from '../helpers/AdminTableData';
-import Search, { useTechnologiesSearch } from '../search';
+import { useTechnologiesSearch } from './useTechnologiesSearch';
 
-import { Loader, Table } from 'ui';
+import Search from '../search';
+import TableData from '../table-data';
 
 const TechnologiesTab = () => {
   const { technologies, loading } = useTechnologiesProvider();
 
   useTechnologiesSearch();
 
-  const technologiesTableData = useMemo(() => getTableData(technologies), [technologies]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  const technologiesTableData = useMemo(() => TableData(technologies), [technologies]);
 
   return (
     <div>
       <Search name="Technology" />
-      <Table data={technologiesTableData} config={CONFIG} />
+      {loading || <Table data={technologiesTableData} config={TableData.CONFIG} />}
     </div>
   );
 };

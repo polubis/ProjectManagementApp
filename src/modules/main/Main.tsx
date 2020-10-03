@@ -32,9 +32,11 @@ const Main = ({ match }: RouteChildrenProps) => {
 
       <main>
         <Switch>
-          {/* <Route exact path={`${match.path}/admin`} component={Admin} /> */}
-
-          <Route exact path={`${match.path}/admin/dictionaries/:category?`} component={Admin} />
+          <Guard.ProtectedRoute
+            redirect={`${match.path}/templates`}
+            path={`${match.path}/admin`}
+            component={Admin}
+          />
 
           <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
 

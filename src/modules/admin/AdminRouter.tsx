@@ -1,18 +1,18 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 
-import { Category } from './models';
+import { withLazy } from 'utils';
+
+const Dictionaries = withLazy(() => import('./dictionaries'));
 
 const AdminRouter = () => {
-  const { location } = useHistory();
+  const match = useRouteMatch();
+
   return (
     <Switch>
-      <Route
-        exact
-        path={`${location.pathname}`}
-        render={() => <Redirect to={`${location.pathname}/dictionaries/${Category.TECHNOLOGIES}`} />}
-      />
+      <Route exact path={`${match.path}/dictionaries/:category?`} component={Dictionaries} />
+
+      <Route path="*" render={() => <Redirect to={`${match.path}/dictionaries`} />} />
     </Switch>
   );
 };

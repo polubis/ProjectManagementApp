@@ -1,27 +1,25 @@
 import React, { useMemo } from 'react';
 
+import { Table } from 'ui';
+
 import PatternsProvider, { usePatternsProvider } from 'core/patterns';
 
-import Search, { usePatternsSearch } from '../search';
-import { CONFIG, getTableData } from '../helpers/AdminTableData';
+import { usePatternsSearch } from './usePatternsSearch';
 
-import { Loader, Table } from 'ui';
+import Search from '../search';
+import TableData from '../table-data';
 
 const PatternsTab = () => {
   const { patterns, loading } = usePatternsProvider();
 
   usePatternsSearch();
 
-  const patternsTableData = useMemo(() => getTableData(patterns), [patterns]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  const patternsTableData = useMemo(() => TableData(patterns), [patterns]);
 
   return (
     <div>
       <Search name="Pattern" />
-      <Table data={patternsTableData} config={CONFIG} />
+      {loading || <Table data={patternsTableData} config={TableData.CONFIG} />}
     </div>
   );
 };

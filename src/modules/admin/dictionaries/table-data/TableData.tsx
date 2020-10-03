@@ -5,13 +5,13 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { Table } from 'ui';
 
-import csx from './AdminTableData.scss';
+import csx from './TableData.scss';
 
 const avatarUrl = 'https://cdn.pixabay.com/photo/2018/04/28/13/18/man-3357275_960_720.png';
 
 const header = ['', 'name', 'description', 'created', 'modified', 'added by', ''];
 
-export const CONFIG: Table.TableConfig = {
+const CONFIG: Table.TableConfig = {
   height: 500,
   width: 1350,
   itemSize: 80
@@ -20,9 +20,9 @@ export const CONFIG: Table.TableConfig = {
 const formatValue = (value: string, cutIndex: number): string =>
   value.length > cutIndex ? value.substr(0, cutIndex - 3) + '...' : value;
 
-export const getTableData = (data) => {
+const TableData = data => {
   // @TODO Add the interface when backend will provide full model
-  const tableData: Table.Row[] = data.map((item) => {
+  const tableData: Table.Row[] = data.map(item => {
     const row: Table.Row = {
       id: {
         component: <p className={csx.id}>{item.id}</p>
@@ -76,3 +76,7 @@ export const getTableData = (data) => {
     ...tableData
   ];
 };
+
+TableData.CONFIG = CONFIG;
+
+export default TableData;
