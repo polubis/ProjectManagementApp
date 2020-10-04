@@ -4,11 +4,10 @@ import express, { Express } from 'express';
 import { Server } from 'http';
 import { Controllers } from '@controllers';
 import { DBConnection } from '@db';
-import { WSConnection } from '@ws';
+import { WSConnection, NotificationHandler } from '@ws';
 // import { ErrorHandler } from '@middlewares';
 import { Mongoose } from 'mongoose';
 import WebSocketServer from 'websocket/lib/WebSocketServer';
-import ValidateRequests from './ws/ValidateRequests';
 import { __PORT__ } from '@consts';
 
 class App {
@@ -73,7 +72,7 @@ class App {
   private initWs = () => {
     const ws = new WSConnection(this.server);
     this.ws = ws.connection;
-    ValidateRequests(this.ws);
+    NotificationHandler(this.ws);
   };
 }
 
