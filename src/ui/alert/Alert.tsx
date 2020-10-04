@@ -1,41 +1,36 @@
-import React, { useCallback, memo } from 'react';
+import React, { useCallback, memo, useState } from 'react';
 
-import CloseIcon from '@material-ui/icons/Close';
-
-import { usePortal } from 'utils';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import csx from './Alert.scss';
 
 namespace Alert {
-  export namespace Events {
-    export type Close = React.MouseEvent<SVGSVGElement, MouseEvent>;
-  }
-
   export type Types = 'warning' | 'error' | 'success' | 'info';
 
-  export type OnClose = (idx: number) => void;
-
   export interface Props {
-    idx: number;
     message: string;
     type?: Types;
-    onClose: OnClose;
+    onClose: () => void;
   }
 }
 
 const Alert = memo(
-  ({ idx, message, type = 'error', onClose }: Alert.Props) => {
-    const render = usePortal();
+  ({ message, type = 'error', onClose }: Alert.Props) => {
+    const [isOpen, setIsOpen] = useState(true);
 
-    const handleClose = useCallback((e: Alert.Events.Close) => {
-      onClose(+e.currentTarget.getAttribute('data-idx'));
+    const handleClose = useCallback(() => {
+      setIsOpen(false);
+      onClose();
     }, []);
 
-    return render(
-      <div className={`${csx.alert} ${csx[type]}`}>
-        <span>{message}</span>
-        <CloseIcon data-idx={idx} onClick={handleClose} />
-      </div>
+    return (
+      <Snackbar
+        open={isOpen}
+        onClose={handleClose}
+        message={message}
+        classes={{ root: `${csx.root}` }}
+        ContentProps={{ classes: { root: `${csx.alert} ${csx[type]}` } }}
+      />
     );
   },
   () => true
