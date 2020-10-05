@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import { Button } from '@material-ui/core';
 
@@ -15,16 +15,16 @@ namespace SidebarPanel {
   }
 }
 
-const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
-  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
-    return (
-      <Button className={csx.link}>
-        {icon}
-        <span>{label}</span>
-      </Button>
-    );
-  }, []);
+const renderLink: SidebarLinks.Children = (icon, label) => {
+  return (
+    <Button className={csx.link}>
+      {icon}
+      <span>{label}</span>
+    </Button>
+  );
+};
 
+const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
   return (
     <div className={csx.sidebarPanel}>
       <div className={csx.logo} onClick={onClose}>
