@@ -32,10 +32,11 @@ namespace TagsField {
 const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: TagsField.Props) => {
   const [inputValue, setInputValue] = useState('');
 
-  const validationError = V.min(2, false)(inputValue);
+  const minValidationError = V.min(2, false)(inputValue);
+  const uniqueValidationError = V.unique(value)(inputValue);
 
   const handleConfirm = useCallback(() => {
-    if (!validationError.invalid) {
+    if (!minValidationError.invalid && !uniqueValidationError.invalid) {
       onChange(inputValue);
       setInputValue('');
     }
@@ -73,7 +74,10 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
 
       {error ? null : <TemplateTags items={value} onClick={handleDelete} />}
 
-      <IconButton disabled={validationError.invalid} onClick={handleConfirm}>
+      <IconButton
+        disabled={minValidationError.invalid || uniqueValidationError.invalid}
+        onClick={handleConfirm}
+      >
         <AddCircleOutlineIcon />
       </IconButton>
     </FieldBase>
