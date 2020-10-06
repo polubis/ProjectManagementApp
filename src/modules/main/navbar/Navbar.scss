@@ -7,6 +7,10 @@
   background: $surface;
   padding: 0 40px;
 
+  @include tablet {
+    justify-content: space-between;
+  }
+
   .breadcrumbs {
     @include row;
     margin-right: auto;
@@ -24,6 +28,21 @@
         text-decoration: none;
         color: $primary;
       }
+
+      @include desktop {
+        display: none;
+
+        &:first-of-type {
+          display: initial;
+          margin-right: auto;
+        }
+      }
+
+      @include tablet {
+        &:first-of-type {
+          display: none;
+        }
+      }
     }
 
     .breadcrumbDivider {
@@ -31,6 +50,10 @@
       margin: 0 6px;
 
       &:last-of-type {
+        display: none;
+      }
+
+      @include desktop {
         display: none;
       }
     }
@@ -41,5 +64,26 @@
     width: 1px;
     margin: 0 32px;
     background: rgba($primary, 0.43);
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  .createTemplate {
+    @include max-width(660px) {
+      height: 50px;
+      min-width: 50px;
+      padding: 0 !important;
+      border-radius: 50%;
+
+      svg {
+        margin: 0;
+      }
+
+      h4 {
+        display: none;
+      }
+    }
   }
 }

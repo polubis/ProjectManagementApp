@@ -50,9 +50,9 @@ const Navbar = ({ basePath }: Navbar.Props) => {
         <Guard.Protected>
           <>
             <NavLink replace to="/app/templates/management">
-              <Button>
+              <Button className={csx.createTemplate}>
                 <AddTemplateIcon />
-                CREATE TEMPLATE
+                <h4>CREATE TEMPLATE</h4>
               </Button>
             </NavLink>
 
@@ -60,7 +60,6 @@ const Navbar = ({ basePath }: Navbar.Props) => {
           </>
         </Guard.Protected>
       )}
-
       <UserSection />
     </nav>
   );

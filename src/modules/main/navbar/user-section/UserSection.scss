@@ -3,6 +3,14 @@
 .userSection {
   @include row;
 
+  @include desktop {
+    justify-content: flex-end;
+  }
+
+  @include tablet {
+    flex-grow: 1;
+  }
+
   .details {
     @include row;
     margin-right: 16px;
@@ -10,6 +18,10 @@
     & > span {
       @include label;
       margin-right: 16px;
+
+      @include tablet {
+        display: none;
+      }
     }
 
     .avatar {
