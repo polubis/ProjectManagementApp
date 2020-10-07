@@ -22,3 +22,4 @@ export * from './tag';
 export * from './tags';
 export * from './textarea-field';
 export * from './tree';
+export * from './image';

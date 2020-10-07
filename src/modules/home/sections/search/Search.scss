@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@import "styles/mixins";
 
 .search {
   @include centered;
@@ -13,7 +13,7 @@
 
   h1,
   p {
-  width: 470px;
+    width: 470px;
     text-align: center;
 
     @include max-width(600px) {
@@ -39,4 +39,8 @@
       width: 100%;
     }
   }
+}
+
+.img {
+  border: 5px solid red;
 }
