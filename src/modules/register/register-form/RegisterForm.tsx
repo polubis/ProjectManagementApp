@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Loader, StepHeader, Steps } from 'ui';
 
-import { Form } from 'utils';
+import { Form, useScrollReset } from 'utils';
 
 import { FormSteps } from 'shared/components';
 
@@ -43,6 +43,8 @@ const RegisterForm = () => {
 
   const [{ pending, created }, handleRegister] = useRegister();
 
+  useScrollReset(activeStep);
+
   const credentialsManager = Form.useManager(BASE_CONFIG[CREDENTIALS]);
   const personalInfoManager = Form.useManager(BASE_CONFIG[PERSONAL_INFO]);
   const workManager = Form.useManager(BASE_CONFIG[WORK]);
@@ -74,12 +76,12 @@ const RegisterForm = () => {
   );
 
   const handleBack = useCallback(() => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   }, []);
 
   useEffect(() => {
     if (created) {
-      setActiveStep(prevActiveStep => prevActiveStep + 1);
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   }, [created]);
 
