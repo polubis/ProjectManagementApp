@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
+
+import { Loader } from "ui"
+
+import csx from "./Image.scss"
 
 namespace Image {
     export interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -8,7 +12,9 @@ namespace Image {
 }
 
 const Image = ({ lowQuality, src, className, ...props }: Image.Props) => {
-    const [url, setUrl] = useState(lowQuality || src)
+
+    const [url, setUrl] = useState<any>(lowQuality || src)
+
     useEffect(() => {
         if (url === lowQuality) {
             fetch(src).then(e => e.blob()).then(b => {
@@ -22,11 +28,16 @@ const Image = ({ lowQuality, src, className, ...props }: Image.Props) => {
     }, [])
 
     return (
-        <img
-            className={className}
-            alt={props.alt || "image"} {...{ src: url, ...props }}
-            height={500}
-            width={500} />
+        <div className={`${csx.img}`}
+            style={{ height: props.height, width: props.width }}>
+            {url === lowQuality && <Loader className={csx.loader} />}
+            <img
+                className={`${className}`}
+                alt={props.alt || "image"}
+                {...{ src: url, ...props }}
+                height={props.height}
+                width={props.width} />
+        </div>
     )
 }
 
