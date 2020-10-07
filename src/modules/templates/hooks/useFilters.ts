@@ -1,51 +1,34 @@
 import { useMemo } from 'react';
-import { useRouteMatch } from 'react-router';
-import { pipe } from 'ramda';
-
-import { useQueryParams, isJSONString } from 'utils';
+import { History } from 'history';
 
 import { TemplateCategory } from 'core/api';
 
-import { LIMIT, FILTERS, isValidCategory, TemplatesSearchFilters, TemplatesRouteProps } from '..';
+import { useQueryParams, isJSONString } from 'utils';
 
-const parseLimit = (limit: string) => (filters: TemplatesSearchFilters) =>
-  !limit || isNaN(+limit) || +limit < LIMIT ? filters : { ...filters, limit };
+import { LIMIT, PAGE, TemplatesSearchFilters } from '..';
 
-const parsePage = (page: string) => (filters: TemplatesSearchFilters): TemplatesSearchFilters =>
-  !page || isNaN(+page) ? filters : { ...filters, page };
+const getDictionary = (value: string): string =>
+  !isJSONString(value) || (JSON.parse(value) as string[]).some((id) => isNaN(+id)) ? '[]' : value;
 
-const parseQuery = (query: string) => (filters: TemplatesSearchFilters) => ({ ...filters, query });
-
-const parseCategory = (category: TemplateCategory) => (
-  filters: TemplatesSearchFilters
-): TemplatesSearchFilters => (isValidCategory(category) ? { ...filters, category } : filters);
-
-const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: string) => (
-  filters: TemplatesSearchFilters
-) =>
-  !isJSONString(value) || (JSON.parse(value) as string[]).some((id) => isNaN(+id))
-    ? filters
-    : { ...filters, [key]: value };
-
-export const useFilters = () => {
-  const {
-    params: { category }
-  } = useRouteMatch<TemplatesRouteProps>();
-
+export const useFilters = (
+  { location }: History,
+  category: TemplateCategory
+): TemplatesSearchFilters => {
   const queryParams = useQueryParams('limit', 'page', 'query', 'technologiesIds', 'patternsIds');
 
   const [limit, page, query, technologiesIds, patternsIds] = queryParams;
 
-  return useMemo(
-    () =>
-      pipe(
-        parseLimit(limit),
-        parsePage(page),
-        parseCategory(category),
-        parseQuery(query),
-        parseDictionary('patternsIds')(patternsIds),
-        parseDictionary('technologiesIds')(technologiesIds)
-      )(FILTERS),
-    [category, ...queryParams]
+  const filters: TemplatesSearchFilters = useMemo(
+    () => ({
+      category,
+      page: !page || isNaN(+page) ? '' + PAGE : page,
+      limit: !limit || isNaN(+limit) || +limit < LIMIT ? '' + LIMIT : limit,
+      technologiesIds: getDictionary(technologiesIds),
+      patternsIds: getDictionary(patternsIds),
+      query
+    }),
+    [location.key]
   );
+
+  return filters;
 };

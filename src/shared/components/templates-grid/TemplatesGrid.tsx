@@ -26,20 +26,12 @@ const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =
       ))
     : null;
 
-/**
- * Renders grid components based on given data
- *
- * @param props.loading Displays spaceholders if truthy
- * @param props.templates Templates to display
- * @param props.path Path prefix to rediect
- * @param props.spaceholdersCount Numbers of spaceholders to render when `loading` is truthy
- */
 const TemplatesGrid = ({
   className = '',
   loading,
   templates,
   pathname,
-  spaceholdersCount,
+  spaceholdersCount
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
@@ -51,7 +43,10 @@ const TemplatesGrid = ({
     [location.pathname]
   );
 
-  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading, spaceholdersCount]);
+  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [
+    loading,
+    spaceholdersCount
+  ]);
 
   return (
     <section className={`${csx.templatesGrid} ${className}`}>

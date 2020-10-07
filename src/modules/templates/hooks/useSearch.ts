@@ -1,64 +1,62 @@
 import { useEffect, useMemo } from 'react';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 
-import { Url, ScrollObserver } from 'utils';
+// import { Url, ScrollObserver } from 'utils';
 
-import { TemplatesPayload } from 'core/api';
+// import { TemplatesPayload } from 'core/api';
 
-import { useTemplatesProvider } from '../TemplatesProvider';
+// import { useTemplatesProvider } from '../TemplatesProvider';
 
-import { TemplatesSearchFilters } from '..';
+// import { TemplatesSearchFilters } from '..';
 
-import { useFilters } from '.';
+// import { useFilters } from '.';
 
-const parse = (filters: TemplatesSearchFilters) => (): TemplatesPayload => ({
-  ...filters,
-  page: +filters.page,
-  limit: +filters.limit,
-  technologiesIds: JSON.parse(filters.technologiesIds),
-  patternsIds: JSON.parse(filters.patternsIds)
-});
+// const parse = (filters: TemplatesSearchFilters) => (): TemplatesPayload => ({
+//   ...filters,
+//   page: +filters.page,
+//   limit: +filters.limit,
+//   technologiesIds: JSON.parse(filters.technologiesIds),
+//   patternsIds: JSON.parse(filters.patternsIds)
+// });
 
-export const useSearch = () => {
-  const { replace, location } = useHistory();
+// export const useSearch = () => {
+//   const { replace, location } = useHistory();
 
-  const filters = useFilters();
+//   const filters = useFilters();
 
-  const { getTemplates, allLoaded } = useTemplatesProvider();
+//   const { allLoaded, getTemplates } = useTemplatesProvider();
 
-  const parsedFilters = useMemo(parse(filters), [filters]);
+//   const parsedFilters = useMemo(parse(filters), [filters]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+//   useEffect(() => {
+//     let obs: ScrollObserver = null;
 
-  useEffect(() => {
-    let obs: ScrollObserver;
+//     const onEmit = ({ bottom }: ScrollObserver.Position) => {
+//       const incremenPage = () => {
+//         const url = Url(location)
+//           .swap('page', parsedFilters.page + 1)
+//           .value();
 
-    const onEmit = ({ bottom }: ScrollObserver.Position) => {
-      const incremenPage = () => {
-        const url = Url(location)
-          .swap('page', parsedFilters.page + 1)
-          .value();
+//         replace(url);
+//       };
 
-        replace(url);
-      };
+//       console.log(bottom, allLoaded);
 
-      if (!allLoaded && bottom) {
-        incremenPage();
-      }
-    };
+//       if (!allLoaded && bottom) {
+//         incremenPage();
+//       }
+//     };
 
-    if (!obs) {
-      obs = new ScrollObserver(document, onEmit);
-    }
+//     if (!obs) {
+//       obs = new ScrollObserver(document, onEmit);
+//     }
 
-    return () => {
-      obs.unsubscribe();
-    };
-  }, [allLoaded, parsedFilters]);
+//     return () => {
+//       obs.unsubscribe();
+//     };
+//   }, [allLoaded, parsedFilters]);
 
-  useEffect(() => {
-    getTemplates(parsedFilters);
-  }, [location.key]);
-};
+//   useEffect(() => {
+//     getTemplates(parsedFilters);
+//   }, [location.key]);
+// };

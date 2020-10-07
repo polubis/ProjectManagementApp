@@ -1,26 +1,31 @@
-import React, { useMemo } from 'react';
-import { useHistory } from 'react-router';
+import React from 'react';
+import { useHistory, useRouteMatch } from 'react-router';
 
-import { TemplatesGrid, TemplatesSearch } from 'shared/components';
+import { TemplatesSearch, TemplatesGrid } from 'shared/components';
 
-import TemplatesProvider, { useTemplatesProvider } from './TemplatesProvider';
 import { TemplatesCategories } from './components';
-import { useSearch, useRouteValidation } from './hooks';
+import {
+  useRouteValidation,
+  useFilters,
+  usePayload,
+  useTemplatesSearch,
+  useSpaceholdersCount
+} from './hooks';
 
-import { LIMIT } from '.';
+import { TemplatesRouteProps } from '.';
 
 import csx from './Templates.scss';
 
-const calcSpaceholdersCount = (pendingRequests: number) => () => pendingRequests * LIMIT;
-
 const Templates = () => {
-  const { location } = useHistory();
+  const history = useHistory();
+  const {
+    params: { category }
+  } = useRouteMatch<TemplatesRouteProps>();
 
-  const { pendingRequests, templates } = useTemplatesProvider();
-
-  useSearch();
-
-  const spaceholdersCount = useMemo(calcSpaceholdersCount(pendingRequests), [pendingRequests]);
+  const filters = useFilters(history, category);
+  const payload = usePayload(filters);
+  const { pendingRequests, templates } = useTemplatesSearch(history, payload);
+  const spaceholdersCount = useSpaceholdersCount(pendingRequests);
 
   return (
     <div className={csx.templates}>
@@ -37,11 +42,7 @@ const Templates = () => {
 };
 
 export default () => {
-  useRouteValidation();
+  const categoryValid = useRouteValidation();
 
-  return (
-    <TemplatesProvider>
-      <Templates />
-    </TemplatesProvider>
-  );
+  return categoryValid ? <Templates /> : null;
 };
