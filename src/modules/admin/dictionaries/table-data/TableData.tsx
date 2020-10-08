@@ -1,11 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import { Table } from 'ui';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import { Table, More } from 'ui';
 
 import csx from './TableData.scss';
+
+import { Category } from '../models';
 
 const avatarUrl = 'https://cdn.pixabay.com/photo/2018/04/28/13/18/man-3357275_960_720.png';
 
@@ -20,9 +26,15 @@ const CONFIG: Table.TableConfig = {
 const formatValue = (value: string, cutIndex: number): string =>
   value.length > cutIndex ? value.substr(0, cutIndex - 3) + '...' : value;
 
-const TableData = data => {
-  // @TODO Add the interface when backend will provide full model
-  const tableData: Table.Row[] = data.map(item => {
+namespace TableData {
+  export interface Props {
+    data: any; // @TODO Add the interface when backend will provide full model
+    category: Category;
+  }
+}
+
+const TableData = ({ data, category }: TableData.Props) => {
+  const tableData: Table.Row[] = data.map((item) => {
     const row: Table.Row = {
       id: {
         component: <p className={csx.id}>{item.id}</p>
@@ -56,7 +68,20 @@ const TableData = data => {
         )
       },
       icon: {
-        component: <MoreHorizIcon />
+        component: (
+          <More hideText={true} icon={<MoreHorizIcon />} btnVariant="transparent">
+            {/* AT THIS MOMENT ADDING/EDITING PATTERN/TECHNOLOGY IS UNAVAILABLE */}
+            <NavLink to={`/app/${category}/management/${item.id}`} className={csx.edit}>
+              <EditIcon />
+              EDIT
+            </NavLink>
+            {/* TODO: ADD DELETE */}
+            <div className={csx.delete} onClick={() => {}}>
+              <DeleteIcon />
+              DELETE
+            </div>
+          </More>
+        )
       }
     };
 

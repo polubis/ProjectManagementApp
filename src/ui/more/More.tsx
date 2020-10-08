@@ -7,8 +7,13 @@ import { Button, Menu, useMenu } from '..';
 import csx from './More.scss';
 
 namespace More {
+  export type BtnVariant = 'default' | 'transparent';
+
   export type Props = {
     children: ReactElement[];
+    hideText?: boolean;
+    icon?: ReactElement;
+    btnVariant?: BtnVariant;
   };
 
   export namespace Events {
@@ -20,7 +25,7 @@ namespace More {
   }
 }
 
-const More = ({ children }: More.Props) => {
+const More = ({ children, hideText, icon, btnVariant = 'default' }: More.Props) => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
@@ -37,9 +42,13 @@ const More = ({ children }: More.Props) => {
 
   return (
     <>
-      <Button className={csx.moreBtn} onClick={openMenu}>
-        MORE
-        <ExpandMoreIcon />
+      <Button
+        className={`${csx.moreBtn}`}
+        onClick={openMenu}
+        theme={btnVariant === 'transparent' ? 'primaryTransparent' : null}
+      >
+        {!hideText && 'MORE'}
+        {icon ? icon : <ExpandMoreIcon />}
       </Button>
 
       {menuOpen && (

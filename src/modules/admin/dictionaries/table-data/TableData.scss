@@ -28,3 +28,13 @@
     font-size: 10px;
   }
 }
+
+.edit {
+  @include text;
+  color: $primary;
+}
+
+.delete {
+  @include text;
+  color: $error;
+}
