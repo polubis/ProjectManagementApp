@@ -12,9 +12,9 @@ export const [GET_PATTERNS] = makePaths('TemplatePatterns')('Search');
 
 export const [GET_TECHNOLOGIES] = makePaths('TemplateTechnologies')('Search');
 
-export const [GET_TEMPLATES, GET_TEMPLATE_DETAILS, EDIT_TEMPLATE, DELETE_TEMPLATE] = makePaths(
+export const [GET_TEMPLATES, GET_TEMPLATE_DETAILS, EDIT_TEMPLATE, DELETE_TEMPLATE, FORK_TEMPLATE] = makePaths(
   'Templates'
-)('Search', '', '', '');
+)('Search', '', '', '', 'Fork');
 
 export const [ADD_TEMPLATE] = makePaths('Templates')('');
 

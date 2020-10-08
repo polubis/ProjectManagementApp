@@ -12,7 +12,8 @@ import { Button, Loader, More, Tags } from 'ui';
 
 import { convertDate } from 'utils';
 
-import { Template } from 'core/api';
+import { Template, forkTemplate } from 'core/api';
+
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
@@ -25,7 +26,7 @@ import ConfirmDelete from './confirm-delete';
 import csx from './TemplateDetails.scss';
 
 namespace TemplateDetails {
-  export interface Props extends RouteChildrenProps<{ id: string }> {}
+  export interface Props extends RouteChildrenProps<{ id: string }> { }
 }
 
 const toNames = (template: Template) => () =>
@@ -35,6 +36,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { replace } = useHistory();
 
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [forkInProgress, setForkInProgress] = useState(false);
 
   const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
 
@@ -56,6 +58,19 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setConfirmDeleteOpen(false);
   }, []);
 
+  const forkTemplateHandler = async () => {
+    setForkInProgress(true);
+    forkTemplate(match.params.id).then(
+      (response) => {
+        console.log(response.data)
+        setForkInProgress(false)
+      },
+      (reason) => {
+        console.log(reason)
+      }
+    );
+  }
+
   const patternsNames = useMemo(toNames(template), [template]);
 
   return (
@@ -63,98 +78,106 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
       {loading ? (
         <Loader />
       ) : (
-        !error && (
-          <>
-            {confirmDeleteOpen && (
-              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
-            )}
+          !error && (
+            <>
+              {confirmDeleteOpen && (
+                <ConfirmDelete template={template} onClose={closeConfirmDelete} />
+              )}
 
-            <header>
-              <NavLink to={`${match.url}/documentation`}>
-                <Button>
-                  <MenuBookIcon /> DOCS
+              <header>
+                <NavLink to={`${match.url}/documentation`}>
+                  <Button>
+                    <MenuBookIcon /> DOCS
                 </Button>
-              </NavLink>
+                </NavLink>
 
-              <a href={template.githubLink} target="_blank">
-                <Button>
-                  <ShareIcon /> SOURCE
+                <Button disabled={forkInProgress} onClick={forkTemplateHandler}>
+
+                  <img src="https://www.iconsdb.com/icons/preview/white/fork-2-xxl.png"
+                    height="20"
+                    style={{ marginRight: "10px" }} />
+                  FORK
                 </Button>
-              </a>
 
-              <TemplateAuthorGuard>
-                <More>
-                  <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
-                    <EditIcon />
+                <a href={template.githubLink} target="_blank">
+                  <Button>
+                    <ShareIcon /> SOURCE
+                </Button>
+                </a>
+
+                <TemplateAuthorGuard>
+                  <More>
+                    <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
+                      <EditIcon />
                     EDIT
                   </NavLink>
-                  <div className={csx.delete} onClick={openConfirmDelete}>
-                    <DeleteIcon />
+                    <div className={csx.delete} onClick={openConfirmDelete}>
+                      <DeleteIcon />
                     DELETE
                   </div>
-                </More>
-              </TemplateAuthorGuard>
-            </header>
+                  </More>
+                </TemplateAuthorGuard>
+              </header>
 
-            <section>
-              <TemplateTags className={csx.tags} items={template.tags} />
+              <section>
+                <TemplateTags className={csx.tags} items={template.tags} />
 
-              <TemplateStats stars={template.stars} watches={template.watches} />
+                <TemplateStats stars={template.stars} watches={template.watches} />
 
-              <p className={csx.date}>
-                Created <span>{convertDate(template.createdDate)}</span>
-                {!!template.modifiedDate && (
-                  <>
-                    {' '}
+                <p className={csx.date}>
+                  Created <span>{convertDate(template.createdDate)}</span>
+                  {!!template.modifiedDate && (
+                    <>
+                      {' '}
                     and modified <span>{convertDate(template.modifiedDate)}</span>
-                  </>
-                )}
-              </p>
+                    </>
+                  )}
+                </p>
 
-              <h1>{template.name}</h1>
+                <h1>{template.name}</h1>
 
-              <span className={csx.description}>{template.description}</span>
+                <span className={csx.description}>{template.description}</span>
 
-              <div className={csx.technologies}>
-                <h5>Technologies</h5>
+                <div className={csx.technologies}>
+                  <h5>Technologies</h5>
 
-                <div>
-                  {template.technologies.map(technology => (
-                    <TechnologyChip
-                      key={technology.id}
-                      name={technology.name}
-                      avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
-                    />
-                  ))}
+                  <div>
+                    {template.technologies.map(technology => (
+                      <TechnologyChip
+                        key={technology.id}
+                        name={technology.name}
+                        avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className={csx.patterns}>
-                <h5>Patterns</h5>
+                <div className={csx.patterns}>
+                  <h5>Patterns</h5>
 
-                <Tags items={patternsNames} />
-              </div>
-
-              <div className={csx.contributors}>
-                <h5>Authors</h5>
-
-                <div>
-                  {template.contributors.map(contributor => (
-                    <a
-                      target="_blank"
-                      key={contributor.name}
-                      href={`https://github.com/${contributor.name}`}
-                      title={contributor.name}
-                    >
-                      <Avatar src={contributor.avatar} />
-                    </a>
-                  ))}
+                  <Tags items={patternsNames} />
                 </div>
-              </div>
-            </section>
-          </>
-        )
-      )}
+
+                <div className={csx.contributors}>
+                  <h5>Authors</h5>
+
+                  <div>
+                    {template.contributors.map(contributor => (
+                      <a
+                        target="_blank"
+                        key={contributor.name}
+                        href={`https://github.com/${contributor.name}`}
+                        title={contributor.name}
+                      >
+                        <Avatar src={contributor.avatar} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </>
+          )
+        )}
     </div>
   );
 };
