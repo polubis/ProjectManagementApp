@@ -20,7 +20,7 @@ const Image = ({ lowQuality, fallback, src, className, width, height, ...props }
         if (url === lowQuality) loadImage();
     }, [])
 
-    const loadImage = () => {
+    const loadImage = (): void => {
         setError(false)
         fetch(src).then(r => r.blob()).then(b => {
             const fileReader = new FileReader();
@@ -31,7 +31,7 @@ const Image = ({ lowQuality, fallback, src, className, width, height, ...props }
         })
     }
 
-    const onErrorHandler = () => {
+    const onErrorHandler = (): void => {
         setError(true);
         if (fallback) setUrl(fallback)
     }
@@ -40,7 +40,7 @@ const Image = ({ lowQuality, fallback, src, className, width, height, ...props }
         <div className={`${csx.img} ${className}`}
             style={{ height: height, width: width }}>
             {((url === lowQuality) && !error) && <Loader className={`${csx.mask}`} />}
-            {error && <Button className={`${csx.button} ${csx.mask}`} onClick={() => loadImage()}>Retry</Button>}
+            {error && <Button className={`${csx.button} ${csx.mask}`} onClick={loadImage}>Retry</Button>}
             <img
                 alt={props.alt || "image"}
                 {...{ src: url, ...props }}
