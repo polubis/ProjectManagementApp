@@ -9,7 +9,5 @@ export const BASE_LINKS: Link[] = [
 ];
 
 export const IMPORTANT_LINKS: Link[] = [
-  { children: 'App', to: '/app' },
-  { children: 'Register', to: '/register' },
-  { children: 'Log In', to: '/login' }
+  { children: 'App', to: '/app' }
 ];
