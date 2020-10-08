@@ -11,3 +11,4 @@ export * from './template-tags';
 export * from './templates-grid';
 export * from './template-search';
 export * from './template-tile';
+export * from './confirm-delete';

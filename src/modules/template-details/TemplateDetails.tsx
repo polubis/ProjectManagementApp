@@ -14,13 +14,11 @@ import { convertDate } from 'utils';
 
 import { Template } from 'core/api';
 
-import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
+import { TemplateTags, TemplateStats, TechnologyChip, ConfirmDelete } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
-
-import ConfirmDelete from './confirm-delete';
 
 import csx from './TemplateDetails.scss';
 
@@ -66,7 +64,10 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
         !error && (
           <>
             {confirmDeleteOpen && (
-              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
+              <ConfirmDelete
+                category={{ discriminator: 'templates', ...template }}
+                onClose={closeConfirmDelete}
+              />
             )}
 
             <header>
@@ -119,7 +120,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Technologies</h5>
 
                 <div>
-                  {template.technologies.map(technology => (
+                  {template.technologies.map((technology) => (
                     <TechnologyChip
                       key={technology.id}
                       name={technology.name}
@@ -139,7 +140,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Authors</h5>
 
                 <div>
-                  {template.contributors.map(contributor => (
+                  {template.contributors.map((contributor) => (
                     <a
                       target="_blank"
                       key={contributor.name}

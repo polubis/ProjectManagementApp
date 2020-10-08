@@ -6,11 +6,18 @@ export const LOG_IN_VIA_GITHUB = 'GithubAuthorization/SignIn';
 
 export const [LOG_IN, LOG_OUT] = makePaths('Authorization')('SignIn', 'SignOut');
 
-export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')('ForgottenPassword', 'Register', 'GetCurrentUserData');
+export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
+  'ForgottenPassword',
+  'Register',
+  'GetCurrentUserData'
+);
 
-export const [GET_PATTERNS] = makePaths('TemplatePatterns')('Search');
+export const [GET_PATTERNS, DELETE_PATTERN] = makePaths('TemplatePatterns')('Search', '');
 
-export const [GET_TECHNOLOGIES] = makePaths('TemplateTechnologies')('Search');
+export const [GET_TECHNOLOGIES, DELETE_TECHNOLOGY] = makePaths('TemplateTechnologies')(
+  'Search',
+  'Delete'
+);
 
 export const [GET_TEMPLATES, GET_TEMPLATE_DETAILS, EDIT_TEMPLATE, DELETE_TEMPLATE] = makePaths(
   'Templates'

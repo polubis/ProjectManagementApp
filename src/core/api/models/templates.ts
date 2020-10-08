@@ -14,6 +14,7 @@ export interface Template {
   watches: number;
   stars: number;
   contributors: Contributors[];
+  discriminator: 'templates';
 }
 
 export interface Contributors {

@@ -12,6 +12,7 @@ import { Table, More } from 'ui';
 import csx from './TableData.scss';
 
 import { Category } from '../models';
+import { Pattern, Technology } from 'core/api';
 
 const avatarUrl = 'https://cdn.pixabay.com/photo/2018/04/28/13/18/man-3357275_960_720.png';
 
@@ -30,10 +31,11 @@ namespace TableData {
   export interface Props {
     data: any; // @TODO Add the interface when backend will provide full model
     category: Category;
+    setCurrentItem(item: Pattern | Technology): void;
   }
 }
 
-const TableData = ({ data, category }: TableData.Props) => {
+const TableData = ({ data, category, setCurrentItem }: TableData.Props) => {
   const tableData: Table.Row[] = data.map((item) => {
     const row: Table.Row = {
       id: {
@@ -75,8 +77,10 @@ const TableData = ({ data, category }: TableData.Props) => {
               <EditIcon />
               EDIT
             </NavLink>
-            {/* TODO: ADD DELETE */}
-            <div className={csx.delete} onClick={() => {}}>
+            <div
+              className={csx.delete}
+              onClick={() => setCurrentItem({ discriminator: category, ...item })}
+            >
               <DeleteIcon />
               DELETE
             </div>

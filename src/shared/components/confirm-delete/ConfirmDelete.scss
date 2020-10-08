@@ -41,7 +41,7 @@
 
   .field {
     width: 100%;
-    margin: 32px 0 68px 0;
+    margin-top: 32px;
 
     input {
       border-color: $primary;
@@ -50,6 +50,7 @@
 
   footer {
     align-self: flex-end;
+    margin-top: 68px;
 
     button {
       &:first-of-type {

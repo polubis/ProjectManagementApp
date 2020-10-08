@@ -45,7 +45,7 @@ const More = ({ children, hideText, icon, btnVariant = 'default' }: More.Props) 
       <Button
         className={`${csx.moreBtn}`}
         onClick={openMenu}
-        theme={btnVariant === 'transparent' ? 'primaryTransparent' : null}
+        theme={btnVariant === 'transparent' ? 'primaryTransparent' : 'primaryDark'}
       >
         {!hideText && 'MORE'}
         {icon ? icon : <ExpandMoreIcon />}
