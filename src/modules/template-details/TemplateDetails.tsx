@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import React, { useEffect, useCallback, useState, useMemo, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps, useHistory } from 'react-router';
 
@@ -13,7 +13,7 @@ import { Button, Loader, More, Tags } from 'ui';
 import { convertDate } from 'utils';
 
 import { Template, forkTemplate } from 'core/api';
-
+import { ForkTemplateInfoContext } from 'core/fork-template-info'
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
@@ -39,6 +39,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [forkInProgress, setForkInProgress] = useState(false);
 
   const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
+  const info = useContext(ForkTemplateInfoContext);
 
   useEffect(() => {
     if (error) {
@@ -59,16 +60,14 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   }, []);
 
   const forkTemplateHandler = async () => {
+    info.incrementForks();
     setForkInProgress(true);
     forkTemplate(match.params.id).then(
-      (response) => {
-        console.log(response.data)
-      },
-      (reason) => {
-        console.log(reason)
-      }
+      (response) => console.log("Response: " + response.data),
+      (reason) => console.log("Reason: " + reason)
     ).then(
-      () => setForkInProgress(false)
+      () => { setForkInProgress(false); info.decrementForks(); }
+
     );
   }
 

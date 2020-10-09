@@ -4,6 +4,7 @@ import { AlertsManager } from 'core/api';
 import AuthProvider from 'core/auth';
 import PatternsProvider from 'core/patterns';
 import TechnologiesProvider from 'core/technologies';
+import ForkTemplateInfoProvider from 'core/fork-template-info'
 
 import ModulesRouter from './ModulesRouter';
 
@@ -14,7 +15,9 @@ const Modules = () => {
       <AuthProvider>
         <PatternsProvider>
           <TechnologiesProvider>
-            <ModulesRouter />
+            <ForkTemplateInfoProvider>
+              <ModulesRouter />
+            </ForkTemplateInfoProvider>
           </TechnologiesProvider>
         </PatternsProvider>
       </AuthProvider>
