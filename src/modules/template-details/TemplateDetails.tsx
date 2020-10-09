@@ -13,7 +13,7 @@ import { Button, Loader, More, Tags } from 'ui';
 import { convertDate } from 'utils';
 
 import { Template, forkTemplate } from 'core/api';
-import { ForkTemplateInfoContext } from 'core/fork-template-info'
+import { ForkTemplateInfoContext } from 'shared/providers/fork-template-info'
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
