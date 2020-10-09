@@ -66,7 +66,11 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
       (response) => console.log("Response: " + response.data),
       (reason) => console.log("Reason: " + reason)
     ).then(
-      () => { setForkInProgress(false); info.decrementForks(); }
+      () => {
+        setForkInProgress(false);
+        info.completeFork(match.params.id, false);
+        info.decrementForks();
+      }
 
     );
   }
