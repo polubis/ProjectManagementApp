@@ -4,7 +4,7 @@ import { AlertsManager } from 'core/api';
 import AuthProvider from 'core/auth';
 import PatternsProvider from 'core/patterns';
 import TechnologiesProvider from 'core/technologies';
-import ForkTemplateInfoProvider from 'core/fork-template-info'
+import ForkTemplateInfoProvider from 'shared/providers/fork-template-info'
 
 import ModulesRouter from './ModulesRouter';
 
