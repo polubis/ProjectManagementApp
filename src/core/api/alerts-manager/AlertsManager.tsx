@@ -5,29 +5,19 @@ import { Alert } from 'ui';
 import { core } from '..';
 
 const AlertsManager = () => {
-  const [alerts, setAlerts] = useState<string[]>([]);
+  const [alert, setAlert] = useState('');
 
-  const closeAlert: Alert.OnClose = useCallback((idx) => {
-    setAlerts((prevAlerts) => prevAlerts.filter((_, aIdx) => aIdx !== idx));
+  const closeAlert = useCallback(() => {
+    setAlert('');
   }, []);
 
   useEffect(() => {
-    const addAlert = (err: string) => {
-      setAlerts((prevAlerts) => [...prevAlerts, err]);
-    };
-
-    core.subscribe(addAlert);
+    core.subscribe(setAlert);
 
     return core.unsubscribe;
   }, []);
 
-  return (
-    <>
-      {alerts.map((alert, idx) => (
-        <Alert key={idx} idx={idx} message={alert} type="error" onClose={closeAlert} />
-      ))}
-    </>
-  );
+  return alert ? <Alert message={alert} onClose={closeAlert} /> : null;
 };
 
 export default AlertsManager;
