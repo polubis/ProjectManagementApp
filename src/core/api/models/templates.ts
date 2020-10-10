@@ -32,7 +32,6 @@ export interface TemplatePayload {
 
 export enum TemplateCategory {
   ALL = 'all',
-  RECOMMENDED = 'recommended',
   TOP = 'top',
   RECENT = 'recent',
   YOURS = 'yours'
