@@ -14,20 +14,20 @@ namespace Sidebar {
   }
 }
 
+const renderLink: SidebarLinks.Children = (icon, label) => {
+  return (
+    <Button className={csx.link}>
+      {icon}
+      <span>{label}</span>
+    </Button>
+  );
+};
+
 const Sidebar = ({ basePath }: Sidebar.Props) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
     setOpen(prevOpen => !prevOpen);
-  }, []);
-
-  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
-    return (
-      <Button className={csx.link}>
-        {icon}
-        <span>{label}</span>
-      </Button>
-    );
   }, []);
 
   return (

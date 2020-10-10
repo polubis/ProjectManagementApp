@@ -6,6 +6,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
+import { useAuthProvider } from 'core/auth';
+
 import csx from './SidebarLinks.scss';
 
 namespace SidebarLinks {
@@ -24,19 +26,29 @@ namespace SidebarLinks {
   }
 }
 
-const LINK_HEIGHT = 80,
+const CONFIG: { [key: string]: SidebarLinks.Item } = {
+    dashboard: {
+      label: 'Dashboard',
+      path: '/dashboard',
+      icon: <DashboardIcon />,
+      exact: true
+    },
+    templates: { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
+    projects: { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
+    admin: { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
+  },
+  LINK_HEIGHT = 80,
   MARKER_HEIGHT = 30,
-  LINKS: SidebarLinks.Item[] = [
-    { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, exact: true },
-    { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
-    { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
-    { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
-  ];
+  LINKS = Object.values(CONFIG);
 
-const getActiveLinkIdx = (basePath: string, pathname: string) => () => {
+const getActiveLinkIdx = (
+  basePath: string,
+  pathname: string,
+  links: SidebarLinks.Item[]
+) => (): number => {
   const slicedPath = pathname.replace(basePath, '');
 
-  return LINKS.findIndex(({ path, exact }) => {
+  return links.findIndex(({ path, exact }) => {
     if (exact) {
       return path === slicedPath;
     }
@@ -45,18 +57,30 @@ const getActiveLinkIdx = (basePath: string, pathname: string) => () => {
   });
 };
 
+const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): SidebarLinks.Item[] => {
+  if (pending || !authorized) {
+    // TODO ADD LATER ROLES CHECK AFTER BE IMPLEMENTATION
+    return LINKS.filter(({ label }) => label !== CONFIG.admin.label);
+  }
+
+  return LINKS;
+};
+
 const SidebarLinks = ({ basePath, children }: SidebarLinks.Props) => {
   const { pathname } = useLocation();
+  const { authorized, pending } = useAuthProvider();
 
-  const activeLinkIdx = useMemo(getActiveLinkIdx(basePath, pathname), [pathname]);
+  const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
+
+  const activeLinkIdx = useMemo(getActiveLinkIdx(basePath, pathname, links), [pathname, links]);
 
   return (
     <div className={csx.links}>
-      {LINKS.map(({ path, label, icon, exact }) => (
+      {links.map(({ path, label, icon, exact }) => (
         <NavLink
           key={label}
           exact={exact}
-          activeClassName={csx.active}
+          activeClassName={activeLinkIdx > -1 ? csx.active : ''}
           className={csx.link}
           style={{ height: `${LINK_HEIGHT}px` }}
           to={`${basePath}${path}`}
@@ -64,14 +88,17 @@ const SidebarLinks = ({ basePath, children }: SidebarLinks.Props) => {
           {children(icon, label)}
         </NavLink>
       ))}
-      <span
-        className={csx.marker}
-        style={{
-          height: `${MARKER_HEIGHT}px`,
-          top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
-          transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
-        }}
-      />
+
+      {activeLinkIdx > -1 && (
+        <span
+          className={csx.marker}
+          style={{
+            height: `${MARKER_HEIGHT}px`,
+            top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
+            transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
+          }}
+        />
+      )}
     </div>
   );
 };
