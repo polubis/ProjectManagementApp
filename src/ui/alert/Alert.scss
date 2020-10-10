@@ -1,8 +1,6 @@
 @import 'styles/mixins';
 
 .alert {
-  @include centered;
-  @include label;
   padding: 10px;
   width: 100%;
 
@@ -10,8 +8,19 @@
     background: $error;
     color: $white;
   }
-}
 
-.root {
-  width: 100%;
+  & > div {
+    @include label;
+    @include noSelect;
+  }
+
+  .closeBtn {
+    height: 40px;
+    width: 40px;
+
+    svg {
+      font-size: 20px;
+      color: $white;
+    }
+  }
 }

@@ -1,6 +1,9 @@
-import React, { useCallback, memo, useState } from 'react';
+import React, { useCallback, useState, memo } from 'react';
 
 import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+
+import { Button } from '..';
 
 import csx from './Alert.scss';
 
@@ -10,26 +13,34 @@ namespace Alert {
   export interface Props {
     message: string;
     type?: Types;
-    onClose: () => void;
+    onClose(): void;
   }
 }
 
 const Alert = memo(
   ({ message, type = 'error', onClose }: Alert.Props) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [open, setOpen] = useState(true);
 
     const handleClose = useCallback(() => {
-      setIsOpen(false);
+      setOpen(false);
       onClose();
     }, []);
 
     return (
       <Snackbar
-        open={isOpen}
-        onClose={handleClose}
+        open={open}
         message={message}
-        classes={{ root: `${csx.root}` }}
         ContentProps={{ classes: { root: `${csx.alert} ${csx[type]}` } }}
+        action={
+          <Button
+            className={csx.closeBtn}
+            variant="icon"
+            theme="primaryTransparent"
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </Button>
+        }
       />
     );
   },
