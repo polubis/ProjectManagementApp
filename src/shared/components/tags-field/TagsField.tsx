@@ -34,12 +34,15 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
 
   const minValidationError = V.min(2, false)(inputValue);
   const uniqueValidationError = V.unique(value)(inputValue);
+  const disabled = minValidationError.invalid || uniqueValidationError.invalid;
 
   const handleConfirm = useCallback(() => {
-    if (!minValidationError.invalid && !uniqueValidationError.invalid) {
-      onChange(inputValue);
-      setInputValue('');
+    if (disabled) {
+      return;
     }
+
+    onChange(inputValue);
+    setInputValue('');
   }, [inputValue, onChange]);
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -74,10 +77,7 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
 
       {error ? null : <TemplateTags items={value} onClick={handleDelete} />}
 
-      <IconButton
-        disabled={minValidationError.invalid || uniqueValidationError.invalid}
-        onClick={handleConfirm}
-      >
+      <IconButton disabled={disabled} onClick={handleConfirm}>
         <AddCircleOutlineIcon />
       </IconButton>
     </FieldBase>
