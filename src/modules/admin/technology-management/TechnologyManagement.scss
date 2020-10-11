@@ -1,0 +1,78 @@
+@import 'styles/mixins';
+
+.technologyManagement {
+  @include colCenter;
+  padding: 60px;
+
+  & > form {
+    @include col;
+    width: 400px;
+
+    & > div {
+      & > textarea {
+        min-height: 120px;
+        resize: none;
+      }
+
+      &:first-of-type {
+        margin-top: 24px;
+      }
+
+      &:not(:last-of-type) {
+        margin-bottom: 28px;
+      }
+    }
+
+    .picture {
+      @include row;
+      height: 60px;
+
+      figure {
+        display: flex;
+        height: 32px;
+        width: 32px;
+        flex-shrink: 0;
+
+        img {
+          max-height: 100%;
+          max-width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      & > span {
+        @include label;
+        @include dottedText;
+        margin: 0 2px 0 10px;
+      }
+
+      button {
+        height: 32px;
+        width: 32px;
+
+        svg {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .addPictureBtn {
+      @include row;
+      justify-content: flex-start;
+      height: 60px;
+
+      & > span {
+        @include labelThin;
+      }
+
+      &:hover {
+        background: $surfacePrimary;
+      }
+    }
+
+    & > button {
+      margin: 82px auto 0 auto;
+      width: 200px;
+    }
+  }
+}

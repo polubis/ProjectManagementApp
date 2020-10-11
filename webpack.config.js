@@ -95,10 +95,11 @@ module.exports = (env, { mode }) => {
       }),
       new DefinePlugin({
         __IMAGES_PATH__: mode === DEV ? "'public/images'" : "'images'",
-        __CORE_API_PATH__:
-          mode === DEV
-            ? "'https://pillar-api-dev.azurewebsites.net/api/'"
-            : "'https://pillar-api.azurewebsites.net/api/'"
+        __CORE_API_PATH__: "'https://pillar-api-dev.azurewebsites.net/api/'"
+        // TODO UNCOMMENT THIS AFTER FE PROD ENVIRONMENT READY
+        // mode === DEV
+        //   ? "'https://pillar-api-dev.azurewebsites.net/api/'"
+        //   : "'https://pillar-api.azurewebsites.net/api/'"
       })
     ],
 
