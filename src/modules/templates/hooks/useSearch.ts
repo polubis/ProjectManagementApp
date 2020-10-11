@@ -24,7 +24,7 @@ export const useSearch = () => {
 
   const filters = useFilters();
 
-  const { getTemplates, allLoaded } = useTemplatesProvider();
+  const { getTemplates, allLoaded, pendingRequests } = useTemplatesProvider();
 
   const parsedFilters = useMemo(parse(filters), [filters]);
 
@@ -44,7 +44,7 @@ export const useSearch = () => {
         replace(url);
       };
 
-      if (!allLoaded && bottom) {
+      if (!pendingRequests && !allLoaded && bottom) {
         incremenPage();
       }
     };
@@ -56,7 +56,7 @@ export const useSearch = () => {
     return () => {
       obs.unsubscribe();
     };
-  }, [allLoaded, parsedFilters]);
+  }, [allLoaded, pendingRequests, parsedFilters]);
 
   useEffect(() => {
     getTemplates(parsedFilters);
