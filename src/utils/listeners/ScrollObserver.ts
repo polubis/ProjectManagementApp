@@ -1,5 +1,5 @@
 import { Subject, fromEvent, Subscription } from 'rxjs';
-import { debounceTime, map, tap } from 'rxjs/operators';
+import { debounceTime, map, skip, tap } from 'rxjs/operators';
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 
 namespace ScrollObserver {
@@ -50,7 +50,7 @@ class ScrollObserver {
 
   private _handleScroll = () =>
     fromEvent(this._target, 'scroll')
-      .pipe(debounceTime(this._time), map(this._toPosition), tap(this._emitPosition))
+      .pipe(skip(1), debounceTime(this._time), map(this._toPosition), tap(this._emitPosition))
       .subscribe();
 
   private _handleEmit = () => this._position$.subscribe(this._onEmit);
