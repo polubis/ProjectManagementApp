@@ -130,7 +130,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
   };
 
   getTemplates = (payload: TemplatesPayload) => {
-    const loadingMore = payload.page > 1 && !this.state.allLoaded;
+    const loadingMore = payload.page > 1 && this.state.templates.length && !this.state.allLoaded;
 
     if (loadingMore) {
       this._loadMoreRequest.next(payload);
