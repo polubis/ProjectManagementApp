@@ -44,6 +44,7 @@ describe('ScrollObserver', () => {
       render(<ComponentStub />);
 
       scrollWindow(2200, 939);
+      scrollWindow(2200, 939);
 
       await waitFor(() => screen.getByText(_BOTTOM_LABEL));
 
@@ -54,19 +55,11 @@ describe('ScrollObserver', () => {
       render(<ComponentStub offset={0} />);
 
       scrollWindow(2900, 939);
+      scrollWindow(2900, 939);
 
       await waitFor(() => screen.getByText(_BOTTOM_LABEL));
 
       expect(screen.getByText(_BOTTOM_LABEL)).toBeInTheDocument();
     });
-
-    // TODO: Write UT
-    describe('calls debounce on emit function with', () => {
-      it('default time', () => {});
-
-      it('custom time', () => {});
-    });
-
-    it('unsubscribes', () => {});
   });
 });
