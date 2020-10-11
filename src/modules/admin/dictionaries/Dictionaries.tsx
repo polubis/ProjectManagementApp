@@ -25,6 +25,7 @@ const Dictionaries = () => {
   return (
     <div className={csx.dictionaries}>
       <Categories />
+
       {tabs[category]}
     </div>
   );

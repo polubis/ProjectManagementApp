@@ -1,10 +1,10 @@
 @import 'styles/mixins';
 
-.stepHeader {
+.modalHeader {
   @include col;
 
   .label {
-    @include headingBig;
+    @include headingMedium;
   }
 
   .description {
