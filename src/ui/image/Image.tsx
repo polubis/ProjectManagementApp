@@ -1,26 +1,27 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useCallback, useEffect, useMemo } from "react"
 
-import { Loader, Button } from "ui"
+import { Button } from "ui"
+
+import Refresh from '@material-ui/icons/Refresh'
 
 import csx from "./Image.scss"
 
 namespace Image {
     export interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
-        className?: string;
-        lowQuality: string;
-        fallback?: string;
+        fallback: string;
     }
 }
 
-const Image = ({ lowQuality, fallback, src, className, width, height, ...props }: Image.Props) => {
-    const [url, setUrl] = useState(lowQuality || src)
+const Image = ({ fallback, src, ...props }: Image.Props) => {
+    const [url, setUrl] = useState(fallback)
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        if (url === lowQuality) loadImage();
+        loadImage();
     }, [])
 
-    const loadImage = (): void => {
+    const loadImage = () => {
+        if (!src) return;
         setError(false)
         fetch(src).then(r => r.blob()).then(b => {
             const fileReader = new FileReader();
@@ -31,23 +32,16 @@ const Image = ({ lowQuality, fallback, src, className, width, height, ...props }
         })
     }
 
-    const onErrorHandler = (): void => {
-        setError(true);
-        if (fallback) setUrl(fallback)
-    }
+    const handleError = useCallback(
+        () => {
+            setError(true);
+            setUrl(fallback)
+        }, [error]);
 
     return (
-        <div className={`${csx.img} ${className}`}
-            style={{ height: height, width: width }}>
-            {((url === lowQuality) && !error) && <Loader className={`${csx.mask}`} />}
-            {error && <Button className={`${csx.button} ${csx.mask}`} onClick={loadImage}>Retry</Button>}
-            <img
-                alt={props.alt || "image"}
-                {...{ src: url, ...props }}
-                height={height}
-                width={width}
-                onError={onErrorHandler}
-            />
+        <div className={`${csx.img}`}>
+            <img src={url} onError={handleError} {...props} />
+            {error && <Button onClick={loadImage} variant="icon" className={csx.mask}><Refresh /></Button>}
         </div>
     )
 }
