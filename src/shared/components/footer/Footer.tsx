@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Guard } from 'core/auth';
-
 import { Logo } from 'ui';
+
+import { Guard } from 'core/auth';
 
 import csx from './Footer.scss';
 
