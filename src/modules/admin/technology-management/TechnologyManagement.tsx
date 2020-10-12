@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, RouteChildrenProps } from 'react-router';
 
 import AddPictureIcon from '@material-ui/icons/AddPhotoAlternate';
 import CloseIcon from '@material-ui/icons/Close';
@@ -8,14 +8,14 @@ import { StepHeader, InputField, TextareaField, FieldBase, Button } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { addTechnology, Technology } from 'core/api';
+import { addTechnology, editTechnology } from 'core/api';
+
+import { RouteProps } from '.';
 
 import csx from './TechnologyManagement.scss';
 
-namespace TechnologyManagement {
-  export interface Props {
-    data?: Technology;
-  }
+export namespace TechnologyManagement {
+  export interface Props extends RouteChildrenProps<RouteProps> {}
 }
 
 const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2],
@@ -29,31 +29,12 @@ const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2],
     }
   ];
 
-const makeConfig = (data?: Technology): Form.Config => {
-  if (data) {
-    return [
-      { ...CONFIG[NAME], value: data.name },
-      { ...CONFIG[DESCRIPTION], value: data.description },
-      {
-        ...CONFIG[PICTURE],
-        value: {
-          src: data.picture,
-          file: null
-        }
-      }
-    ];
-  }
-
-  return CONFIG;
-};
-
-const TechnologyManagement = ({ data }: TechnologyManagement.Props) => {
+const TechnologyManagement = ({ match }: TechnologyManagement.Props) => {
+  // TODO ADD REQUEST INITIAL DATA AND LOADERS AFTER BE FINISH
   const history = useHistory();
 
   const [pending, setPending] = useState(false);
-  const [{ dirty, invalid, fields }, change, directChange, submit] = Form.useManager(
-    makeConfig(data)
-  );
+  const [{ dirty, invalid, fields }, change, directChange, submit] = Form.useManager(CONFIG);
 
   const pictureRef = useRef<HTMLInputElement>(null);
 
@@ -89,12 +70,20 @@ const TechnologyManagement = ({ data }: TechnologyManagement.Props) => {
         setPending(true);
 
         try {
-          // TODO ADD IF BASED ON DATA AFTER BE FINISH
-          await addTechnology({
-            name: fields[NAME].value,
-            description: fields[DESCRIPTION].value,
-            picture: fields[PICTURE].value.file
-          });
+          if (match.params.id === undefined) {
+            await addTechnology({
+              name: fields[NAME].value,
+              description: fields[DESCRIPTION].value,
+              picture: fields[PICTURE].value.file
+            });
+          } else {
+            await editTechnology(match.params.id, {
+              name: fields[NAME].value,
+              description: fields[DESCRIPTION].value,
+              picture: fields[PICTURE].value.file
+            });
+            // TODO ADD PROTECTION IF FILE NULL AFTER BE FINISH
+          }
 
           history.replace(`/app/admin/dictionaries/technologies?query=${fields[NAME].value}`);
 

@@ -1,16 +1,24 @@
-import { core, Technology, TechnologyPayload, ADD_TECHNOLOGY, GET_TECHNOLOGIES } from '..';
+import {
+  core,
+  toFormData,
+  Technology,
+  AddTechnologyPayload,
+  EditTechnologyPayload,
+  ADD_TECHNOLOGY,
+  EDIT_TECHNOLOGY,
+  GET_TECHNOLOGIES
+} from '..';
 
 export const getTechnologies = (query: string) => core.get<Technology[]>(GET_TECHNOLOGIES + query);
 
-// TODO ADD EDIT ENDPOINT AFTER BE FINISH
-
-export const addTechnology = (payload: TechnologyPayload) => {
-  const formData = new FormData();
-  Object.keys(payload).forEach((key) => {
-    formData.append(key, payload[key]);
+export const addTechnology = (payload: AddTechnologyPayload) => {
+  return core.post<{ id: number }>(ADD_TECHNOLOGY, toFormData(payload), {
+    headers: { 'Content-Type': 'multipart/form-data' }
   });
+};
 
-  return core.post<{ id: number }>(ADD_TECHNOLOGY, formData, {
+export const editTechnology = (id: string, payload: EditTechnologyPayload) => {
+  return core.put<{ id: number }>(`${EDIT_TECHNOLOGY}/${id}`, toFormData(payload), {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 };
