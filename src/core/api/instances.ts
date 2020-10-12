@@ -14,10 +14,9 @@ export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
 
 export const [GET_PATTERNS] = makePaths('TemplatePatterns')('Search');
 
-export const [ADD_TECHNOLOGY, GET_TECHNOLOGIES] = makePaths('TemplateTechnologies')(
-  'Add',
-  'Search'
-);
+export const [ADD_TECHNOLOGY, GET_TECHNOLOGIES, DELETE_TECHNOLOGY] = makePaths(
+  'TemplateTechnologies'
+)('Add', 'Search', 'Delete');
 
 export const [GET_TEMPLATES, GET_TEMPLATE_DETAILS, EDIT_TEMPLATE, DELETE_TEMPLATE] = makePaths(
   'Templates'
