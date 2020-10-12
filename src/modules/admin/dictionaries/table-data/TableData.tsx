@@ -79,7 +79,7 @@ const TableData = (data, onDelete) => {
               <EditIcon />
               EDIT
             </NavLink>
-            <div className={csx.delete} onClick={onDelete}>
+            <div className={csx.delete} onClick={() => onDelete(item)}>
               <DeleteIcon />
               DELETE
             </div>

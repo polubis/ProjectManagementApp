@@ -1,4 +1,11 @@
-import { core, Technology, TechnologyPayload, ADD_TECHNOLOGY, GET_TECHNOLOGIES } from '..';
+import {
+  core,
+  Technology,
+  TechnologyPayload,
+  ADD_TECHNOLOGY,
+  DELETE_TECHNOLOGY,
+  GET_TECHNOLOGIES
+} from '..';
 
 export const getTechnologies = (query: string) => core.get<Technology[]>(GET_TECHNOLOGIES + query);
 
@@ -13,4 +20,8 @@ export const addTechnology = (payload: TechnologyPayload) => {
   return core.post<{ id: number }>(ADD_TECHNOLOGY, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
+};
+
+export const deleteTechnology = (id: number) => {
+  return core.delete(`${DELETE_TECHNOLOGY}/${id}`);
 };
