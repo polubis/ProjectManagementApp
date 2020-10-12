@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 
 import { Table } from 'ui';
 
@@ -14,7 +14,12 @@ const PatternsTab = () => {
 
   usePatternsSearch();
 
-  const patternsTableData = useMemo(() => TableData(patterns), [patterns]);
+  const handleDelete = useCallback(() => {}, []);
+
+  const patternsTableData = useMemo(() => TableData(patterns, handleDelete), [
+    handleDelete,
+    patterns
+  ]);
 
   return (
     <div>

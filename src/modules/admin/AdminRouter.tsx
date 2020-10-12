@@ -13,7 +13,7 @@ const AdminRouter = () => {
     <Switch>
       <Route
         exact
-        path={`${match.path}/dictionaries/technologies/management`}
+        path={`${match.path}/dictionaries/technologies/management/:id?`}
         component={TechnologyManagement}
       />
 
