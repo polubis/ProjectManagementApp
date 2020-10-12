@@ -49,8 +49,8 @@ const Features = () => {
   return (
     <section className={csx.features}>
       <div className={csx.wrapper}>
-        {FEATURES.map(feature => (
-          <div className={csx.feature}>
+        {FEATURES.map((feature, idx) => (
+          <div key={idx} className={csx.feature}>
             {feature.icon}
             <p>{feature.label}</p>
             <span>{feature.description}</span>
