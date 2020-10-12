@@ -1,9 +1,12 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import { Table } from 'ui';
+import { Table, More, Button } from 'ui';
 
 import csx from './TableData.scss';
 
@@ -20,9 +23,9 @@ const CONFIG: Table.TableConfig = {
 const formatValue = (value: string, cutIndex: number): string =>
   value.length > cutIndex ? value.substr(0, cutIndex - 3) + '...' : value;
 
-const TableData = data => {
+const TableData = (data, onDelete) => {
   // @TODO Add the interface when backend will provide full model
-  const tableData: Table.Row[] = data.map(item => {
+  const tableData: Table.Row[] = data.map((item) => {
     const row: Table.Row = {
       id: {
         component: <p className={csx.id}>{item.id}</p>
@@ -56,7 +59,32 @@ const TableData = data => {
         )
       },
       icon: {
-        component: <MoreHorizIcon />
+        component: (
+          <More
+            trigger={(open) => (
+              <Button
+                className={csx.moreBtn}
+                onClick={open}
+                theme="primaryTransparent"
+                variant="icon"
+              >
+                <MoreHorizIcon />
+              </Button>
+            )}
+          >
+            <NavLink
+              to={`/app/admin/dictionaries/technologies/management/${item.id}`}
+              className={csx.edit}
+            >
+              <EditIcon />
+              EDIT
+            </NavLink>
+            <div className={csx.delete} onClick={onDelete}>
+              <DeleteIcon />
+              DELETE
+            </div>
+          </More>
+        )
       }
     };
 

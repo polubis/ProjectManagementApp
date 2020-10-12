@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 
 import { Table } from 'ui';
 
@@ -14,7 +14,12 @@ const TechnologiesTab = () => {
 
   useTechnologiesSearch();
 
-  const technologiesTableData = useMemo(() => TableData(technologies), [technologies]);
+  const handleDelete = useCallback(() => {}, []);
+
+  const technologiesTableData = useMemo(() => TableData(technologies, handleDelete), [
+    handleDelete,
+    technologies
+  ]);
 
   return (
     <div>
