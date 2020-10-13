@@ -6,17 +6,22 @@
   cursor: pointer;
 
   figure {
+    display: flex;
     height: 32px;
+    width: 32px;
+    flex-shrink: 0;
 
     img {
       max-height: 100%;
+      max-width: 100%;
+      object-fit: cover;
     }
   }
 
   span {
     @include label;
     flex-shrink: 0;
-    margin-left: 4px;
+    margin-left: 8px;
     color: $white;
   }
 }

@@ -1,17 +1,20 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
 
 import { Button } from 'ui';
 
 import { Guard } from 'core/auth';
+import { TemplateCategory } from 'core/api';
 
 import Notifications from './notifications';
 
 import csx from './UserSection.scss';
 
 const UserSection = () => {
+  const { replace } = useHistory();
+
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
@@ -26,7 +29,13 @@ const UserSection = () => {
 
             <div className={csx.divider} />
 
-            <span className={csx.logoutBtn} onClick={logOut}>
+            <span
+              className={csx.logoutBtn}
+              onClick={() => {
+                replace(`/app/templates/${TemplateCategory.ALL}`);
+                logOut();
+              }}
+            >
               Logout
             </span>
           </>

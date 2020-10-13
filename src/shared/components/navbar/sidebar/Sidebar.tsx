@@ -9,7 +9,11 @@ import { BASE_LINKS, IMPORTANT_LINKS, Link } from '..';
 
 import csx from './Sidebar.scss';
 
-const getLinksByAuthState = (authorized: boolean) => (): Link[] => {
+const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[] => {
+  if (pending) {
+    return [];
+  }
+
   if (authorized) {
     return IMPORTANT_LINKS.filter(
       ({ children }) => children !== 'Log In' && children !== 'Register'
@@ -22,9 +26,9 @@ const getLinksByAuthState = (authorized: boolean) => (): Link[] => {
 const Sidebar = memo(
   () => {
     const render = usePortal();
-    const { authorized } = useAuthProvider();
+    const { authorized, pending } = useAuthProvider();
 
-    const links = useMemo(getLinksByAuthState(authorized), [authorized]);
+    const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
 
     return render(
       <nav className={csx.sidebar}>

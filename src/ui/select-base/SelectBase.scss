@@ -2,8 +2,10 @@
 
 .search {
   @include row;
+  @include noSelect;
   padding: 0 20px;
   border-bottom: 1px solid rgba($primary, 0.43);
+  outline: none;
 
   & > input {
     @include label;

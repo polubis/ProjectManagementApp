@@ -12,7 +12,11 @@ import { BASE_LINKS, IMPORTANT_LINKS, Link } from '.';
 
 import csx from './Navbar.scss';
 
-const getLinksByAuthState = (authorized: boolean) => (): Link[] => {
+const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[] => {
+  if (pending) {
+    return [];
+  }
+
   if (authorized) {
     return IMPORTANT_LINKS.filter(
       ({ children }) => children !== 'Log In' && children !== 'Register'
@@ -25,13 +29,13 @@ const getLinksByAuthState = (authorized: boolean) => (): Link[] => {
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { authorized } = useAuthProvider();
+  const { authorized, pending } = useAuthProvider();
 
   const toggleSidebar = useCallback(() => {
     setSidebarOpen((prevSidebarOpen) => !prevSidebarOpen);
   }, []);
 
-  const links = useMemo(getLinksByAuthState(authorized), [authorized]);
+  const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
 
   return (
     <nav className={csx.navbar}>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const BucketImage = () => {
+const BucketImage = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -153,3 +153,5 @@ export const BucketImage = () => {
     </svg>
   );
 };
+
+export default BucketImage;
