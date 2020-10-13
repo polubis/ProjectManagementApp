@@ -12,7 +12,7 @@ export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
   'GetCurrentUserData'
 );
 
-export const [GET_PATTERNS] = makePaths('TemplatePatterns')('Search');
+export const [GET_PATTERNS, DELETE_PATTERN] = makePaths('TemplatePatterns')('Search', 'Delete');
 
 export const [ADD_TECHNOLOGY, GET_TECHNOLOGIES, DELETE_TECHNOLOGY] = makePaths(
   'TemplateTechnologies'
