@@ -12,7 +12,7 @@ namespace StepHeader {
 export const StepHeader = memo(({ label, description }: StepHeader.Props) => {
   return (
     <header className={csx.stepHeader}>
-      <h5 className={csx.title}>{label}</h5>
+      <h5 className={csx.label}>{label}</h5>
       <span className={csx.description}>{description}</span>
     </header>
   );

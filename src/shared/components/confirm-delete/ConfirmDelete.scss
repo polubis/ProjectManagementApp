@@ -6,7 +6,7 @@
   padding: 90px 48px 28px 48px;
   width: 424px;
 
-  figure {
+  & > figure {
     @include centered;
     position: absolute;
     width: 100px;
@@ -20,13 +20,13 @@
     background: $surfacePrimary;
   }
 
-  header {
-    h5 {
+  & > header {
+    & > h5 {
       @include heading;
       text-align: center;
     }
 
-    span {
+    & > span {
       @include label;
       display: block;
       margin-top: 12px;
@@ -39,19 +39,15 @@
     }
   }
 
-  .field {
+  & > section {
     width: 100%;
     margin: 32px 0 68px 0;
-
-    input {
-      border-color: $primary;
-    }
   }
 
-  footer {
+  & > footer {
     align-self: flex-end;
 
-    button {
+    & > button {
       &:first-of-type {
         margin: 0 28px 0 auto;
       }

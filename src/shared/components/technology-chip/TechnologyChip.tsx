@@ -15,7 +15,7 @@ const TechnologyChip = ({ name, avatar, className = '', onClick }: TechnologyChi
   return (
     <div className={`${csx.technologyChip} ${className}`} onClick={onClick}>
       <figure>
-        <img src={avatar} />
+        <img src={avatar} alt="Technology image" />
       </figure>
       <span>{name}</span>
     </div>

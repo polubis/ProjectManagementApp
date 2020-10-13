@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { useTechnologiesProvider } from 'core/technologies';
 
@@ -13,6 +14,13 @@ const Register = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Register | Jupi.io</title>
+        <meta
+          name="description"
+          content="Sign up for Jupi.io and accelerate your developement process! Create an account to start using and sharing templates with developers from all around the world!"
+        />
+      </Helmet>
       <Navbar />
       <div className={csx.register}>{!loadingTechnologies && <RegisterForm />}</div>
       <Footer />

@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+
+.modalHeader {
+  @include col;
+
+  .label {
+    @include headingMedium;
+  }
+
+  .description {
+    @include description;
+    margin: 12px 0 34px 0;
+  }
+}

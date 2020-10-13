@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button, InputField, Checkbox } from 'ui';
+import { Button, InputField } from 'ui';
 
 import { Form, V } from 'utils';
 
@@ -58,8 +58,6 @@ const LoginForm = ({ disabled, onSubmit }: LoginForm.Props) => {
       />
 
       <div className={csx.loginActions}>
-        {/* TODO: Replace later with correct value and on Change handler */}
-        <Checkbox label="Remember me" value={false} onChange={() => {}} />
         {disabled || <NavLink to="/forgotten-password">Forgot password ?</NavLink>}
       </div>
 

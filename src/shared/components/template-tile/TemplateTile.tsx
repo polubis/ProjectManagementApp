@@ -21,7 +21,10 @@ const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
       <TemplateStats stars={template.stars} watches={template.watches} />
 
       <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+          alt="Template image"
+        />
       </figure>
 
       <h5>{template.name}</h5>

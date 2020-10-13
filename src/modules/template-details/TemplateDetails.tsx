@@ -20,7 +20,7 @@ import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
 
-import ConfirmDelete from './confirm-delete';
+import ConfirmTemplateDelete from './confirm-template-delete';
 
 import csx from './TemplateDetails.scss';
 
@@ -66,7 +66,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
         !error && (
           <>
             {confirmDeleteOpen && (
-              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
+              <ConfirmTemplateDelete template={template} onClose={closeConfirmDelete} />
             )}
 
             <header>
@@ -119,7 +119,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Technologies</h5>
 
                 <div>
-                  {template.technologies.map(technology => (
+                  {template.technologies.map((technology) => (
                     <TechnologyChip
                       key={technology.id}
                       name={technology.name}
@@ -139,7 +139,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Authors</h5>
 
                 <div>
-                  {template.contributors.map(contributor => (
+                  {template.contributors.map((contributor) => (
                     <a
                       target="_blank"
                       key={contributor.name}

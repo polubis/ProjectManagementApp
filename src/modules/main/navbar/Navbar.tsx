@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
 import AddTemplateIcon from '@material-ui/icons/Queue';
+import CodeIcon from '@material-ui/icons/Code';
 
 import { Button } from 'ui';
 
@@ -33,6 +34,11 @@ const Navbar = ({ basePath }: Navbar.Props) => {
     location.pathname
   ]);
 
+  const isAdminTechnologiesRoute = useMemo(
+    () => location.pathname.includes('admin/dictionaries/technologies'),
+    [location.pathname]
+  );
+
   return (
     <nav className={csx.navbar}>
       <div className={csx.breadcrumbs}>
@@ -53,6 +59,21 @@ const Navbar = ({ basePath }: Navbar.Props) => {
               <Button>
                 <AddTemplateIcon />
                 CREATE TEMPLATE
+              </Button>
+            </NavLink>
+
+            <div className={csx.divider} />
+          </>
+        </Guard.Protected>
+      )}
+
+      {isAdminTechnologiesRoute && (
+        <Guard.Protected>
+          <>
+            <NavLink replace to="/app/admin/dictionaries/technologies/management">
+              <Button>
+                <CodeIcon />
+                ADD TECHNOLOGY
               </Button>
             </NavLink>
 

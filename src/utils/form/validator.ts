@@ -57,10 +57,16 @@ const V = {
     ),
 
   oneTruthy: (value: { [key: string]: boolean }) =>
-    makeResult(!Object.values(value).some((item) => !!item), `Atleast one field must be checked`),
+    makeResult(!Object.values(value).some((item) => !!item), `At least one field must be checked`),
 
   sameAs: (idx: number, label: string) => (value: any, state: Form.State) =>
     makeResult(value !== state.fields[idx].value, `Field must be same as ${label}`),
+
+  unique: (values: string[]) => (value: string) =>
+    makeResult(
+      values.some((v) => v.toLowerCase() === value.toLowerCase()),
+      'Elements should be unique'
+    ),
 
   run: (value: any, state: Form.State) => (...fns: V.Fn[]) => fns.map((fn) => fn(value, state))
 };
