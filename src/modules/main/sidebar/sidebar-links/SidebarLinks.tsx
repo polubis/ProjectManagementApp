@@ -58,12 +58,15 @@ const getActiveLinkIdx = (
 };
 
 const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): SidebarLinks.Item[] => {
-  if (pending || !authorized) {
-    // TODO ADD LATER ROLES CHECK AFTER BE IMPLEMENTATION
-    return LINKS.filter(({ label }) => label !== CONFIG.admin.label);
+  if (pending) {
+    return [];
   }
 
-  return LINKS;
+  if (authorized) {
+    return LINKS;
+  }
+
+  return LINKS.filter(({ label }) => label !== CONFIG.admin.label);
 };
 
 const SidebarLinks = ({ basePath, children }: SidebarLinks.Props) => {

@@ -1,7 +1,4 @@
-interface Link {
-  children: string;
-  to: string;
-}
+import { Link } from '.';
 
 export const BASE_LINKS: Link[] = [
   { children: 'Home', to: '/' },
