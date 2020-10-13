@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import { Loader, StepHeader, Steps } from 'ui';
 
-import { Form } from 'utils';
+import { Form, useScrollReset } from 'utils';
 
 import { FormSteps } from 'shared/components';
 
@@ -39,6 +39,8 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
   const [activeStep, setActiveStep] = useState(BASIC_INFO);
 
   const [{ pending }, handleManagement] = useTemplateManagement();
+
+  useScrollReset(activeStep);
 
   const basicInfoManager = Form.useManager(config[BASIC_INFO]);
   const githubConnectionManager = Form.useManager(config[GITHUB_CONNECTION]);
