@@ -1,4 +1,4 @@
-@import "styles/mixins";
+@import 'styles/mixins';
 
 .navbar {
   display: grid;
@@ -67,13 +67,9 @@
           color: $secondary;
 
           &::before {
-            content: "";
+            content: '';
           }
         }
-      }
-
-      .unprotected {
-        display: flex;
       }
     }
 
