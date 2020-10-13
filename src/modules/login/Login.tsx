@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { Button } from 'ui';
 
@@ -17,7 +18,14 @@ const Login = () => {
 
   return (
     <>
-      <Navbar/>
+      <Helmet>
+        <title>Log in | Jupi.io</title>
+        <meta
+          name="description"
+          content="Sign in for Jupi.io and accelerate your developement process straightaway! Have an account already? Log in and jump into the world of ready to use templates and solutions for your project!"
+        />
+      </Helmet>
+      <Navbar />
       <div className={csx.login}>
         <h5>Log In</h5>
 
@@ -30,10 +38,10 @@ const Login = () => {
         </div>
 
         <Button variant="icon" disabled={pending} onClick={logInViaGithub}>
-          <img src={IMGS_PATH + '/GithubLogo.png'} />
+          <img src={IMGS_PATH + '/GithubLogo.png'} alt="GitHub Logo" />
         </Button>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
