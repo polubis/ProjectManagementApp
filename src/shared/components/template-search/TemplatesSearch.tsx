@@ -8,7 +8,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 import { SelectBase } from 'ui';
 
-import { Form, useQueryParams, Url, isJSONString } from 'utils';
+import { Form, useQueryParams, Url, isJsonString } from 'utils';
 
 import { PatternsSelect, TechnologiesSelect } from 'shared/components';
 
@@ -26,7 +26,7 @@ namespace TemplatesSearch {
 const [QUERY, PATTERNS, TECHNOLOGIES] = [0, 1, 2];
 
 const parseFromString = (str: string) =>
-  isJSONString(str)
+  isJsonString(str)
     ? (JSON.parse(str) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
     : {};
 

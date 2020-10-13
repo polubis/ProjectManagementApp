@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useRouteMatch } from 'react-router';
 import { pipe } from 'ramda';
 
-import { useQueryParams, isJSONString } from 'utils';
+import { useQueryParams, isJsonString } from 'utils';
 
 import { TemplateCategory } from 'core/api';
 
@@ -23,7 +23,7 @@ const parseCategory = (category: TemplateCategory) => (
 const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: string) => (
   filters: TemplatesSearchFilters
 ) =>
-  !isJSONString(value) || (JSON.parse(value) as string[]).some((id) => isNaN(+id))
+  !isJsonString(value) || (JSON.parse(value) as string[]).some((id) => isNaN(+id))
     ? filters
     : { ...filters, [key]: value };
 

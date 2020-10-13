@@ -1,15 +1,15 @@
-import { isJSONString } from '..';
+import { isJsonString } from '..';
 
-describe('isJSONString()', () => {
+describe('isJsonString()', () => {
   it('validates', () => {
     const _INVALID_PROBES_ = ['{', '{"name: otr"}', '}', 's', ''];
     const _VALID_PROBES_ = ['{}', '{"name": "Piotr"}', '{"name": []}'];
 
     _INVALID_PROBES_.forEach((probe) => {
-      expect(isJSONString(probe)).toBe(false);
+      expect(isJsonString(probe)).toBe(false);
     });
     _VALID_PROBES_.forEach((probe) => {
-      expect(isJSONString(probe)).toBe(true);
+      expect(isJsonString(probe)).toBe(true);
     });
   });
 });
