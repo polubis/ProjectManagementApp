@@ -37,12 +37,9 @@ const Search = (props: Search.Props) => {
 
       const [{ value: query }] = fields;
 
-      const search = Url(location)
-        .swap('query', query)
-        .delete('page')
-        .search();
+      const search = Url(location).swap('query', query).search();
 
-      push(`${location.pathname}?${search}`);
+      push(`?${search}`);
     },
     [fields, location]
   );

@@ -12,15 +12,11 @@ export const useRouteValidation = (category: Category) => {
 
   useEffect(() => {
     if (!category) {
-      const url = Url(location)
-        .concat(`/${Category.PATTERNS}`)
-        .value();
+      const url = Url(location).concat(`/${Category.PATTERNS}`).value();
 
       replace(url);
     } else if (!isValidCategory(category)) {
-      const url = Url(location)
-        .replace(category, Category.PATTERNS)
-        .value();
+      const url = Url(location).replace(category, Category.PATTERNS).value();
 
       replace(url);
     }
