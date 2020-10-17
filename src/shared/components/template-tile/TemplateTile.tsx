@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Avatar } from '@material-ui/core';
 
+import { Img } from 'ui';
+
 import { Template } from 'core/api';
 
 import { TemplateStats } from 'shared/components';
@@ -20,12 +22,12 @@ const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
     <div data-idx={template.id} className={csx.templateTile} onClick={onClick}>
       <TemplateStats stars={template.stars} watches={template.watches} />
 
-      <figure>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
-          alt="Template image"
-        />
-      </figure>
+      {/* TODO: REMOVE ?. AFTER BACKEND DATABASE CLEANUP */}
+      <Img
+        alt="First technology image"
+        size="112px:112px"
+        src={template.technologies[0]?.pictureUrl}
+      />
 
       <h5>{template.name}</h5>
 

@@ -123,7 +123,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                     <TechnologyChip
                       key={technology.id}
                       name={technology.name}
-                      avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                      url={technology.pictureUrl}
                     />
                   ))}
                 </div>
