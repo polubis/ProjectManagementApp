@@ -13,10 +13,13 @@ export interface LogInPayload {
 export interface RegisterPayload {
   username: string;
   email: string;
-  firstName: string;
-  lastName: string;
   password: string;
   confirmPassword: string;
+  position?: string;
+  seniority?: number;
+  company?: string;
+  yearsOfExperience?: number
+  technologiesIds?: number[];
 }
 
 export interface ForgottenPasswordPayload {
