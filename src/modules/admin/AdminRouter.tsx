@@ -4,6 +4,7 @@ import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 import { withLazy } from 'utils';
 
 const Dictionaries = withLazy(() => import('./dictionaries'));
+const PatternManagement = withLazy(() => import('./pattern-management'));
 const TechnologyManagement = withLazy(() => import('./technology-management'));
 
 const AdminRouter = () => {
@@ -15,6 +16,12 @@ const AdminRouter = () => {
         exact
         path={`${match.path}/dictionaries/technologies/management/:id?`}
         component={TechnologyManagement}
+      />
+
+      <Route
+        exact
+        path={`${match.path}/dictionaries/patterns/management/:id?`}
+        component={PatternManagement}
       />
 
       <Route exact path={`${match.path}/dictionaries/:category?`} component={Dictionaries} />

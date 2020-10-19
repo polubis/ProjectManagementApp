@@ -3,39 +3,39 @@ import { useRouteMatch } from 'react-router';
 
 import { Loader } from 'ui';
 
-import { Technology, getTechnology } from 'core/api';
+import { Pattern, getPattern } from 'core/api';
 
 import { RouteProps } from '.';
 
-import TechnologyForm from './technology-form';
+import PatternForm from './pattern-form';
 
-import csx from './TechnologyManagement.scss';
+import csx from './PatternManagement.scss';
 
 interface State {
   pending: boolean;
-  technology?: Technology;
+  pattern?: Pattern;
 }
 
-const TechnologyManagement = () => {
+const PatternManagement = () => {
   const [state, setState] = useState<State>({
     pending: false
   });
-  const { pending, technology } = state;
+  const { pending, pattern } = state;
 
   const match = useRouteMatch<RouteProps>();
 
   useEffect(() => {
-    const handleGetTechnology = async (): Promise<void> => {
+    const handleGetPattern = async (): Promise<void> => {
       setState({
         pending: true
       });
 
       try {
-        const technology = await getTechnology(+match.params.id);
+        const pattern = await getPattern(+match.params.id);
 
         setState({
           pending: false,
-          technology
+          pattern
         });
       } catch {
         setState({
@@ -55,15 +55,15 @@ const TechnologyManagement = () => {
     if (match.params.id === undefined) {
       resetState();
     } else {
-      handleGetTechnology();
+      handleGetPattern();
     }
   }, [match.params.id]);
 
   return (
-    <div className={csx.technologyManagement}>
-      {pending ? <Loader /> : <TechnologyForm data={technology} id={match.params.id} />}
+    <div className={csx.patternManagement}>
+      {pending ? <Loader /> : <PatternForm data={pattern} id={match.params.id} />}
     </div>
   );
 };
 
-export default TechnologyManagement;
+export default PatternManagement;

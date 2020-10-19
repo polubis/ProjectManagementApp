@@ -98,7 +98,7 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
               picture: fields[PICTURE].value.file
             });
           } else {
-            await editTechnology(id, {
+            await editTechnology(+id, {
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
               picture: fields[PICTURE].value.file

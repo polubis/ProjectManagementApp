@@ -3,3 +3,8 @@ export interface Pattern {
   name: string;
   description: string;
 }
+
+export interface PatternPayload {
+  name: string;
+  description: string;
+}
