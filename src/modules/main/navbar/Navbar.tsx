@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 import AddTemplateIcon from '@material-ui/icons/Queue';
 import CodeIcon from '@material-ui/icons/Code';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 import { Button } from 'ui';
 
@@ -39,6 +40,11 @@ const Navbar = ({ basePath }: Navbar.Props) => {
     [location.pathname]
   );
 
+  const isAdminPatternsRoute = useMemo(
+    () => location.pathname.includes('admin/dictionaries/patterns'),
+    [location.pathname]
+  );
+
   return (
     <nav className={csx.navbar}>
       <div className={csx.breadcrumbs}>
@@ -68,18 +74,29 @@ const Navbar = ({ basePath }: Navbar.Props) => {
       )}
 
       {isAdminTechnologiesRoute && (
-        <Guard.Protected>
-          <>
-            <NavLink replace to="/app/admin/dictionaries/technologies/management">
-              <Button>
-                <CodeIcon />
-                ADD TECHNOLOGY
-              </Button>
-            </NavLink>
+        <>
+          <NavLink replace to="/app/admin/dictionaries/technologies/management">
+            <Button>
+              <CodeIcon />
+              ADD TECHNOLOGY
+            </Button>
+          </NavLink>
 
-            <div className={csx.divider} />
-          </>
-        </Guard.Protected>
+          <div className={csx.divider} />
+        </>
+      )}
+
+      {isAdminPatternsRoute && (
+        <>
+          <NavLink replace to="/app/admin/dictionaries/patterns/management">
+            <Button>
+              <PlaylistAddIcon />
+              ADD PATTERN
+            </Button>
+          </NavLink>
+
+          <div className={csx.divider} />
+        </>
       )}
 
       <UserSection />
