@@ -1,107 +1,67 @@
-import React, { useMemo } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 
 import AdminIcon from '@material-ui/icons/SupervisorAccount';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProjectsIcon from '@material-ui/icons/Work';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
-import { useAuthProvider } from 'core/auth';
+import { Guard } from 'core/auth';
 
 import csx from './SidebarLinks.scss';
 
 namespace SidebarLinks {
-  export type Children = (icon: React.ReactNode, label: string) => JSX.Element;
-
-  export interface Item {
-    label: string;
-    path: string;
-    icon: React.ReactNode;
-    exact?: boolean;
-  }
+  export type RenderLink = (icon: React.ReactNode, label: string) => JSX.Element;
 
   export interface Props {
-    basePath: string;
-    children: Children;
+    renderLink: RenderLink;
   }
 }
 
-const CONFIG: { [key: string]: SidebarLinks.Item } = {
-    dashboard: {
-      label: 'Dashboard',
-      path: '/dashboard',
-      icon: <DashboardIcon />,
-      exact: true
-    },
-    templates: { label: 'Templates', path: '/templates', icon: <TemplatesIcon /> },
-    projects: { label: 'Projects', path: '/projects', icon: <ProjectsIcon /> },
-    admin: { label: 'Admin', path: '/admin', icon: <AdminIcon /> }
-  },
-  LINK_HEIGHT = 80,
-  MARKER_HEIGHT = 30,
-  LINKS = Object.values(CONFIG);
-
-const getActiveLinkIdx = (
-  basePath: string,
-  pathname: string,
-  links: SidebarLinks.Item[]
-) => (): number => {
-  const slicedPath = pathname.replace(basePath, '');
-
-  return links.findIndex(({ path, exact }) => {
-    if (exact) {
-      return path === slicedPath;
-    }
-
-    return slicedPath.includes(path);
-  });
+const getActiveClassName = (pathname: string, path: string): string => {
+  return pathname.includes(path) ? csx.active : '';
 };
 
-const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): SidebarLinks.Item[] => {
-  if (pending) {
-    return [];
-  }
-
-  if (authorized) {
-    return LINKS;
-  }
-
-  return LINKS.filter(({ label }) => label !== CONFIG.admin.label);
-};
-
-const SidebarLinks = ({ basePath, children }: SidebarLinks.Props) => {
+const SidebarLinks = ({ renderLink }: SidebarLinks.Props) => {
+  const { path } = useRouteMatch();
   const { pathname } = useLocation();
-  const { authorized, pending } = useAuthProvider();
-
-  const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
-
-  const activeLinkIdx = useMemo(getActiveLinkIdx(basePath, pathname, links), [pathname, links]);
 
   return (
     <div className={csx.links}>
-      {links.map(({ path, label, icon, exact }) => (
-        <NavLink
-          key={label}
-          exact={exact}
-          activeClassName={activeLinkIdx > -1 ? csx.active : ''}
-          className={csx.link}
-          style={{ height: `${LINK_HEIGHT}px` }}
-          to={`${basePath}${path}`}
-        >
-          {children(icon, label)}
-        </NavLink>
-      ))}
+      <NavLink
+        exact
+        activeClassName={getActiveClassName(pathname, 'dashboard')}
+        className={csx.link}
+        to={`${path}/dashboard`}
+      >
+        {renderLink(<DashboardIcon />, 'Dashboard')}
+      </NavLink>
 
-      {activeLinkIdx > -1 && (
-        <span
-          className={csx.marker}
-          style={{
-            height: `${MARKER_HEIGHT}px`,
-            top: `${(LINK_HEIGHT - MARKER_HEIGHT) / 2}px`,
-            transform: `translateY(${LINK_HEIGHT * activeLinkIdx}px)`
-          }}
-        />
-      )}
+      <NavLink
+        activeClassName={getActiveClassName(pathname, 'templates')}
+        className={csx.link}
+        to={`${path}/templates`}
+      >
+        {renderLink(<TemplatesIcon />, 'Templates')}
+      </NavLink>
+
+      <NavLink
+        activeClassName={getActiveClassName(pathname, 'projects')}
+        className={csx.link}
+        to={`${path}/projects`}
+      >
+        {renderLink(<ProjectsIcon />, 'Projects')}
+      </NavLink>
+
+      <Guard.Admin>
+        <NavLink
+          activeClassName={getActiveClassName(pathname, 'admin')}
+          className={csx.link}
+          to={`${path}/admin`}
+        >
+          {renderLink(<AdminIcon />, 'Admin')}
+        </NavLink>
+      </Guard.Admin>
     </div>
   );
 };

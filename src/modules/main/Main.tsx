@@ -28,11 +28,11 @@ const Main = ({ match }: RouteChildrenProps) => {
     <div className={csx.main}>
       <Navbar basePath={match.path} />
 
-      <Sidebar basePath={match.path} />
+      <Sidebar />
 
       <main>
         <Switch>
-          <Guard.ProtectedRoute
+          <Guard.AdminRoute
             redirect={`${match.path}/templates`}
             path={`${match.path}/admin`}
             component={Admin}
