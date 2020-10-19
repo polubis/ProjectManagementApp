@@ -27,7 +27,7 @@ const makePayload = ([
   techDetailsManager
 ]: Form.Manager[]): TemplatePayload => {
   const [{ value: name }, { value: description }] = basicInfoManager[0].fields;
-  const [{ value: githubLink }] = githubConnectionManager[0].fields;
+  const [{ value: githubLink }, , { value: isPrivate }] = githubConnectionManager[0].fields;
   const technologies = techDetailsManager[0].fields[TECHNOLOGIES].value;
   const patterns = techDetailsManager[0].fields[PATTERNS].value;
   const tags = techDetailsManager[0].fields[TAGS].value;
@@ -35,9 +35,10 @@ const makePayload = ([
   return {
     name,
     description,
+    isPrivate,
     githubLink,
-    technologiesIds: SelectBase.getSelected(technologies).map(k => +k),
-    patternsIds: SelectBase.getSelected(patterns).map(k => +k),
+    technologiesIds: SelectBase.getSelected(technologies).map((k) => +k),
+    patternsIds: SelectBase.getSelected(patterns).map((k) => +k),
     tags
   };
 };

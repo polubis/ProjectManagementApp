@@ -2,24 +2,24 @@ import React from 'react';
 
 import { SelectBase, Checkbox } from 'ui';
 
+import { Technology } from 'core/api';
+
 import { TechnologyChip } from 'shared/components';
 
 import csx from './ListItem.scss';
 
-const ListItem = ({ style, index, data: { items, onSelect } }: SelectBase.ListChildProps) => {
-  const { dataIdx, label, value } = items[index];
+const ListItem = ({
+  style,
+  index,
+  data: { items, onSelect }
+}: SelectBase.ListChildProps<Technology>) => {
+  const { dataIdx, label, pictureUrl, value } = items[index];
 
   return (
     <div className={csx.listItem} style={style}>
       <Checkbox
         dataIdx={dataIdx}
-        label={
-          <TechnologyChip
-            avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
-            className={csx.technology}
-            name={label}
-          />
-        }
+        label={<TechnologyChip className={csx.technology} name={label} url={pictureUrl} />}
         value={value}
         onChange={onSelect}
       />

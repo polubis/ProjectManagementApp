@@ -4,6 +4,7 @@ export * from './checkbox';
 export * from './date-picker';
 export * from './date-field';
 export * from './input-field';
+export * from './img';
 export * from './field-base';
 export * from './file-field';
 export * from './loader';
