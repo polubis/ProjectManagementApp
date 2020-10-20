@@ -8,13 +8,7 @@ import SidebarLinks from './sidebar-links';
 
 import csx from './Sidebar.scss';
 
-namespace Sidebar {
-  export interface Props {
-    basePath: string;
-  }
-}
-
-const renderLink: SidebarLinks.Children = (icon, label) => {
+const renderLink: SidebarLinks.RenderLink = (icon, label) => {
   return (
     <Button className={csx.link}>
       {icon}
@@ -23,11 +17,11 @@ const renderLink: SidebarLinks.Children = (icon, label) => {
   );
 };
 
-const Sidebar = ({ basePath }: Sidebar.Props) => {
+const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   }, []);
 
   return (
@@ -37,9 +31,9 @@ const Sidebar = ({ basePath }: Sidebar.Props) => {
           <Logo />
         </figure>
 
-        <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+        <SidebarLinks renderLink={renderLink} />
 
-        {open && <SidebarPanel basePath={basePath} onClose={toggleOpen} />}
+        {open && <SidebarPanel onClose={toggleOpen} />}
       </div>
     </aside>
   );

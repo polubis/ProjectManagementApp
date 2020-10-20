@@ -10,12 +10,11 @@ import csx from './SidebarPanel.scss';
 
 namespace SidebarPanel {
   export interface Props {
-    basePath: string;
     onClose(): void;
   }
 }
 
-const renderLink: SidebarLinks.Children = (icon, label) => {
+const renderLink: SidebarLinks.RenderLink = (icon, label) => {
   return (
     <Button className={csx.link}>
       {icon}
@@ -24,7 +23,7 @@ const renderLink: SidebarLinks.Children = (icon, label) => {
   );
 };
 
-const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
+const SidebarPanel = ({ onClose }: SidebarPanel.Props) => {
   return (
     <div className={csx.sidebarPanel}>
       <div className={csx.logo} onClick={onClose}>
@@ -34,7 +33,7 @@ const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
         <span>Jupi.io</span>
       </div>
 
-      <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+      <SidebarLinks renderLink={renderLink} />
     </div>
   );
 };

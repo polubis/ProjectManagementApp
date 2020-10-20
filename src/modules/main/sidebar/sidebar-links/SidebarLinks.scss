@@ -5,6 +5,7 @@
 
   .link {
     @include rowCenter;
+    height: 80px;
 
     button {
       width: 100%;
