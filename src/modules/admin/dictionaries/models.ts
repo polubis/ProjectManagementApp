@@ -1,8 +1,12 @@
-export enum Category {
+import { Technology, Pattern } from 'core/api';
+
+export enum DictionaryKind {
   TECHNOLOGIES = 'technologies',
   PATTERNS = 'patterns'
 }
 
 export interface RouteProps {
-  category: Category;
+  kind: DictionaryKind;
 }
+
+export type Dictionary = Pattern | Technology;

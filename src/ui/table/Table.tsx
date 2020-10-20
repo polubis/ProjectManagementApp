@@ -1,53 +1,81 @@
-import React from 'react';
-
-import { FixedSizeList, FixedSizeListProps } from 'react-window';
+import React, { useMemo } from 'react';
 
 import csx from './Table.scss';
 
 namespace Table {
-  export interface Cell {
-    component: JSX.Element | string | number;
+  export interface ColSize {
+    min: string;
+    max: string;
   }
 
-  export interface Row {
-    [key: string]: Cell;
+  export interface ConfigItem {
+    key: string;
+    label: string;
+    size?: ColSize;
   }
 
-  export type TableConfig = Omit<FixedSizeListProps, 'children' | 'itemCount'>;
+  export type Config = {
+    [key: string]: {
+      col?: (key: string) => React.ReactNode;
+      label?: string;
+      row?: (key: string, data: any) => React.ReactNode;
+      size?: ColSize;
+    };
+  };
 
   export interface Props {
-    data: Row[];
-    config: TableConfig;
+    className?: string;
+    config: Config;
+    data: any[];
   }
 }
 
-const Table = ({ data, config }: Table.Props) => {
-  const Row = ({ index, style }) => {
-    const cells = Object.values(data[index]).map((cell, i) => (
-      <div key={i + index}>{cell.component}</div>
-    ));
+const getConfigItems = (config: Table.Config): Table.ConfigItem[] => {
+  const keys = Object.keys(config);
 
-    return (
-      <div
-        key={index}
-        className={csx.table}
-        style={{
-          ...style,
-          gridTemplateColumns: `repeat(${Object.keys(data[index]).length}, 1fr)`
-        }}
-      >
-        {cells}
-      </div>
-    );
-  };
-
-  return (
-    <div>
-      <FixedSizeList itemCount={data.length} {...config}>
-        {Row}
-      </FixedSizeList>
-    </div>
+  return keys.map(
+    (key) =>
+      ({
+        key,
+        label: config[key].label ? config[key].label : key,
+        size: config[key].size ? config[key].size : { min: '150px', max: '1fr' }
+      } as Table.ConfigItem)
   );
 };
+
+const getGridTemplateColumns = (items: Table.ConfigItem[]): string =>
+  items.map(({ size }) => `minmax(${size.min}, ${size.max})`).join(' ');
+
+const Table = ({ className = '', config, data }: Table.Props) => {
+  const items = useMemo(() => getConfigItems(config), [config]);
+
+  const gridTemplateColumns = useMemo(() => getGridTemplateColumns(items), [config]);
+
+  return (
+    <table className={`${csx.table} ${className}`} style={{ gridTemplateColumns }}>
+      <thead>
+        {items.map(({ key, label }) => (
+          <tr key={label}>
+            <th>{config[key].col ? config[key].col(key) : label}</th>
+          </tr>
+        ))}
+      </thead>
+      <tbody>
+        {data.map((item, idx) => (
+          <tr key={idx}>
+            {items.map(({ key }) => (
+              <td key={key}>
+                <div>{config[key].row ? config[key].row(key, item) : item[key]}</div>
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+Table.getConfigItems = getConfigItems;
+Table.getGridTemplateColumns = getGridTemplateColumns;
 
 export default Table;

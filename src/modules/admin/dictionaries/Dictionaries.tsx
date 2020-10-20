@@ -1,32 +1,48 @@
-import React from 'react';
-import { useRouteMatch } from 'react-router';
+import React, { useCallback } from 'react';
+import { useRouteMatch, useHistory } from 'react-router';
 
-import Categories from './categories';
-import PatternsTab from './patterns-tab';
-import TechnologiesTab from './technologies-tab';
-import { useRouteValidation } from './hooks';
+import { Tabs, Loader } from 'ui';
 
-import { Category, RouteProps } from '.';
+import { Url } from 'utils';
+
+import { useRouteValidation, useSearch } from './hooks';
+import { DictionariesTable, DictionariesSearch } from './components';
+
+import { DictionaryKind, RouteProps } from '.';
 
 import csx from './Dictionaries.scss';
 
-const tabs = {
-  [Category.TECHNOLOGIES]: <TechnologiesTab />,
-  [Category.PATTERNS]: <PatternsTab />
-};
-
 const Dictionaries = () => {
+  const history = useHistory();
   const {
-    params: { category }
+    params: { kind }
   } = useRouteMatch<RouteProps>();
 
-  useRouteValidation(category);
+  useRouteValidation(kind, history);
+
+  const { data, pending } = useSearch(kind, history);
+
+  const handleClick = useCallback(
+    (newKind: DictionaryKind) => {
+      const url = Url({ ...location, search: '' })
+        .replace(kind, newKind)
+        .value();
+
+      history.push(url);
+    },
+    [history.location]
+  );
 
   return (
     <div className={csx.dictionaries}>
-      <Categories />
+      <Tabs active={kind} onClick={handleClick}>
+        <>{DictionaryKind.PATTERNS}</>
+        <>{DictionaryKind.TECHNOLOGIES}</>
+      </Tabs>
 
-      {tabs[category]}
+      <DictionariesSearch label={kind} />
+
+      {pending ? <Loader /> : <DictionariesTable data={data} kind={kind} />}
     </div>
   );
 };

@@ -2,11 +2,39 @@
 
 .table {
   display: grid;
-  font-size: 14px;
-  width: 1345px;
+  border-collapse: collapse;
+  min-width: 100%;
 
-  & > div {
+  thead,
+  tbody,
+  tr {
+    display: contents;
+  }
+
+  th,
+  td {
+    padding: 15px;
+  }
+
+  th {
+    @include labelSmall;
+    @include dottedText;
+    font-weight: lighter;
+    text-align: left;
+    text-transform: uppercase;
+    color: $white;
+  }
+
+  td {
     @include row;
-    padding: 20px 10px;
+
+    & > div {
+      @include dottedText;
+      @include label;
+    }
+  }
+
+  th:last-child {
+    border: 0;
   }
 }
