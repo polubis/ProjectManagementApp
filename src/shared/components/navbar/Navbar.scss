@@ -44,31 +44,13 @@
       a {
         @include centered;
         @include link;
-        position: relative;
         height: 99px;
         width: 110px;
         font-weight: $bold;
         color: $primary;
 
-        &::before {
-          position: absolute;
-          width: 60%;
-          height: 4px;
-          bottom: -2px;
-          left: 0;
-          right: 0;
-          margin: 0 auto;
-          border-radius: 39px;
-          background: $secondary;
-          z-index: 1;
-        }
-
         &.activeLink {
           color: $secondary;
-
-          &::before {
-            content: '';
-          }
         }
       }
     }
