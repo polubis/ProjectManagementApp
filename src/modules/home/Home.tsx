@@ -5,7 +5,14 @@ import { Footer, Navbar } from 'shared/components';
 
 import { Ecosystem, Features, Search, RecentTemplates } from './sections';
 
+//
+import { useAlertsProvider } from "shared/providers/alerts"
+//
+
 const Home = () => {
+  //
+  const { addAlert } = useAlertsProvider();
+  //
   return (
     <>
       <Helmet>
@@ -16,6 +23,8 @@ const Home = () => {
         />
       </Helmet>
       <Navbar />
+      <button onClick={() => addAlert("Alert1")}>Alert1</button>
+      <button onClick={() => addAlert("Alert2")}>Alert2</button>
       <Search />
       <Features />
       <RecentTemplates />

@@ -17,7 +17,7 @@ const AlertsManager = () => {
     return core.unsubscribe;
   }, []);
 
-  return alert ? <Alert message={alert} onClose={closeAlert} /> : null;
+  return alert ? <Alert message={alert} display={true} /> : null;
 };
 
 export default AlertsManager;
