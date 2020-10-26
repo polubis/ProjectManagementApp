@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
 import csx from './ForkTemplateInfoProvider.scss'
 
@@ -14,46 +14,57 @@ interface TemplateStatus {
     status: boolean
 }
 
-const ForkTemplateInfoProvider = (props) => {
-
-    const [numberOfForks, setNumberOfForks] = useState(0);
-    const [templateInfo, setTemplateInfo] = useState<TemplateStatus[]>([]);
-
-    const incrementForks = () => setNumberOfForks(numberOfForks + 1);
-    const decrementForks = () => setNumberOfForks(numberOfForks - 1);
-
-    const sleep = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
-
-    const completeFork = async (name, status) => {
-        setTemplateInfo([...templateInfo, { name: name, status: status }]);
-        await sleep(1500);
-        setTemplateInfo(templateInfo.filter(t => t.name !== name));
+class ForkTemplateInfoProvider extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    state = {
+        numberOfForks: 0,
+        templateInfo: []
     }
 
-    const data = {
-        incrementForks: incrementForks,
-        decrementForks: decrementForks,
-        completeFork: completeFork
+    incrementForks = () => { this.setState({ numberOfForks: this.state.numberOfForks + 1 }); }
+    decrementForks = () => { this.setState({ numberOfForks: this.state.numberOfForks - 1 }); }
+
+    sleep = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
+
+    completeFork = async (name, status) => {
+        this.setState({ templateInfo: [...this.state.templateInfo, { name: name, status: status }] })
+        await this.sleep(1500);
+        this.setState({ templateInfo: this.state.templateInfo.filter(t => t.name !== name) });
     }
 
-    return (
-        <ForkTemplateInfoContext.Provider value={data}>
-            {(numberOfForks > 0 || templateInfo.length > 0) &&
+    data = {
+        incrementForks: this.incrementForks,
+        decrementForks: this.decrementForks,
+        completeFork: this.completeFork
+    }
+
+    render() {
+        return <ForkTemplateInfoContext.Provider value={this.data}>
+            {(this.state.numberOfForks > 0 || this.state.templateInfo.length > 0) &&
                 <div className={csx.message}>
-                    {templateInfo.length > 0 &&
-                        <span>{templateInfo.map(t => {
+                    {this.state.templateInfo.length > 0 &&
+                        <span>{this.state.templateInfo.map(t => {
                             return <div>
                                 {t.name.substr(0, 5)}... {t.status ? "forked" : "didn't forked"}
                             </div>
                         })}
                         </span>
                     }
-                    {numberOfForks > 0 && <span className={csx.loading}>{numberOfForks} template{numberOfForks > 1 && "s"} is forking</span>}
+                    {this.state.numberOfForks > 0 && <span className={csx.loading}>{this.state.numberOfForks} template{this.state.numberOfForks > 1 && "s"} is forking</span>}
                 </div>}
-            {props.children}
+            {this.props.children}
         </ForkTemplateInfoContext.Provider>
-    )
+
+    }
 
 }
+
+export const useForkTemplateInfoProvider = () => {
+    const context = useContext(ForkTemplateInfoContext);
+
+    return context;
+};
 
 export default ForkTemplateInfoProvider;

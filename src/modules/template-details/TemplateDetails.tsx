@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useMemo, useContext } from 'react';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps, useHistory } from 'react-router';
 
@@ -7,13 +7,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
+// import MediationIcon from '@material-ui/icons/Mediation';
 
 import { Button, Loader, More, Tags } from 'ui';
 
 import { convertDate } from 'utils';
 
 import { Template, forkTemplate } from 'core/api';
-import { ForkTemplateInfoContext } from 'shared/providers/fork-template-info'
+import { useForkTemplateInfoProvider } from 'shared/providers/fork-template-info'
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
@@ -39,7 +40,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [forkInProgress, setForkInProgress] = useState(false);
 
   const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
-  const info = useContext(ForkTemplateInfoContext);
+  const { decrementForks, incrementForks, completeFork } = useForkTemplateInfoProvider();
 
   useEffect(() => {
     if (error) {
@@ -59,17 +60,17 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setConfirmDeleteOpen(false);
   }, []);
 
-  const forkTemplateHandler = async () => {
-    info.incrementForks();
+  const handleFork = async () => {
+    incrementForks();
     setForkInProgress(true);
-    forkTemplate(match.params.id).then(
+    await forkTemplate(match.params.id).then(
       (response) => console.log("Response: " + response.data),
       (reason) => console.log("Reason: " + reason)
     ).then(
       () => {
         setForkInProgress(false);
-        info.completeFork(match.params.id, false);
-        info.decrementForks();
+        completeFork(match.params.id, false);
+        decrementForks();
       }
 
     );
@@ -95,7 +96,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 </Button>
                 </NavLink>
 
-                <Button disabled={forkInProgress} onClick={forkTemplateHandler}>
+                <Button disabled={forkInProgress} onClick={handleFork}>
 
                   <img src="https://www.iconsdb.com/icons/preview/white/fork-2-xxl.png"
                     height="20"
