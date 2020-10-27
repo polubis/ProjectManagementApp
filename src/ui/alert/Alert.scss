@@ -1,6 +1,7 @@
 @import "styles/mixins";
 
 .alert {
+  @include centered;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,15 +19,18 @@
 
 .warning {
   background: $stars;
+  color: $black;
 }
 
 .error {
   background: $error;
 }
 .success {
-  background: rgb(111, 207, 119);
+  background: rgb(95, 255, 108);
+  color: $black;
 }
 
 .info {
   background: $secondary;
+  color: $black;
 }

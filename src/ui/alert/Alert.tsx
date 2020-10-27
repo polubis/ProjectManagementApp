@@ -1,4 +1,4 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import csx from './Alert.scss';
 
@@ -7,13 +7,28 @@ namespace Alert {
     message?: string;
     type?: 'warning' | 'error' | 'success' | 'info';
     className?: string;
-    display: boolean
+    time?: number;
   }
 }
 
-const Alert = ({ message, type = 'error', className = "", display }: Alert.Props) => {
+const Alert = ({ message, type = 'error', className = "", time = 5000 }: Alert.Props) => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setShow(true);
+    hide();
+  }, [])
+
+  const hide = async () => {
+    await sleep(time - 1000);
+    setShow(false);
+  }
+
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+
   return (
-    <div className={`${csx.alert} ${!display && csx.hidden} ${csx[type]}`}>
+    <div className={`${csx.alert} ${!show && csx.hidden} ${csx[type]} ${className}`}>
       {message}
     </div>
   );

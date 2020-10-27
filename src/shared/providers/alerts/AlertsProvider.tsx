@@ -6,7 +6,8 @@ namespace AlertsProvider {
     export interface State {
         text: string;
         display: boolean;
-        addAlert?(text: string): void;
+        alerts: { id: number, text: string, type: 'warning' | 'error' | 'success' | 'info' }[];
+        addAlert?(text: string, type: 'warning' | 'error' | 'success' | 'info'): void;
     }
 
     export interface Props {
@@ -16,8 +17,11 @@ namespace AlertsProvider {
 
 const STATE: AlertsProvider.State = {
     text: "",
-    display: false
+    display: false,
+    alerts: []
 };
+
+const DURATION = 5000; //alert duration
 
 const Context = createContext(STATE);
 
@@ -26,15 +30,13 @@ class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    addAlert = async (text: string) => {
-        if (text !== "") {
-            this.setState({ display: false });
-        }
-        this.setState({ text: text });
-        this.setState({ display: true })
-        await this.sleep(300);
-        this.setState({ display: false })
-        this.setState({ text: "" })
+    addAlert = async (text: string, type: 'warning' | 'error' | 'success' | 'info') => {
+        let id = 0;
+        if (this.state.alerts.length > 0) id = this.state.alerts[this.state.alerts.length - 1].id + 1;
+        this.setState({ alerts: [...this.state.alerts, { id: id, text: text, type: type }] });
+        await this.sleep(DURATION);
+        this.setState({ alerts: this.state.alerts.filter(e => e.id !== id) });
+
     }
     readonly state: typeof STATE = {
         ...STATE,
@@ -42,7 +44,9 @@ class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
     };
 
     render = () => <Context.Provider value={this.state}>
-        <Alert display={this.state.display} message={this.state.text} />
+        {this.state.alerts.map(e => {
+            return <Alert key={e.id} message={e.text} time={DURATION} type={e.type} />;
+        })}
         {this.props.children}
     </Context.Provider>;
 }
