@@ -18,7 +18,7 @@ interface State {
 }
 
 const DESCRIPTIONS: string[] = [
-  `Choose username, email and use save password for login`,
+  `Choose username, email and use save password for log in`,
   `Describe yourself for other users`,
   `Read our policy and confirm account creation`
 ];

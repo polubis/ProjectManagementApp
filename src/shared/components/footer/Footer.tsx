@@ -42,7 +42,7 @@ const Footer = () => {
             <div className={csx.links}>
               <Link to="/register">Register</Link>
 
-              <Link to="/login">Login</Link>
+              <Link to="/login">Log In</Link>
             </div>
           </Guard.Unprotected>
         </div>

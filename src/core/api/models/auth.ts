@@ -22,8 +22,8 @@ export interface SelfUser {
 }
 
 export interface LogInPayload {
-  login: string;
   password: string;
+  username: string;
 }
 
 export interface RegisterPayload {

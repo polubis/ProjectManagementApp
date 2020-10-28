@@ -18,12 +18,12 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
   const [{ errors, dirty, invalid, next, submit, values }, setForm] = useState(
     Form<LogInPayload>(
       {
-        login: '',
-        password: ''
+        password: '',
+        username: ''
       },
       {
-        login: [(v) => v.length < 3 || v.length > 50],
-        password: [(v) => v.length < 3 || v.length > 50]
+        password: [(v) => v.length < 3 || v.length > 50],
+        username: [(v) => v.length < 3 || v.length > 50]
       }
     )
   );
@@ -55,11 +55,11 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
   return (
     <form className={csx.loginForm} onSubmit={handleSubmit}>
       <InputField
-        data-key="login"
-        label="Login"
-        placeholder="Login..."
-        error={dirty ? (errors.login ? 'Invalid login format' : '') : ''}
-        value={values.login}
+        data-key="username"
+        label="Username"
+        placeholder="Username..."
+        error={dirty ? (errors.username ? 'Invalid username format' : '') : ''}
+        value={values.username}
         onChange={handleChange}
       />
 
