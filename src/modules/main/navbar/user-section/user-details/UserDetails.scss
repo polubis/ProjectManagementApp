@@ -1,0 +1,85 @@
+@import 'styles/mixins';
+
+.userDetails {
+  @include label;
+  color: $white;
+
+  .header {
+    @include row;
+    padding: 24px;
+    border-bottom: 1px solid $primary;
+    overflow-wrap: anywhere;
+
+    .avatar {
+      margin-right: 18px;
+    }
+
+    .headerDetails {
+      @include col;
+    }
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 24px;
+    row-gap: 24px;
+
+    .detail {
+      @include col;
+
+      &:last-of-type {
+        grid-column: 1 / span 2;
+      }
+
+      > span {
+        &:first-of-type {
+          @include labelSmall;
+          color: $grey;
+        }
+      }
+
+      .technologies {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
+      }
+
+      .seeAll {
+        color: $primary;
+        margin-top: 16px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .github {
+    padding: 24px;
+    border-bottom: 1px solid $primary;
+    border-top: 1px solid $primary;
+
+    .success {
+      color: $ok;
+    }
+
+    .error {
+      color: $error;
+    }
+
+    > button {
+      margin-top: 22px;
+    }
+
+    > span > span {
+      &:last-of-type {
+        color: $primary;
+      }
+    }
+  }
+
+  .logout {
+    @include centered;
+    padding: 24px 24px 8px 24px;
+  }
+}

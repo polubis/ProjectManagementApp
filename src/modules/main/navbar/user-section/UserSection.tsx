@@ -1,43 +1,53 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { Button } from 'ui';
+import { Button, useMenu, Menu } from 'ui';
+
+import { Palette } from 'styles';
 
 import { Guard } from 'core/auth';
-import { TemplateCategory } from 'core/api';
 
 import Notifications from './notifications';
+import UserDetails from './user-details';
 
 import csx from './UserSection.scss';
 
 const UserSection = () => {
-  const { replace } = useHistory();
+  const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
-        {({ user: { email, username }, logOut }) => (
+        {({ user: { email, username } }) => (
           <>
-            <div className={csx.details}>
-              <span>Hi, {username}</span>
+            <div className={csx.details} onClick={openMenu}>
               <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
+              <span>Hi, {username}</span>
+              <ExpandMoreIcon fontSize="large" />
             </div>
-
-            <Notifications />
+            {menuOpen && (
+              <Menu
+                anchorEl={anchorEl}
+                background={Palette.secondary}
+                keepMounted={false}
+                width={326}
+                onClose={closeMenu}
+                PaperProps={{
+                  style: {
+                    transform: 'translateX(5%) translateY(3%)'
+                  }
+                }}
+              >
+                <UserDetails />
+              </Menu>
+            )}
 
             <div className={csx.divider} />
 
-            <span
-              className={csx.logoutBtn}
-              onClick={() => {
-                replace(`/app/templates/${TemplateCategory.ALL}`);
-                logOut();
-              }}
-            >
-              Logout
-            </span>
+            <Notifications />
           </>
         )}
       </Guard.Protected>
