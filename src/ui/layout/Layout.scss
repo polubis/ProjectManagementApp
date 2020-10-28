@@ -1,0 +1,7 @@
+@import "styles/mixins";
+
+.layout {
+    @include col;
+    padding: 60px;
+    width: 100%;
+}
