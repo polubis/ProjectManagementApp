@@ -18,11 +18,11 @@ const UserSection = () => {
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
-        {({ user: { email, username }, logOut }) => (
+        {({ user: { username }, logOut }) => (
           <>
             <div className={csx.details}>
               <span>Hi, {username}</span>
-              <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
+              <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
             </div>
 
             <Notifications />
