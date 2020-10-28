@@ -2,12 +2,12 @@ import React, { createContext, ReactNode, useContext } from 'react';
 
 import { getCookies, setCookie } from './cookies';
 
-import { CookieConsent } from "../../ui/cookies-consent";
+import { CookieConsent } from "shared/components/cookies-consent";
 
 namespace CookiesProvider {
   export interface State {
     cookies: {[key: string]: string};
-    setCookie?: (key: string, value: string) => void
+    setCookie?(key: string, value: string): void
   }
 
   export interface Props {
@@ -22,14 +22,11 @@ const STATE: CookiesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<CookiesProvider.Props, typeof STATE> {
-  private _getCookies = () => {
-      const cookies = getCookies();
-      this.setState({ ...STATE, cookies });
-  };
-
   setCookie = (key: string, value: string) => {
     setCookie(key, value);
-    this._getCookies();
+
+    const cookies = getCookies();
+    this.setState({ cookies });
   };
 
   readonly state: typeof STATE = {

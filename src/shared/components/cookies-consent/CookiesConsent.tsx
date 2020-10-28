@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 
-import { useCookiesProvider } from "core/cookies";
-
 import { Button } from "ui";
 
+import { useCookiesProvider } from "core/cookies";
+
 import csx from './CookiesConsent.scss';
+
+const COOKIE_NAME = 'cookies-consent';
+
+const COOKIES_ALLOWED = '1';
 
 const CookiesConsent = () => {
   const [visible, setVisible] = useState(true);
 
   const { cookies, setCookie } = useCookiesProvider();
 
-  const consentCookieName = 'cookies-consent';
-
-  const acceptCookies = () => {
-    setCookie(consentCookieName, '1');
+  const handleAccept = () => {
+    setCookie(COOKIE_NAME, COOKIES_ALLOWED);
   };
 
   useEffect(() => {
-    setVisible(!cookies[consentCookieName]);
-  }, [cookies[consentCookieName]]);
+    setVisible(!cookies[COOKIE_NAME]);
+  }, [cookies[COOKIE_NAME]]);
 
   return (
     visible
       ? <div className={csx.cookiesConsent}>
-        <div>
           <p>
             This website uses cookies to enhance the user experience
           </p>
-          <Button onClick={acceptCookies}>Got it!</Button>
-        </div>
+          <Button onClick={handleAccept}>Got it!</Button>
       </div>
       : null
   )
