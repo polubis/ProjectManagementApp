@@ -1,0 +1,23 @@
+@import 'styles/mixins';
+
+.cookiesConsent {
+  position: fixed;
+  width: 90%;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba($white, 0.8);
+  bottom: 0;
+
+  & > div {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+
+    & > p {
+      color: $black;
+      line-height: 5vh;
+    }
+  }
+}
