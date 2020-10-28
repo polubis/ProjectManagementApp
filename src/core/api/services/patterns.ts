@@ -21,4 +21,4 @@ export const editPattern = (id: number, payload: PatternPayload) =>
   core.put<{ id: number }>(`${EDIT_PATTERN}/${id}`, payload);
 
 export const addPattern = (payload: PatternPayload) =>
-  core.put<{ id: number }>(ADD_PATTERN, payload);
+  core.post<{ id: number }>(ADD_PATTERN, payload);

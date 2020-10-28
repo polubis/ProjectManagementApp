@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.search {
+.dictionariesSearch {
   @include row;
   margin: 62px auto 82px auto;
   width: 600px;
@@ -8,7 +8,7 @@
   background: $surfacePrimary;
   border-radius: 4px;
 
-  .input {
+  & > input {
     @include label;
     @include headingSmall;
     width: 100%;
@@ -24,7 +24,7 @@
     }
   }
 
-  .confirmSearchBtn {
+  & > button {
     @include text;
     height: 100%;
     flex-shrink: 0;

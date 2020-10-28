@@ -24,7 +24,7 @@ const AdminRouter = () => {
         component={PatternManagement}
       />
 
-      <Route exact path={`${match.path}/dictionaries/:category?`} component={Dictionaries} />
+      <Route exact path={`${match.path}/dictionaries/:kind?`} component={Dictionaries} />
 
       <Route path="*" render={() => <Redirect to={`${match.path}/dictionaries`} />} />
     </Switch>

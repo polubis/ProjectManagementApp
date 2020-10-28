@@ -1,0 +1,16 @@
+@import 'styles/mixins';
+
+.tabs {
+  @include row;
+
+  .tab {
+    & > span {
+      @include link;
+      text-transform: capitalize;
+    }
+
+    &:not(:last-of-type) {
+      margin: 0 30px 0 0;
+    }
+  }
+}
