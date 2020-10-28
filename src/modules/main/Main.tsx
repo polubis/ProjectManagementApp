@@ -38,10 +38,6 @@ const Main = ({ match }: RouteChildrenProps) => {
             component={Admin}
           />
 
-          <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
-
-          <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
-
           <Guard.ProtectedRoute
             exact
             redirect={`${match.path}/templates`}
@@ -65,7 +61,7 @@ const Main = ({ match }: RouteChildrenProps) => {
             component={TemplateDocumentation}
           />
 
-          <Route path="*" render={() => <Redirect to={`${match.path}/dashboard`} />} />
+          <Route path="*" render={() => <Redirect to={`${match.path}/templates/all`} />} />
         </Switch>
       </main>
     </div>
