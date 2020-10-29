@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useCallback } from 'react';
 
-import { Button } from "ui";
+import { Button } from 'ui';
 
-import { useCookiesProvider } from "core/cookies";
+import { usePortal } from 'utils';
+
+import { useCookiesProvider } from 'core/cookies';
 
 import csx from './CookiesConsent.scss';
 
-const COOKIE_NAME = 'cookies-consent';
+const APPROVED = '1',
+  NAME = 'cookies-constent';
 
-const COOKIES_ALLOWED = '1';
+const CookiesConsent = memo(
+  () => {
+    const render = usePortal();
 
-const CookiesConsent = () => {
-  const [visible, setVisible] = useState(true);
+    const { cookies, setCookies } = useCookiesProvider();
 
-  const { cookies, setCookie } = useCookiesProvider();
+    const approveConstent = useCallback(() => {
+      setCookies(NAME, APPROVED);
+    }, []);
 
-  const handleAccept = () => {
-    setCookie(COOKIE_NAME, COOKIES_ALLOWED);
-  };
+    const approved = cookies[NAME] === APPROVED;
 
-  useEffect(() => {
-    setVisible(!cookies[COOKIE_NAME]);
-  }, [cookies[COOKIE_NAME]]);
-
-  return (
-    visible
-      ? <div className={csx.cookiesConsent}>
-          <p>
-            This website uses cookies to enhance the user experience
-          </p>
-          <Button onClick={handleAccept}>Got it!</Button>
-      </div>
-      : null
-  )
-};
+    return approved
+      ? null
+      : render(
+          <div className={csx.cookiesConsent}>
+            <span>This website uses cookies to enhance the user experience.</span>
+            <Button onClick={approveConstent}>GOT IT!</Button>
+          </div>
+        );
+  },
+  () => true
+);
 
 export default CookiesConsent;

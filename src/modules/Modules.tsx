@@ -6,6 +6,8 @@ import CookiesProvider from 'core/cookies';
 import PatternsProvider from 'core/patterns';
 import TechnologiesProvider from 'core/technologies';
 
+import { CookieConsent } from 'shared/components';
+
 import ModulesRouter from './ModulesRouter';
 
 const Modules = () => {
@@ -13,6 +15,7 @@ const Modules = () => {
     <>
       <AlertsManager />
       <CookiesProvider>
+        <CookieConsent />
         <AuthProvider>
           <PatternsProvider>
             <TechnologiesProvider>
