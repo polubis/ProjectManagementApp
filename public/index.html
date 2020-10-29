@@ -5,10 +5,28 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>ReactTemplates</title>
+    <title>Jupi.io</title>
+
+    <style>
+      .pageLoader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background: #101b48;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="pageLoader">
+        <img src="/images/Logo.png" alt="Jupi.io Logo" />
+      </div>
+    </div>
   </body>
 </html>

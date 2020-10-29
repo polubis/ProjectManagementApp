@@ -8,7 +8,7 @@ import 'styles/index.scss';
 
 WebFont.load({
   google: {
-    families: ['Montserrat:300,400,500,700', 'sans-serif']
+    families: ['sans-serif', 'Montserrat:300,400,500,700&display=swap']
   }
 });
 
