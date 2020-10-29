@@ -1,0 +1,39 @@
+@import 'styles/mixins';
+
+.cookiesConsent {
+  position: fixed;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 600px auto 1fr;
+  grid-gap: 30px;
+  grid-template-rows: 1fr;
+  padding: 18px 28px;
+  background: $surfacePrimary;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid rgba($primary, 0.41);
+  z-index: 20;
+
+  @include tablet {
+    grid-template-columns: 1fr 120px;
+  }
+
+  & > span {
+    @include description;
+    grid-column: 2/3;
+    color: $white;
+
+    @include tablet {
+      grid-column: unset;
+    }
+  }
+
+  & > button {
+    grid-column: 3/4;
+
+    @include tablet {
+      grid-column: unset;
+    }
+  }
+}
