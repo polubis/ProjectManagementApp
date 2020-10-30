@@ -8,27 +8,13 @@ namespace Alert {
     type?: 'warning' | 'error' | 'success' | 'info';
     className?: string;
     time?: number;
+    display: boolean;
   }
 }
 
-const Alert = ({ message, type = 'error', className = "", time = 5000 }: Alert.Props) => {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-    hide();
-  }, [])
-
-  const hide = async () => {
-    await sleep(time - 1000);
-    setShow(false);
-  }
-
-  const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
-
+const Alert = ({ message, type = 'error', className = "", display }: Alert.Props) => {
   return (
-    <div className={`${csx.alert} ${!show && csx.hidden} ${csx[type]} ${className}`}>
+    <div className={`${csx.alert} ${!display && csx.hidden} ${csx[type]} ${className}`}>
       {message}
     </div>
   );

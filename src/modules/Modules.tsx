@@ -10,15 +10,15 @@ import ModulesRouter from './ModulesRouter';
 const Modules = () => {
   return (
     <>
-      <AuthProvider>
-        <PatternsProvider>
-          <TechnologiesProvider>
-            <AlertsProvider>
+      <AlertsProvider>
+        <AuthProvider>
+          <PatternsProvider>
+            <TechnologiesProvider>
               <ModulesRouter />
-            </AlertsProvider>
-          </TechnologiesProvider>
-        </PatternsProvider>
-      </AuthProvider>
+            </TechnologiesProvider>
+          </PatternsProvider>
+        </AuthProvider>
+      </AlertsProvider>
     </>
   );
 };

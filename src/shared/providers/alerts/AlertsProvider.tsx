@@ -3,11 +3,14 @@ import React, { createContext, ReactNode, useContext } from 'react';
 import { Alert } from "ui"
 
 namespace AlertsProvider {
+    export type Type = 'warning' | 'error' | 'success' | 'info';
+
     export interface State {
         text: string;
         display: boolean;
-        alerts: { id: number, text: string, type: 'warning' | 'error' | 'success' | 'info' }[];
-        addAlert?(text: string, type: 'warning' | 'error' | 'success' | 'info'): void;
+        alert: { text: string, type: Type, display: boolean };
+        alerts: { text: string, type: Type, display: boolean }[];
+        addAlert?(text: string, type: Type): void;
     }
 
     export interface Props {
@@ -18,43 +21,70 @@ namespace AlertsProvider {
 const STATE: AlertsProvider.State = {
     text: "",
     display: false,
+    alert: { text: "", type: "warning", display: false },
     alerts: []
 };
 
 const DURATION = 5000; //alert duration
+const ANIMATION_TIME = 300; //time of alert transition animation
 
 const Context = createContext(STATE);
 
 class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
-    sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    componentDidMount() {
+        setInterval(async () => {
+            if (this.state.alert.text === "") {
+                const obj = this.state.alerts[0];
+                this.setState({
+                    alert: {
+                        text: obj.text,
+                        type: obj.type,
+                        display: false
+                    }
+                });
+                this.switchAlertDisplay();
+                await this.sleep(DURATION);
+                this.switchAlertDisplay();
+                await this.sleep(ANIMATION_TIME);
+                this.setState({ alerts: this.state.alerts.slice(1) });
+                this.setState({ alert: { text: "", type: "warning", display: false } })
+            }
+        }, ANIMATION_TIME)
     }
 
-    addAlert = async (text: string, type: 'warning' | 'error' | 'success' | 'info') => {
-        let id = 0;
-        if (this.state.alerts.length > 0) id = this.state.alerts[this.state.alerts.length - 1].id + 1;
-        this.setState({ alerts: [...this.state.alerts, { id: id, text: text, type: type }] });
-        await this.sleep(DURATION);
-        this.setState({ alerts: this.state.alerts.filter(e => e.id !== id) });
-
+    switchAlertDisplay = async () => {
+        await this.sleep(0);
+        const obj = this.state.alert;
+        this.setState({
+            alert: {
+                text: obj.text,
+                type: obj.type,
+                display: !obj.display
+            }
+        });
     }
+
+    sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    addAlert = (text: string, type: AlertsProvider.Type) => {
+        const obj = { text: text, type: type, display: false };
+        this.setState({ alerts: [...this.state.alerts, obj] });
+    }
+
     readonly state: typeof STATE = {
         ...STATE,
         addAlert: this.addAlert
     };
 
     render = () => <Context.Provider value={this.state}>
-        {this.state.alerts.map(e => {
-            return <Alert key={e.id} message={e.text} time={DURATION} type={e.type} />;
-        })}
+        {this.state.alert.text !== "" && <Alert
+            message={this.state.alert.text}
+            type={this.state.alert.type}
+            display={this.state.alert.display} />}
         {this.props.children}
     </Context.Provider>;
 }
 
 const AlertsProvider = Provider;
-
-export const useAlertsProvider = () => {
-    return useContext(Context);
-};
-
+export const useAlertsProvider = () => useContext(Context);
 export default AlertsProvider;
