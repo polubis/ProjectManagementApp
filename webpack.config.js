@@ -6,6 +6,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = (env, { mode }) => {
   const [DEV, PROD] = ['development', 'production'];
@@ -100,6 +101,35 @@ module.exports = (env, { mode }) => {
         // mode === DEV
         //   ? "'https://pillar-api-dev.azurewebsites.net/api/'"
         //   : "'https://pillar-api.azurewebsites.net/api/'"
+      }),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true,
+        // all files not mentioned below will be precached
+        runtimeCaching: [
+          {
+            // cache images
+            urlPattern: /\.(?:png|jpg|jpeg|svg|ico)$/,
+            // Cache first - Fetch files from cache first and reach server as a fallback
+            handler: 'CacheFirst',
+            options: {
+              // Custom cache name
+              cacheName: 'images',
+              expiration: {
+                // Fetch new files from server after each week
+                maxAgeSeconds: 604800
+              }
+            }
+          },
+          {
+            // Cache css and js files
+            // This url needs to be changed when prod env is ready
+            urlPattern: new RegExp('localhost:3000/*'),
+            // Stale while revalidate - fetch files from cache and at the same time reach server and compare them,
+            // If files changed - fetch newer version and display it, otherwise stick with cached files
+            handler: 'StaleWhileRevalidate'
+          }
+        ]
       })
     ],
 
