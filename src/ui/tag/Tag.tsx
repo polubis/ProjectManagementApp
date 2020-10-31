@@ -8,14 +8,14 @@ namespace Tag {
   }
 
   export interface Props {
-    dataIdx: string | number;
-    label: string;
+    dataIdx?: string | number;
     className?: string;
+    label: string;
     onClick?(e: Tag.Events.Click): void;
   }
 }
 
-const Tag = ({ label, dataIdx, className = '', onClick }: Tag.Props) => (
+const Tag = ({ className = '', dataIdx, label, onClick }: Tag.Props) => (
   <div className={`${csx.tag} ${className}`} data-idx={dataIdx} onClick={onClick}>
     {label}
   </div>
