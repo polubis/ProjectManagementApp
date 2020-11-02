@@ -4,7 +4,7 @@
   @include label;
   color: $white;
 
-  .header {
+  header {
     @include row;
     padding: 24px;
     border-bottom: 1px solid $primary;
@@ -14,7 +14,7 @@
       margin-right: 18px;
     }
 
-    .headerDetails {
+    .personality {
       @include col;
 
       & > span {
@@ -47,16 +47,11 @@
       }
 
       .technologies {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
-      }
+        @include wrap;
 
-      .seeAll {
-        color: $primary;
-        margin-top: 16px;
-        cursor: pointer;
+        & > figure {
+          margin: 10px 10px 0 0;
+        }
       }
     }
   }
@@ -75,7 +70,7 @@
     }
 
     & > button {
-      margin-top: 22px;
+      margin-top: 18px;
     }
 
     & > span > span {
@@ -87,6 +82,6 @@
 
   .logout {
     @include centered;
-    padding: 24px 24px 8px 24px;
+    margin: 24px auto 8px auto;
   }
 }

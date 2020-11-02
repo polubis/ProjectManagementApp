@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 
 import { Avatar } from '@material-ui/core';
 
@@ -8,92 +8,65 @@ import { useAuthProvider } from 'core/auth';
 
 import csx from './UserDetails.scss';
 
-const MAX_VISIBLE_TECHNOLOGIES = 16;
+const getYearsLabel = (value: number): string =>
+  value > 1 ? `${value} years` : value === 1 ? `${value} year` : 'Unknown';
 
 const UserDetails = forwardRef(() => {
+  const { user, logOut } = useAuthProvider();
   const {
-    user: {
-      username,
-      email,
-      company,
-      seniority,
-      technologies,
-      yearsOfExperience,
-      position,
-      connectedWithGithub
-    },
-    logOut
-  } = useAuthProvider();
+    company,
+    yearsOfExperience,
+    username,
+    seniority,
+    email,
+    position,
+    technologies,
+    connectedWithGithub
+  } = user;
 
-  const DETAILS: Record<string, string | number> = {
-    Company: company || 'Unknown',
-    'Years of experience':
-      yearsOfExperience > 1
-        ? `${yearsOfExperience} years`
-        : yearsOfExperience === 1
-        ? `${yearsOfExperience} year`
-        : 'Unknown',
-    Seniority: seniority || 'Unknown',
-    Position: position || 'Unknown'
-  };
+  const profileDetails = useMemo(
+    (): [string, React.ReactText][] =>
+      Object.entries({
+        Company: company || 'Unknown',
+        'Years of experience': getYearsLabel(yearsOfExperience),
+        Seniority: getYearsLabel(seniority),
+        Position: position || 'Unknown'
+      }),
+    [user]
+  );
 
   return (
     <div className={csx.userDetails}>
-      <div className={csx.header}>
+      <header>
         <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
-        <div className={csx.headerDetails}>
+
+        <div className={csx.personality}>
           <span>{username}</span>
           <span>{email}</span>
         </div>
-      </div>
+      </header>
 
       <div className={csx.details}>
-        {Object.keys(DETAILS).map((detail, idx) => {
-          const value = Object.values(DETAILS)[idx];
-
-          return (
-            <div className={csx.detail} key={idx}>
-              <span>{detail}</span>
-              <span>{value}</span>
-            </div>
-          );
-        })}
-
-        {technologies.length > 0 ? (
-          <div className={csx.detail}>
-            <span>{`Technologies ${
-              technologies.length > MAX_VISIBLE_TECHNOLOGIES ? `(${technologies.length})` : ''
-            }`}</span>
-
-            <div className={csx.technologies}>
-              {technologies.map((technology, idx) => {
-                const { name, pictureUrl } = technology;
-
-                if (idx < MAX_VISIBLE_TECHNOLOGIES)
-                  return <Img alt={name} size="24px:24px" src={pictureUrl} key={idx} />;
-                else return null;
-              })}
-            </div>
-
-            <div>
-              {technologies.length > MAX_VISIBLE_TECHNOLOGIES && (
-                <span
-                  className={csx.seeAll}
-                  onClick={() => {
-                    /* SEE ALL LOGIC HERE */
-                  }}
-                >
-                  SEE ALL
-                </span>
-              )}
-            </div>
+        {profileDetails.map(([key, value]) => (
+          <div className={csx.detail} key={key}>
+            <span>{key}</span>
+            <span>{value}</span>
           </div>
-        ) : (
-          <div className={csx.detail}>
-            <span>Technologies</span>
-            <span>Unknown</span>
+        ))}
+
+        <div className={csx.detail}>
+          <span>Technologies {technologies.length > 0 ? `(${technologies.length})` : ''}</span>
+
+          <div className={csx.technologies}>
+            {technologies.length > 0 ? (
+              technologies.map(({ id, name, pictureUrl }) => (
+                <Img key={id} alt={name} size="24px:24px" src={pictureUrl} />
+              ))
+            ) : (
+              <span>Unknown</span>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       <div className={csx.github}>
@@ -108,7 +81,7 @@ const UserDetails = forwardRef(() => {
             </div>
             <Button
               onClick={() => {
-                /* CONNECT TO GITHUB LOGIC HERE */
+                /* TODO: CONNECT TO GITHUB LOGIC HERE */
               }}
             >
               CONNECT TO GITHUB
@@ -117,9 +90,9 @@ const UserDetails = forwardRef(() => {
         )}
       </div>
 
-      <div className={csx.logout}>
-        <Button onClick={logOut}>LOGOUT</Button>
-      </div>
+      <Button className={csx.logout} onClick={logOut}>
+        LOGOUT
+      </Button>
     </div>
   );
 });
