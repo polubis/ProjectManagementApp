@@ -6,14 +6,14 @@ namespace Layout {
     export interface Props {
         className?: string;
         children: ReactNode;
-        scroll?: boolean;
+        overgrown?: boolean;
     }
 }
 
-const Layout = ({ className, children, scroll = false }: Layout.Props) => {
+const Layout = ({ className, children, overgrown = false }: Layout.Props) => {
     return (
         <div className={`${csx.layout} ${className}`}
-            style={{ height: scroll ? "110%" : "100%" }}>
+            style={{ height: overgrown ? "110%" : "100%" }}>
             {children}
         </div>
     )

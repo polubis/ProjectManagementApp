@@ -6,23 +6,20 @@ import { Layout } from "..";
 
 describe('<Layout>', () => {
     it("shows children", () => {
-        const child = <div data-testid="child">Test</div>;
-        render(<Layout>{child}</Layout>)
-        expect(screen.getByTestId("child")).toBeDefined();
+        render(<Layout><div>Test</div></Layout>)
+        expect(screen.getByText("Test")).toBeInTheDocument();
     })
 
     it("style pass correctly", () => {
-        const child = <div data-testid="child">Test</div>;
-        const { container } = render(<Layout className={"foo"}>{child}</Layout>)
+        const { container } = render(<Layout className={"foo"}><div>Test</div></Layout>)
         expect(container.firstChild).toHaveClass('foo');
     })
 
-    it("scroll var change height property", () => {
-        const child = <div data-testid="child">Test</div>;
-        render(<Layout scroll={true}>{child}</Layout>)
+    it("displays browser scroll for overgrown property", () => {
+        render(<Layout overgrown={true}><div>Test</div></Layout>)
         const props = {
             scroll: true,
-            children: child
+            children: <div>Test</div>
         }
         const layoutClass = Layout(props).type.styledComponentId;
         const layoutRoots = document.getElementsByClassName(layoutClass);
