@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
@@ -34,6 +34,7 @@ const UserSection = () => {
               <span>Hi, {username}</span>
               <ExpandMoreIcon fontSize="large" />
             </div>
+            
             {menuOpen && (
               <Menu
                 anchorEl={anchorEl}

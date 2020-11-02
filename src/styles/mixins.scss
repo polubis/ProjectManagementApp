@@ -154,7 +154,7 @@
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 @mixin noSelect {
