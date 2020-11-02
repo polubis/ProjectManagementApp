@@ -35,14 +35,18 @@ const Dictionaries = () => {
 
   return (
     <div className={csx.dictionaries}>
-      <Tabs active={kind} onClick={handleClick}>
-        <>{DictionaryKind.PATTERNS}</>
-        <>{DictionaryKind.TECHNOLOGIES}</>
-      </Tabs>
+      {kind && (
+        <>
+          <Tabs active={kind} onClick={handleClick}>
+            <>{DictionaryKind.PATTERNS}</>
+            <>{DictionaryKind.TECHNOLOGIES}</>
+          </Tabs>
 
-      <DictionariesSearch label={kind} />
+          <DictionariesSearch label={kind} />
 
-      {pending ? <Loader /> : <DictionariesTable data={data} kind={kind} />}
+          {pending ? <Loader /> : <DictionariesTable data={data} kind={kind} />}
+        </>
+      )}
     </div>
   );
 };

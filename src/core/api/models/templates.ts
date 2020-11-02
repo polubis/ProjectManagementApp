@@ -47,6 +47,10 @@ export interface TemplatesPayload {
   query: string;
 }
 
+export interface ForkTemplatePayload {
+  templateId: string;
+}
+
 export interface TemplateDocumentationHeading {
   childrenCount: number;
   id: number;

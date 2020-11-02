@@ -7,12 +7,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 
 import { Button, Loader, More, Tags } from 'ui';
 
 import { convertDate } from 'utils';
 
 import { Template } from 'core/api';
+import { Guard } from 'core/auth';
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
@@ -21,6 +23,7 @@ import TemplateDetailsProvider, {
 } from 'shared/providers/template-details';
 
 import ConfirmTemplateDelete from './confirm-template-delete';
+import ForkTemplate from './fork-template';
 
 import csx from './TemplateDetails.scss';
 
@@ -34,6 +37,7 @@ const toNames = (template: Template) => () =>
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { replace } = useHistory();
 
+  const [forkOpen, setForkOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
@@ -56,6 +60,14 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setConfirmDeleteOpen(false);
   }, []);
 
+  const openFork = useCallback(() => {
+    setForkOpen(true);
+  }, []);
+
+  const closeFork = useCallback(() => {
+    setForkOpen(false);
+  }, []);
+
   const patternsNames = useMemo(toNames(template), [template]);
 
   return (
@@ -69,6 +81,8 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               <ConfirmTemplateDelete template={template} onClose={closeConfirmDelete} />
             )}
 
+            {forkOpen && <ForkTemplate template={template} onClose={closeFork} />}
+
             <header>
               <NavLink to={`${match.url}/documentation`}>
                 <Button>
@@ -81,6 +95,16 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   <ShareIcon /> SOURCE
                 </Button>
               </a>
+
+              <Guard.Protected>
+                {({ user }) =>
+                  user.connectedWithGithub && (
+                    <Button onClick={openFork}>
+                      <DeviceHubIcon /> FORK
+                    </Button>
+                  )
+                }
+              </Guard.Protected>
 
               <TemplateAuthorGuard>
                 <More>
