@@ -99,7 +99,12 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             <section>
               <TemplateTags className={csx.tags} items={template.tags} />
 
-              <TemplateStats stars={template.stars} watches={template.watches} />
+              <TemplateStats
+                patterns={template.patterns.length}
+                stars={template.stars}
+                technologies={template.technologies.length}
+                watches={template.watches}
+              />
 
               <p className={csx.date}>
                 Created <span>{convertDate(template.createdDate)}</span>
