@@ -6,6 +6,11 @@
   flex-flow: column;
 }
 
+@mixin wrap {
+  display: flex;
+  flex-flow: wrap;
+}
+
 @mixin colCenter {
   display: flex;
   flex-flow: column;
