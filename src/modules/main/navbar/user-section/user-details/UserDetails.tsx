@@ -1,18 +1,16 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { forwardRef } from 'react';
 
 import { Avatar } from '@material-ui/core';
 
 import { Button, Img } from 'ui';
 
-import { TemplateCategory } from 'core/api';
 import { useAuthProvider } from 'core/auth';
 
 import csx from './UserDetails.scss';
 
 const MAX_VISIBLE_TECHNOLOGIES = 16;
 
-const UserDetails = () => {
+const UserDetails = forwardRef(() => {
   const {
     user: {
       username,
@@ -27,11 +25,14 @@ const UserDetails = () => {
     logOut
   } = useAuthProvider();
 
-  const { replace } = useHistory();
-
   const DETAILS: Record<string, string | number> = {
     Company: company || 'Unknown',
-    'Years of experience': yearsOfExperience || 'Unknown',
+    'Years of experience':
+      yearsOfExperience > 1
+        ? `${yearsOfExperience} years`
+        : yearsOfExperience === 1
+        ? `${yearsOfExperience} year`
+        : 'Unknown',
     Seniority: seniority || 'Unknown',
     Position: position || 'Unknown'
   };
@@ -53,9 +54,7 @@ const UserDetails = () => {
           return (
             <div className={csx.detail} key={idx}>
               <span>{detail}</span>
-              <span>{`${value} ${
-                detail === 'Years of experience' && value != 'Unknown' ? 'years' : ''
-              }`}</span>
+              <span>{value}</span>
             </div>
           );
         })}
@@ -99,14 +98,14 @@ const UserDetails = () => {
 
       <div className={csx.github}>
         {connectedWithGithub ? (
-          <span>
+          <div>
             <span className={csx.success}>Connected</span> with <span>Github</span>
-          </span>
+          </div>
         ) : (
           <>
-            <span>
+            <div>
               <span className={csx.error}>No connection</span> with <span>Github</span>
-            </span>
+            </div>
             <Button
               onClick={() => {
                 /* CONNECT TO GITHUB LOGIC HERE */
@@ -119,17 +118,10 @@ const UserDetails = () => {
       </div>
 
       <div className={csx.logout}>
-        <Button
-          onClick={() => {
-            replace(`/app/templates/${TemplateCategory.ALL}`);
-            logOut();
-          }}
-        >
-          LOGOUT
-        </Button>
+        <Button onClick={logOut}>LOGOUT</Button>
       </div>
     </div>
   );
-};
+});
 
 export default UserDetails;

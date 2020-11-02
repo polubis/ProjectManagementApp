@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
@@ -14,6 +14,12 @@ import Notifications from './notifications';
 import UserDetails from './user-details';
 
 import csx from './UserSection.scss';
+
+const paperProps = {
+  style: {
+    transform: 'translateX(5%) translateY(3%)'
+  }
+};
 
 const UserSection = () => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
@@ -35,11 +41,7 @@ const UserSection = () => {
                 keepMounted={false}
                 width={326}
                 onClose={closeMenu}
-                PaperProps={{
-                  style: {
-                    transform: 'translateX(5%) translateY(3%)'
-                  }
-                }}
+                PaperProps={paperProps}
               >
                 <UserDetails />
               </Menu>

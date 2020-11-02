@@ -16,6 +16,13 @@
 
     .headerDetails {
       @include col;
+
+      & > span {
+        &:last-of-type {
+          @include labelSmall;
+          font-weight: $thin;
+        }
+      }
     }
   }
 
@@ -32,7 +39,7 @@
         grid-column: 1 / span 2;
       }
 
-      > span {
+      & > span {
         &:first-of-type {
           @include labelSmall;
           color: $grey;
@@ -67,11 +74,11 @@
       color: $error;
     }
 
-    > button {
+    & > button {
       margin-top: 22px;
     }
 
-    > span > span {
+    & > span > span {
       &:last-of-type {
         color: $primary;
       }
