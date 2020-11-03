@@ -85,15 +85,6 @@ module.exports = (env, { mode }) => {
           test: /\.(jpe?g|png|gif|svg)$/,
           loader: 'image-webpack-loader',
           enforce: 'pre'
-        },
-        {
-          test: /\.(config)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]'
-            }
-          }
         }
       ]
     },
