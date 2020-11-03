@@ -33,7 +33,9 @@ class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
     sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     callAlert = (text: string, type: AlertsProvider.Type) => {
-        this.addAlert(text, type).then((id: number) => { id !== 0 && this.toggleAlert(id) });
+        this.addAlert(text, type).then(
+            (id: number) => { this.toggleAlert(id) },
+            (reason) => console.log(reason))
     }
 
     addAlert = (text: string, type: AlertsProvider.Type) => {
@@ -80,7 +82,7 @@ class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
 }
 
 const AlertsProvider = Provider;
-export const useAlertsProvider = () => {
+export const useAlerts = () => {
     const context = useContext(Context);
     return context;
 }
