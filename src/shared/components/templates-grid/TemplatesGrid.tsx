@@ -22,8 +22,15 @@ namespace TemplatesGrid {
 const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =>
   loading
     ? Array.from({ length: spaceholdersCount }, (_, idx) => (
-        <Spaceholder key={idx} className={csx.spaceholder} />
-      ))
+      <Spaceholder key={idx} className={csx.spaceholder} >
+        <div className={csx.small} />
+        <div className={csx.small} />
+        <div className={csx.logo} />
+        <div className={csx.medium} />
+        <div className={csx.big} />
+        <div className={csx.author} />
+      </Spaceholder>
+    ))
     : null;
 
 /**

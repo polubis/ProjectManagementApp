@@ -10,5 +10,51 @@
   .spaceholder {
     width: 320px;
     height: 444px;
+    padding: 25px;
+
+    .small {
+      height: 16px;
+      width: 39px;
+      float: left;
+      margin-right: 17px;
+    }
+
+    .logo {
+      height: 100px;
+      width: 100px;
+      margin: 100px auto;
+      margin-bottom: 0;
+      border-radius: 50%;
+    }
+
+    .medium {
+      width: 220px;
+      height: 20px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .big {
+      width: 220px;
+      height: 80px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .author {
+      height: 20px;
+      width: 70px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .small,
+    .medium,
+    .big,
+    .author,
+    .logo {
+      background: $primary;
+      background: rgba($primary, 0.02);
+    }
   }
 }

@@ -4,42 +4,18 @@
   position: relative;
   overflow: hidden;
 
-  @keyframes animate {
-    0% {
-      transform: translateX(-100%);
-    }
-
-    50% {
-      transform: translateX(100%);
-    }
-
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
     height: inherit;
     width: 100%;
-    animation: animate 2.4s ease-in-out infinite;
-    will-change: transform;
+    /*animation: animate 2.4s ease-in-out infinite;
+    will-change: transform;*/
   }
 
   &.primary {
     background: rgba($primary, 0.04);
-
-    &::before {
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$white, endColorstr=$white,GradientType=1 );
-      background: linear-gradient(
-        to right,
-        rgba($primary, 0.04) 0%,
-        rgba($primary, 0.04) 50%,
-        rgba($primary, 0.04) 100%
-      );
-    }
   }
 }
