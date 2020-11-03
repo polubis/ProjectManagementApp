@@ -1,6 +1,9 @@
+import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import { useAlerts } from '..'
+import { useAlerts, AlertsProvider } from '..'
 
 describe('AlertsProvider', () => {
     it("default state", () => {
@@ -20,5 +23,10 @@ describe('AlertsProvider', () => {
         })
 
         expect(result.current.alerts.length).toBe(0);
+    })
+
+    it("shows children", () => {
+        render(<AlertsProvider><div>Test</div></AlertsProvider>)
+        expect(screen.getByText("Test")).toBeInTheDocument();
     })
 })
