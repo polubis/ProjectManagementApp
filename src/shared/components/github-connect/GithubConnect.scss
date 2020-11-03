@@ -1,0 +1,42 @@
+@import 'styles/mixins';
+
+.githubConnect {
+  @include colCenter;
+  width: 442px;
+  padding: 16px;
+  background: $secondary;
+
+  & > h3 {
+    @include heading;
+    margin-top: 52px;
+  }
+
+  & > p {
+    @include label;
+    font-weight: $thin;
+    margin: 24px 24px 20px 24px;
+    text-align: center;
+  }
+
+  & span {
+    color: $primary;
+  }
+
+  .success {
+    color: $ok;
+  }
+
+  .buttons {
+    @include row;
+    margin-top: 28px;
+
+    & > button {
+      margin: 16px;
+      min-width: 116px;
+
+      &:last-of-type > span {
+        color: $white;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { withLazy } from 'utils';
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
+import { GithubConnect } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
 
 import Navbar from './navbar';
@@ -70,6 +71,7 @@ const Main = ({ match }: RouteChildrenProps) => {
 
 export default (props: RouteChildrenProps) => (
   <NotificationsProvider>
+    <GithubConnect />
     <Main {...props} />
   </NotificationsProvider>
 );
