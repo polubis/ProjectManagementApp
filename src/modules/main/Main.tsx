@@ -31,6 +31,8 @@ const Main = ({ match }: RouteChildrenProps) => {
 
       <Sidebar />
 
+      <GithubConnect />
+
       <main>
         <Switch>
           <Guard.AdminRoute
@@ -71,7 +73,6 @@ const Main = ({ match }: RouteChildrenProps) => {
 
 export default (props: RouteChildrenProps) => (
   <NotificationsProvider>
-    <GithubConnect />
     <Main {...props} />
   </NotificationsProvider>
 );

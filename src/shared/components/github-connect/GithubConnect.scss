@@ -26,7 +26,7 @@
     color: $ok;
   }
 
-  .buttons {
+  & > footer {
     @include row;
     margin-top: 28px;
 
