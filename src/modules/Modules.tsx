@@ -7,12 +7,13 @@ import PatternsProvider from 'core/patterns';
 import TechnologiesProvider from 'core/technologies';
 
 import { CookieConsent } from 'shared/components';
+import ErrorBoundary from 'shared/error-boundary';
 
 import ModulesRouter from './ModulesRouter';
 
 const Modules = () => {
   return (
-    <>
+    <ErrorBoundary>
       <AlertsManager />
       <CookiesProvider>
         <CookieConsent />
@@ -24,7 +25,7 @@ const Modules = () => {
           </PatternsProvider>
         </AuthProvider>
       </CookiesProvider>
-    </>
+    </ErrorBoundary>
   );
 };
 
