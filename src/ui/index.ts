@@ -1,4 +1,5 @@
 export * from './alert';
+export * from './bar-chart';
 export * from './button';
 export * from './checkbox';
 export * from './date-picker';

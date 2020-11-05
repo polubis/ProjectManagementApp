@@ -1,0 +1,49 @@
+@import "styles/mixins";
+
+.barchart {
+    position: relative;
+    height: auto;
+    background-color: $surface;
+    padding: 30px 30px 50px 30px;
+
+    .wrapper {
+        padding: 0 40px;
+        margin-top: 40px;
+        display: flex;
+        align-items: flex-end;
+        background: repeating-linear-gradient(
+            to top,
+            rgba($primary, 0.5),
+            rgba($primary, 0.5) 1px,
+            transparent 1px,
+            transparent 39px
+        );
+    }
+
+    .header {
+        @include centered;
+        width: 100%;
+        height: 45px;
+
+        .arrow {
+            @include centered;
+            background: $primaryDark;
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        p {
+            @include centered;
+            height: 100%;
+            width: calc(100% - 120px);
+        }
+
+        .arrowleft {
+            transform: rotate(-180deg);
+            margin: 0 15px 0 0;
+        }
+    }
+}
