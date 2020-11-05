@@ -1,0 +1,58 @@
+@import "styles/mixins";
+
+.tile {
+    width: 320px;
+    height: 444px;
+    padding: 24px;
+    background: $surfacePrimary;
+
+    .tiny {
+        width: 39px;
+        height: 20px;
+        margin-right: 20px;
+    }
+
+    .header,
+    .footer {
+        @include row;
+        width: 100%;
+        height: 20px;
+        margin-top: 25px;
+    }
+
+    .footer {
+        .tiny {
+            width: 160px;
+        }
+    }
+
+    .medium {
+        width: 100%;
+        height: 50px;
+        margin-top: 30px;
+    }
+
+    .large {
+        width: 100%;
+        height: 80px;
+        margin-top: 30px;
+    }
+
+    .logo {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-top: 50px;
+        margin-right: 10px;
+    }
+
+    .tiny,
+    .medium,
+    .large,
+    .circle,
+    .logo {
+        background: $primary;
+        background: rgba($primary, 0.04);
+    }
+}

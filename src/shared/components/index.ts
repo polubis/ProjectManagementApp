@@ -7,6 +7,7 @@ export * from './patterns-select';
 export * from './tags-field';
 export * from './technology-chip';
 export * from './technologies-select';
+export * from './template-fake-tile';
 export * from './template-stats';
 export * from './template-tags';
 export * from './templates-grid';
