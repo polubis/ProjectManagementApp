@@ -11,7 +11,7 @@ namespace Spaceholder {
 }
 
 const Spaceholder = memo(
-  ({ className, theme = 'primary', children }: Spaceholder.Props) => (
+  ({ className = "", theme = 'primary', children }: Spaceholder.Props) => (
     <div className={`${csx.spaceholder} ${className} ${csx[theme]}`} >
       {children}
     </div>
