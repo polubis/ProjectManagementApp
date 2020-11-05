@@ -1,11 +1,9 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { postError } from '_mocks_';
-
 import { Modal, Button } from 'ui';
 
-export namespace ErrorBoundary {
+namespace ErrorBoundary {
   export interface Props {
     children: ReactNode;
   }
@@ -19,21 +17,29 @@ export namespace ErrorBoundary {
 
   export interface State {
     hasError: boolean;
-    errors?: Error[];
   }
 }
 
+const mockPostError = async (error: ErrorBoundary.Error): Promise<ErrorBoundary.Error> => {
+  return new Promise((res) =>
+    setTimeout(() => {
+      res(error);
+    }, 300)
+  );
+};
+
 class ErrorBoundary extends Component<ErrorBoundary.Props, ErrorBoundary.State> {
   state: ErrorBoundary.State = {
-    hasError: false,
-    errors: []
+    hasError: false
   };
+
+  readonly errors: ErrorBoundary.Error[] = [];
 
   static getDerivedStateFromError(): ErrorBoundary.State {
     return { hasError: true };
   }
 
-  componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo) {
+  async componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo) {
     const error: ErrorBoundary.Error = {
       name,
       message,
@@ -41,24 +47,14 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, ErrorBoundary.State> 
       occuredAt: new Date()
     };
 
-    const errorExists = this.state.errors
-      .filter(
-        ({ name, message, componentStack }) =>
-          error.name === name &&
-          error.message === message &&
-          error.componentStack === componentStack
-      )
-      .pop();
+    this.errors.push(error);
 
-    if (!errorExists) {
-      this.setState({ ...this.state, errors: [...this.state.errors, error] });
-      postError(error);
-    }
+    console.log(await mockPostError(error));
   }
 
-  handleRedirect = () => this.setState({ hasError: false });
+  private handleRedirect = () => this.setState({ hasError: false });
 
-  public render() {
+  render() {
     if (this.state.hasError) {
       return (
         <Modal>
