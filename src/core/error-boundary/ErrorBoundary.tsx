@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 
 import { Modal, Button } from 'ui';
 
@@ -20,18 +19,12 @@ namespace ErrorBoundary {
   }
 }
 
-const mockPostError = async (error: ErrorBoundary.Error): Promise<ErrorBoundary.Error> => {
-  return new Promise((res) =>
-    setTimeout(() => {
-      res(error);
-    }, 300)
-  );
+const STATE: ErrorBoundary.State = {
+  hasError: false
 };
 
-class ErrorBoundary extends Component<ErrorBoundary.Props, ErrorBoundary.State> {
-  state: ErrorBoundary.State = {
-    hasError: false
-  };
+class ErrorBoundary extends Component<ErrorBoundary.Props, typeof STATE> {
+  state = STATE;
 
   readonly errors: ErrorBoundary.Error[] = [];
 
@@ -39,7 +32,7 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, ErrorBoundary.State> 
     return { hasError: true };
   }
 
-  async componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo) {
+  componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo) {
     const error: ErrorBoundary.Error = {
       name,
       message,
@@ -48,20 +41,18 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, ErrorBoundary.State> 
     };
 
     this.errors.push(error);
-
-    console.log(await mockPostError(error));
   }
 
-  private handleRedirect = () => this.setState({ hasError: false });
+  handleReload = () => {
+    window.location.reload();
+  };
 
   render() {
     if (this.state.hasError) {
       return (
         <Modal>
           <h5>Oops, something went wrong.</h5>
-          <Link to="/app">
-            <Button onClick={this.handleRedirect}>REDIRECT</Button>
-          </Link>
+          <Button onClick={this.handleReload}>RELOAD</Button>
         </Modal>
       );
     }
