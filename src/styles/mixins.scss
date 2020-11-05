@@ -6,6 +6,11 @@
   flex-flow: column;
 }
 
+@mixin wrap {
+  display: flex;
+  flex-flow: wrap;
+}
+
 @mixin colCenter {
   display: flex;
   flex-flow: column;
@@ -149,7 +154,7 @@
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 @mixin noSelect {

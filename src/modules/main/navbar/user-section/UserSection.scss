@@ -6,14 +6,19 @@
   .details {
     @include row;
     margin-right: 16px;
+    cursor: pointer;
 
     & > span {
       @include label;
-      margin-right: 16px;
+      margin-left: 16px;
     }
 
     .avatar {
       box-shadow: $shadowPrimary;
+    }
+
+    & > svg {
+      fill: $primary;
     }
   }
 

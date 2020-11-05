@@ -1,3 +1,4 @@
+export * from './cookies-consent';
 export * from './confirm-delete';
 export * from './email-sent';
 export * from './footer';

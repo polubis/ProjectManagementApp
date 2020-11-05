@@ -11,8 +11,13 @@
     }
 
     & > span {
-      @include text;
+      @include labelSmall;
       margin-left: 8px;
+    }
+
+    &.patterns,
+    &.technologies {
+      color: $primary;
     }
 
     &.views {

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Avatar } from '@material-ui/core';
-
-import { Img } from 'ui';
+import { Img, Tag } from 'ui';
 
 import { Template } from 'core/api';
 
@@ -20,26 +18,28 @@ namespace TemplateTile {
 const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
   return (
     <div data-idx={template.id} className={csx.templateTile} onClick={onClick}>
-      <TemplateStats stars={template.stars} watches={template.watches} />
-
-      {/* TODO: REMOVE ?. AFTER BACKEND DATABASE CLEANUP */}
-      <Img
-        alt="First technology image"
-        size="112px:112px"
-        src={template.technologies[0]?.pictureUrl}
+      <TemplateStats
+        patterns={template.patterns.length}
+        stars={template.stars}
+        technologies={template.technologies.length}
+        watches={template.watches}
       />
 
-      <h5>{template.name}</h5>
+      <h5 className={csx.name}>{template.name}</h5>
 
       <span className={csx.description}>{template.description}</span>
 
-      {!!template.contributors.length && (
-        <footer>
-          <Avatar src={template.contributors[0].avatar} />
+      <div className={csx.patterns}>
+        {template.patterns.map((pattern) => (
+          <Tag key={pattern.id} label={pattern.name} />
+        ))}
+      </div>
 
-          <span>by {template.contributors[0].name}</span>
-        </footer>
-      )}
+      <div className={csx.technologies}>
+        {template.technologies.map(({ id, pictureUrl }) => (
+          <Img alt="Technology image" key={id} size="32px:32px" src={pictureUrl} />
+        ))}
+      </div>
     </div>
   );
 };

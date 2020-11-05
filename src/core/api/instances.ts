@@ -24,9 +24,13 @@ export const [
   GET_TECHNOLOGY
 ] = makePaths('TemplateTechnologies')('Add', 'Update', 'Search', 'Delete', 'Get');
 
-export const [GET_TEMPLATES, GET_TEMPLATE_DETAILS, EDIT_TEMPLATE, DELETE_TEMPLATE] = makePaths(
-  'Templates'
-)('Search', '', '', '');
+export const [
+  GET_TEMPLATES,
+  FORK_TEMPLATE,
+  GET_TEMPLATE_DETAILS,
+  EDIT_TEMPLATE,
+  DELETE_TEMPLATE
+] = makePaths('Templates')('Search', 'Fork', '', '', '');
 
 export const [ADD_TEMPLATE] = makePaths('Templates')('');
 
@@ -41,7 +45,7 @@ const makeCoreInstance = () => {
     return statusText;
   };
 
-  const ERRORS_BLACK_LIST = [GET_SELF];
+  const ERRORS_BLACK_LIST = [GET_SELF, FORK_TEMPLATE];
 
   return makeInstance({
     baseURL: CORE_API_PATH,
