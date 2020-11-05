@@ -7,10 +7,9 @@
     padding: 30px 30px 50px 30px;
 
     .wrapper {
+        @include rowEnd;
         padding: 0 40px;
         margin-top: 40px;
-        display: flex;
-        align-items: flex-end;
         background: repeating-linear-gradient(
             to top,
             rgba($primary, 0.5),
