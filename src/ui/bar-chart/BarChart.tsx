@@ -3,18 +3,21 @@ import React, { ReactNode, useEffect, useState, Children } from 'react';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import csx from "./BarChart.scss"
+import { BarChartItem } from './bar-chart-item';
 
-interface IBarChart {
-    children: ReactNode[] | ReactNode;
-    title: string
+namespace BarChart {
+    export interface Props {
+        children: ReactNode[] | ReactNode;
+        title: string
+    }
 }
 
 const BARS_LIMIT = 10;
 
-const BarChart = ({ children, title }: IBarChart) => {
-    const [width, setWidth] = useState<number>(0);
+const BarChart = ({ children, title }: BarChart.Props) => {
+    const [width, setWidth] = useState(0);
     const [bars, setBars] = useState<typeof children | typeof children[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const numberOfChildren = Children.count(children);
     const numberOfPages = Math.ceil(numberOfChildren / BARS_LIMIT)
 
@@ -49,7 +52,7 @@ const BarChart = ({ children, title }: IBarChart) => {
         if (currentPage + 1 > numberOfPages) {
             setCurrentPage(1);
         } else {
-            setCurrentPage(state => state + 1);
+            setCurrentPage(prevState => prevState + 1);
         }
     }
 
@@ -57,21 +60,21 @@ const BarChart = ({ children, title }: IBarChart) => {
         if (currentPage - 1 === 0) {
             setCurrentPage(numberOfPages);
         } else {
-            setCurrentPage(state => state - 1);
+            setCurrentPage(prevState => prevState - 1);
         }
     }
 
     return (
-        <div className={csx.barchart} style={{ width: `${width}px` }}>
-            <div className={csx.header}>
-                <div className={`${csx.arrow} ${csx.arrowleft}`} onClick={prevPage}>
+        <div className={csx.barChart} style={{ width: `${width}px` }}>
+            <header>
+                <div className={`${csx.arrow} ${csx.arrowLeft}`} onClick={prevPage}>
                     <ArrowForwardIosIcon />
                 </div>
                 <p>{title}</p>
                 <div className={csx.arrow} onClick={nextPage}>
                     <ArrowForwardIosIcon />
                 </div>
-            </div>
+            </header>
             <div className={csx.wrapper}>
                 {bars}
             </div>

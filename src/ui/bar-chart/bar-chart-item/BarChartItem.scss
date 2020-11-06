@@ -1,47 +1,47 @@
 @import "styles/mixins";
 
-.barchartitem {
+.barChartItem {
     width: 64px;
+}
 
-    .barwrapper {
-        position: relative;
-        width: 14px;
-        margin: 0 auto;
+.barWrapper {
+    position: relative;
+    width: 14px;
+    margin: 0 auto;
+}
 
-        .bar {
-            position: absolute;
-            bottom: 0;
-            left: -1px;
-            width: 14px;
-            background: rgba($primary, 0.3);
-            border: 1px solid $primary;
-            border-radius: 10px 10px 0 0;
-            z-index: 2;
-        }
+.bar {
+    position: absolute;
+    bottom: 0;
+    left: -1px;
+    width: 14px;
+    background: rgba($primary, 0.3);
+    border: 1px solid $primary;
+    border-radius: 10px 10px 0 0;
+    z-index: 2;
+}
 
-        .barglobal {
-            position: relative;
-            width: 14px;
-            background: $surface;
-            border: 1px solid rgba($primary, 0.3);
-            z-index: 1;
-        }
+.barGlobal {
+    position: relative;
+    width: 14px;
+    background: $surface;
+    border: 1px solid rgba($primary, 0.3);
+    z-index: 1;
+}
 
-        .logo {
-            @include centered;
-            position: absolute;
-            left: -14px;
-            height: 40px;
-            width: 40px;
-            margin: 10px auto 0 auto;
-        }
+.logo {
+    @include centered;
+    position: absolute;
+    left: -14px;
+    height: 40px;
+    width: 40px;
+    margin: 10px auto 0 auto;
+}
 
-        .label {
-            position: absolute;
-            top: -40px;
-            left: -50%;
-        }
-    }
+.label {
+    position: absolute;
+    top: -40px;
+    left: -50%;
 }
 
 .click {
