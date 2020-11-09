@@ -55,6 +55,7 @@
     "mongodb": "^3.6.1",
     "mongoose": "^5.10.3",
     "reflect-metadata": "^0.1.13",
+    "uuidv4": "^6.2.5",
     "websocket": "^1.0.32"
   },
   "_moduleAliases": {
