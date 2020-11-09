@@ -3,47 +3,40 @@
 .templateTile {
   @include col;
   width: 320px;
-  height: 444px;
-  padding: 24px;
+  height: 352px;
+  padding: 38px;
+  border-radius: 4px;
   background: $surfacePrimary;
   cursor: pointer;
 
-  figure {
-    height: 72px;
-    margin: 52px auto 18px auto;
-
-    img {
-      max-height: 100%;
-    }
+  .name,
+  .description {
+    @include dottedMultilineText;
   }
 
-  h5 {
-    @include dottedMultilineText;
+  .name {
     @include heading;
-    text-align: center;
+    margin: 16px 0 12px 0;
     -webkit-line-clamp: 2;
   }
 
   .description {
-    @include dottedMultilineText;
     @include description;
-    text-align: center;
     -webkit-line-clamp: 3;
-    margin: 14px 0 28px 0;
   }
 
-  footer {
-    @include centered;
+  .patterns {
+    margin: 24px 0 20px 0;
+  }
 
-    & > div {
-      width: 28px;
-      height: 28px;
-      box-shadow: $shadowPrimary;
-    }
+  .patterns,
+  .technologies {
+    @include row;
+  }
 
-    & > span {
-      @include labelSmall;
-      margin-left: 12px;
+  .technologies {
+    & > figure {
+      margin-right: 4px;
     }
   }
 }

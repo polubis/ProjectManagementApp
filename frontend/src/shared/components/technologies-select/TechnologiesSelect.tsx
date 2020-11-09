@@ -19,14 +19,18 @@ namespace TechnologiesSelect {
   }
 }
 
-const makeItems = (technologies: Technology[], value: { [key: string]: boolean }) => () =>
+const makeItems = (
+  technologies: Technology[],
+  value: { [key: string]: boolean }
+) => (): SelectBase.Item<Technology>[] =>
   technologies.map(
-    ({ id, name }) =>
+    ({ id, name, pictureUrl }) =>
       ({
         dataIdx: '' + id,
         label: name,
+        pictureUrl,
         value: !!value[id]
-      } as SelectBase.Item)
+      } as SelectBase.Item<Technology>)
   );
 
 const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
@@ -35,15 +39,15 @@ const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Pr
   const items = useMemo(makeItems(technologies, value), [technologies, value]);
 
   return (
-    <SelectBase
+    <SelectBase<Technology>
       loading={loading}
       listItem={ListItem}
       items={items}
-      renderSelectedItem={({ dataIdx, label }) => (
+      renderSelectedItem={({ dataIdx, label, pictureUrl }) => (
         <TechnologyChip
-          avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
           className={csx.selectItem}
           name={label}
+          url={pictureUrl}
           onClick={() => onSelect(dataIdx, false)}
         />
       )}

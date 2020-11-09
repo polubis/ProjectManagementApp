@@ -1,0 +1,11 @@
+@import 'styles/mixins';
+
+.dictionariesTable {
+  width: 1200px;
+
+  & > table {
+    tr > td:nth-child(3) > div {
+      @include labelSmall;
+    }
+  }
+}

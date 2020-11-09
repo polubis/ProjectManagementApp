@@ -4,28 +4,39 @@
   @include centered;
   flex-flow: column;
   height: 618px;
+  padding: 60px;
   border-bottom: 1px solid rgba($primary, 0.43);
+
+  @include max-width(600px) {
+    padding: 32px;
+  }
 
   h1,
   p {
-    width: 470px;
+  width: 470px;
     text-align: center;
-  }
 
-  h1 {
-    @include headingBig;
+    @include max-width(600px) {
+      width: 100%;
+    }
 
     span {
       color: $primary;
     }
   }
 
+  h1 {
+    @include headingBig;
+  }
+
   p {
     @include descriptionBig;
     margin: 32px 0 58px 0;
+  }
 
-    span {
-      color: $primary;
+  .templatesSearch {
+    @include max-width(920px) {
+      width: 100%;
     }
   }
 }

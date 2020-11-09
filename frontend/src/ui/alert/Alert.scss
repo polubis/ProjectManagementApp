@@ -1,25 +1,26 @@
 @import 'styles/mixins';
 
 .alert {
-  @include rowBetween;
   padding: 10px;
-
-  & > span {
-    @include label;
-    margin: 0 auto;
-  }
-
-  & > svg {
-    opacity: 0.8;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
+  width: 100%;
 
   &.error {
     background: $error;
     color: $white;
+  }
+
+  & > div {
+    @include label;
+    @include noSelect;
+  }
+
+  .closeBtn {
+    height: 40px;
+    width: 40px;
+
+    svg {
+      font-size: 20px;
+      color: $white;
+    }
   }
 }

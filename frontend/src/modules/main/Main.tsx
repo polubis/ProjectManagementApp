@@ -13,6 +13,8 @@ import Sidebar from './sidebar';
 
 import csx from './Main.scss';
 
+const Admin = withLazy(() => import('src/modules/admin'));
+
 const Templates = withLazy(() => import('src/modules/templates'));
 
 const TemplateDetails = withLazy(() => import('src/modules/template-details'));
@@ -26,13 +28,15 @@ const Main = ({ match }: RouteChildrenProps) => {
     <div className={csx.main}>
       <Navbar basePath={match.path} />
 
-      <Sidebar basePath={match.path} />
+      <Sidebar />
 
       <main>
         <Switch>
-          <Route exact path={`${match.path}/dashboard`} render={() => <div>dashboard</div>} />
-
-          <Route exact path={`${match.path}/projects`} render={() => <div>projects</div>} />
+          <Guard.AdminRoute
+            redirect={`${match.path}/templates`}
+            path={`${match.path}/admin`}
+            component={Admin}
+          />
 
           <Guard.ProtectedRoute
             exact
@@ -57,7 +61,7 @@ const Main = ({ match }: RouteChildrenProps) => {
             component={TemplateDocumentation}
           />
 
-          <Route path="*" render={() => <Redirect to={`${match.path}/dashboard`} />} />
+          <Route path="*" render={() => <Redirect to={`${match.path}/templates/all`} />} />
         </Switch>
       </main>
     </div>

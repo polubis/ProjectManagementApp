@@ -22,29 +22,33 @@ export interface Contributors {
 }
 
 export interface TemplatePayload {
-  name: string;
   description: string;
   githubLink: string;
-  tags: string[];
+  isPrivate: boolean;
+  name: string;
   patternsIds: number[];
+  tags: string[];
   technologiesIds: number[];
 }
 
 export enum TemplateCategory {
   ALL = 'all',
-  RECOMMENDED = 'recommended',
   TOP = 'top',
   RECENT = 'recent',
   YOURS = 'yours'
 }
 
 export interface TemplatesPayload {
+  category: TemplateCategory;
   limit: number;
   page: number;
-  category: TemplateCategory;
-  query: string;
-  technologiesIds: string[];
   patternsIds: string[];
+  technologiesIds: string[];
+  query: string;
+}
+
+export interface ForkTemplatePayload {
+  templateId: string;
 }
 
 export interface TemplateDocumentationHeading {

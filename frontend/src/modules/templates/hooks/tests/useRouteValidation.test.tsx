@@ -24,7 +24,6 @@ describe('useRouteValidation', () => {
 
   it('redirects for invalid category', () => {
     const history = createMemoryHistory();
-
     history.push(_INVALID_URL_);
 
     render(

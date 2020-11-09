@@ -47,6 +47,7 @@ const AlmostDone = ({ formManager, onBack, onSubmit }: AlmostDone.Props) => {
       <div className={csx.divider} />
 
       <Checkbox
+        invalid={!!fields[COMPANY_REGULATIONS].error}
         variant="informing"
         label={`* I declare that I have read the content of these 
         regulations. I accept its content and undertake to 

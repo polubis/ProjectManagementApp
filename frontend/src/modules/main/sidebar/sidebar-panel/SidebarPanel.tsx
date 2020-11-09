@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import { Button } from '@material-ui/core';
 
@@ -10,21 +10,20 @@ import csx from './SidebarPanel.scss';
 
 namespace SidebarPanel {
   export interface Props {
-    basePath: string;
     onClose(): void;
   }
 }
 
-const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
-  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
-    return (
-      <Button className={csx.link}>
-        {icon}
-        <span>{label}</span>
-      </Button>
-    );
-  }, []);
+const renderLink: SidebarLinks.RenderLink = (icon, label) => {
+  return (
+    <Button className={csx.link}>
+      {icon}
+      <span>{label}</span>
+    </Button>
+  );
+};
 
+const SidebarPanel = ({ onClose }: SidebarPanel.Props) => {
   return (
     <div className={csx.sidebarPanel}>
       <div className={csx.logo} onClick={onClose}>
@@ -34,7 +33,7 @@ const SidebarPanel = ({ basePath, onClose }: SidebarPanel.Props) => {
         <span>Jupi.io</span>
       </div>
 
-      <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+      <SidebarLinks renderLink={renderLink} />
     </div>
   );
 };

@@ -1,26 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { Loader, StepHeader, Steps } from 'ui';
 
-import { Form } from 'utils';
+import { Form, useScrollReset } from 'utils';
+
+import { register } from 'core/api';
 
 import { FormSteps } from 'shared/components';
 
-import { Credentials, PersonalInfo, Work, AlmostDone, ConfirmAccount } from './steps';
+import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
 
-import {
-  BASE_CONFIG,
-  CREDENTIALS,
-  PERSONAL_INFO,
-  WORK,
-  ALMOST_DONE,
-  CONFIRM_ACCOUNT,
-  useRegister
-} from '..';
+import { BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload } from '..';
+
+interface State {
+  activeStep: number;
+  pending: boolean;
+}
 
 const DESCRIPTIONS: string[] = [
-  `Choose username, email and use save password for login`,
-  `Will be used for notifications and searching purposes`,
+  `Choose username, email and use save password for log in`,
   `Describe yourself for other users`,
   `Read our policy and confirm account creation`
 ];
@@ -30,30 +28,31 @@ const STEPS: Steps.Item[] = [
     label: 'Account setup'
   },
   {
-    label: 'Personal informations'
-  },
-  {
     label: 'Work & Company'
   },
   { label: 'Almost done!' }
 ];
 
 const RegisterForm = () => {
-  const [activeStep, setActiveStep] = useState(CREDENTIALS);
+  const [state, setState] = useState<State>({
+    activeStep: CREDENTIALS,
+    pending: false
+  });
 
-  const [{ pending, created }, handleRegister] = useRegister();
+  const { activeStep, pending } = state;
+
+  useScrollReset(activeStep, true);
 
   const credentialsManager = Form.useManager(BASE_CONFIG[CREDENTIALS]);
-  const personalInfoManager = Form.useManager(BASE_CONFIG[PERSONAL_INFO]);
   const workManager = Form.useManager(BASE_CONFIG[WORK]);
   const almostDoneManager = Form.useManager(BASE_CONFIG[ALMOST_DONE]);
 
   const formManagers = useMemo(() => {
-    return [credentialsManager, personalInfoManager, workManager, almostDoneManager];
-  }, [credentialsManager, personalInfoManager, workManager, almostDoneManager]);
+    return [credentialsManager, workManager, almostDoneManager];
+  }, [credentialsManager, workManager, almostDoneManager]);
 
   const handleSubmit = useCallback(
-    (e: Form.Events.Submit) => {
+    async (e: Form.Events.Submit) => {
       const [_, __, ___, submit] = formManagers[activeStep];
 
       const isInvalid = submit(e);
@@ -65,23 +64,31 @@ const RegisterForm = () => {
       const nextStep = activeStep + 1;
 
       if (nextStep === CONFIRM_ACCOUNT) {
-        handleRegister(formManagers);
+        setState({ activeStep, pending: true });
+
+        try {
+          await register(makePayload(formManagers));
+
+          setState({ activeStep: nextStep, pending: false });
+        } catch {
+          setState({ activeStep, pending: false });
+        }
       } else {
-        setActiveStep(nextStep);
+        setState((prevState) => ({
+          ...prevState,
+          activeStep: nextStep
+        }));
       }
     },
-    [...formManagers, activeStep]
+    [...formManagers, state]
   );
 
   const handleBack = useCallback(() => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setState((prevState) => ({
+      ...prevState,
+      activeStep: prevState.activeStep - 1
+    }));
   }, []);
-
-  useEffect(() => {
-    if (created) {
-      setActiveStep(prevActiveStep => prevActiveStep + 1);
-    }
-  }, [created]);
 
   if (pending) {
     return <Loader />;
@@ -99,14 +106,6 @@ const RegisterForm = () => {
 
       {activeStep === CREDENTIALS && (
         <Credentials formManager={credentialsManager} onSubmit={handleSubmit} />
-      )}
-
-      {activeStep === PERSONAL_INFO && (
-        <PersonalInfo
-          formManager={personalInfoManager}
-          onBack={handleBack}
-          onSubmit={handleSubmit}
-        />
       )}
 
       {activeStep === WORK && (

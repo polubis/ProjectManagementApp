@@ -1,17 +1,14 @@
 import React, { useCallback } from 'react';
-import { NavLink, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
-import { Button as MuiButton } from '@material-ui/core';
-import AddTemplateIcon from '@material-ui/icons/Queue';
-
-import { Button } from 'ui';
+import { Tabs } from 'ui';
 
 import { Url } from 'utils';
 
 import { TemplateCategory } from 'core/api';
-import { Guard } from 'core/auth';
+import { useAuthProvider } from 'core/auth';
 
-import { CATEGORIES, TemplatesRouteProps } from '../..';
+import { TemplatesRouteProps } from '../..';
 
 import csx from './TemplatesCategories.scss';
 
@@ -19,14 +16,14 @@ const TemplatesCategories = () => {
   const { location, push } = useHistory();
 
   const {
-    params: { category: activeCategory }
+    params: { category }
   } = useRouteMatch<TemplatesRouteProps>();
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const newCategory = e.currentTarget.getAttribute('data-category') as TemplateCategory;
+  const { authorized, pending } = useAuthProvider();
 
-      const url = Url(location).delete('page').replace(activeCategory, newCategory).value();
+  const handleClick = useCallback(
+    (newCategory: TemplateCategory) => {
+      const url = Url(location).delete('page').replace(category, newCategory).value();
 
       push(url);
     },
@@ -34,27 +31,12 @@ const TemplatesCategories = () => {
   );
 
   return (
-    <section className={csx.templatesCategories}>
-      {CATEGORIES.map((category) => (
-        <MuiButton
-          key={category}
-          data-category={category}
-          className={`${csx.category} ${category === activeCategory ? csx.active : ''}`}
-          onClick={handleClick}
-        >
-          {category}
-        </MuiButton>
-      ))}
-
-      <Guard.Protected>
-        <NavLink to="/app/templates/management">
-          <Button>
-            <AddTemplateIcon />
-            CREATE TEMPLATE
-          </Button>
-        </NavLink>
-      </Guard.Protected>
-    </section>
+    <Tabs active={category} className={csx.templatesCategories} onClick={handleClick}>
+      <>{TemplateCategory.ALL}</>
+      <>{TemplateCategory.RECENT}</>
+      <>{TemplateCategory.TOP}</>
+      {!pending && authorized && <>{TemplateCategory.YOURS}</>}
+    </Tabs>
   );
 };
 

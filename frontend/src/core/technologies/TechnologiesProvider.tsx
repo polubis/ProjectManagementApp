@@ -7,6 +7,7 @@ namespace TechnologiesProvider {
     loading: boolean;
     error: string;
     technologies: Technology[];
+    getTechnologies?(query?: string): void;
   }
 
   export interface Props {
@@ -23,26 +24,22 @@ const STATE: TechnologiesProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE> {
-  private _getTechnologies = async () => {
+  getTechnologies = async (query = '') => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
     }
 
     try {
-      const technologies = await getTechnologies();
-
+      const technologies = await getTechnologies(query);
       this.setState({ ...STATE, loading: false, technologies });
     } catch (error) {
       this.setState({ ...STATE, loading: false, error });
     }
   };
 
-  componentDidMount() {
-    this._getTechnologies();
-  }
-
   readonly state: typeof STATE = {
-    ...STATE
+    ...STATE,
+    getTechnologies: this.getTechnologies
   };
 
   render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;

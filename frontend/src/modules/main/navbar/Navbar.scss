@@ -9,6 +9,7 @@
 
   .breadcrumbs {
     @include row;
+    margin-right: auto;
 
     .breadcrumb {
       @include headingSmall;
@@ -25,7 +26,7 @@
       }
     }
 
-    .divider {
+    .breadcrumbDivider {
       color: $primary;
       margin: 0 6px;
 
@@ -33,5 +34,12 @@
         display: none;
       }
     }
+  }
+
+  .divider {
+    height: 30px;
+    width: 1px;
+    margin: 0 32px;
+    background: rgba($primary, 0.43);
   }
 }

@@ -5,10 +5,19 @@
   grid-template-columns: 1fr 1200px 1fr;
   background: $primaryDark;
 
+  @include max-width(1328px) {
+    grid-template-columns: 1fr;
+  }
+
   .wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column: 2/3;
+
+    @include max-width(950px) {
+      @include col;
+      grid-column: unset;
+    }
 
     .description {
       @include labelThin;
@@ -22,20 +31,31 @@
       }
 
       .links {
-        display: grid;
-        grid-gap: 32px;
+        @include row;
         margin-top: auto;
 
         a {
           @include link;
           font-weight: $bold;
           color: $white;
+
+          &:not(:last-of-type) {
+            margin-right: 48px;
+          }
         }
       }
     }
 
     .feedback {
       padding: 32px 60px 42px 0;
+
+      @include max-width(1328px) {
+        padding: 32px 60px 42px 60px;
+      }
+
+      @include max-width(950px) {
+        padding: 32px 32px 42px 32px;
+      }
 
       figure {
         @include row;
@@ -49,10 +69,6 @@
       .description {
         margin: 28px 0 32px 0;
       }
-
-      .links {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
     }
 
     .newsletter {
@@ -60,17 +76,25 @@
       border-right: 1px solid $white;
       border-left: 1px solid $white;
 
-      .description {
-        margin: 32px 0;
+      @include max-width(950px) {
+        border-right: 0;
+        border-left: 0;
+        border-top: 1px solid $white;
+        border-bottom: 1px solid $white;
+        padding: 32px 32px 42px 32px;
       }
 
-      .links {
-        grid-template-columns: 1fr 1fr;
+      .description {
+        margin: 32px 0;
       }
     }
 
     .history {
       padding: 36px 60px 42px 60px;
+
+      @include max-width(950px) {
+        padding: 32px 32px 42px 32px;
+      }
 
       .description {
         margin: 32px 0;

@@ -7,12 +7,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 
 import { Button, Loader, More, Tags } from 'ui';
 
 import { convertDate } from 'utils';
 
 import { Template } from 'core/api';
+import { Guard } from 'core/auth';
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
@@ -20,7 +22,8 @@ import TemplateDetailsProvider, {
   useTemplateDetailsProvider
 } from 'shared/providers/template-details';
 
-import ConfirmDelete from './confirm-delete';
+import ConfirmTemplateDelete from './confirm-template-delete';
+import ForkTemplate from './fork-template';
 
 import csx from './TemplateDetails.scss';
 
@@ -34,6 +37,7 @@ const toNames = (template: Template) => () =>
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { replace } = useHistory();
 
+  const [forkOpen, setForkOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
@@ -56,6 +60,14 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setConfirmDeleteOpen(false);
   }, []);
 
+  const openFork = useCallback(() => {
+    setForkOpen(true);
+  }, []);
+
+  const closeFork = useCallback(() => {
+    setForkOpen(false);
+  }, []);
+
   const patternsNames = useMemo(toNames(template), [template]);
 
   return (
@@ -66,8 +78,10 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
         !error && (
           <>
             {confirmDeleteOpen && (
-              <ConfirmDelete template={template} onClose={closeConfirmDelete} />
+              <ConfirmTemplateDelete template={template} onClose={closeConfirmDelete} />
             )}
+
+            {forkOpen && <ForkTemplate template={template} onClose={closeFork} />}
 
             <header>
               <NavLink to={`${match.url}/documentation`}>
@@ -81,6 +95,16 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   <ShareIcon /> SOURCE
                 </Button>
               </a>
+
+              <Guard.Protected>
+                {({ user }) =>
+                  user.connectedWithGithub && (
+                    <Button onClick={openFork}>
+                      <DeviceHubIcon /> FORK
+                    </Button>
+                  )
+                }
+              </Guard.Protected>
 
               <TemplateAuthorGuard>
                 <More>
@@ -99,7 +123,12 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             <section>
               <TemplateTags className={csx.tags} items={template.tags} />
 
-              <TemplateStats stars={template.stars} watches={template.watches} />
+              <TemplateStats
+                patterns={template.patterns.length}
+                stars={template.stars}
+                technologies={template.technologies.length}
+                watches={template.watches}
+              />
 
               <p className={csx.date}>
                 Created <span>{convertDate(template.createdDate)}</span>
@@ -119,11 +148,11 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Technologies</h5>
 
                 <div>
-                  {template.technologies.map(technology => (
+                  {template.technologies.map((technology) => (
                     <TechnologyChip
                       key={technology.id}
                       name={technology.name}
-                      avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+                      url={technology.pictureUrl}
                     />
                   ))}
                 </div>
@@ -139,7 +168,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 <h5>Authors</h5>
 
                 <div>
-                  {template.contributors.map(contributor => (
+                  {template.contributors.map((contributor) => (
                     <a
                       target="_blank"
                       key={contributor.name}

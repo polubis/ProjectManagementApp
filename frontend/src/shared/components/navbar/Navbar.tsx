@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { useAuthProvider } from 'core/auth';
 
 import { Logo } from 'ui';
 
+import Sidebar from './sidebar';
+import SidebarTrigger from './sidebar-trigger';
+
+import { BASE_LINKS, IMPORTANT_LINKS, Link } from '.';
+
 import csx from './Navbar.scss';
 
-namespace Navbar {
-  export interface Link {
-    label: string;
-    to: string;
+const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[] => {
+  if (pending) {
+    return [];
   }
-}
 
-const BASE_LINKS: Navbar.Link[] = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' }
-];
+  if (authorized) {
+    return IMPORTANT_LINKS.filter(
+      ({ children }) => children !== 'Log In' && children !== 'Register'
+    );
+  }
 
-const IMPORTANT_LINKS: Navbar.Link[] = [
-  { label: 'App', to: '/app' },
-  { label: 'Register', to: '/register' },
-  { label: 'Log In', to: '/login' }
-];
+  return IMPORTANT_LINKS;
+};
 
 const Navbar = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { authorized, pending } = useAuthProvider();
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen((prevSidebarOpen) => !prevSidebarOpen);
+  }, []);
+
+  const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
+
   return (
     <nav className={csx.navbar}>
       <div className={csx.wrapper}>
@@ -35,21 +48,21 @@ const Navbar = () => {
         </div>
 
         <div className={`${csx.links} ${csx.baseLinks}`}>
-          {BASE_LINKS.map(({ label, to }) => (
-            <NavLink key={to} to={to} activeClassName={csx.activeLink} exact={true}>
-              {label}
-            </NavLink>
+          {BASE_LINKS.map((link) => (
+            <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
           ))}
         </div>
 
         <div className={`${csx.links} ${csx.importantLinks}`}>
-          {IMPORTANT_LINKS.map(({ label, to }) => (
-            <NavLink key={to} to={to} activeClassName={csx.activeLink}>
-              {label}
-            </NavLink>
+          {links.map((link) => (
+            <NavLink key={link.to} activeClassName={csx.activeLink} {...link} />
           ))}
         </div>
+
+        <SidebarTrigger active={sidebarOpen} onClick={toggleSidebar} />
       </div>
+
+      {sidebarOpen && <Sidebar />}
     </nav>
   );
 };

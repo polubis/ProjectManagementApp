@@ -1,8 +1,14 @@
-@import './palette.scss';
+@import './palette';
+@import './media';
 
 @mixin col {
   display: flex;
   flex-flow: column;
+}
+
+@mixin wrap {
+  display: flex;
+  flex-flow: wrap;
 }
 
 @mixin colCenter {
@@ -19,6 +25,11 @@
 @mixin rowCenter {
   display: flex;
   justify-content: center;
+}
+
+@mixin rowEnd {
+  display: flex;
+  align-content: flex-end;
 }
 
 @mixin centered {
@@ -143,7 +154,7 @@
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 @mixin noSelect {

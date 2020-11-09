@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { Button } from 'ui';
 
@@ -13,15 +14,22 @@ import { Footer, Navbar } from 'shared/components';
 import csx from './Login.scss';
 
 const Login = () => {
-  const { logIn, logInViaGithub, pending } = useAuthProvider();
+  const { logIn, logInViaGithub } = useAuthProvider();
 
   return (
     <>
-      <Navbar/>
+      <Helmet>
+        <title>Log in | Jupi.io</title>
+        <meta
+          name="description"
+          content="Sign in for Jupi.io and accelerate your developement process straightaway! Have an account already? Log in and jump into the world of ready to use templates and solutions for your project!"
+        />
+      </Helmet>
+      <Navbar />
       <div className={csx.login}>
         <h5>Log In</h5>
 
-        <LoginForm disabled={pending} onSubmit={logIn} />
+        <LoginForm onSubmit={logIn} />
 
         <div className={csx.divider}>
           <div />
@@ -29,11 +37,11 @@ const Login = () => {
           <div />
         </div>
 
-        <Button variant="icon" disabled={pending} onClick={logInViaGithub}>
-          <img src={IMGS_PATH + '/GithubLogo.png'} />
+        <Button variant="icon" onClick={logInViaGithub}>
+          <img src={IMGS_PATH + '/GithubLogo.png'} alt="GitHub Logo" />
         </Button>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

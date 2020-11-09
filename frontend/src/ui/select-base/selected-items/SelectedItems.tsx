@@ -5,14 +5,14 @@ import { SelectBase } from '..';
 import csx from './SelectedItems.scss';
 
 namespace SelectedItems {
-  export interface Props {
-    items: SelectBase.Item[];
-    renderItem: SelectBase.RenderSelectItem;
+  export interface Props<T> {
+    items: SelectBase.Item<T>[];
+    renderItem: SelectBase.RenderSelectItem<T>;
   }
 }
 
 const SelectedItems = memo(
-  ({ items, renderItem }: SelectedItems.Props) => {
+  <T extends Object>({ items, renderItem }: SelectedItems.Props<T>) => {
     const selectedItems = items.filter(({ value }) => value);
 
     if (!selectedItems.length) {
@@ -21,7 +21,7 @@ const SelectedItems = memo(
 
     return (
       <footer className={csx.selectedItems}>
-        {selectedItems.map(item => (
+        {selectedItems.map((item) => (
           <Fragment key={item.dataIdx}>{renderItem(item)}</Fragment>
         ))}
       </footer>

@@ -1,12 +1,13 @@
+import { SelectBase } from 'ui';
+
 import { Form, V } from 'utils';
 
-export const [CREDENTIALS, PERSONAL_INFO, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = [0, 1, 2, 3, 4];
+import { RegisterPayload } from 'core/api';
+
+export const [CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT] = [0, 1, 2, 3, 4];
 export const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
-export const [FIRST_NAME, LAST_NAME, BIRTH_DATE, GENDER] = [0, 1, 2, 3];
 export const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 export const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
-
-export const GENDERS = ['Male', 'Female'];
 
 export const SENIORITY_ITEMS = ['Junior', 'Mid', 'Regular', 'Pro', 'Senior'];
 
@@ -25,24 +26,6 @@ export const BASE_CONFIG: Form.Config[] = [
     {
       label: 'Repeated password',
       fns: [V.req, V.min(2), V.max(50), V.sameAs(PASSWORD, 'password')]
-    }
-  ],
-  [
-    {
-      label: 'First name',
-      fns: [V.min(2), V.max(50)]
-    },
-    {
-      label: 'Last name',
-      fns: [V.min(2), V.max(50)]
-    },
-    {
-      label: 'Date of birth',
-      fns: [V.date()]
-    },
-    {
-      label: 'Gender',
-      value: {}
     }
   ],
   [
@@ -70,7 +53,8 @@ export const BASE_CONFIG: Form.Config[] = [
   [
     {
       label: 'Company regulations',
-      value: false
+      value: false,
+      fns: [v => V.makeResult(v === false, 'Company regulations must be checked')]
     },
     {
       label: 'Commercial info',
@@ -78,3 +62,39 @@ export const BASE_CONFIG: Form.Config[] = [
     }
   ]
 ];
+
+export const makePayload = ([credentialsManager, workManager]: Form.Manager[]): RegisterPayload => {
+  const [
+    { value: username },
+    { value: email },
+    { value: password },
+    { value: confirmPassword }
+  ] = credentialsManager[0].fields;
+
+  const [
+    { value: position },
+    { value: seniority },
+    { value: company },
+    { value: yearsOfExperience },
+    { value: technologiesIds }
+  ] = workManager[0].fields;
+
+  const [senioritySelection, yearsOfExperienceSelection, technologiesIdsSelection] = [
+    SelectBase.getSelected(seniority),
+    SelectBase.getSelected(yearsOfExperience),
+    SelectBase.getSelected(technologiesIds)
+  ];
+
+  return {
+    username,
+    email,
+    password,
+    confirmPassword,
+    position: position ? position : undefined,
+    seniority: senioritySelection.length > 0 ? +senioritySelection[0] : undefined,
+    company: company ? company : undefined,
+    yearsOfExperience:
+      yearsOfExperienceSelection.length > 0 ? +yearsOfExperienceSelection[0] : undefined,
+    technologiesIds: technologiesIdsSelection.length > 0 ? technologiesIdsSelection.map((t) => +t) : undefined
+  };
+};

@@ -67,3 +67,13 @@ export const makeInstance = (config: AxiosRequestConfig) => (
 
   return { ...instance, subscribe, unsubscribe } as Api.Instance;
 };
+
+export const toFormData = <T>(payload: T): FormData => {
+  const formData = new FormData();
+  
+  Object.keys(payload).forEach((key) => {
+    formData.append(key, payload[key]);
+  });
+
+  return formData;
+}

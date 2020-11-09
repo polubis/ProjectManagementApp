@@ -7,8 +7,11 @@ import { Button, Menu, useMenu } from '..';
 import csx from './More.scss';
 
 namespace More {
+  export type Trigger = (open: (e: Events.Click) => void) => ReactElement;
+
   export type Props = {
     children: ReactElement[];
+    trigger?: Trigger;
   };
 
   export namespace Events {
@@ -20,7 +23,14 @@ namespace More {
   }
 }
 
-const More = ({ children }: More.Props) => {
+const Trigger: More.Trigger = (openMenu) => (
+  <Button className={csx.moreBtn} onClick={openMenu}>
+    MORE
+    <ExpandMoreIcon />
+  </Button>
+);
+
+const More = ({ children, trigger = Trigger }: More.Props) => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
@@ -37,10 +47,7 @@ const More = ({ children }: More.Props) => {
 
   return (
     <>
-      <Button className={csx.moreBtn} onClick={openMenu}>
-        MORE
-        <ExpandMoreIcon />
-      </Button>
+      {trigger(openMenu)}
 
       {menuOpen && (
         <Menu anchorEl={anchorEl} width={160} onClose={closeMenu}>

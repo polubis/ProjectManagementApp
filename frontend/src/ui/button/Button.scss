@@ -40,6 +40,16 @@
       color: $white;
     }
   }
+
+  &.secondary {
+    background: transparent;
+    color: $primary;
+
+    &.active {
+      background: $secondary;
+      color: $black;
+    }
+  }
 }
 
 .button {

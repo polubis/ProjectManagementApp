@@ -2,18 +2,23 @@
 
 .userSection {
   @include row;
-  margin-left: auto;
 
   .details {
     @include row;
+    margin-right: 16px;
+    cursor: pointer;
 
     & > span {
       @include label;
-      margin-right: 16px;
+      margin-left: 16px;
     }
 
     .avatar {
       box-shadow: $shadowPrimary;
+    }
+
+    & > svg {
+      fill: $primary;
     }
   }
 
@@ -27,7 +32,7 @@
   .divider {
     height: 30px;
     width: 1px;
-    margin: 0 48px;
+    margin: 0 32px;
     background: rgba($primary, 0.43);
   }
 

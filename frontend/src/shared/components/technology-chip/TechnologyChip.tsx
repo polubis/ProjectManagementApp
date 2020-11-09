@@ -1,22 +1,22 @@
 import React from 'react';
 
+import { Img } from 'ui';
+
 import csx from './TechnologyChip.scss';
 
 namespace TechnologyChip {
   export interface Props {
-    name: string;
-    avatar: string;
     className?: string;
+    name: string;
+    url?: string;
     onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
   }
 }
 
-const TechnologyChip = ({ name, avatar, className = '', onClick }: TechnologyChip.Props) => {
+const TechnologyChip = ({ className = '', name, url, onClick }: TechnologyChip.Props) => {
   return (
     <div className={`${csx.technologyChip} ${className}`} onClick={onClick}>
-      <figure>
-        <img src={avatar} />
-      </figure>
+      <Img alt="Technology image" size="32px:32px" src={url} />
       <span>{name}</span>
     </div>
   );

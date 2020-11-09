@@ -8,6 +8,7 @@ namespace Checkbox {
   export type OnChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => void;
 
   export interface Props {
+    invalid?: boolean;
     label: ReactNode;
     value: boolean;
     dataIdx?: string;
@@ -18,12 +19,19 @@ namespace Checkbox {
 
 const checkboxClasses = { root: csx.checkbox, checked: csx.checked };
 
-const Checkbox = ({ label, value, variant = 'default', dataIdx, onChange }: Checkbox.Props) => {
+const Checkbox = ({
+  invalid,
+  label,
+  value,
+  variant = 'default',
+  dataIdx,
+  onChange
+}: Checkbox.Props) => {
   return (
     <FormControlLabel
       label={label}
       classes={{
-        root: `${csx.checkboxLabel} ${csx[variant]}`
+        root: `${csx.checkboxLabel} ${csx[variant]} ${invalid ? csx.invalid : ''}`
       }}
       control={
         <MuiCheckbox

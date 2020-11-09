@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
 import { Button } from '@material-ui/core';
-
 import { Logo } from 'ui';
 
 import SidebarPanel from './sidebar-panel';
@@ -9,26 +8,20 @@ import SidebarLinks from './sidebar-links';
 
 import csx from './Sidebar.scss';
 
-namespace Sidebar {
-  export interface Props {
-    basePath: string;
-  }
-}
+const renderLink: SidebarLinks.RenderLink = (icon, label) => {
+  return (
+    <Button className={csx.link}>
+      {icon}
+      <span>{label}</span>
+    </Button>
+  );
+};
 
-const Sidebar = ({ basePath }: Sidebar.Props) => {
+const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
-  }, []);
-
-  const renderLink: SidebarLinks.Children = useCallback((icon, label) => {
-    return (
-      <Button className={csx.link}>
-        {icon}
-        <span>{label}</span>
-      </Button>
-    );
+    setOpen((prevOpen) => !prevOpen);
   }, []);
 
   return (
@@ -38,9 +31,9 @@ const Sidebar = ({ basePath }: Sidebar.Props) => {
           <Logo />
         </figure>
 
-        <SidebarLinks basePath={basePath}>{renderLink}</SidebarLinks>
+        <SidebarLinks renderLink={renderLink} />
 
-        {open && <SidebarPanel basePath={basePath} onClose={toggleOpen} />}
+        {open && <SidebarPanel onClose={toggleOpen} />}
       </div>
     </aside>
   );

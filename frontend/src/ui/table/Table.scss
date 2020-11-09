@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.table {
+  display: grid;
+  border-collapse: collapse;
+  min-width: 100%;
+
+  thead,
+  tbody,
+  tr {
+    display: contents;
+  }
+
+  th,
+  td {
+    padding: 15px;
+  }
+
+  th {
+    @include labelSmall;
+    @include dottedText;
+    font-weight: lighter;
+    text-align: left;
+    text-transform: uppercase;
+    color: $white;
+  }
+
+  td {
+    @include row;
+
+    & > div {
+      @include dottedText;
+      @include label;
+    }
+  }
+
+  th:last-child {
+    border: 0;
+  }
+}

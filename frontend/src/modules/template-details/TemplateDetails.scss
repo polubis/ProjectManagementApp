@@ -15,7 +15,13 @@
   }
 
   & > section {
-    padding: 62px 480px;
+    align-self: center;
+    padding: 62px 0;
+    width: 740px;
+
+    @include max-width(1000px) {
+      width: 100%;
+    }
 
     .tags {
       margin: 32px 0 18px 0;
@@ -32,12 +38,14 @@
 
     h1 {
       @include headingBig;
+      word-break: break-word;
     }
 
     .description {
       @include descriptionMedium;
       display: block;
       margin: 32px 0 52px 0;
+      word-break: break-word;
     }
 
     .technologies,

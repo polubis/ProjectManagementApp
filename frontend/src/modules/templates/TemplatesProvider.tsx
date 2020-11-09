@@ -58,7 +58,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
     const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
 
-    return `?page=${page}&limit=${limit}&query=${query}${
+    return `?page=${page}&limit=${limit}&query=${query}&category=${category}${
       technologiesPart ? `&${technologiesPart}` : ''
     }${patternsPart ? `&${patternsPart}` : ''}`;
   };
@@ -130,7 +130,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
   };
 
   getTemplates = (payload: TemplatesPayload) => {
-    const loadingMore = payload.page > 1 && !this.state.allLoaded;
+    const loadingMore = payload.page > 1 && this.state.templates.length && !this.state.allLoaded;
 
     if (loadingMore) {
       this._loadMoreRequest.next(payload);

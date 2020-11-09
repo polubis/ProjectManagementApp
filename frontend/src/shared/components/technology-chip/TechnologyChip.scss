@@ -5,18 +5,10 @@
   @include noSelect;
   cursor: pointer;
 
-  figure {
-    height: 32px;
-
-    img {
-      max-height: 100%;
-    }
-  }
-
   span {
     @include label;
     flex-shrink: 0;
-    margin-left: 4px;
+    margin-left: 8px;
     color: $white;
   }
 }
