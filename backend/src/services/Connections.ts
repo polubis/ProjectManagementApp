@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import WebSocket from 'websocket';
 
 import { usersService } from '.';
@@ -10,6 +10,8 @@ class Connections {
 
   private disconnect = (id: string) => {
     this.connections = this.connections.filter((c) => c.id !== id);
+
+    console.log(`${new Date().toLocaleString()}, disconnected: ${id}`);
   };
 
   public send<T>(
@@ -31,10 +33,18 @@ class Connections {
     const { userId } = request.resourceURL.query as any;
 
     const connection: Connection = {
-      id: uuid(),
+      id: v4(),
       userId,
       websocketConnection: request.accept(undefined, request.origin),
     };
+
+    this.connections.push(connection);
+
+    console.log(
+      `${new Date().toLocaleString()}, connected: ${
+        connection.id
+      } from origin ${request.origin}`,
+    );
 
     const { websocketConnection } = connection;
 

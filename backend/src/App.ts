@@ -6,7 +6,8 @@ import { Mongoose } from 'mongoose';
 import WebSocketServer from 'websocket/lib/WebSocketServer';
 
 // import { Controllers } from '@controllers';
-import { DBConnection } from '@db';
+// import { DBConnection } from '@db';
+import { connectionsService } from '@services';
 import { WSConnection } from '@ws';
 
 import { __PORT__ } from '@consts';
@@ -21,7 +22,7 @@ class App {
     this.configure();
     // this.registerRoutes();
     this.createServer();
-    this.initDb();
+    // this.initDb();
     this.initWs();
   }
 
@@ -54,13 +55,14 @@ class App {
     this.server = this.app.listen(this.app.get('port'), this.log);
   };
 
-  private initDb = () => {
-    this.db = DBConnection;
-  };
+  // private initDb = () => {
+  //   this.db = DBConnection;
+  // };
 
   private initWs = () => {
     const ws = new WSConnection(this.server);
     this.ws = ws.connection;
+    this.ws.on('request', connectionsService.connect);
   };
 }
 
