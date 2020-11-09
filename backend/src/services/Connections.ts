@@ -1,9 +1,7 @@
-import { v4 } from 'uuid';
+import { Request, Response } from 'express';
 import WebSocket from 'websocket';
 
-import { usersService } from '.';
-
-import { Connection, WebsocketActions } from '@models';
+import { Connection, Result } from '@models';
 
 class Connections {
   public connections: Connection[] = [];
@@ -29,12 +27,61 @@ class Connections {
     });
   }
 
+  public logOut = ({ params }: Request, res: Response) => {
+    let changedConnection: Connection | null = null;
+
+    try {
+      this.connections = this.connections.map((c) => {
+        if (c.userId === params.userId) {
+          changedConnection = {
+            ...c,
+            userId: undefined,
+          };
+
+          return changedConnection;
+        } else return c;
+      });
+
+      const result: Result = {
+        success: changedConnection ? true : false,
+      };
+
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  };
+
+  public logIn = ({ body, params }: Request, res: Response) => {
+    let changedConnection: Connection | null = null;
+
+    try {
+      this.connections = this.connections.map((c) => {
+        if (c.id === body.connectionId) {
+          changedConnection = {
+            ...c,
+            userId: params.userId,
+          };
+
+          return changedConnection;
+        } else return c;
+      });
+
+      const result: Result = {
+        success: changedConnection ? true : false,
+      };
+
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  };
+
   public connect = (request: WebSocket.request) => {
-    const { userId } = request.resourceURL.query as any;
+    const { id } = request.resourceURL.query as any;
 
     const connection: Connection = {
-      id: v4(),
-      userId,
+      id,
       websocketConnection: request.accept(undefined, request.origin),
     };
 
@@ -54,23 +101,6 @@ class Connections {
 
     websocketConnection.on('close', () => {
       this.disconnect(connection.id);
-    });
-
-    websocketConnection.on('message', (message) => {
-      if (message.type === 'utf8') {
-        const payload = JSON.parse(message.utf8Data);
-
-        switch (payload.action) {
-          case WebsocketActions.NOTIFICATION_SEND:
-            usersService.notify(
-              payload.data.connectionId,
-              payload.data.notification,
-            );
-            break;
-          default:
-            break;
-        }
-      }
     });
   };
 }

@@ -5,7 +5,7 @@ import { Server } from 'http';
 import { Mongoose } from 'mongoose';
 import WebSocketServer from 'websocket/lib/WebSocketServer';
 
-// import { Controllers } from '@controllers';
+import { Controllers } from '@controllers';
 // import { DBConnection } from '@db';
 import { connectionsService } from '@services';
 import { WSConnection } from '@ws';
@@ -20,7 +20,7 @@ class App {
 
   constructor() {
     this.configure();
-    // this.registerRoutes();
+    this.registerRoutes();
     this.createServer();
     // this.initDb();
     this.initWs();
@@ -36,11 +36,11 @@ class App {
     this.app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
   };
 
-  // private registerRoutes = () => {
-  //   Controllers.forEach(({ path, controller }) => {
-  //     this.app.use(`/api/${path}`, controller);
-  //   });
-  // };
+  private registerRoutes = () => {
+    Controllers.forEach(({ path, controller }) => {
+      this.app.use(`/${path}`, controller);
+    });
+  };
 
   private log = () => {
     console.log(

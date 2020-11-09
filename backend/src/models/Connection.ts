@@ -1,12 +1,12 @@
 import WebSocket from 'websocket';
 
 export enum WebsocketActions {
-  CONNECTION_CREATED = 'CONNECTION_CREATED',
-  NOTIFICATION_SEND = 'NOTIFICATION_SEND',
+  NOTIFY_USER = 'NOTIFY_USER',
+  NOTIFY_ALL = 'NOTIFY_ALL',
 }
 
 export interface Connection {
   id: string;
-  userId: string;
   websocketConnection: WebSocket.connection;
+  userId?: string;
 }

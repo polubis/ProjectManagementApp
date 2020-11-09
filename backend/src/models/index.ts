@@ -1,2 +1,2 @@
 export * from './Connection';
-export * from './Notification';
+export * from './Result';
