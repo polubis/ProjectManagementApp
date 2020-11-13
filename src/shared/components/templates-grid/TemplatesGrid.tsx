@@ -1,8 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { Spaceholder } from 'ui';
-
 import { Template } from 'core/api';
 
 import { TemplateTile } from '..';
@@ -21,9 +19,7 @@ namespace TemplatesGrid {
 
 const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =>
   loading
-    ? Array.from({ length: spaceholdersCount }, (_, idx) => (
-        <Spaceholder key={idx} className={csx.spaceholder} />
-      ))
+    ? Array.from({ length: spaceholdersCount }, (_, idx) => <TemplateTile.Loader key={idx} />)
     : null;
 
 /**
@@ -39,7 +35,7 @@ const TemplatesGrid = ({
   loading,
   templates,
   pathname,
-  spaceholdersCount,
+  spaceholdersCount
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
@@ -51,7 +47,10 @@ const TemplatesGrid = ({
     [location.pathname]
   );
 
-  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [loading, spaceholdersCount]);
+  const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [
+    loading,
+    spaceholdersCount
+  ]);
 
   return (
     <section className={`${csx.templatesGrid} ${className}`}>

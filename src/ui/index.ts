@@ -18,7 +18,6 @@ export * from './select-control';
 export * from './simple-select';
 export * from './steps';
 export * from './step-header';
-export * from './spaceholder';
 export * from './tabs';
 export * from './table';
 export * from './tag';
