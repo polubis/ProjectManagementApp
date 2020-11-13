@@ -1,0 +1,38 @@
+@import 'styles/mixins';
+
+.githubConnect {
+  @include colCenter;
+  max-width: 442px;
+  padding: 68px 32px 32px 32px;
+
+  & > h3 {
+    @include heading;
+  }
+
+  & > p {
+    @include labelThin;
+    text-align: center;
+
+    &:first-of-type {
+      margin: 22px 0 20px 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 68px;
+    }
+
+    span {
+      color: $primary;
+    }
+  }
+
+  & > footer {
+    @include row;
+
+    & > button {
+      &:first-of-type {
+        margin-right: 32px;
+      }
+    }
+  }
+}

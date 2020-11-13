@@ -12,7 +12,7 @@ const getYearsLabel = (value: number): string =>
   value > 1 ? `${value} years` : value === 1 ? `${value} year` : 'Unknown';
 
 const UserDetails = forwardRef(() => {
-  const { user, logOut } = useAuthProvider();
+  const { user, logOut, logInViaGithub } = useAuthProvider();
   const {
     company,
     yearsOfExperience,
@@ -79,13 +79,7 @@ const UserDetails = forwardRef(() => {
             <div>
               <span className={csx.error}>No connection</span> with <span>Github</span>
             </div>
-            <Button
-              onClick={() => {
-                /* TODO: CONNECT TO GITHUB LOGIC HERE */
-              }}
-            >
-              CONNECT TO GITHUB
-            </Button>
+            <Button onClick={logInViaGithub}>CONNECT TO GITHUB</Button>
           </>
         )}
       </div>

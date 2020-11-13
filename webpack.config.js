@@ -49,7 +49,7 @@ module.exports = (env, { mode }) => {
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true,
+                sourceMap: mode === DEV ? true : false,
                 modules: {
                   localIdentName: '[local]___[hash:base64:5]'
                 }
@@ -69,17 +69,23 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
-          exclude: /node_modules/,
-          use: ['file-loader?name=[name].[ext]']
+          loader: 'url-loader',
+          options: {
+            limit: 10 * 1024
+          }
         },
         {
-          test: /\.(config)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]'
-            }
+          test: /\.svg$/,
+          loader: 'svg-url-loader',
+          options: {
+            limit: 10 * 1024,
+            noquotes: true
           }
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/,
+          loader: 'image-webpack-loader',
+          enforce: 'pre'
         }
       ]
     },
@@ -101,7 +107,41 @@ module.exports = (env, { mode }) => {
         // mode === DEV
         //   ? "'https://pillar-api-dev.azurewebsites.net/api/'"
         //   : "'https://pillar-api.azurewebsites.net/api/'"
-      }),
+      })
+    ],
+
+    devServer: {
+      historyApiFallback: true,
+      port: 3000
+    }
+  };
+
+  if (mode === PROD) {
+    config.optimization = {
+      minimize: true,
+      concatenateModules: true,
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        cacheGroups: {
+          default: false, // Removes default config
+
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // We creating here node_modules single package name
+              return `npm.${module.context
+                .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+                .replace('@', '')}`;
+            },
+            minSize: 0
+          }
+        }
+      }
+    };
+
+    config.plugins.push(
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
@@ -131,37 +171,7 @@ module.exports = (env, { mode }) => {
           }
         ]
       })
-    ],
-
-    devServer: {
-      historyApiFallback: true,
-      port: 3000
-    }
-  };
-
-  if (mode === PROD) {
-    config.optimization = {
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-        maxInitialRequests: Infinity,
-        cacheGroups: {
-          default: false, // Removes default config
-
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              // We creating here node_modules single package name
-              return `npm.${module.context
-                .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                .replace('@', '')}`;
-            },
-            minSize: 0
-          }
-        }
-      }
-    };
-
+    );
     config.plugins.push(new CopyPlugin([{ from: 'public', ignore: ['index.html'] }]));
   }
 
