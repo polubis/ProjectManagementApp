@@ -49,7 +49,7 @@ module.exports = (env, { mode }) => {
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true,
+                sourceMap: mode === DEV ? true : false,
                 modules: {
                   localIdentName: '[local]___[hash:base64:5]'
                 }
@@ -69,17 +69,23 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
-          exclude: /node_modules/,
-          use: ['file-loader?name=[name].[ext]']
+          loader: 'url-loader',
+          options: {
+            limit: 10 * 1024
+          }
         },
         {
-          test: /\.(config)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]'
-            }
+          test: /\.svg$/,
+          loader: 'svg-url-loader',
+          options: {
+            limit: 10 * 1024,
+            noquotes: true
           }
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/,
+          loader: 'image-webpack-loader',
+          enforce: 'pre'
         }
       ]
     },
@@ -112,6 +118,8 @@ module.exports = (env, { mode }) => {
 
   if (mode === PROD) {
     config.optimization = {
+      minimize: true,
+      concatenateModules: true,
       runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
