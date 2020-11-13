@@ -44,4 +44,35 @@ const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
   );
 };
 
+TemplateTile.Loader = () => {
+  return (
+    <div className={csx.templateTileLoader}>
+      <div className={csx.stats}>
+        <div className={csx.stat} />
+        <div className={csx.stat} />
+        <div className={csx.stat} />
+        <div className={csx.stat} />
+      </div>
+
+      <div className={csx.name} />
+
+      <div className={csx.description} />
+
+      <div className={csx.patterns}>
+        <div className={csx.pattern} />
+        <div className={csx.pattern} />
+        <div className={csx.pattern} />
+        <div className={csx.pattern} />
+      </div>
+
+      <div className={csx.technologies}>
+        <div className={csx.technology} />
+        <div className={csx.technology} />
+        <div className={csx.technology} />
+        <div className={csx.technology} />
+      </div>
+    </div>
+  );
+};
+
 export default TemplateTile;
