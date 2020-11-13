@@ -1,28 +1,16 @@
 @import 'styles/mixins';
 
-.templateTile {
+.templateTile,
+.templateTileLoader {
   @include col;
   width: 320px;
   height: 352px;
   padding: 38px;
   border-radius: 4px;
   background: $surfacePrimary;
-  cursor: pointer;
-
-  .name,
-  .description {
-    @include dottedMultilineText;
-  }
 
   .name {
-    @include heading;
     margin: 16px 0 12px 0;
-    -webkit-line-clamp: 2;
-  }
-
-  .description {
-    @include description;
-    -webkit-line-clamp: 3;
   }
 
   .patterns {
@@ -33,10 +21,75 @@
   .technologies {
     @include row;
   }
+}
+
+.templateTile {
+  cursor: pointer;
+
+  .name,
+  .description {
+    @include dottedMultilineText;
+  }
+
+  .name {
+    @include heading;
+    -webkit-line-clamp: 2;
+  }
+
+  .description {
+    @include description;
+    -webkit-line-clamp: 3;
+  }
 
   .technologies {
     & > figure {
       margin-right: 4px;
     }
+  }
+}
+
+.templateTileLoader {
+  .stats {
+    @include row;
+
+    .stat {
+      width: 40px;
+      height: 24px;
+
+      &:not(:last-of-type) {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .name,
+  .description,
+  .technology,
+  .pattern,
+  .stat {
+    background: rgba($primary, 0.04);
+    border-radius: 4px;
+  }
+
+  .name {
+    height: 42px;
+    width: 100%;
+  }
+
+  .description {
+    height: 60px;
+    width: 100%;
+  }
+
+  .pattern {
+    width: 40px;
+    height: 24px;
+  }
+
+  .technology {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 6px;
   }
 }

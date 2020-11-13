@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 
 import { TemplatesGrid, TemplatesSearch } from 'shared/components';
@@ -11,16 +11,12 @@ import { LIMIT } from '.';
 
 import csx from './Templates.scss';
 
-const calcSpaceholdersCount = (pendingRequests: number) => () => pendingRequests * LIMIT;
-
 const Templates = () => {
   const { location } = useHistory();
 
   const { pendingRequests, templates } = useTemplatesProvider();
 
   useSearch();
-
-  const spaceholdersCount = useMemo(calcSpaceholdersCount(pendingRequests), [pendingRequests]);
 
   return (
     <div className={csx.templates}>
@@ -29,7 +25,7 @@ const Templates = () => {
       <TemplatesGrid
         className={csx.templatesGrid}
         loading={!!pendingRequests}
-        spaceholdersCount={spaceholdersCount}
+        spaceholdersCount={pendingRequests * LIMIT}
         templates={templates}
       />
     </div>
