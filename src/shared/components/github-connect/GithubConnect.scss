@@ -2,40 +2,36 @@
 
 .githubConnect {
   @include colCenter;
-  width: 442px;
-  padding: 16px;
-  background: $secondary;
+  max-width: 442px;
+  padding: 68px 32px 32px 32px;
 
   & > h3 {
     @include heading;
-    margin-top: 52px;
   }
 
   & > p {
-    @include label;
-    font-weight: $thin;
-    margin: 24px 24px 20px 24px;
+    @include labelThin;
     text-align: center;
-  }
 
-  & span {
-    color: $primary;
-  }
+    &:first-of-type {
+      margin: 22px 0 20px 0;
+    }
 
-  .success {
-    color: $ok;
+    &:last-of-type {
+      margin-bottom: 68px;
+    }
+
+    span {
+      color: $primary;
+    }
   }
 
   & > footer {
     @include row;
-    margin-top: 28px;
 
     & > button {
-      margin: 16px;
-      min-width: 116px;
-
-      &:last-of-type > span {
-        color: $white;
+      &:first-of-type {
+        margin-right: 32px;
       }
     }
   }
