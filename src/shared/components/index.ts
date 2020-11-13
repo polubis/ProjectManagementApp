@@ -3,6 +3,7 @@ export * from './confirm-delete';
 export * from './email-sent';
 export * from './footer';
 export * from './form-steps';
+export * from './github-connect';
 export * from './navbar';
 export * from './patterns-select';
 export * from './tags-field';
