@@ -6,6 +6,7 @@ import { withLazy } from 'utils';
 import { TemplateCategory } from 'core/api';
 import { Guard } from 'core/auth';
 
+import { GithubConnect } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
 
 import Navbar from './navbar';
@@ -29,6 +30,8 @@ const Main = ({ match }: RouteChildrenProps) => {
       <Navbar basePath={match.path} />
 
       <Sidebar />
+
+      <GithubConnect />
 
       <main>
         <Switch>

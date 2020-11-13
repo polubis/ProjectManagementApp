@@ -36,11 +36,7 @@ class Provider extends React.Component<CookiesProvider.Props, typeof STATE> {
     setCookies: this.setCookies
   };
 
-  render = () => (
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
-  );
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const CookiesProvider = Provider;
