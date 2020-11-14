@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Avatar } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { Button, useMenu, Menu } from 'ui';
 
@@ -27,12 +26,11 @@ const UserSection = () => {
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
-        {({ user: { email, username } }) => (
+        {({ user: { username } }) => (
           <>
             <div className={csx.details} onClick={openMenu}>
-              <Avatar className={csx.avatar}>{email.charAt(0).toUpperCase()}</Avatar>
+              <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
               <span>Hi, {username}</span>
-              <ExpandMoreIcon fontSize="large" />
             </div>
             
             {menuOpen && (

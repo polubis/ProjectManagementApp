@@ -7,33 +7,9 @@
   background: $surface;
   padding: 0 40px;
 
-  .breadcrumbs {
+  .wrapper {
     @include row;
-    margin-right: auto;
-
-    .breadcrumb {
-      @include headingSmall;
-      color: $primary;
-      text-transform: capitalize !important;
-
-      &:first-of-type {
-        @include headingMedium;
-      }
-
-      a {
-        text-decoration: none;
-        color: $primary;
-      }
-    }
-
-    .breadcrumbDivider {
-      color: $primary;
-      margin: 0 6px;
-
-      &:last-of-type {
-        display: none;
-      }
-    }
+    margin-left: auto;
   }
 
   .divider {
@@ -41,5 +17,10 @@
     width: 1px;
     margin: 0 32px;
     background: rgba($primary, 0.43);
+
+    @include max-width(1000px) {
+      opacity: 0;
+      margin: 0 32px 0 0;
+    }
   }
 }

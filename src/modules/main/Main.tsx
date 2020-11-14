@@ -27,7 +27,7 @@ const TemplateManagement = withLazy(() => import('src/modules/template-managemen
 const Main = ({ match }: RouteChildrenProps) => {
   return (
     <div className={csx.main}>
-      <Navbar basePath={match.path} />
+      <Navbar />
 
       <Sidebar />
 

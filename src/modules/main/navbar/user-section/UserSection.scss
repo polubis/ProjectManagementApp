@@ -5,12 +5,15 @@
 
   .details {
     @include row;
-    margin-right: 16px;
     cursor: pointer;
 
     & > span {
       @include label;
       margin-left: 16px;
+
+      @include max-width(1000px) {
+        display: none;
+      }
     }
 
     .avatar {
@@ -32,8 +35,13 @@
   .divider {
     height: 30px;
     width: 1px;
-    margin: 0 32px;
+    margin: 0 20px 0 32px;
     background: rgba($primary, 0.43);
+
+    @include max-width(1000px) {
+      opacity: 0;
+      margin: 0 20px 0 0;
+    }
   }
 
   .logInBtn {
