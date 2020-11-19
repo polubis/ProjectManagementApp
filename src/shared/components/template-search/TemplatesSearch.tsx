@@ -8,7 +8,9 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 import { SelectBase } from 'ui';
 
-import { Form, useQueryParams, Url, isJsonString } from 'utils';
+import {
+  Form, useQueryParams, Url, isJsonString,
+} from 'utils';
 
 import { PatternsSelect, TechnologiesSelect } from 'shared/components';
 
@@ -25,18 +27,17 @@ namespace TemplatesSearch {
 
 const [QUERY, PATTERNS, TECHNOLOGIES] = [0, 1, 2];
 
-const parseFromString = (str: string) =>
-  isJsonString(str)
-    ? (JSON.parse(str) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
-    : {};
+const parseFromString = (str: string) => (isJsonString(str)
+  ? (JSON.parse(str) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
+  : {});
 
 const CONFIG: Form.Config = [
   { label: 'Query', value: '' },
   { label: 'Patterns', value: {} },
   {
     label: 'Technologies',
-    value: {}
-  }
+    value: {},
+  },
 ];
 
 const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
@@ -45,7 +46,7 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
   const [query, patternsIds, technologiesIds] = useQueryParams(
     'query',
     'patternsIds',
-    'technologiesIds'
+    'technologiesIds',
   );
 
   const [{ fields }, change, directChange, submit] = Form.useManager(CONFIG);
@@ -54,14 +55,14 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
     (dataIdx, value) => {
       directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
     },
-    [fields]
+    [fields],
   );
 
   const handleTechnologySelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
       directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
-    [fields]
+    [fields],
   );
 
   const handleSubmit = useCallback(
@@ -83,13 +84,13 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
 
       push(`${pathname}?${search}`);
     },
-    [fields, location]
+    [fields, location],
   );
 
   useEffect(() => {
     directChange(
       [QUERY, PATTERNS, TECHNOLOGIES],
-      [query, parseFromString(patternsIds), parseFromString(technologiesIds)]
+      [query, parseFromString(patternsIds), parseFromString(technologiesIds)],
     );
   }, [query, patternsIds, technologiesIds]);
 

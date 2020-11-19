@@ -8,7 +8,9 @@ import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import { useTemplateManagement, BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS } from '..';
+import {
+  useTemplateManagement, BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS,
+} from '..';
 
 namespace TemplateForm {
   export interface Props {
@@ -18,21 +20,21 @@ namespace TemplateForm {
 
 const STEPS: Steps.Item[] = [
   {
-    label: 'Basic information'
+    label: 'Basic information',
   },
   {
-    label: 'Github connection'
+    label: 'Github connection',
   },
   {
-    label: 'Technical details'
-  }
+    label: 'Technical details',
+  },
 ];
 
 const DESCRIPTIONS: string[] = [
   `Name your template and add a description. This information 
       will be displayed first`,
-  `Connect template to github repository and set access settings`,
-  `Add technical details to your newly created template`
+  'Connect template to github repository and set access settings',
+  'Add technical details to your newly created template',
 ];
 
 const TemplateForm = ({ config }: TemplateForm.Props) => {
@@ -46,9 +48,7 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
   const githubConnectionManager = Form.useManager(config[GITHUB_CONNECTION]);
   const techDetailsManager = Form.useManager(config[TECH_DETAILS]);
 
-  const formManagers = useMemo(() => {
-    return [basicInfoManager, githubConnectionManager, techDetailsManager];
-  }, [basicInfoManager, githubConnectionManager, techDetailsManager]);
+  const formManagers = useMemo(() => [basicInfoManager, githubConnectionManager, techDetailsManager], [basicInfoManager, githubConnectionManager, techDetailsManager]);
 
   const handleSubmit = useCallback(
     (e: Form.Events.Submit) => {
@@ -68,7 +68,7 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
         setActiveStep(nextStep);
       }
     },
-    [...formManagers, activeStep]
+    [...formManagers, activeStep],
   );
 
   const handleBack = useCallback(() => {

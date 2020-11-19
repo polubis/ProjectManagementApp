@@ -18,7 +18,7 @@ namespace TechnologiesProvider {
 const STATE: TechnologiesProvider.State = {
   loading: true,
   error: '',
-  technologies: []
+  technologies: [],
 };
 
 const Context = createContext(STATE);
@@ -39,7 +39,7 @@ class Provider extends React.Component<TechnologiesProvider.Props, typeof STATE>
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTechnologies: this.getTechnologies
+    getTechnologies: this.getTechnologies,
   };
 
   render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;

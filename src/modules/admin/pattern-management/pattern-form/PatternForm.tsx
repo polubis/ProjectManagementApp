@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { StepHeader, InputField, TextareaField, Button } from 'ui';
+import {
+  StepHeader, InputField, TextareaField, Button,
+} from 'ui';
 
 import { Form, V } from 'utils';
 
@@ -9,17 +11,17 @@ import { addPattern, editPattern, Pattern } from 'core/api';
 
 import csx from './PatternForm.scss';
 
-const [NAME, DESCRIPTION] = [0, 1],
-  CONFIG: Form.Config = [
-    { label: 'Name', fns: [V.req] },
-    { label: 'Description', fns: [V.req] }
-  ];
+const [NAME, DESCRIPTION] = [0, 1];
+const CONFIG: Form.Config = [
+  { label: 'Name', fns: [V.req] },
+  { label: 'Description', fns: [V.req] },
+];
 
 const makeConfig = (data?: Pattern): Form.Config => {
   if (data) {
     return [
       { ...CONFIG[NAME], value: data.name },
-      { ...CONFIG[DESCRIPTION], value: data.description }
+      { ...CONFIG[DESCRIPTION], value: data.description },
     ];
   }
 
@@ -39,7 +41,7 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
   const [pending, setPending] = useState(false);
 
   const [{ dirty, invalid, fields }, change, _, submit] = Form.useManager(
-    makeConfig(data)
+    makeConfig(data),
   );
 
   const handleSubmit = useCallback(
@@ -51,12 +53,12 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
           if (id === undefined) {
             await addPattern({
               name: fields[NAME].value,
-              description: fields[DESCRIPTION].value
+              description: fields[DESCRIPTION].value,
             });
           } else {
             await editPattern(+id, {
               name: fields[NAME].value,
-              description: fields[DESCRIPTION].value
+              description: fields[DESCRIPTION].value,
             });
           }
 
@@ -66,7 +68,7 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
         }
       }
     },
-    [fields, id]
+    [fields, id],
   );
 
   return (

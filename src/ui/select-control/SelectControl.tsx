@@ -14,7 +14,9 @@ namespace SelectControl {
   }
 }
 
-const SelectControl = ({ label, placeholder, menuOpen, value, onClick }: SelectControl.Props) => {
+const SelectControl = ({
+  label, placeholder, menuOpen, value, onClick,
+}: SelectControl.Props) => {
   const selected = SelectBase.getSelected(value);
 
   return (

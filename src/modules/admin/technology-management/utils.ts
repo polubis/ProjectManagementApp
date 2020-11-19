@@ -1,3 +1,3 @@
 export interface RouteProps {
-    id: string;
+  id: string;
 }

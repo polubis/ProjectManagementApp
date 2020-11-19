@@ -13,10 +13,12 @@ namespace Tabs {
   }
 }
 
-const Tabs = memo(({ active, children, className = '', onClick }: Tabs.Props) => {
+const Tabs = memo(({
+  active, children, className = '', onClick,
+}: Tabs.Props) => {
   const enhancedChildren = React.Children.map(children, (child: ReactElement) => ({
     Component: child,
-    label: child ? child.props.children : ''
+    label: child ? child.props.children : '',
   }));
 
   return (

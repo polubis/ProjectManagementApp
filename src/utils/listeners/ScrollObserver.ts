@@ -1,5 +1,7 @@
 import { Subject, fromEvent, Subscription } from 'rxjs';
-import { debounceTime, map, skip, tap } from 'rxjs/operators';
+import {
+  debounceTime, map, skip, tap,
+} from 'rxjs/operators';
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 
 namespace ScrollObserver {
@@ -17,8 +19,7 @@ class Position implements ScrollObserver.Position {
     this.bottom = this._calcBottom(offset);
   }
 
-  private _calcBottom = (offset: number) =>
-    window.innerHeight + window.scrollY >= document.body.offsetHeight - offset;
+  private _calcBottom = (offset: number) => window.innerHeight + window.scrollY >= document.body.offsetHeight - offset;
 }
 
 class ScrollObserver {
@@ -36,7 +37,7 @@ class ScrollObserver {
     private _target: FromEventTarget<Event>,
     private _onEmit: ScrollObserver.OnEmit,
     private _offset = ScrollObserver.OFFSET,
-    private _time = ScrollObserver.TIME
+    private _time = ScrollObserver.TIME,
   ) {
     this._subs.add(this._handleScroll());
     this._subs.add(this._handleEmit());
@@ -48,10 +49,9 @@ class ScrollObserver {
 
   private _toPosition = () => new Position(this._offset);
 
-  private _handleScroll = () =>
-    fromEvent(this._target, 'scroll')
-      .pipe(skip(1), debounceTime(this._time), map(this._toPosition), tap(this._emitPosition))
-      .subscribe();
+  private _handleScroll = () => fromEvent(this._target, 'scroll')
+    .pipe(skip(1), debounceTime(this._time), map(this._toPosition), tap(this._emitPosition))
+    .subscribe();
 
   private _handleEmit = () => this._position$.subscribe(this._onEmit);
 

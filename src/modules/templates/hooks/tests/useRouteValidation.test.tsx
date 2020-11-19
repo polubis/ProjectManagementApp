@@ -14,7 +14,7 @@ describe('useRouteValidation', () => {
 
   const ComponentStub = () => {
     const {
-      params: { category }
+      params: { category },
     } = useRouteMatch<TemplatesRouteProps>();
 
     useRouteValidation();
@@ -28,8 +28,8 @@ describe('useRouteValidation', () => {
 
     render(
       <Router history={history}>
-        <Route path={'/app/templates/:category'} component={ComponentStub} />
-      </Router>
+        <Route path="/app/templates/:category" component={ComponentStub} />
+      </Router>,
     );
 
     expect(screen.getByText(TemplateCategory.ALL)).toBeInTheDocument();

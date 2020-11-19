@@ -25,14 +25,14 @@ const AlmostDone = ({ formManager, onBack, onSubmit }: AlmostDone.Props) => {
     (_, checked: boolean) => {
       directChange([COMPANY_REGULATIONS], [checked]);
     },
-    [directChange]
+    [directChange],
   );
 
   const handleCommercialInfoChange = useCallback(
     (_, checked: boolean) => {
       directChange([COMMERCIAL_INFO], [checked]);
     },
-    [directChange]
+    [directChange],
   );
 
   return (

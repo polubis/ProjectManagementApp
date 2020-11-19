@@ -21,17 +21,15 @@ namespace TechnologiesSelect {
 
 const makeItems = (
   technologies: Technology[],
-  value: { [key: string]: boolean }
-) => (): SelectBase.Item<Technology>[] =>
-  technologies.map(
-    ({ id, name, pictureUrl }) =>
-      ({
-        dataIdx: '' + id,
-        label: name,
-        pictureUrl,
-        value: !!value[id]
-      } as SelectBase.Item<Technology>)
-  );
+  value: { [key: string]: boolean },
+) => (): SelectBase.Item<Technology>[] => technologies.map(
+  ({ id, name, pictureUrl }) => ({
+    dataIdx: `${id}`,
+    label: name,
+    pictureUrl,
+    value: !!value[id],
+  } as SelectBase.Item<Technology>),
+);
 
 const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
   const { loading, technologies } = useTechnologiesProvider();

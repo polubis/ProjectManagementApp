@@ -4,7 +4,7 @@ import React, {
   useCallback,
   useMemo,
   useState,
-  cloneElement
+  cloneElement,
 } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
@@ -62,8 +62,7 @@ namespace SelectBase {
   }
 }
 
-const filterItems = (phrase: string, items: SelectBase.Item[]) => (): SelectBase.Item[] =>
-  phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
+const filterItems = (phrase: string, items: SelectBase.Item[]) => (): SelectBase.Item[] => (phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items);
 
 const SelectBase = <T extends Object>({
   children,
@@ -75,7 +74,7 @@ const SelectBase = <T extends Object>({
   itemSize = 48,
   searchable = true,
   width = 300,
-  onSelect
+  onSelect,
 }: SelectBase.Props<T>) => {
   const [phrase, setPhrase] = useState('');
 
@@ -85,7 +84,7 @@ const SelectBase = <T extends Object>({
     (e, value) => {
       onSelect(e.currentTarget.getAttribute('data-idx'), value);
     },
-    [onSelect]
+    [onSelect],
   );
 
   const handleChange = useCallback((e: Form.Events.Change) => {
@@ -94,19 +93,18 @@ const SelectBase = <T extends Object>({
 
   const enhancedControlComponent = React.Children.map(
     children,
-    (child: ReactElement<SelectBase.ChildrenInjectedProps>) =>
-      cloneElement(child, {
-        ...child.props,
-        loading,
-        menuOpen,
-        onClick: (e: SelectBase.Events.Click) => {
-          if (child.props.onClick) {
-            child.props.onClick(e);
-          }
-
-          openMenu(e);
+    (child: ReactElement<SelectBase.ChildrenInjectedProps>) => cloneElement(child, {
+      ...child.props,
+      loading,
+      menuOpen,
+      onClick: (e: SelectBase.Events.Click) => {
+        if (child.props.onClick) {
+          child.props.onClick(e);
         }
-      })
+
+        openMenu(e);
+      },
+    }),
   );
 
   const filteredItems = useMemo(filterItems(phrase, items), [phrase, items]);
@@ -114,9 +112,9 @@ const SelectBase = <T extends Object>({
   const itemsData = useMemo(
     () => ({
       items: filteredItems,
-      onSelect: handleSelect
+      onSelect: handleSelect,
     }),
-    [filteredItems, handleSelect]
+    [filteredItems, handleSelect],
   );
 
   return (
@@ -151,7 +149,6 @@ const SelectBase = <T extends Object>({
   );
 };
 
-SelectBase.getSelected = (value: { [key: string]: boolean }) =>
-  Object.keys(value).filter((k) => value[k]);
+SelectBase.getSelected = (value: { [key: string]: boolean }) => Object.keys(value).filter((k) => value[k]);
 
 export default SelectBase;

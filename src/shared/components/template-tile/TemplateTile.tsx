@@ -15,64 +15,60 @@ namespace TemplateTile {
   }
 }
 
-const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
-  return (
-    <div data-idx={template.id} className={csx.templateTile} onClick={onClick}>
-      <TemplateStats
-        patterns={template.patterns.length}
-        stars={template.stars}
-        technologies={template.technologies.length}
-        watches={template.watches}
-      />
+const TemplateTile = ({ template, onClick }: TemplateTile.Props) => (
+  <div data-idx={template.id} className={csx.templateTile} onClick={onClick}>
+    <TemplateStats
+      patterns={template.patterns.length}
+      stars={template.stars}
+      technologies={template.technologies.length}
+      watches={template.watches}
+    />
 
-      <h5 className={csx.name}>{template.name}</h5>
+    <h5 className={csx.name}>{template.name}</h5>
 
-      <span className={csx.description}>{template.description}</span>
+    <span className={csx.description}>{template.description}</span>
 
-      <div className={csx.patterns}>
-        {template.patterns.map((pattern) => (
-          <Tag key={pattern.id} label={pattern.name} />
-        ))}
-      </div>
-
-      <div className={csx.technologies}>
-        {template.technologies.map(({ id, pictureUrl }) => (
-          <Img alt="Technology image" key={id} size="32px:32px" src={pictureUrl} />
-        ))}
-      </div>
+    <div className={csx.patterns}>
+      {template.patterns.map((pattern) => (
+        <Tag key={pattern.id} label={pattern.name} />
+      ))}
     </div>
-  );
-};
 
-TemplateTile.Loader = () => {
-  return (
-    <div className={csx.templateTileLoader}>
-      <div className={csx.stats}>
-        <div className={csx.stat} />
-        <div className={csx.stat} />
-        <div className={csx.stat} />
-        <div className={csx.stat} />
-      </div>
-
-      <div className={csx.name} />
-
-      <div className={csx.description} />
-
-      <div className={csx.patterns}>
-        <div className={csx.pattern} />
-        <div className={csx.pattern} />
-        <div className={csx.pattern} />
-        <div className={csx.pattern} />
-      </div>
-
-      <div className={csx.technologies}>
-        <div className={csx.technology} />
-        <div className={csx.technology} />
-        <div className={csx.technology} />
-        <div className={csx.technology} />
-      </div>
+    <div className={csx.technologies}>
+      {template.technologies.map(({ id, pictureUrl }) => (
+        <Img alt="Technology image" key={id} size="32px:32px" src={pictureUrl} />
+      ))}
     </div>
-  );
-};
+  </div>
+);
+
+TemplateTile.Loader = () => (
+  <div className={csx.templateTileLoader}>
+    <div className={csx.stats}>
+      <div className={csx.stat} />
+      <div className={csx.stat} />
+      <div className={csx.stat} />
+      <div className={csx.stat} />
+    </div>
+
+    <div className={csx.name} />
+
+    <div className={csx.description} />
+
+    <div className={csx.patterns}>
+      <div className={csx.pattern} />
+      <div className={csx.pattern} />
+      <div className={csx.pattern} />
+      <div className={csx.pattern} />
+    </div>
+
+    <div className={csx.technologies}>
+      <div className={csx.technology} />
+      <div className={csx.technology} />
+      <div className={csx.technology} />
+      <div className={csx.technology} />
+    </div>
+  </div>
+);
 
 export default TemplateTile;

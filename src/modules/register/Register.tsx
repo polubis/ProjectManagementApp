@@ -3,9 +3,8 @@ import { Helmet } from 'react-helmet';
 
 import { useTechnologiesProvider } from 'core/technologies';
 
-import RegisterForm from './register-form';
-
 import { Footer, Navbar } from 'shared/components';
+import RegisterForm from './register-form';
 
 import csx from './Register.scss';
 

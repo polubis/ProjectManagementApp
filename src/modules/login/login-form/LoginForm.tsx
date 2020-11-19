@@ -15,17 +15,19 @@ namespace LoginForm {
 }
 
 const LoginForm = ({ onSubmit }: LoginForm.Props) => {
-  const [{ errors, dirty, invalid, next, submit, values }, setForm] = useState(
+  const [{
+    errors, dirty, invalid, next, submit, values,
+  }, setForm] = useState(
     Form<LogInPayload>(
       {
         password: '',
-        username: ''
+        username: '',
       },
       {
         password: [(v) => v.length < 3 || v.length > 50],
-        username: [(v) => v.length < 3 || v.length > 50]
-      }
-    )
+        username: [(v) => v.length < 3 || v.length > 50],
+      },
+    ),
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +35,8 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
 
     setForm(
       next({
-        [key]: e.target.value
-      })
+        [key]: e.target.value,
+      }),
     );
   }, []);
 
@@ -49,7 +51,7 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
 
       onSubmit(values);
     },
-    [values]
+    [values],
   );
 
   return (

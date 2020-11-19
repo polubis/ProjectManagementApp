@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { Button, SelectBase, FieldBase, SelectControl } from 'ui';
+import {
+  Button, SelectBase, FieldBase, SelectControl,
+} from 'ui';
 
 import { Form } from 'utils';
 
@@ -23,14 +25,14 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
     (dataIdx, value) => {
       directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
-    [fields]
+    [fields],
   );
 
   const handlePatternSelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
       directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
     },
-    [fields]
+    [fields],
   );
 
   const handleTagsChange = useCallback(
@@ -38,7 +40,7 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
       const tags = [value, ...(fields[TAGS].value as string[])];
       directChange([TAGS], [tags]);
     },
-    [fields]
+    [fields],
   );
 
   const handleTagDelete = useCallback(
@@ -46,7 +48,7 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
       const tags = (fields[TAGS].value as string[]).filter((_, tIdx) => tIdx !== idx);
       directChange([TAGS], [tags]);
     },
-    [fields]
+    [fields],
   );
 
   return (

@@ -15,26 +15,26 @@ const BASE_CONFIG: Table.Config = {
   id: {
     size: {
       min: '60px',
-      max: '60px'
-    }
+      max: '60px',
+    },
   },
   name: {
     size: {
       min: '200px',
-      max: '200px'
-    }
+      max: '200px',
+    },
   },
   description: {
     size: {
       min: '300px',
-      max: '1fr'
-    }
-  }
+      max: '1fr',
+    },
+  },
 };
 
 const optionsSize = {
   min: '120px',
-  max: '120px'
+  max: '120px',
 };
 
 namespace DictionariesTable {
@@ -53,8 +53,8 @@ const getConfig = (kind: DictionaryKind, onDelete: (data: Dictionary) => void): 
         row: (key, data) => (
           <TableItemMore kind={kind} data={data} onDelete={() => onDelete(data)} />
         ),
-        size: optionsSize
-      }
+        size: optionsSize,
+      },
     };
   }
 
@@ -63,15 +63,15 @@ const getConfig = (kind: DictionaryKind, onDelete: (data: Dictionary) => void): 
       ...BASE_CONFIG,
       name: {
         ...BASE_CONFIG.name,
-        row: (key, data) => <TechnologyChip name={data.name} url={data.pictureUrl} />
+        row: (key, data) => <TechnologyChip name={data.name} url={data.pictureUrl} />,
       },
       options: {
         label: 'Options',
         row: (key, data) => (
           <TableItemMore kind={kind} data={data} onDelete={() => onDelete(data)} />
         ),
-        size: optionsSize
-      }
+        size: optionsSize,
+      },
     };
   }
 

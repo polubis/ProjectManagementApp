@@ -14,13 +14,11 @@ namespace ListItem {
   }
 }
 
-const ListItem = ({ item }: ListItem.Props) => {
-  return (
-    <li className={csx.listItem}>
-      <UnreadedIcon className={csx.unreadedIcon} />
-      <Content item={item} />
-    </li>
-  );
-};
+const ListItem = ({ item }: ListItem.Props) => (
+  <li className={csx.listItem}>
+    <UnreadedIcon className={csx.unreadedIcon} />
+    <Content item={item} />
+  </li>
+);
 
 export default ListItem;

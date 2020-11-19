@@ -16,7 +16,7 @@ const parse = (filters: TemplatesSearchFilters) => (): TemplatesPayload => ({
   page: +filters.page,
   limit: +filters.limit,
   technologiesIds: JSON.parse(filters.technologiesIds),
-  patternsIds: JSON.parse(filters.patternsIds)
+  patternsIds: JSON.parse(filters.patternsIds),
 });
 
 export const useSearch = () => {

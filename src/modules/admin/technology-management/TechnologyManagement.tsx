@@ -18,7 +18,7 @@ interface State {
 
 const TechnologyManagement = () => {
   const [state, setState] = useState<State>({
-    pending: false
+    pending: false,
   });
   const { pending, technology } = state;
 
@@ -27,7 +27,7 @@ const TechnologyManagement = () => {
   useEffect(() => {
     const handleGetTechnology = async (): Promise<void> => {
       setState({
-        pending: true
+        pending: true,
       });
 
       try {
@@ -35,11 +35,11 @@ const TechnologyManagement = () => {
 
         setState({
           pending: false,
-          technology
+          technology,
         });
       } catch {
         setState({
-          pending: false
+          pending: false,
         });
       }
     };

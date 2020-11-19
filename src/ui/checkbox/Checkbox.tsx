@@ -25,28 +25,26 @@ const Checkbox = ({
   value,
   variant = 'default',
   dataIdx,
-  onChange
-}: Checkbox.Props) => {
-  return (
-    <FormControlLabel
-      label={label}
-      classes={{
-        root: `${csx.checkboxLabel} ${csx[variant]} ${invalid ? csx.invalid : ''}`
-      }}
-      control={
-        <MuiCheckbox
-          checked={value}
-          onChange={onChange}
-          classes={checkboxClasses}
-          inputProps={
+  onChange,
+}: Checkbox.Props) => (
+  <FormControlLabel
+    label={label}
+    classes={{
+      root: `${csx.checkboxLabel} ${csx[variant]} ${invalid ? csx.invalid : ''}`,
+    }}
+    control={(
+      <MuiCheckbox
+        checked={value}
+        onChange={onChange}
+        classes={checkboxClasses}
+        inputProps={
             {
-              'data-idx': dataIdx
+              'data-idx': dataIdx,
             } as any
           }
-        />
-      }
-    />
-  );
-};
+      />
+      )}
+  />
+);
 
 export default Checkbox;

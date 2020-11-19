@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import {
+  fireEvent, render, waitFor, screen,
+} from '@testing-library/react';
 
 import { ScrollObserver } from '..';
 
@@ -28,7 +30,7 @@ describe('ScrollObserver', () => {
     const mockBodyOffsetHeight = (value: number) => {
       Object.defineProperty(document.body, 'offsetHeight', {
         writable: true,
-        value
+        value,
       });
     };
 

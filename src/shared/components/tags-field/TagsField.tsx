@@ -1,4 +1,6 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent, KeyboardEvent, useCallback, useState,
+} from 'react';
 
 import { IconButton } from '@material-ui/core';
 
@@ -16,8 +18,8 @@ namespace TagsField {
   type OmittedInputProps = 'onChange' | 'onKeyPress' | 'value';
 
   type InputProps = React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
   >;
 
   export interface Props extends Omit<InputProps, OmittedInputProps> {
@@ -29,7 +31,9 @@ namespace TagsField {
   }
 }
 
-const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: TagsField.Props) => {
+const TagsField = ({
+  error, label, value, onChange, onDelete, ...inputProps
+}: TagsField.Props) => {
   const [inputValue, setInputValue] = useState('');
 
   const minValidationError = V.min(2, false)(inputValue);
@@ -56,14 +60,14 @@ const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: T
         handleConfirm();
       }
     },
-    [handleConfirm]
+    [handleConfirm],
   );
 
   const handleDelete = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       onDelete(+e.currentTarget.getAttribute('data-idx'));
     },
-    [onDelete]
+    [onDelete],
   );
 
   return (

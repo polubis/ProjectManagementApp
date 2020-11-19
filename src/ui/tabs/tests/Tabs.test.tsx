@@ -9,7 +9,7 @@ describe('<Tabs>', () => {
       <Tabs active="Item" className="class" onClick={() => {}}>
         <>Item</>
         <>Item1</>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(container.querySelector('.class')).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe('<Tabs>', () => {
       <Tabs active="Item" className="class" onClick={() => {}}>
         <>Item</>
         <>Item1</>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(screen.getByText('Item')).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('<Tabs>', () => {
     rerender(
       <Tabs active="Item" className="class" onClick={() => {}}>
         <>Item3</>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(screen.getByText('Item3')).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('<Tabs>', () => {
       <Tabs active="Item" className="class" onClick={() => {}}>
         <>Item</>
         <>Item1</>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(screen.getByText('Item').closest('button').className).toContain('active');
@@ -53,7 +53,7 @@ describe('<Tabs>', () => {
       <Tabs active="Item" className="class" onClick={spy}>
         <>Item</>
         <>Item1</>
-      </Tabs>
+      </Tabs>,
     );
 
     fireEvent.click(screen.getByText('Item'));

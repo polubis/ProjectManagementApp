@@ -7,8 +7,8 @@ import csx from './Button.scss';
 namespace Button {
   export interface Props
     extends React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
     > {
     active?: boolean;
     children: React.ReactNode;
@@ -19,8 +19,10 @@ namespace Button {
 
 const Button = forwardRef(
   (
-    { active, children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props,
-    ref
+    {
+      active, children, variant = 'default', theme = 'primaryDark', ...btnProps
+    }: Button.Props,
+    ref,
   ) => {
     if (variant === 'icon') {
       return (
@@ -43,7 +45,7 @@ const Button = forwardRef(
         {children}
       </MuiButton>
     );
-  }
+  },
 );
 
 export default Button;

@@ -14,7 +14,7 @@ export const useRouteValidation = () => {
   const { authorized } = useAuthProvider();
 
   const {
-    params: { category }
+    params: { category },
   } = useRouteMatch<TemplatesRouteProps>();
 
   useEffect(() => {

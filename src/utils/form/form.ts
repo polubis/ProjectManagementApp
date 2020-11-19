@@ -35,24 +35,21 @@ namespace Form {
     Form.State,
     (e: Form.Events.Change) => void,
     (positions: number[], values: any[]) => void,
-    (e?: Form.Events.Submit) => boolean
+    (e?: Form.Events.Submit) => boolean,
   ];
 }
 
-const makeInitState = (config: Form.Config): Form.State => {
-  return {
-    invalid: false,
-    dirty: false,
-    fields: config.map(
-      ({ value }) =>
-        ({
-          value: value !== undefined ? value : '',
-          error: '',
-          result: []
-        } as Form.Field.State)
-    )
-  };
-};
+const makeInitState = (config: Form.Config): Form.State => ({
+  invalid: false,
+  dirty: false,
+  fields: config.map(
+    ({ value }) => ({
+      value: value !== undefined ? value : '',
+      error: '',
+      result: [],
+    } as Form.Field.State),
+  ),
+});
 
 const useManager = (config: Form.Config): Form.Manager => {
   const [state, setState] = useState(makeInitState(config));
@@ -61,7 +58,7 @@ const useManager = (config: Form.Config): Form.Manager => {
     const { fns = [] } = config[idx];
 
     const result = V.run(value, currState)(...fns);
-    const invalidResult = result.find(result => result.invalid);
+    const invalidResult = result.find((result) => result.invalid);
     const error = invalidResult ? invalidResult.text : '';
 
     return { value, error, result };
@@ -78,7 +75,7 @@ const useManager = (config: Form.Config): Form.Manager => {
       newState.fields[position] = makeField(values[idx], position, newState);
     });
 
-    newState.invalid = newState.fields.some(f => f.error);
+    newState.invalid = newState.fields.some((f) => f.error);
 
     return newState;
   };
@@ -111,7 +108,7 @@ const useManager = (config: Form.Config): Form.Manager => {
     e && e.preventDefault();
 
     const positions = Array.from({ length: config.length }, (_, idx) => idx);
-    const values = positions.map(p => state.fields[p].value);
+    const values = positions.map((p) => state.fields[p].value);
     const newState = makeState(positions, values, { ...state, dirty: true, invalid: false });
 
     setState(newState);
@@ -123,7 +120,7 @@ const useManager = (config: Form.Config): Form.Manager => {
 };
 
 const Form = {
-  useManager
+  useManager,
 };
 
 export default Form;

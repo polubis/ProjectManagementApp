@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, RouteChildrenProps, Redirect, Switch } from 'react-router';
+import {
+  Route, RouteChildrenProps, Redirect, Switch,
+} from 'react-router';
 
 import { withLazy } from 'utils';
 
@@ -24,52 +26,50 @@ const TemplateDocumentation = withLazy(() => import('src/modules/template-docume
 
 const TemplateManagement = withLazy(() => import('src/modules/template-management'));
 
-const Main = ({ match }: RouteChildrenProps) => {
-  return (
-    <div className={csx.main}>
-      <Navbar />
+const Main = ({ match }: RouteChildrenProps) => (
+  <div className={csx.main}>
+    <Navbar />
 
-      <Sidebar />
+    <Sidebar />
 
-      <GithubConnect />
+    <GithubConnect />
 
-      <main>
-        <Switch>
-          <Guard.AdminRoute
-            redirect={`${match.path}/templates`}
-            path={`${match.path}/admin`}
-            component={Admin}
-          />
+    <main>
+      <Switch>
+        <Guard.AdminRoute
+          redirect={`${match.path}/templates`}
+          path={`${match.path}/admin`}
+          component={Admin}
+        />
 
-          <Guard.ProtectedRoute
-            exact
-            redirect={`${match.path}/templates`}
-            path={`${match.path}/templates/management/:id?`}
-            component={TemplateManagement}
-          />
+        <Guard.ProtectedRoute
+          exact
+          redirect={`${match.path}/templates`}
+          path={`${match.path}/templates/management/:id?`}
+          component={TemplateManagement}
+        />
 
-          <Route
-            exact
-            path={`${match.path}/templates`}
-            render={() => <Redirect to={`${match.path}/templates/${TemplateCategory.ALL}`} />}
-          />
+        <Route
+          exact
+          path={`${match.path}/templates`}
+          render={() => <Redirect to={`${match.path}/templates/${TemplateCategory.ALL}`} />}
+        />
 
-          <Route exact path={`${match.path}/templates/:category`} component={Templates} />
+        <Route exact path={`${match.path}/templates/:category`} component={Templates} />
 
-          <Route exact path={`${match.path}/templates/:category/:id`} component={TemplateDetails} />
+        <Route exact path={`${match.path}/templates/:category/:id`} component={TemplateDetails} />
 
-          <Route
-            exact
-            path={`${match.path}/templates/:category/:id/documentation`}
-            component={TemplateDocumentation}
-          />
+        <Route
+          exact
+          path={`${match.path}/templates/:category/:id/documentation`}
+          component={TemplateDocumentation}
+        />
 
-          <Route path="*" render={() => <Redirect to={`${match.path}/templates/all`} />} />
-        </Switch>
-      </main>
-    </div>
-  );
-};
+        <Route path="*" render={() => <Redirect to={`${match.path}/templates/all`} />} />
+      </Switch>
+    </main>
+  </div>
+);
 
 export default (props: RouteChildrenProps) => (
   <NotificationsProvider>

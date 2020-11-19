@@ -15,7 +15,9 @@ namespace Tag {
   }
 }
 
-const Tag = ({ className = '', dataIdx, label, onClick }: Tag.Props) => (
+const Tag = ({
+  className = '', dataIdx, label, onClick,
+}: Tag.Props) => (
   <div className={`${csx.tag} ${className}`} data-idx={dataIdx} onClick={onClick}>
     {label}
   </div>

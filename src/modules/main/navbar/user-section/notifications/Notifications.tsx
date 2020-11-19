@@ -16,8 +16,7 @@ import UnreadedIcon from './unreaded-icon';
 
 import csx from './Notifications.scss';
 
-const getUnreadedCount = (notifications: Notification[]) => () =>
-  notifications.filter(({ readed }) => !readed).length;
+const getUnreadedCount = (notifications: Notification[]) => () => notifications.filter(({ readed }) => !readed).length;
 
 const Notifications = () => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
@@ -42,7 +41,9 @@ const Notifications = () => {
           onClose={closeMenu}
         >
           <h5 className={csx.header}>
-            Notifications {unreadedCount > 0 ? `(${unreadedCount})` : ''}
+            Notifications
+            {' '}
+            {unreadedCount > 0 ? `(${unreadedCount})` : ''}
           </h5>
 
           <NotificationsList items={notifications} />

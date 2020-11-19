@@ -9,13 +9,11 @@ namespace ModalHeader {
   }
 }
 
-const ModalHeader = ({ description, label }: ModalHeader.Props) => {
-  return (
-    <header className={csx.modalHeader}>
-      <h5 className={csx.label}>{label}</h5>
-      <span className={csx.description}>{description}</span>
-    </header>
-  );
-};
+const ModalHeader = ({ description, label }: ModalHeader.Props) => (
+  <header className={csx.modalHeader}>
+    <h5 className={csx.label}>{label}</h5>
+    <span className={csx.description}>{description}</span>
+  </header>
+);
 
 export default ModalHeader;

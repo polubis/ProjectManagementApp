@@ -22,31 +22,29 @@ const TemplateStats = ({
   patterns,
   stars,
   technologies,
-  watches
-}: TemplateStats.Props) => {
-  return (
-    <div className={`${csx.templateStats} ${className}`}>
-      <div className={csx.views} title="Github views">
-        <ViewsIcon />
-        <span>{watches}</span>
-      </div>
-
-      <div className={csx.stars} title="Github stars">
-        <StarsIcon />
-        <span>{stars}</span>
-      </div>
-
-      <div className={csx.technologies} title="Technologies">
-        <CodeIcon />
-        <span>{technologies}</span>
-      </div>
-
-      <div className={csx.patterns} title="Patterns">
-        <PlaylistAddIcon />
-        <span>{patterns}</span>
-      </div>
+  watches,
+}: TemplateStats.Props) => (
+  <div className={`${csx.templateStats} ${className}`}>
+    <div className={csx.views} title="Github views">
+      <ViewsIcon />
+      <span>{watches}</span>
     </div>
-  );
-};
+
+    <div className={csx.stars} title="Github stars">
+      <StarsIcon />
+      <span>{stars}</span>
+    </div>
+
+    <div className={csx.technologies} title="Technologies">
+      <CodeIcon />
+      <span>{technologies}</span>
+    </div>
+
+    <div className={csx.patterns} title="Patterns">
+      <PlaylistAddIcon />
+      <span>{patterns}</span>
+    </div>
+  </div>
+);
 
 export default TemplateStats;

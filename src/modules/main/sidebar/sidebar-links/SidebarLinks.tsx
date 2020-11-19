@@ -16,9 +16,7 @@ namespace SidebarLinks {
   }
 }
 
-const getActiveClassName = (pathname: string, path: string): string => {
-  return pathname.includes(path) ? csx.active : '';
-};
+const getActiveClassName = (pathname: string, path: string): string => (pathname.includes(path) ? csx.active : '');
 
 const SidebarLinks = ({ renderLink }: SidebarLinks.Props) => {
   const { path } = useRouteMatch();

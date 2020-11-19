@@ -23,14 +23,14 @@ const GithubConnection = ({ formManager, onSubmit, onBack }: GithubConnection.Pr
     (_, checked: boolean) => {
       directChange([PUBLIC_ACCESS, PRIVATE_ACCESS], [checked, !checked]);
     },
-    [directChange]
+    [directChange],
   );
 
   const handlePrivateAccessChange = useCallback(
     (_, checked: boolean) => {
       directChange([PUBLIC_ACCESS, PRIVATE_ACCESS], [!checked, checked]);
     },
-    [directChange]
+    [directChange],
   );
 
   return (
@@ -54,7 +54,7 @@ const GithubConnection = ({ formManager, onSubmit, onBack }: GithubConnection.Pr
 
         <Checkbox
           variant="informing"
-          label="Make the template private - only you will be able 
+          label="Make the template private - only you will be able
 to view this template"
           value={fields[PRIVATE_ACCESS].value}
           onChange={handlePrivateAccessChange}

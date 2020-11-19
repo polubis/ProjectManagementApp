@@ -20,45 +20,43 @@ const FEATURES: Features.Items[] = [
   {
     icon: <LibraryBooksIcon />,
     label: 'Templates',
-    description: `Are you starting a new project? Use a template prepared by other developers and save your time`
+    description: 'Are you starting a new project? Use a template prepared by other developers and save your time',
   },
   {
     icon: <MenuBookIcon />,
     label: 'Documentation',
-    description: `Bored of searching for information on the internet? Use automatically generated documentation and speed up knowledge transfer`
+    description: 'Bored of searching for information on the internet? Use automatically generated documentation and speed up knowledge transfer',
   },
   {
     icon: <WidgetsIcon />,
     label: 'Components',
     description: `
-      Bored with component testing in your IDE? Check the component in our environment and accelerate your development`
+      Bored with component testing in your IDE? Check the component in our environment and accelerate your development`,
   },
   {
     icon: <AccountTreeIcon />,
     label: 'Projects & Boards',
-    description: `Frustrated with number of applications to manage your project? Use our tool, complete your team and manage the project from our app`
+    description: 'Frustrated with number of applications to manage your project? Use our tool, complete your team and manage the project from our app',
   },
   {
     icon: <MessageIcon />,
     label: 'Real-time communication',
-    description: `Communicate with team members from our application. Save your time and do everything in one application`
-  }
+    description: 'Communicate with team members from our application. Save your time and do everything in one application',
+  },
 ];
 
-const Features = () => {
-  return (
-    <section className={csx.features}>
-      <div className={csx.wrapper}>
-        {FEATURES.map((feature, idx) => (
-          <div key={idx} className={csx.feature}>
-            {feature.icon}
-            <p>{feature.label}</p>
-            <span>{feature.description}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+const Features = () => (
+  <section className={csx.features}>
+    <div className={csx.wrapper}>
+      {FEATURES.map((feature, idx) => (
+        <div key={idx} className={csx.feature}>
+          {feature.icon}
+          <p>{feature.label}</p>
+          <span>{feature.description}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+);
 
 export default Features;

@@ -1,4 +1,6 @@
-import Axios, { AxiosError, AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
+import Axios, {
+  AxiosError, AxiosResponse, AxiosRequestConfig, AxiosInstance,
+} from 'axios';
 
 export namespace Api {
   export type Subscriber = (error: string) => void;
@@ -20,12 +22,11 @@ export namespace Api {
   }
 }
 
-export const makePaths = (controller: string) => (...paths: string[]) =>
-  paths.map((p) => `${controller}/${p}`);
+export const makePaths = (controller: string) => (...paths: string[]) => paths.map((p) => `${controller}/${p}`);
 
 export const makeInstance = (config: AxiosRequestConfig) => (
   parseSuccess: Api.Parser.Success,
-  parseError: Api.Parser.Error
+  parseError: Api.Parser.Error,
 ) => (errorsBlackList: string[]): Api.Instance => {
   let subscriber: Api.Subscriber = null;
 
@@ -62,7 +63,7 @@ export const makeInstance = (config: AxiosRequestConfig) => (
 
   instance.interceptors.response.use(
     (res) => parseSuccess(res),
-    (err) => handleParseError(err)
+    (err) => handleParseError(err),
   );
 
   return { ...instance, subscribe, unsubscribe } as Api.Instance;
@@ -70,10 +71,10 @@ export const makeInstance = (config: AxiosRequestConfig) => (
 
 export const toFormData = <T>(payload: T): FormData => {
   const formData = new FormData();
-  
+
   Object.keys(payload).forEach((key) => {
     formData.append(key, payload[key]);
   });
 
   return formData;
-}
+};

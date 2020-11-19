@@ -8,7 +8,7 @@ describe('<Layout>', () => {
     render(
       <Layout>
         <div>Test</div>
-      </Layout>
+      </Layout>,
     );
     expect(screen.getByText('Test')).toBeInTheDocument();
   });
@@ -17,7 +17,7 @@ describe('<Layout>', () => {
     const { container } = render(
       <Layout className="foo">
         <div>Test</div>
-      </Layout>
+      </Layout>,
     );
     expect(container.firstChild).toHaveClass('foo');
   });

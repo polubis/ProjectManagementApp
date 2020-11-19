@@ -44,7 +44,11 @@ const ConfirmDictionaryDelete = ({ data, kind, onClose }: ConfirmDictionaryDelet
       deleteDisabled={pending}
       description={() => (
         <>
-          This will delete {label} <b>{data.name}</b>
+          This will delete
+          {' '}
+          {label}
+          {' '}
+          <b>{data.name}</b>
         </>
       )}
       title={`You are about to delete ${label}`}

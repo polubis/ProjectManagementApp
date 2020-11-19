@@ -12,9 +12,7 @@ namespace FormSteps {
 }
 
 const decorateSteps = (formManagers: Form.Manager[], steps: Steps.Item[]): Steps.Item[] => {
-  const getStatus = ([{ dirty, invalid }]: Form.Manager): boolean | undefined => {
-    return dirty ? !invalid : undefined;
-  };
+  const getStatus = ([{ dirty, invalid }]: Form.Manager): boolean | undefined => (dirty ? !invalid : undefined);
 
   const getProgress = ([{ fields }]: Form.Manager) => {
     const validFieldsCount = fields.filter((f) => !f.error).length;
@@ -22,12 +20,11 @@ const decorateSteps = (formManagers: Form.Manager[], steps: Steps.Item[]): Steps
   };
 
   return steps.map(
-    (s, idx) =>
-      ({
-        ...s,
-        status: getStatus(formManagers[idx]),
-        progress: getProgress(formManagers[idx])
-      } as Steps.Item)
+    (s, idx) => ({
+      ...s,
+      status: getStatus(formManagers[idx]),
+      progress: getProgress(formManagers[idx]),
+    } as Steps.Item),
   );
 };
 
@@ -37,7 +34,7 @@ const FormSteps = memo(
 
     return <Steps steps={decoratedSteps} />;
   },
-  (prev, next) => prev.formManagers === next.formManagers
+  (prev, next) => prev.formManagers === next.formManagers,
 );
 
 export default FormSteps;

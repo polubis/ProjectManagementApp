@@ -13,13 +13,13 @@ namespace TechnologyChip {
   }
 }
 
-const TechnologyChip = ({ className = '', name, url, onClick }: TechnologyChip.Props) => {
-  return (
-    <div className={`${csx.technologyChip} ${className}`} onClick={onClick}>
-      <Img alt="Technology image" size="32px:32px" src={url} />
-      <span>{name}</span>
-    </div>
-  );
-};
+const TechnologyChip = ({
+  className = '', name, url, onClick,
+}: TechnologyChip.Props) => (
+  <div className={`${csx.technologyChip} ${className}`} onClick={onClick}>
+    <Img alt="Technology image" size="32px:32px" src={url} />
+    <span>{name}</span>
+  </div>
+);
 
 export default TechnologyChip;

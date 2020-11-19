@@ -19,25 +19,23 @@ namespace TableItemMore {
   }
 }
 
-const TableItemMore = ({ data, kind, onDelete }: TableItemMore.Props) => {
-  return (
-    <More
-      trigger={(open) => (
-        <Button className={csx.moreBtn} onClick={open} theme="primaryTransparent" variant="icon">
-          <MoreHorizIcon />
-        </Button>
-      )}
-    >
-      <NavLink to={`/app/admin/dictionaries/${kind}/management/${data.id}`} className={csx.edit}>
-        <EditIcon />
-        EDIT
-      </NavLink>
-      <div className={csx.delete} onClick={() => onDelete(data)}>
-        <DeleteIcon />
-        DELETE
-      </div>
-    </More>
-  );
-};
+const TableItemMore = ({ data, kind, onDelete }: TableItemMore.Props) => (
+  <More
+    trigger={(open) => (
+      <Button className={csx.moreBtn} onClick={open} theme="primaryTransparent" variant="icon">
+        <MoreHorizIcon />
+      </Button>
+    )}
+  >
+    <NavLink to={`/app/admin/dictionaries/${kind}/management/${data.id}`} className={csx.edit}>
+      <EditIcon />
+      EDIT
+    </NavLink>
+    <div className={csx.delete} onClick={() => onDelete(data)}>
+      <DeleteIcon />
+      DELETE
+    </div>
+  </More>
+);
 
 export default TableItemMore;

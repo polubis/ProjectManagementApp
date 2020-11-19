@@ -13,5 +13,5 @@ export const _TEMPLATE_: Template = {
   tags: [],
   watches: 2,
   stars: 1,
-  contributors: []
+  contributors: [],
 };

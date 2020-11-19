@@ -8,8 +8,7 @@ import { useAuthProvider } from 'core/auth';
 
 import csx from './UserDetails.scss';
 
-const getYearsLabel = (value: number): string =>
-  value > 1 ? `${value} years` : value === 1 ? `${value} year` : 'Unknown';
+const getYearsLabel = (value: number): string => (value > 1 ? `${value} years` : value === 1 ? `${value} year` : 'Unknown');
 
 const UserDetails = forwardRef(() => {
   const { user, logOut, logInViaGithub } = useAuthProvider();
@@ -21,18 +20,17 @@ const UserDetails = forwardRef(() => {
     email,
     position,
     technologies,
-    connectedWithGithub
+    connectedWithGithub,
   } = user;
 
   const profileDetails = useMemo(
-    (): [string, React.ReactText][] =>
-      Object.entries({
-        Company: company || 'Unknown',
-        'Years of experience': getYearsLabel(yearsOfExperience),
-        Seniority: getYearsLabel(seniority),
-        Position: position || 'Unknown'
-      }),
-    [user]
+    (): [string, React.ReactText][] => Object.entries({
+      Company: company || 'Unknown',
+      'Years of experience': getYearsLabel(yearsOfExperience),
+      Seniority: getYearsLabel(seniority),
+      Position: position || 'Unknown',
+    }),
+    [user],
   );
 
   return (
@@ -55,7 +53,10 @@ const UserDetails = forwardRef(() => {
         ))}
 
         <div className={csx.detail}>
-          <span>Technologies {technologies.length > 0 ? `(${technologies.length})` : ''}</span>
+          <span>
+            Technologies
+            {technologies.length > 0 ? `(${technologies.length})` : ''}
+          </span>
 
           <div className={csx.technologies}>
             {technologies.length > 0 ? (
@@ -72,12 +73,18 @@ const UserDetails = forwardRef(() => {
       <div className={csx.github}>
         {connectedWithGithub ? (
           <div>
-            <span className={csx.success}>Connected</span> with <span>Github</span>
+            <span className={csx.success}>Connected</span>
+            {' '}
+            with
+            <span>Github</span>
           </div>
         ) : (
           <>
             <div>
-              <span className={csx.error}>No connection</span> with <span>Github</span>
+              <span className={csx.error}>No connection</span>
+              {' '}
+              with
+              <span>Github</span>
             </div>
             <Button onClick={logInViaGithub}>CONNECT TO GITHUB</Button>
           </>

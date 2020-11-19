@@ -11,7 +11,7 @@ import {
   LOG_IN_VIA_GITHUB,
   FORGOTTEN_PASSWORD,
   REGISTER,
-  GET_SELF
+  GET_SELF,
 } from '..';
 
 export const forgottenPassword = (payload: ForgottenPasswordPayload) => core.get(FORGOTTEN_PASSWORD, { params: payload });

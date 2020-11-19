@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
+import {
+  Route, Switch, Redirect, useRouteMatch,
+} from 'react-router';
 
 import { withLazy } from 'utils';
 

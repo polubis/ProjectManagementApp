@@ -16,7 +16,7 @@ const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[
 
   if (authorized) {
     return IMPORTANT_LINKS.filter(
-      ({ children }) => children !== 'Log In' && children !== 'Register'
+      ({ children }) => children !== 'Log In' && children !== 'Register',
     );
   }
 
@@ -33,16 +33,16 @@ const Sidebar = memo(
     return render(
       <nav className={csx.sidebar}>
         {BASE_LINKS.map((link) => (
-          <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
+          <NavLink key={link.to} activeClassName={csx.activeLink} exact {...link} />
         ))}
 
         {links.map((link) => (
           <NavLink key={link.to} activeClassName={csx.activeLink} {...link} />
         ))}
-      </nav>
+      </nav>,
     );
   },
-  () => true
+  () => true,
 );
 
 export default Sidebar;

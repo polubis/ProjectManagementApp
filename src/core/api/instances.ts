@@ -1,6 +1,8 @@
 import { CORE_API_PATH } from 'consts';
 
-import { makeInstance, makePaths, Api, CoreResponse } from '.';
+import {
+  makeInstance, makePaths, Api, CoreResponse,
+} from '.';
 
 export const LOG_IN_VIA_GITHUB = 'GithubAuthorization/SignIn';
 
@@ -9,11 +11,11 @@ export const [LOG_IN, LOG_OUT] = makePaths('Authorization')('SignIn', 'SignOut')
 export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
   'ForgottenPassword',
   'Register',
-  'GetCurrentUserData'
+  'GetCurrentUserData',
 );
 
 export const [GET_PATTERNS, EDIT_PATTERN, ADD_PATTERN, GET_PATTERN, DELETE_PATTERN] = makePaths(
-  'TemplatePatterns'
+  'TemplatePatterns',
 )('Search', 'Update', 'Add', 'Get', 'Delete');
 
 export const [
@@ -21,7 +23,7 @@ export const [
   EDIT_TECHNOLOGY,
   GET_TECHNOLOGIES,
   DELETE_TECHNOLOGY,
-  GET_TECHNOLOGY
+  GET_TECHNOLOGY,
 ] = makePaths('TemplateTechnologies')('Add', 'Update', 'Search', 'Delete', 'Get');
 
 export const [
@@ -29,7 +31,7 @@ export const [
   FORK_TEMPLATE,
   GET_TEMPLATE_DETAILS,
   EDIT_TEMPLATE,
-  DELETE_TEMPLATE
+  DELETE_TEMPLATE,
 ] = makePaths('Templates')('Search', 'Fork', '', '', '');
 
 export const [ADD_TEMPLATE] = makePaths('Templates')('');
@@ -50,10 +52,10 @@ const makeCoreInstance = () => {
   return makeInstance({
     baseURL: CORE_API_PATH,
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true
+    withCredentials: true,
   })(
     parseSuccess,
-    parseError
+    parseError,
   )(ERRORS_BLACK_LIST);
 };
 

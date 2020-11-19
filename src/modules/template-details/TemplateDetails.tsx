@@ -1,4 +1,6 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import React, {
+  useEffect, useCallback, useState, useMemo,
+} from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps, useHistory } from 'react-router';
 
@@ -9,7 +11,9 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 
-import { Button, Loader, More, Tags } from 'ui';
+import {
+  Button, Loader, More, Tags,
+} from 'ui';
 
 import { convertDate } from 'utils';
 
@@ -19,7 +23,7 @@ import { Guard } from 'core/auth';
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
 import { TemplateAuthorGuard } from 'shared/guards';
 import TemplateDetailsProvider, {
-  useTemplateDetailsProvider
+  useTemplateDetailsProvider,
 } from 'shared/providers/template-details';
 
 import ConfirmTemplateDelete from './confirm-template-delete';
@@ -31,8 +35,7 @@ namespace TemplateDetails {
   export interface Props extends RouteChildrenProps<{ id: string }> {}
 }
 
-const toNames = (template: Template) => () =>
-  template ? template.patterns.map(({ name }) => name) : [];
+const toNames = (template: Template) => () => (template ? template.patterns.map(({ name }) => name) : []);
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const { replace } = useHistory();
@@ -40,7 +43,9 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [forkOpen, setForkOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
-  const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
+  const {
+    template, error, loading, getTemplateDetails,
+  } = useTemplateDetailsProvider();
 
   useEffect(() => {
     if (error) {
@@ -86,24 +91,28 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             <header>
               <NavLink to={`${match.url}/documentation`}>
                 <Button>
-                  <MenuBookIcon /> DOCS
+                  <MenuBookIcon />
+                  {' '}
+                  DOCS
                 </Button>
               </NavLink>
 
               <a href={template.githubLink} target="_blank">
                 <Button>
-                  <ShareIcon /> SOURCE
+                  <ShareIcon />
+                  {' '}
+                  SOURCE
                 </Button>
               </a>
 
               <Guard.Protected>
-                {({ user }) =>
-                  user.connectedWithGithub && (
-                    <Button onClick={openFork}>
-                      <DeviceHubIcon /> FORK
-                    </Button>
-                  )
-                }
+                {({ user }) => user.connectedWithGithub && (
+                <Button onClick={openFork}>
+                  <DeviceHubIcon />
+                  {' '}
+                  FORK
+                </Button>
+                )}
               </Guard.Protected>
 
               <TemplateAuthorGuard>
@@ -131,11 +140,15 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
               />
 
               <p className={csx.date}>
-                Created <span>{convertDate(template.createdDate)}</span>
+                Created
+                {' '}
+                <span>{convertDate(template.createdDate)}</span>
                 {!!template.modifiedDate && (
                   <>
                     {' '}
-                    and modified <span>{convertDate(template.modifiedDate)}</span>
+                    and modified
+                    {' '}
+                    <span>{convertDate(template.modifiedDate)}</span>
                   </>
                 )}
               </p>

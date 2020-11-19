@@ -10,12 +10,10 @@ namespace ContentTree {
   export interface Props extends Omit<Tree.Props, 'children'> {}
 }
 
-const ContentTree = (props: ContentTree.Props) => {
-  return (
-    <div className={csx.contentTree}>
-      <Tree {...props}>{TreeItem}</Tree>
-    </div>
-  );
-};
+const ContentTree = (props: ContentTree.Props) => (
+  <div className={csx.contentTree}>
+    <Tree {...props}>{TreeItem}</Tree>
+  </div>
+);
 
 export default ContentTree;

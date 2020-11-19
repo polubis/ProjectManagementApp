@@ -8,7 +8,7 @@ import {
   switchMap,
   catchError,
   concatMap,
-  takeUntil
+  takeUntil,
 } from 'rxjs/operators';
 
 import { getTemplates, Template, TemplatesPayload } from 'core/api';
@@ -31,7 +31,7 @@ const STATE: TemplatesProvider.State = {
   pendingRequests: 1,
   allLoaded: false,
   error: '',
-  templates: []
+  templates: [],
 };
 
 const Context = createContext(STATE);
@@ -53,7 +53,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     query,
     category,
     technologiesIds,
-    patternsIds
+    patternsIds,
   }: TemplatesPayload) => {
     const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
     const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
@@ -74,7 +74,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
           allLoaded: this._areAllLoaded(payload, templates),
           pendingRequests: 0,
           error: '',
-          templates
+          templates,
         });
       };
 
@@ -97,7 +97,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
 
     const initLoad = () => {
       this.setState(({ pendingRequests }) => ({
-        pendingRequests: pendingRequests + 1
+        pendingRequests: pendingRequests + 1,
       }));
     };
 
@@ -107,7 +107,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
           allLoaded: this._areAllLoaded(payload, templates),
           error: '',
           pendingRequests: prevState.pendingRequests - 1,
-          templates: [...prevState.templates, ...templates]
+          templates: [...prevState.templates, ...templates],
         }));
       };
 
@@ -120,7 +120,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
       return getTemplates(this._makeUrl(payload)).pipe(
         takeUntil(this._loadRequest$),
         tap(handleSuccess),
-        catchError(handleError)
+        catchError(handleError),
       );
     };
 
@@ -150,7 +150,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTemplates: this.getTemplates
+    getTemplates: this.getTemplates,
   };
 
   render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;

@@ -19,7 +19,9 @@ namespace DateField {
   }
 }
 
-const DateField = ({ label, error, onSelect, ...inputProps }: DateField.Props) => {
+const DateField = ({
+  label, error, onSelect, ...inputProps
+}: DateField.Props) => {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const togglePicker = useCallback(() => {
@@ -30,7 +32,7 @@ const DateField = ({ label, error, onSelect, ...inputProps }: DateField.Props) =
     ({ day, month, year }: DatePicker.Date) => {
       onSelect(`${day >= 10 ? day : `0${day}`}/${month >= 10 ? month : `0${month}`}/${year}`);
     },
-    [onSelect]
+    [onSelect],
   );
 
   return (

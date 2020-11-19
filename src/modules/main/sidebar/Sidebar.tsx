@@ -8,14 +8,12 @@ import SidebarLinks from './sidebar-links';
 
 import csx from './Sidebar.scss';
 
-const renderLink: SidebarLinks.RenderLink = (icon, label) => {
-  return (
-    <Button className={csx.link}>
-      {icon}
-      <span>{label}</span>
-    </Button>
-  );
-};
+const renderLink: SidebarLinks.RenderLink = (icon, label) => (
+  <Button className={csx.link}>
+    {icon}
+    <span>{label}</span>
+  </Button>
+);
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);

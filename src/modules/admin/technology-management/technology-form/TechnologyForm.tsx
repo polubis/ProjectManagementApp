@@ -4,7 +4,9 @@ import { useHistory } from 'react-router';
 import AddPictureIcon from '@material-ui/icons/AddPhotoAlternate';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { StepHeader, InputField, TextareaField, FieldBase, Button } from 'ui';
+import {
+  StepHeader, InputField, TextareaField, FieldBase, Button,
+} from 'ui';
 
 import { Form, V } from 'utils';
 
@@ -12,16 +14,16 @@ import { addTechnology, Technology, editTechnology } from 'core/api';
 
 import csx from './TechnologyForm.scss';
 
-const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2],
-  CONFIG: Form.Config = [
-    { label: 'Name', fns: [V.req] },
-    { label: 'Description', fns: [V.req] },
-    {
-      label: 'Picture',
-      fns: [(value) => V.makeResult(value === null, 'This field is required')],
-      value: null
-    }
-  ];
+const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2];
+const CONFIG: Form.Config = [
+  { label: 'Name', fns: [V.req] },
+  { label: 'Description', fns: [V.req] },
+  {
+    label: 'Picture',
+    fns: [(value) => V.makeResult(value === null, 'This field is required')],
+    value: null,
+  },
+];
 
 const makeConfig = (data?: Technology): Form.Config => {
   if (data) {
@@ -32,9 +34,9 @@ const makeConfig = (data?: Technology): Form.Config => {
         ...CONFIG[PICTURE],
         value: {
           src: data.pictureUrl,
-          file: null
-        }
-      }
+          file: null,
+        },
+      },
     ];
   }
 
@@ -54,7 +56,7 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
   const [pending, setPending] = useState(false);
 
   const [{ dirty, invalid, fields }, change, directChange, submit] = Form.useManager(
-    makeConfig(data)
+    makeConfig(data),
   );
 
   const pictureRef = useRef<HTMLInputElement>(null);
@@ -71,13 +73,13 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
           [
             {
               file: e.target.files[0],
-              src: URL.createObjectURL(e.target.files[0])
-            }
-          ]
+              src: URL.createObjectURL(e.target.files[0]),
+            },
+          ],
         );
       }
     },
-    [fields]
+    [fields],
   );
 
   const handlePictureDelete = useCallback(() => {
@@ -95,13 +97,13 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
             await addTechnology({
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
-              picture: fields[PICTURE].value.file
+              picture: fields[PICTURE].value.file,
             });
           } else {
             await editTechnology(+id, {
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
-              picture: fields[PICTURE].value.file
+              picture: fields[PICTURE].value.file,
             });
           }
 
@@ -113,7 +115,7 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
         }
       }
     },
-    [fields, id]
+    [fields, id],
   );
 
   return (

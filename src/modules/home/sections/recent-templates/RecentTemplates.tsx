@@ -18,7 +18,7 @@ const RecentTemplates = () => {
       category: TemplateCategory.RECENT,
       query: '',
       technologiesIds: [],
-      patternsIds: []
+      patternsIds: [],
     });
   }, []);
 

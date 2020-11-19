@@ -30,12 +30,12 @@ const Admin = ({ children }: Guard.Props) => {
   return pending
     ? null
     : authorized
-    ? state.user.roles.includes(UserRole.Admin)
-      ? typeof children === 'function'
-        ? children(state)
-        : children
-      : null
-    : null;
+      ? state.user.roles.includes(UserRole.Admin)
+        ? typeof children === 'function'
+          ? children(state)
+          : children
+        : null
+      : null;
 };
 
 const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
@@ -44,17 +44,15 @@ const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Pro
   return (
     <Route
       {...rest}
-      render={(props) =>
-        pending ? null : authorized ? (
-          user.roles.includes(UserRole.Admin) ? (
-            <Component {...(props as any)} />
-          ) : (
-            <Redirect to={redirect} />
-          )
+      render={(props) => (pending ? null : authorized ? (
+        user.roles.includes(UserRole.Admin) ? (
+          <Component {...(props as any)} />
         ) : (
           <Redirect to={redirect} />
         )
-      }
+      ) : (
+        <Redirect to={redirect} />
+      ))}
     />
   );
 };
@@ -65,10 +63,10 @@ const Protected = ({ children }: Guard.Props) => {
   return pending
     ? null
     : authorized
-    ? typeof children === 'function'
-      ? children(state)
-      : children
-    : null;
+      ? typeof children === 'function'
+        ? children(state)
+        : children
+      : null;
 };
 
 const Unprotected = ({ children }: Guard.Props) => {
@@ -77,10 +75,10 @@ const Unprotected = ({ children }: Guard.Props) => {
   return pending
     ? null
     : authorized
-    ? null
-    : typeof children === 'function'
-    ? children(state)
-    : children;
+      ? null
+      : typeof children === 'function'
+        ? children(state)
+        : children;
 };
 
 const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
@@ -89,9 +87,7 @@ const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route
   return (
     <Route
       {...rest}
-      render={(props) =>
-        pending ? null : authorized ? <Component {...(props as any)} /> : <Redirect to={redirect} />
-      }
+      render={(props) => (pending ? null : authorized ? <Component {...(props as any)} /> : <Redirect to={redirect} />)}
     />
   );
 };
@@ -102,9 +98,7 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   return (
     <Route
       {...rest}
-      render={(props) =>
-        pending ? null : authorized ? <Redirect to={redirect} /> : <Component {...(props as any)} />
-      }
+      render={(props) => (pending ? null : authorized ? <Redirect to={redirect} /> : <Component {...(props as any)} />)}
     />
   );
 };
@@ -115,7 +109,7 @@ const Guard = {
   Protected,
   Unprotected,
   ProtectedRoute,
-  UnprotectedRoute
+  UnprotectedRoute,
 };
 
 export default Guard;

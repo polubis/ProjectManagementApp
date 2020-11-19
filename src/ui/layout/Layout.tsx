@@ -10,10 +10,8 @@ namespace Layout {
   }
 }
 
-const Layout = ({ className, children, overgrown = false }: Layout.Props) => {
-  return (
-    <div className={`${csx.layout} ${className} ${overgrown ? csx.overgrown : ''}`}>{children}</div>
-  );
-};
+const Layout = ({ className, children, overgrown = false }: Layout.Props) => (
+  <div className={`${csx.layout} ${className} ${overgrown ? csx.overgrown : ''}`}>{children}</div>
+);
 
 export default Layout;

@@ -19,7 +19,7 @@ const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[
 
   if (authorized) {
     return IMPORTANT_LINKS.filter(
-      ({ children }) => children !== 'Log In' && children !== 'Register'
+      ({ children }) => children !== 'Log In' && children !== 'Register',
     );
   }
 
@@ -49,7 +49,7 @@ const Navbar = () => {
 
         <div className={`${csx.links} ${csx.baseLinks}`}>
           {BASE_LINKS.map((link) => (
-            <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
+            <NavLink key={link.to} activeClassName={csx.activeLink} exact {...link} />
           ))}
         </div>
 

@@ -12,14 +12,12 @@ namespace NotificationsList {
   }
 }
 
-const NotificationsList = ({ items }: NotificationsList.Props) => {
-  return (
-    <ul className={csx.list}>
-      {items.map(item => (
-        <ListItem key={item.id} item={item} />
-      ))}
-    </ul>
-  );
-};
+const NotificationsList = ({ items }: NotificationsList.Props) => (
+  <ul className={csx.list}>
+    {items.map((item) => (
+      <ListItem key={item.id} item={item} />
+    ))}
+  </ul>
+);
 
 export default NotificationsList;

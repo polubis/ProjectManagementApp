@@ -17,10 +17,9 @@ namespace TemplatesGrid {
   }
 }
 
-const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =>
-  loading
-    ? Array.from({ length: spaceholdersCount }, (_, idx) => <TemplateTile.Loader key={idx} />)
-    : null;
+const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () => (loading
+  ? Array.from({ length: spaceholdersCount }, (_, idx) => <TemplateTile.Loader key={idx} />)
+  : null);
 
 /**
  * Renders grid components based on given data
@@ -35,21 +34,21 @@ const TemplatesGrid = ({
   loading,
   templates,
   pathname,
-  spaceholdersCount
+  spaceholdersCount,
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
   const goToDetails = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const templateId = e.currentTarget.getAttribute('data-idx');
-      push(`${pathname ? pathname : location.pathname}/${templateId}`);
+      push(`${pathname || location.pathname}/${templateId}`);
     },
-    [location.pathname]
+    [location.pathname],
   );
 
   const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [
     loading,
-    spaceholdersCount
+    spaceholdersCount,
   ]);
 
   return (

@@ -16,8 +16,8 @@ import csx from './UserSection.scss';
 
 const paperProps = {
   style: {
-    transform: 'translateX(5%) translateY(3%)'
-  }
+    transform: 'translateX(5%) translateY(3%)',
+  },
 };
 
 const UserSection = () => {
@@ -30,9 +30,12 @@ const UserSection = () => {
           <>
             <div className={csx.details} onClick={openMenu}>
               <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
-              <span>Hi, {username}</span>
+              <span>
+                Hi,
+                {username}
+              </span>
             </div>
-            
+
             {menuOpen && (
               <Menu
                 anchorEl={anchorEl}

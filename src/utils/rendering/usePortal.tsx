@@ -1,12 +1,12 @@
-import { useEffect, useMemo, ReactPortal, ReactNode } from 'react';
+import {
+  useEffect, useMemo, ReactPortal, ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 type UsePortal = () => (children: ReactNode) => ReactPortal | null;
 
 export const usePortal: UsePortal = () => {
-  const el = useMemo(() => {
-    return document.createElement('div');
-  }, []);
+  const el = useMemo(() => document.createElement('div'), []);
 
   useEffect(() => {
     document.body.prepend(el);

@@ -37,13 +37,7 @@
       "services*": ["src/services/*"],
       "_mocks_": ["src/_mocks_"],
       "styles": ["src/styles"]
-    },
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "../tslint.json"
-      }
-    ]
+    }
   },
   "include": ["src", "typings", "config/setup.jest.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]

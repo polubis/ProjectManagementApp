@@ -16,11 +16,10 @@ const makeBreadCrumbs = (url: string): Item[] => {
   return urls
     .map((part) => (isGuid(part) ? 'details' : part))
     .map(
-      (part, i) =>
-        ({
-          children: part,
-          to: `/app/${urls.slice(0, i + 1).join('/')}`
-        } as Item)
+      (part, i) => ({
+        children: part,
+        to: `/app/${urls.slice(0, i + 1).join('/')}`,
+      } as Item),
     );
 };
 
@@ -41,7 +40,7 @@ const BreadCrumbs = memo(
       ))}
     </div>
   ),
-  (prev, curr) => prev.pathname === curr.pathname
+  (prev, curr) => prev.pathname === curr.pathname,
 );
 
 export default BreadCrumbs;

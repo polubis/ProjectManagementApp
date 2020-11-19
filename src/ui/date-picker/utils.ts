@@ -20,7 +20,7 @@ export const MONTHS = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 export const MONTHS_COUNT = MONTHS.length;
@@ -37,7 +37,7 @@ export const getNow = () => {
   return {
     day: +String(now.getDate()).padStart(2, '0'),
     month: +String(now.getMonth() + 1).padStart(2, '0'),
-    year: now.getFullYear()
+    year: now.getFullYear(),
   };
 };
 
@@ -51,17 +51,11 @@ export const getInitDate = (value: string) => {
   return { day, month, year };
 };
 
-export const getMonthName = (month: number) => {
-  return MONTHS[month - 1];
-};
+export const getMonthName = (month: number) => MONTHS[month - 1];
 
-export const getDaysInMonth = ({ year, month }: DatePicker.Date) => {
-  return new Date(year, month, 0).getDate();
-};
+export const getDaysInMonth = ({ year, month }: DatePicker.Date) => new Date(year, month, 0).getDate();
 
-export const getLastDayOfMonth = ({ year, month }: DatePicker.Date) => {
-  return new Date(year, month, 0).getDay();
-};
+export const getLastDayOfMonth = ({ year, month }: DatePicker.Date) => new Date(year, month, 0).getDay();
 
 export const getDays = (date: DatePicker.Date) => {
   const DAYS_LIMIT = 42;
@@ -72,19 +66,19 @@ export const getDays = (date: DatePicker.Date) => {
 
   const prevDays = Array.from(
     { length: getLastDayOfMonth(prevMonthDate) },
-    (_, i) => prevMonthDays - i
+    (_, i) => prevMonthDays - i,
   ).reverse();
 
   const days = Array.from({ length: getDaysInMonth(date) }, (_, i) => i + 1);
 
   const nextDays = Array.from(
     { length: DAYS_LIMIT - prevDays.length - days.length },
-    (_, i) => i + 1
+    (_, i) => i + 1,
   );
 
   return {
     prevDays,
     days,
-    nextDays
+    nextDays,
   };
 };

@@ -14,16 +14,14 @@ namespace EmailSent {
   }
 }
 
-const EmailSent = ({ description, label, children }: EmailSent.Props) => {
-  return (
-    <div className={csx.emailSent}>
-      <StepHeader description={description} label={label} />
+const EmailSent = ({ description, label, children }: EmailSent.Props) => (
+  <div className={csx.emailSent}>
+    <StepHeader description={description} label={label} />
 
-      <EmailSentImage />
+    <EmailSentImage />
 
-      <footer>{children}</footer>
-    </div>
-  );
-};
+    <footer>{children}</footer>
+  </div>
+);
 
 export default EmailSent;

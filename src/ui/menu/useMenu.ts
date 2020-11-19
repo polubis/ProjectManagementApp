@@ -4,7 +4,7 @@ type UseMenu = () => [
   Element,
   boolean,
   (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-  () => void
+  () => void,
 ];
 
 export const useMenu: UseMenu = () => {

@@ -13,19 +13,19 @@ namespace FieldBase {
   }
 }
 
-const FieldBase = ({ label, error, children, className = '' }: FieldBase.Props) => {
-  return (
-    <div className={`${csx.fieldBase} ${className} ${error ? csx.invalid : ''}`}>
-      <label>{label}</label>
-      {children}
-      <div className={csx.validation}>
-        {error && <ErrorIcon />}
-        <span className={csx.error} title={error}>
-          {error}
-        </span>
-      </div>
+const FieldBase = ({
+  label, error, children, className = '',
+}: FieldBase.Props) => (
+  <div className={`${csx.fieldBase} ${className} ${error ? csx.invalid : ''}`}>
+    <label>{label}</label>
+    {children}
+    <div className={csx.validation}>
+      {error && <ErrorIcon />}
+      <span className={csx.error} title={error}>
+        {error}
+      </span>
     </div>
-  );
-};
+  </div>
+);
 
 export default FieldBase;

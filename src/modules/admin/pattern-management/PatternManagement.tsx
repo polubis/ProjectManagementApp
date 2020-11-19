@@ -18,7 +18,7 @@ interface State {
 
 const PatternManagement = () => {
   const [state, setState] = useState<State>({
-    pending: false
+    pending: false,
   });
   const { pending, pattern } = state;
 
@@ -27,7 +27,7 @@ const PatternManagement = () => {
   useEffect(() => {
     const handleGetPattern = async (): Promise<void> => {
       setState({
-        pending: true
+        pending: true,
       });
 
       try {
@@ -35,11 +35,11 @@ const PatternManagement = () => {
 
         setState({
           pending: false,
-          pattern
+          pattern,
         });
       } catch {
         setState({
-          pending: false
+          pending: false,
         });
       }
     };

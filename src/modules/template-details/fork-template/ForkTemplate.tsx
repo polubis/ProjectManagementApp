@@ -22,7 +22,7 @@ interface State {
 const STATE: State = {
   error: false,
   pending: true,
-  success: false
+  success: false,
 };
 
 const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
@@ -71,8 +71,15 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
         success && (
           <>
             <h3>
-              Template <span>{template.name}</span> has been{' '}
-              <span className={csx.success}>forked</span> !
+              Template
+              {' '}
+              <span>{template.name}</span>
+              {' '}
+              has been
+              {' '}
+              <span className={csx.success}>forked</span>
+              {' '}
+              !
             </h3>
 
             <span>This window can be closed</span>

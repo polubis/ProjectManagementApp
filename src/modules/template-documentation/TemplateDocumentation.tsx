@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react';
 
 import { Loader, Tree } from 'ui';
 
@@ -6,7 +8,7 @@ import { TemplateDocumentation } from 'core/api';
 
 import ContentTree from './content-tree';
 import TemplateDocumentationProvider, {
-  useTemplateDocumentationProvider
+  useTemplateDocumentationProvider,
 } from './TemplateDocumentationProvider';
 
 import csx from './TemplateDocumentation.scss';
@@ -18,24 +20,24 @@ const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () =>
 
   const getLevel = (type: string) => +type.slice(1);
 
-  const getMinLevel = () =>
-    headings.reduce((acc, { type }) => {
-      const level = getLevel(type);
+  const getMinLevel = () => headings.reduce((acc, { type }) => {
+    const level = getLevel(type);
 
-      return level < acc ? level : acc;
-    }, getLevel(headings[0].type));
+    return level < acc ? level : acc;
+  }, getLevel(headings[0].type));
 
   const minLevel = getMinLevel();
 
   return headings.map(
-    ({ id, childrenCount, parentId, text, type }) =>
-      ({
-        id,
-        childrenCount,
-        parentId,
-        label: text,
-        level: getLevel(type) - minLevel
-      } as Tree.Item)
+    ({
+      id, childrenCount, parentId, text, type,
+    }) => ({
+      id,
+      childrenCount,
+      parentId,
+      label: text,
+      level: getLevel(type) - minLevel,
+    } as Tree.Item),
   );
 };
 
@@ -49,13 +51,13 @@ const TemplateDocumentation = () => {
   const treeItems = useMemo(makeContentTreeItems(documentation), [documentation]);
 
   const handleClick: Tree.OnClick = useCallback(
-    id => {
+    (id) => {
       const { idx, item } = Tree.find(id, treeItems);
 
       setActiveItem(item);
       setExpandedItems(Tree.expand(idx, treeItems));
     },
-    [treeItems]
+    [treeItems],
   );
 
   useEffect(() => {

@@ -4,7 +4,9 @@ import { Button, InputField } from 'ui';
 
 import { Form } from 'utils';
 
-import { USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD } from '../../..';
+import {
+  USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD,
+} from '../../..';
 
 namespace Credentials {
   export interface Props {
@@ -20,17 +22,17 @@ const Credentials = ({ formManager, onSubmit }: Credentials.Props) => {
     (e: Form.Events.Change) => {
       directChange(
         [PASSWORD, REPEATED_PASSWORD],
-        [e.target.value, fields[REPEATED_PASSWORD].value]
+        [e.target.value, fields[REPEATED_PASSWORD].value],
       );
     },
-    [fields]
+    [fields],
   );
 
   const handleRepeatedPasswordChange = useCallback(
     (e: Form.Events.Change) => {
       directChange([PASSWORD, REPEATED_PASSWORD], [fields[PASSWORD].value, e.target.value]);
     },
-    [fields]
+    [fields],
   );
 
   return (

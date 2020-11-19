@@ -11,9 +11,11 @@ import csx from './ListItem.scss';
 const ListItem = ({
   style,
   index,
-  data: { items, onSelect }
+  data: { items, onSelect },
 }: SelectBase.ListChildProps<Technology>) => {
-  const { dataIdx, label, pictureUrl, value } = items[index];
+  const {
+    dataIdx, label, pictureUrl, value,
+  } = items[index];
 
   return (
     <div className={csx.listItem} style={style}>

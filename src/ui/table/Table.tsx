@@ -34,17 +34,15 @@ const getConfigItems = (config: Table.Config): Table.ConfigItem[] => {
   const keys = Object.keys(config);
 
   return keys.map(
-    (key) =>
-      ({
-        key,
-        label: config[key].label ? config[key].label : key,
-        size: config[key].size ? config[key].size : { min: '150px', max: '1fr' }
-      } as Table.ConfigItem)
+    (key) => ({
+      key,
+      label: config[key].label ? config[key].label : key,
+      size: config[key].size ? config[key].size : { min: '150px', max: '1fr' },
+    } as Table.ConfigItem),
   );
 };
 
-const getGridTemplateColumns = (items: Table.ConfigItem[]): string =>
-  items.map(({ size }) => `minmax(${size.min}, ${size.max})`).join(' ');
+const getGridTemplateColumns = (items: Table.ConfigItem[]): string => items.map(({ size }) => `minmax(${size.min}, ${size.max})`).join(' ');
 
 const Table = ({ className = '', config, data }: Table.Props) => {
   const items = useMemo(() => getConfigItems(config), [config]);

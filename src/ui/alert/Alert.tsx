@@ -31,7 +31,7 @@ const Alert = memo(
         open={open}
         message={message}
         ContentProps={{ classes: { root: `${csx.alert} ${csx[type]}` } }}
-        action={
+        action={(
           <Button
             className={csx.closeBtn}
             variant="icon"
@@ -40,11 +40,11 @@ const Alert = memo(
           >
             <CloseIcon />
           </Button>
-        }
+        )}
       />
     );
   },
-  () => true
+  () => true,
 );
 
 export default Alert;

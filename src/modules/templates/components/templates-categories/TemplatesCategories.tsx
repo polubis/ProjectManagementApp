@@ -16,7 +16,7 @@ const TemplatesCategories = () => {
   const { location, push } = useHistory();
 
   const {
-    params: { category }
+    params: { category },
   } = useRouteMatch<TemplatesRouteProps>();
 
   const { authorized, pending } = useAuthProvider();
@@ -27,7 +27,7 @@ const TemplatesCategories = () => {
 
       push(url);
     },
-    [location]
+    [location],
   );
 
   return (

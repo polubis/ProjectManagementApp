@@ -11,22 +11,20 @@ import { CookieConsent } from 'shared/components';
 
 import ModulesRouter from './ModulesRouter';
 
-const Modules = () => {
-  return (
-    <ErrorBoundary>
-      <AlertsManager />
-      <CookiesProvider>
-        <CookieConsent />
-        <AuthProvider>
-          <PatternsProvider>
-            <TechnologiesProvider>
-              <ModulesRouter />
-            </TechnologiesProvider>
-          </PatternsProvider>
-        </AuthProvider>
-      </CookiesProvider>
-    </ErrorBoundary>
-  );
-};
+const Modules = () => (
+  <ErrorBoundary>
+    <AlertsManager />
+    <CookiesProvider>
+      <CookieConsent />
+      <AuthProvider>
+        <PatternsProvider>
+          <TechnologiesProvider>
+            <ModulesRouter />
+          </TechnologiesProvider>
+        </PatternsProvider>
+      </AuthProvider>
+    </CookiesProvider>
+  </ErrorBoundary>
+);
 
 export default Modules;

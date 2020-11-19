@@ -27,7 +27,7 @@ const SelectedItems = memo(
       </footer>
     );
   },
-  (prev, next) => prev.items === next.items
+  (prev, next) => prev.items === next.items,
 );
 
 export default SelectedItems;

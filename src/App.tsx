@@ -3,12 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Modules from 'modules';
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Modules />
-    </BrowserRouter>
-  );
-};
+const App = () => (
+  <BrowserRouter>
+    <Modules />
+  </BrowserRouter>
+);
 
 export default App;

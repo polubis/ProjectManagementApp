@@ -22,8 +22,8 @@ const DictionariesSearch = ({ label }: DictionariesSearch.Props) => {
 
   const [{ values, next }, setForm] = useState(
     Form({
-      query: ''
-    })
+      query: '',
+    }),
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

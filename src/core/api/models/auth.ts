@@ -2,7 +2,7 @@ import { Technology } from '.';
 
 export enum UserRole {
   Admin = 'Administrator',
-  User = 'User'
+  User = 'User',
 }
 
 export interface SelfUser {

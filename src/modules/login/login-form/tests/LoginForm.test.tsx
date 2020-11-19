@@ -13,7 +13,7 @@ describe('<LoginForm>', () => {
       render(
         <Router history={createMemoryHistory()}>
           <LoginForm onSubmit={() => {}} />
-        </Router>
+        </Router>,
       );
 
       fireEvent.click(screen.getByText(/submit/i).closest('button'));
@@ -25,7 +25,7 @@ describe('<LoginForm>', () => {
       render(
         <Router history={createMemoryHistory()}>
           <LoginForm onSubmit={() => {}} />
-        </Router>
+        </Router>,
       );
 
       fireEvent.click(screen.getByText(/submit/i).closest('button'));
@@ -42,7 +42,7 @@ describe('<LoginForm>', () => {
       render(
         <Router history={createMemoryHistory()}>
           <LoginForm onSubmit={() => {}} />
-        </Router>
+        </Router>,
       );
 
       expect(screen.getByText(/submit/i).closest('button')).not.toBeDisabled();
@@ -52,7 +52,7 @@ describe('<LoginForm>', () => {
       render(
         <Router history={createMemoryHistory()}>
           <LoginForm onSubmit={() => {}} />
-        </Router>
+        </Router>,
       );
 
       fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'a' } });
@@ -67,7 +67,7 @@ describe('<LoginForm>', () => {
     render(
       <Router history={createMemoryHistory()}>
         <LoginForm onSubmit={() => {}} />
-      </Router>
+      </Router>,
     );
 
     fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'aa' } });
@@ -83,7 +83,7 @@ describe('<LoginForm>', () => {
     render(
       <Router history={createMemoryHistory()}>
         <LoginForm onSubmit={() => {}} />
-      </Router>
+      </Router>,
     );
 
     fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'a' } });
@@ -99,7 +99,7 @@ describe('<LoginForm>', () => {
     render(
       <Router history={createMemoryHistory()}>
         <LoginForm onSubmit={spy} />
-      </Router>
+      </Router>,
     );
 
     fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: _USERNAME_ } });

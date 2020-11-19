@@ -17,7 +17,7 @@ import {
   GITHUB_LINK,
   TECHNOLOGIES,
   PATTERNS,
-  TAGS
+  TAGS,
 } from '.';
 
 interface State {
@@ -29,7 +29,7 @@ type Return = State;
 
 const makeInitState = (id?: string): State => ({
   loading: !!id,
-  config: BASE_CONFIG
+  config: BASE_CONFIG,
 });
 
 const makeConfig = (template: Template): Form.Config[] => {
@@ -41,18 +41,18 @@ const makeConfig = (template: Template): Form.Config[] => {
   basicInfoConfig[DESCRIPTION] = { ...basicInfoConfig[DESCRIPTION], value: template.description };
   githubConnectionConfig[GITHUB_LINK] = {
     ...githubConnectionConfig[GITHUB_LINK],
-    value: template.githubLink
+    value: template.githubLink,
   };
   techDetailsConfig[TECHNOLOGIES] = {
     ...techDetailsConfig[TECHNOLOGIES],
     value: template.technologies.reduce(
       (prev, technology) => ({ ...prev, [technology.id]: true }),
-      {}
-    )
+      {},
+    ),
   };
   techDetailsConfig[PATTERNS] = {
     ...techDetailsConfig[PATTERNS],
-    value: template.patterns.reduce((prev, pattern) => ({ ...prev, [pattern.id]: true }), {})
+    value: template.patterns.reduce((prev, pattern) => ({ ...prev, [pattern.id]: true }), {}),
   };
   techDetailsConfig[TAGS] = { ...techDetailsConfig[TAGS], value: template.tags };
 
@@ -63,7 +63,7 @@ export const useTemplateManagementConfig = (): Return => {
   const { replace } = useHistory();
 
   const {
-    params: { id }
+    params: { id },
   } = useRouteMatch<{ id: string }>();
 
   const [state, setState] = useState(makeInitState(id));

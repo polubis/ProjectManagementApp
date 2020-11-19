@@ -14,28 +14,24 @@ namespace SidebarPanel {
   }
 }
 
-const renderLink: SidebarLinks.RenderLink = (icon, label) => {
-  return (
-    <Button className={csx.link}>
-      {icon}
-      <span>{label}</span>
-    </Button>
-  );
-};
+const renderLink: SidebarLinks.RenderLink = (icon, label) => (
+  <Button className={csx.link}>
+    {icon}
+    <span>{label}</span>
+  </Button>
+);
 
-const SidebarPanel = ({ onClose }: SidebarPanel.Props) => {
-  return (
-    <div className={csx.sidebarPanel}>
-      <div className={csx.logo} onClick={onClose}>
-        <figure>
-          <Logo />
-        </figure>
-        <span>Jupi.io</span>
-      </div>
-
-      <SidebarLinks renderLink={renderLink} />
+const SidebarPanel = ({ onClose }: SidebarPanel.Props) => (
+  <div className={csx.sidebarPanel}>
+    <div className={csx.logo} onClick={onClose}>
+      <figure>
+        <Logo />
+      </figure>
+      <span>Jupi.io</span>
     </div>
-  );
-};
+
+    <SidebarLinks renderLink={renderLink} />
+  </div>
+);
 
 export default SidebarPanel;

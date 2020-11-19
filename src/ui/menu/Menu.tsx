@@ -22,16 +22,16 @@ namespace Menu {
 
 const useStyles = makeStyles({
   paper: {
-    width: ({ width }: Menu.Styles) => width + 'px',
+    width: ({ width }: Menu.Styles) => `${width}px`,
     boxShadow: ({ boxShadow }: Menu.Styles) => boxShadow,
     background: ({ background }: Menu.Styles) => background,
     color: Palette.primary,
     marginTop: '2px',
 
     '& > ul': {
-      padding: '6px 0'
-    }
-  }
+      padding: '6px 0',
+    },
+  },
 });
 
 const Menu = ({

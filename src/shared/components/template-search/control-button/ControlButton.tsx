@@ -18,14 +18,15 @@ const useStyles = makeStyles({
     height: '100%',
     padding: 0,
     borderLeft: '1px solid rgba(51, 129, 225, 0.43)',
-    borderRadius: 0
-  }
+    borderRadius: 0,
+  },
 });
 
-const getSelectedCount = (value: { [key: string]: boolean }) =>
-  Object.values(value).filter(v => v).length;
+const getSelectedCount = (value: { [key: string]: boolean }) => Object.values(value).filter((v) => v).length;
 
-const ControlButton = ({ children, loading, value, onClick }: ControlButton.Props) => {
+const ControlButton = ({
+  children, loading, value, onClick,
+}: ControlButton.Props) => {
   const classes = useStyles();
 
   const selectedCount = getSelectedCount(value);

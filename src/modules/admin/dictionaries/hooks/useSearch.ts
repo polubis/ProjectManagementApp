@@ -1,7 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { History } from 'history';
-import { BehaviorSubject, from, throwError, Observable } from 'rxjs';
-import { switchMap, tap, map, catchError, debounceTime } from 'rxjs/operators';
+import {
+  BehaviorSubject, from, throwError, Observable,
+} from 'rxjs';
+import {
+  switchMap, tap, map, catchError, debounceTime,
+} from 'rxjs/operators';
 
 import { useQueryParams } from 'utils';
 
@@ -24,19 +28,19 @@ export const useSearch = (kind: DictionaryKind, { location }: History) => {
 
   const load = useMemo(
     () => new BehaviorSubject<Payload>({ kind, query }),
-    []
+    [],
   );
   const load$ = useMemo(() => load.asObservable(), []);
 
   const [state, setState] = useState<State>({
     data: [],
-    pending: true
+    pending: true,
   });
 
   useEffect(() => {
     load.next({
       kind,
-      query
+      query,
     });
   }, [location.key]);
 
@@ -60,11 +64,9 @@ export const useSearch = (kind: DictionaryKind, { location }: History) => {
         tap(onInit),
         debounceTime(150),
         map(({ kind, query }) => ({ kind, query: `?query=${query}` } as Payload)),
-        map(({ kind, query }) =>
-          kind === DictionaryKind.PATTERNS ? getPatterns(query) : getTechnologies(query)
-        ),
+        map(({ kind, query }) => (kind === DictionaryKind.PATTERNS ? getPatterns(query) : getTechnologies(query))),
         map((promise) => from(promise)),
-        switchMap((obs) => obs.pipe(tap(onSuccess), catchError(onError)))
+        switchMap((obs) => obs.pipe(tap(onSuccess), catchError(onError))),
       )
       .subscribe();
 

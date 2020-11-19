@@ -17,7 +17,7 @@ const Modal = ({ children, className = '' }: Modal.Props) => {
   return render(
     <div className={csx.modal}>
       <div className={`${csx.content} ${className}`}>{children}</div>
-    </div>
+    </div>,
   );
 };
 

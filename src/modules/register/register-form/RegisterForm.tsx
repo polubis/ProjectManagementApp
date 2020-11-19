@@ -8,9 +8,13 @@ import { register } from 'core/api';
 
 import { FormSteps } from 'shared/components';
 
-import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
+import {
+  Credentials, Work, AlmostDone, ConfirmAccount,
+} from './steps';
 
-import { BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload } from '..';
+import {
+  BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload,
+} from '..';
 
 interface State {
   activeStep: number;
@@ -18,25 +22,25 @@ interface State {
 }
 
 const DESCRIPTIONS: string[] = [
-  `Choose username, email and use save password for log in`,
-  `Describe yourself for other users`,
-  `Read our policy and confirm account creation`
+  'Choose username, email and use save password for log in',
+  'Describe yourself for other users',
+  'Read our policy and confirm account creation',
 ];
 
 const STEPS: Steps.Item[] = [
   {
-    label: 'Account setup'
+    label: 'Account setup',
   },
   {
-    label: 'Work & Company'
+    label: 'Work & Company',
   },
-  { label: 'Almost done!' }
+  { label: 'Almost done!' },
 ];
 
 const RegisterForm = () => {
   const [state, setState] = useState<State>({
     activeStep: CREDENTIALS,
-    pending: false
+    pending: false,
   });
 
   const { activeStep, pending } = state;
@@ -47,9 +51,7 @@ const RegisterForm = () => {
   const workManager = Form.useManager(BASE_CONFIG[WORK]);
   const almostDoneManager = Form.useManager(BASE_CONFIG[ALMOST_DONE]);
 
-  const formManagers = useMemo(() => {
-    return [credentialsManager, workManager, almostDoneManager];
-  }, [credentialsManager, workManager, almostDoneManager]);
+  const formManagers = useMemo(() => [credentialsManager, workManager, almostDoneManager], [credentialsManager, workManager, almostDoneManager]);
 
   const handleSubmit = useCallback(
     async (e: Form.Events.Submit) => {
@@ -76,17 +78,17 @@ const RegisterForm = () => {
       } else {
         setState((prevState) => ({
           ...prevState,
-          activeStep: nextStep
+          activeStep: nextStep,
         }));
       }
     },
-    [...formManagers, state]
+    [...formManagers, state],
   );
 
   const handleBack = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
-      activeStep: prevState.activeStep - 1
+      activeStep: prevState.activeStep - 1,
     }));
   }, []);
 

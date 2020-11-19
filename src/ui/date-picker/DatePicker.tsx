@@ -12,7 +12,7 @@ import {
   getMonthName,
   DAYS_SYMBOLS,
   MONTHS_COUNT,
-  getDays
+  getDays,
 } from '..';
 
 import csx from './DatePicker.scss';
@@ -35,7 +35,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   const [activeDate, setActiveDate] = useState(getInitDate(value));
 
   const onNextMonthClick = () => {
-    let month, year: number;
+    let month; let
+      year: number;
 
     if (activeDate.month + 1 > MONTHS_COUNT) {
       month = 1;
@@ -49,7 +50,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   };
 
   const onPrevMonthClick = () => {
-    let month, year: number;
+    let month; let
+      year: number;
 
     if (activeDate.month - 1 < 1) {
       month = MONTHS_COUNT;
@@ -63,7 +65,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   };
 
   const onPrevDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    let month, year: number;
+    let month; let
+      year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
 
     if (activeDate.month - 1 < 1) {
@@ -83,7 +86,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   };
 
   const onNextDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    let month, year: number;
+    let month; let
+      year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
 
     if (activeDate.month + 1 > MONTHS_COUNT) {
@@ -111,7 +115,11 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
       <header>
         <span>{year}</span>
         <span>
-          {getDayName(activeDate)}, {getMonthName(month)} {day}
+          {getDayName(activeDate)}
+          ,
+          {getMonthName(month)}
+          {' '}
+          {day}
         </span>
       </header>
 

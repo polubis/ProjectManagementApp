@@ -22,12 +22,12 @@ const Navbar = () => {
 
   const isAdminTechnologiesRoute = useMemo(
     () => location.pathname.includes('admin/dictionaries/technologies'),
-    [location]
+    [location],
   );
 
   const isAdminPatternsRoute = useMemo(
     () => location.pathname.includes('admin/dictionaries/patterns'),
-    [location]
+    [location],
   );
 
   return (

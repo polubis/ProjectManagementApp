@@ -17,15 +17,13 @@ namespace PatternsSelect {
   }
 }
 
-const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => () =>
-  patterns.map(
-    ({ id, name }) =>
-      ({
-        dataIdx: '' + id,
-        label: name,
-        value: !!value[id]
-      } as SelectBase.Item)
-  );
+const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => () => patterns.map(
+  ({ id, name }) => ({
+    dataIdx: `${id}`,
+    label: name,
+    value: !!value[id],
+  } as SelectBase.Item),
+);
 
 const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => {
   const { loading, patterns } = usePatternsProvider();
@@ -35,7 +33,7 @@ const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => 
       const dataIdx = e.currentTarget.getAttribute('data-idx');
       onSelect(dataIdx, false);
     },
-    [onSelect]
+    [onSelect],
   );
 
   const items = useMemo(makeItems(patterns, value), [patterns, value]);

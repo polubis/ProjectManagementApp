@@ -11,12 +11,12 @@ namespace InputField {
   }
 }
 
-const InputField = ({ label, error, className, ...inputProps }: InputField.Props) => {
-  return (
-    <FieldBase label={label} error={error} className={className}>
-      <input {...inputProps} />
-    </FieldBase>
-  );
-};
+const InputField = ({
+  label, error, className, ...inputProps
+}: InputField.Props) => (
+  <FieldBase label={label} error={error} className={className}>
+    <input {...inputProps} />
+  </FieldBase>
+);
 
 export default InputField;

@@ -20,7 +20,7 @@ namespace ErrorBoundary {
 }
 
 const STATE: ErrorBoundary.State = {
-  hasError: false
+  hasError: false,
 };
 
 class ErrorBoundary extends Component<ErrorBoundary.Props, typeof STATE> {
@@ -37,7 +37,7 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, typeof STATE> {
       name,
       message,
       componentStack,
-      occuredAt: new Date()
+      occuredAt: new Date(),
     };
 
     this.errors.push(error);
