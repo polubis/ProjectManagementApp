@@ -14,6 +14,7 @@ export const usePortal: UsePortal = () => {
     return () => {
       document.body.removeChild(el);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (children) => createPortal(children, el);

@@ -41,7 +41,6 @@
     "eslint-config-airbnb-typescript-prettier": "^4.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^4.3.0",
     "identity-obj-proxy": "^3.0.0",
     "image-webpack-loader": "^7.0.1",
     "interpolate-html-plugin": "^3.0.0",
@@ -79,10 +78,5 @@
     "react-window": "^1.8.5",
     "rxjs": "^6.6.2",
     "webfontloader": "^1.6.28"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint-fix"
-    }
   }
 }
