@@ -1,4 +1,9 @@
-import Axios, { AxiosError, AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
+import Axios, {
+  AxiosError,
+  AxiosResponse,
+  AxiosRequestConfig,
+  AxiosInstance,
+} from 'axios';
 
 export namespace Api {
   export type Subscriber = (error: string) => void;
@@ -12,9 +17,21 @@ export namespace Api {
   export interface Instance extends AxiosInstance {
     get: <R = any>(url: string, config?: AxiosRequestConfig) => Promise<R>;
     delete: <R = any>(url: string, config?: AxiosRequestConfig) => Promise<R>;
-    post: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
-    put: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
-    patch: <R = any>(url: string, data?: any, config?: AxiosRequestConfig) => Promise<R>;
+    post: <R = any>(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ) => Promise<R>;
+    put: <R = any>(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ) => Promise<R>;
+    patch: <R = any>(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ) => Promise<R>;
     subscribe: (subscriber: Subscriber) => void;
     unsubscribe: () => void;
   }
@@ -70,10 +87,10 @@ export const makeInstance = (config: AxiosRequestConfig) => (
 
 export const toFormData = <T>(payload: T): FormData => {
   const formData = new FormData();
-  
+
   Object.keys(payload).forEach((key) => {
     formData.append(key, payload[key]);
   });
 
   return formData;
-}
+};

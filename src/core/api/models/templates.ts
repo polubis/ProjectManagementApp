@@ -35,7 +35,7 @@ export enum TemplateCategory {
   ALL = 'all',
   TOP = 'top',
   RECENT = 'recent',
-  YOURS = 'yours'
+  YOURS = 'yours',
 }
 
 export interface TemplatesPayload {

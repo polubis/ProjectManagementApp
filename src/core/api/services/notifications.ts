@@ -10,7 +10,7 @@ export const getNotifications = () =>
       type: NotificationType.TEMPLATE_ADDED,
       creationDate: '20 December 2020',
       readed: true,
-      author: 'polubik1994'
+      author: 'polubik1994',
     },
     {
       id: 1,
@@ -18,7 +18,7 @@ export const getNotifications = () =>
       type: NotificationType.TEMPLATE_ADDED,
       creationDate: '19 May 2020',
       readed: true,
-      author: 'polubik1994'
+      author: 'polubik1994',
     },
     {
       id: 2,
@@ -26,5 +26,5 @@ export const getNotifications = () =>
       type: NotificationType.TEMPLATE_ADDED,
       author: 'polubik1994',
       creationDate: '19 May 2020',
-    }
+    },
   ] as Notification[]);

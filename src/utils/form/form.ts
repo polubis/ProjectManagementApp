@@ -4,9 +4,11 @@ import { V } from '.';
 
 namespace Form {
   export namespace Events {
-    export interface Change<T = HTMLInputElement | HTMLTextAreaElement> extends ChangeEvent<T> {}
+    export type Change<
+      T = HTMLInputElement | HTMLTextAreaElement
+    > = ChangeEvent<T>;
 
-    export interface Submit extends ChangeEvent<HTMLFormElement> {}
+    export type Submit = ChangeEvent<HTMLFormElement>;
   }
 
   export namespace Field {
@@ -48,26 +50,34 @@ const makeInitState = (config: Form.Config): Form.State => {
         ({
           value: value !== undefined ? value : '',
           error: '',
-          result: []
+          result: [],
         } as Form.Field.State)
-    )
+    ),
   };
 };
 
 const useManager = (config: Form.Config): Form.Manager => {
   const [state, setState] = useState(makeInitState(config));
 
-  const makeField = (value: any, idx: number, currState: Form.State): Form.Field.State => {
+  const makeField = (
+    value: any,
+    idx: number,
+    currState: Form.State
+  ): Form.Field.State => {
     const { fns = [] } = config[idx];
 
     const result = V.run(value, currState)(...fns);
-    const invalidResult = result.find(result => result.invalid);
+    const invalidResult = result.find((result) => result.invalid);
     const error = invalidResult ? invalidResult.text : '';
 
     return { value, error, result };
   };
 
-  const makeState = (positions: number[], values: any[], currState = state): Form.State => {
+  const makeState = (
+    positions: number[],
+    values: any[],
+    currState = state
+  ): Form.State => {
     const newState: Form.State = { ...currState, fields: [...state.fields] };
 
     positions.forEach((position, idx) => {
@@ -78,7 +88,7 @@ const useManager = (config: Form.Config): Form.Manager => {
       newState.fields[position] = makeField(values[idx], position, newState);
     });
 
-    newState.invalid = newState.fields.some(f => f.error);
+    newState.invalid = newState.fields.some((f) => f.error);
 
     return newState;
   };
@@ -111,8 +121,12 @@ const useManager = (config: Form.Config): Form.Manager => {
     e && e.preventDefault();
 
     const positions = Array.from({ length: config.length }, (_, idx) => idx);
-    const values = positions.map(p => state.fields[p].value);
-    const newState = makeState(positions, values, { ...state, dirty: true, invalid: false });
+    const values = positions.map((p) => state.fields[p].value);
+    const newState = makeState(positions, values, {
+      ...state,
+      dirty: true,
+      invalid: false,
+    });
 
     setState(newState);
 
@@ -123,7 +137,7 @@ const useManager = (config: Form.Config): Form.Manager => {
 };
 
 const Form = {
-  useManager
+  useManager,
 };
 
 export default Form;

@@ -5,9 +5,13 @@ import { Url } from 'utils';
 
 import { DictionaryKind } from '..';
 
-const isValidCategory = (kind: DictionaryKind) => Object.values(DictionaryKind).includes(kind);
+const isValidCategory = (kind: DictionaryKind) =>
+  Object.values(DictionaryKind).includes(kind);
 
-export const useRouteValidation = (kind: DictionaryKind, { replace }: History) => {
+export const useRouteValidation = (
+  kind: DictionaryKind,
+  { replace }: History
+) => {
   useEffect(() => {
     if (!kind) {
       const url = Url(location).concat(`/${DictionaryKind.PATTERNS}`).value();

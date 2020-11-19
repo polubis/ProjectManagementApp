@@ -1,5 +1,5 @@
 export enum NotificationType {
-  TEMPLATE_ADDED = 'TEMPLATE_ADDED'
+  TEMPLATE_ADDED = 'TEMPLATE_ADDED',
 }
 
 export interface Notification {

@@ -13,7 +13,7 @@ type Return = [State, (credentials: ForgottenPasswordPayload) => Promise<void>];
 const STATE: State = {
   pending: false,
   error: '',
-  sent: false
+  sent: false,
 };
 
 export const useForgottenPassword = (): Return => {
@@ -30,7 +30,9 @@ export const useForgottenPassword = (): Return => {
       } catch (error) {
         setState({ ...STATE, error });
       }
-    }, []);
+    },
+    []
+  );
 
   return [state, handleForgottenPassword];
 };
