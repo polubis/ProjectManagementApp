@@ -29,8 +29,12 @@ describe('<LoginForm>', () => {
       );
 
       fireEvent.click(screen.getByText(/submit/i).closest('button'));
-      fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'a' } });
-      fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'a' } });
+      fireEvent.change(screen.getByPlaceholderText(/username/i), {
+        target: { value: 'a' },
+      });
+      fireEvent.change(screen.getByPlaceholderText(/password/i), {
+        target: { value: 'a' },
+      });
 
       expect(screen.getByText(/invalid username/i)).toBeInTheDocument();
       expect(screen.getByText(/invalid password/i)).toBeInTheDocument();
@@ -55,8 +59,12 @@ describe('<LoginForm>', () => {
         </Router>
       );
 
-      fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'a' } });
-      fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'a' } });
+      fireEvent.change(screen.getByPlaceholderText(/username/i), {
+        target: { value: 'a' },
+      });
+      fireEvent.change(screen.getByPlaceholderText(/password/i), {
+        target: { value: 'a' },
+      });
 
       expect(screen.queryByText(/invalid username/i)).not.toBeInTheDocument();
       expect(screen.queryByText(/invalid password/i)).not.toBeInTheDocument();
@@ -70,8 +78,12 @@ describe('<LoginForm>', () => {
       </Router>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'aa' } });
-    fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'aaa' } });
+    fireEvent.change(screen.getByPlaceholderText(/username/i), {
+      target: { value: 'aa' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: 'aaa' },
+    });
     fireEvent.click(screen.getByText(/submit/i).closest('button'));
 
     expect(screen.getByText(/invalid username/i)).toBeInTheDocument();
@@ -86,8 +98,12 @@ describe('<LoginForm>', () => {
       </Router>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'a' } });
-    fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'a' } });
+    fireEvent.change(screen.getByPlaceholderText(/username/i), {
+      target: { value: 'a' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: 'a' },
+    });
 
     expect(screen.getByPlaceholderText(/username/i)).toHaveValue('a');
     expect(screen.getByPlaceholderText(/password/i)).toHaveValue('a');
@@ -102,8 +118,12 @@ describe('<LoginForm>', () => {
       </Router>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: _USERNAME_ } });
-    fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: _PASSWORD_ } });
+    fireEvent.change(screen.getByPlaceholderText(/username/i), {
+      target: { value: _USERNAME_ },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: _PASSWORD_ },
+    });
     fireEvent.click(screen.getByText(/submit/i).closest('button'));
 
     expect(spy).toHaveBeenCalledWith({

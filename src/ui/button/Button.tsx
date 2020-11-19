@@ -1,6 +1,9 @@
 import React, { forwardRef } from 'react';
 
-import { Button as MuiButton, IconButton as MuiIconButton } from '@material-ui/core';
+import {
+  Button as MuiButton,
+  IconButton as MuiIconButton,
+} from '@material-ui/core';
 
 import csx from './Button.scss';
 
@@ -19,14 +22,22 @@ namespace Button {
 
 const Button = forwardRef(
   (
-    { active, children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props,
+    {
+      active,
+      children,
+      variant = 'default',
+      theme = 'primaryDark',
+      ...btnProps
+    }: Button.Props,
     ref
   ) => {
     if (variant === 'icon') {
       return (
         <MuiIconButton
           {...(btnProps as any)}
-          classes={{ root: `${csx.iconButton} ${csx[theme]} ${active ? csx.active : ''}` }}
+          classes={{
+            root: `${csx.iconButton} ${csx[theme]} ${active ? csx.active : ''}`,
+          }}
           ref={ref}
         >
           {children}
@@ -37,7 +48,9 @@ const Button = forwardRef(
     return (
       <MuiButton
         {...(btnProps as any)}
-        classes={{ root: `${csx.button} ${csx[theme]} ${active ? csx.active : ''}` }}
+        classes={{
+          root: `${csx.button} ${csx[theme]} ${active ? csx.active : ''}`,
+        }}
         ref={ref}
       >
         {children}

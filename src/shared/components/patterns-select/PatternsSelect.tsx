@@ -17,17 +17,24 @@ namespace PatternsSelect {
   }
 }
 
-const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => () =>
+const makeItems = (
+  patterns: Pattern[],
+  value: { [key: string]: boolean }
+) => () =>
   patterns.map(
     ({ id, name }) =>
       ({
-        dataIdx: '' + id,
+        dataIdx: `${id}`,
         label: name,
-        value: !!value[id]
+        value: !!value[id],
       } as SelectBase.Item)
   );
 
-const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => {
+const PatternsSelect = ({
+  children,
+  value,
+  onSelect,
+}: PatternsSelect.Props) => {
   const { loading, patterns } = usePatternsProvider();
 
   const handleSelect = useCallback(

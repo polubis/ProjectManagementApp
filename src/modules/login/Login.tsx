@@ -7,9 +7,8 @@ import { IMGS_PATH } from 'consts';
 
 import { useAuthProvider } from 'core/auth';
 
-import LoginForm from './login-form';
-
 import { Footer, Navbar } from 'shared/components';
+import LoginForm from './login-form';
 
 import csx from './Login.scss';
 
@@ -38,7 +37,7 @@ const Login = () => {
         </div>
 
         <Button variant="icon" onClick={logInViaGithub}>
-          <img src={IMGS_PATH + '/GithubLogo.png'} alt="GitHub Logo" />
+          <img src={`${IMGS_PATH}/GithubLogo.png`} alt="GitHub Logo" />
         </Button>
       </div>
       <Footer />

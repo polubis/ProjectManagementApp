@@ -12,7 +12,7 @@ import {
   getMonthName,
   DAYS_SYMBOLS,
   MONTHS_COUNT,
-  getDays
+  getDays,
 } from '..';
 
 import csx from './DatePicker.scss';
@@ -35,7 +35,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   const [activeDate, setActiveDate] = useState(getInitDate(value));
 
   const onNextMonthClick = () => {
-    let month, year: number;
+    let month;
+    let year: number;
 
     if (activeDate.month + 1 > MONTHS_COUNT) {
       month = 1;
@@ -49,7 +50,8 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   };
 
   const onPrevMonthClick = () => {
-    let month, year: number;
+    let month;
+    let year: number;
 
     if (activeDate.month - 1 < 1) {
       month = MONTHS_COUNT;
@@ -62,8 +64,11 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
     setActiveDate({ day: 1, month, year });
   };
 
-  const onPrevDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    let month, year: number;
+  const onPrevDayClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    let month;
+    let year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
 
     if (activeDate.month - 1 < 1) {
@@ -82,8 +87,11 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
     setActiveDate({ ...activeDate, day });
   };
 
-  const onNextDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    let month, year: number;
+  const onNextDayClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    let month;
+    let year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
 
     if (activeDate.month + 1 > MONTHS_COUNT) {
@@ -104,7 +112,9 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
 
   const { day, month, year } = activeDate;
 
-  const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [activeDate]);
+  const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [
+    activeDate,
+  ]);
 
   return (
     <Modal className={csx.datePicker}>
@@ -131,7 +141,12 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
             <div key={symbol}>{symbol}</div>
           ))}
           {prevDays.map((day) => (
-            <MuiButton key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
+            <MuiButton
+              key={day}
+              data-idx={day}
+              className={csx.prevDay}
+              onClick={onPrevDayClick}
+            >
               {day}
             </MuiButton>
           ))}
@@ -146,7 +161,12 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
             </MuiButton>
           ))}
           {nextDays.map((day) => (
-            <MuiButton key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
+            <MuiButton
+              key={day}
+              data-idx={day}
+              className={csx.nextDay}
+              onClick={onNextDayClick}
+            >
               {day}
             </MuiButton>
           ))}

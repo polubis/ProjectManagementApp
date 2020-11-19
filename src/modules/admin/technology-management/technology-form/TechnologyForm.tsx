@@ -12,16 +12,16 @@ import { addTechnology, Technology, editTechnology } from 'core/api';
 
 import csx from './TechnologyForm.scss';
 
-const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2],
-  CONFIG: Form.Config = [
-    { label: 'Name', fns: [V.req] },
-    { label: 'Description', fns: [V.req] },
-    {
-      label: 'Picture',
-      fns: [(value) => V.makeResult(value === null, 'This field is required')],
-      value: null
-    }
-  ];
+const [NAME, DESCRIPTION, PICTURE] = [0, 1, 2];
+const CONFIG: Form.Config = [
+  { label: 'Name', fns: [V.req] },
+  { label: 'Description', fns: [V.req] },
+  {
+    label: 'Picture',
+    fns: [(value) => V.makeResult(value === null, 'This field is required')],
+    value: null,
+  },
+];
 
 const makeConfig = (data?: Technology): Form.Config => {
   if (data) {
@@ -32,9 +32,9 @@ const makeConfig = (data?: Technology): Form.Config => {
         ...CONFIG[PICTURE],
         value: {
           src: data.pictureUrl,
-          file: null
-        }
-      }
+          file: null,
+        },
+      },
     ];
   }
 
@@ -53,9 +53,12 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
 
   const [pending, setPending] = useState(false);
 
-  const [{ dirty, invalid, fields }, change, directChange, submit] = Form.useManager(
-    makeConfig(data)
-  );
+  const [
+    { dirty, invalid, fields },
+    change,
+    directChange,
+    submit,
+  ] = Form.useManager(makeConfig(data));
 
   const pictureRef = useRef<HTMLInputElement>(null);
 
@@ -71,8 +74,8 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
           [
             {
               file: e.target.files[0],
-              src: URL.createObjectURL(e.target.files[0])
-            }
+              src: URL.createObjectURL(e.target.files[0]),
+            },
           ]
         );
       }
@@ -95,17 +98,19 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
             await addTechnology({
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
-              picture: fields[PICTURE].value.file
+              picture: fields[PICTURE].value.file,
             });
           } else {
             await editTechnology(+id, {
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
-              picture: fields[PICTURE].value.file
+              picture: fields[PICTURE].value.file,
             });
           }
 
-          history.replace(`/app/admin/dictionaries/technologies?query=${fields[NAME].value}`);
+          history.replace(
+            `/app/admin/dictionaries/technologies?query=${fields[NAME].value}`
+          );
 
           URL.revokeObjectURL(fields[PICTURE].value.src);
         } catch {
@@ -147,8 +152,16 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
             <figure>
               <img src={fields[PICTURE].value.src} />
             </figure>
-            <span>{fields[PICTURE].value.file ? fields[PICTURE].value.file.name : ''}</span>
-            <Button variant="icon" theme="primaryTransparent" onClick={handlePictureDelete}>
+            <span>
+              {fields[PICTURE].value.file
+                ? fields[PICTURE].value.file.name
+                : ''}
+            </span>
+            <Button
+              variant="icon"
+              theme="primaryTransparent"
+              onClick={handlePictureDelete}
+            >
               <CloseIcon />
             </Button>
           </div>
@@ -171,7 +184,11 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
         )}
       </FieldBase>
 
-      <Button disabled={(dirty && invalid) || pending} type="submit" theme="primaryDark">
+      <Button
+        disabled={(dirty && invalid) || pending}
+        type="submit"
+        theme="primaryDark"
+      >
         SUBMIT
       </Button>
     </form>

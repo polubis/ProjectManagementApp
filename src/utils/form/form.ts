@@ -67,7 +67,7 @@ const useManager = (config: Form.Config): Form.Manager => {
     const { fns = [] } = config[idx];
 
     const result = V.run(value, currState)(...fns);
-    const invalidResult = result.find((result) => result.invalid);
+    const invalidResult = result.find((resultItem) => resultItem.invalid);
     const error = invalidResult ? invalidResult.text : '';
 
     return { value, error, result };
@@ -102,7 +102,7 @@ const useManager = (config: Form.Config): Form.Manager => {
 
     const datasetIdx = +dataset.idx;
 
-    if (isNaN(datasetIdx)) {
+    if (Number.isNaN(datasetIdx)) {
       throw new Error('Attribute data-idx must be number');
     }
 
@@ -118,7 +118,9 @@ const useManager = (config: Form.Config): Form.Manager => {
   };
 
   const submit = (e?: Form.Events.Submit): boolean => {
-    e && e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
     const positions = Array.from({ length: config.length }, (_, idx) => idx);
     const values = positions.map((p) => state.fields[p].value);

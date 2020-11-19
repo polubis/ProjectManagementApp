@@ -15,7 +15,7 @@ import csx from './Dictionaries.scss';
 const Dictionaries = () => {
   const history = useHistory();
   const {
-    params: { kind }
+    params: { kind },
   } = useRouteMatch<RouteProps>();
 
   useRouteValidation(kind, history);

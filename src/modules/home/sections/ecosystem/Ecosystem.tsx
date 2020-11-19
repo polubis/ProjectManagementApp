@@ -17,8 +17,8 @@ const Ecosystem = () => {
           </h1>
 
           <span>
-            Choose a template, find people in the team, create a project and enjoy the whole
-            ecosystem in one place
+            Choose a template, find people in the team, create a project and
+            enjoy the whole ecosystem in one place
           </span>
 
           <Link to="/app/templates/">

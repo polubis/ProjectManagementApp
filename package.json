@@ -10,8 +10,8 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test-watch-silent": "jest --watch --silent",
-    "lint": "npx eslint . --ext .ts",
-    "lint-fix": "npx eslint . --ext .ts --fix"
+    "lint": "npx eslint . --ext .ts,.tsx",
+    "lint-fix": "npx eslint . --ext .ts,.tsx --fix"
   },
   "author": "Adrian Połubiński",
   "license": "ISC",
@@ -79,5 +79,10 @@
     "react-window": "^1.8.5",
     "rxjs": "^6.6.2",
     "webfontloader": "^1.6.28"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint-fix"
+    }
   }
 }

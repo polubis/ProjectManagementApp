@@ -6,7 +6,7 @@ import { _TEMPLATE_ } from '_mocks_';
 import ForkTemplate from '..';
 
 jest.mock('core/api', () => ({
-  forkTemplate: () => Promise.resolve()
+  forkTemplate: () => Promise.resolve(),
 }));
 
 describe('<ForkTemplate> success', () => {

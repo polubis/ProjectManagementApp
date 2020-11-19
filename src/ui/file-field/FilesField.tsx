@@ -36,9 +36,9 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
   readonly ref = React.createRef<HTMLInputElement>();
 
   private _loadFile = (file: File): Observable<FilesField.LoadedFile> => {
-    return new Observable(subscriber => {
-      const image = new Image(),
-        src = URL.createObjectURL(file);
+    return new Observable((subscriber) => {
+      const image = new Image();
+      const src = URL.createObjectURL(file);
 
       image.onload = () => {
         subscriber.next({ file, src });
@@ -58,8 +58,12 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
   private _handleFilesAdd = () => {
     return this._filesAdded$
       .pipe(
-        switchMap(files =>
-          from(files).pipe(mergeMap(this._loadFile), toArray(), tap(this.props.onChange))
+        switchMap((files) =>
+          from(files).pipe(
+            mergeMap(this._loadFile),
+            toArray(),
+            tap(this.props.onChange)
+          )
         )
       )
       .subscribe();
@@ -72,8 +76,8 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
   handleDelete = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.stopPropagation();
 
-    const clickedSrc = e.currentTarget.getAttribute('src'),
-      newValue = this.props.value.filter(({ src }) => src !== clickedSrc);
+    const clickedSrc = e.currentTarget.getAttribute('src');
+    const newValue = this.props.value.filter(({ src }) => src !== clickedSrc);
 
     this.props.onChange(newValue);
   };
@@ -87,7 +91,15 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
   }
 
   render = () => {
-    const { accept, className, error, label, formats, multiple, value } = this.props;
+    const {
+      accept,
+      className,
+      error,
+      label,
+      formats,
+      multiple,
+      value,
+    } = this.props;
 
     return (
       <FieldBase className={className} error={error} label={label}>

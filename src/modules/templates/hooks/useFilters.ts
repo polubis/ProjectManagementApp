@@ -15,12 +15,14 @@ import {
 } from '..';
 
 const parseLimit = (limit: string) => (filters: TemplatesSearchFilters) =>
-  !limit || isNaN(+limit) || +limit < LIMIT ? filters : { ...filters, limit };
+  !limit || Number.isNaN(+limit) || +limit < LIMIT
+    ? filters
+    : { ...filters, limit };
 
 const parsePage = (page: string) => (
   filters: TemplatesSearchFilters
 ): TemplatesSearchFilters =>
-  !page || isNaN(+page) ? filters : { ...filters, page };
+  !page || Number.isNaN(+page) ? filters : { ...filters, page };
 
 const parseQuery = (query: string) => (filters: TemplatesSearchFilters) => ({
   ...filters,
@@ -36,7 +38,7 @@ const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (
   value: string
 ) => (filters: TemplatesSearchFilters) =>
   !isJsonString(value) ||
-  (JSON.parse(value) as string[]).some((id) => isNaN(+id))
+  (JSON.parse(value) as string[]).some((id) => Number.isNaN(+id))
     ? filters
     : { ...filters, [key]: value };
 

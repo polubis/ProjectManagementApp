@@ -9,7 +9,10 @@ import { BASE_LINKS, IMPORTANT_LINKS, Link } from '..';
 
 import csx from './Sidebar.scss';
 
-const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[] => {
+const getLinksByAuthState = (
+  authorized: boolean,
+  pending: boolean
+) => (): Link[] => {
   if (pending) {
     return [];
   }
@@ -28,12 +31,20 @@ const Sidebar = memo(
     const render = usePortal();
     const { authorized, pending } = useAuthProvider();
 
-    const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
+    const links = useMemo(getLinksByAuthState(authorized, pending), [
+      authorized,
+      pending,
+    ]);
 
     return render(
       <nav className={csx.sidebar}>
         {BASE_LINKS.map((link) => (
-          <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
+          <NavLink
+            key={link.to}
+            activeClassName={csx.activeLink}
+            exact
+            {...link}
+          />
         ))}
 
         {links.map((link) => (

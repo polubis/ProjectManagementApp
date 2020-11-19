@@ -22,7 +22,7 @@ const TemplateStats = ({
   patterns,
   stars,
   technologies,
-  watches
+  watches,
 }: TemplateStats.Props) => {
   return (
     <div className={`${csx.templateStats} ${className}`}>

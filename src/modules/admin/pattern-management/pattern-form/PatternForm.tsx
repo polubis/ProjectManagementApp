@@ -9,17 +9,17 @@ import { addPattern, editPattern, Pattern } from 'core/api';
 
 import csx from './PatternForm.scss';
 
-const [NAME, DESCRIPTION] = [0, 1],
-  CONFIG: Form.Config = [
-    { label: 'Name', fns: [V.req] },
-    { label: 'Description', fns: [V.req] }
-  ];
+const [NAME, DESCRIPTION] = [0, 1];
+const CONFIG: Form.Config = [
+  { label: 'Name', fns: [V.req] },
+  { label: 'Description', fns: [V.req] },
+];
 
 const makeConfig = (data?: Pattern): Form.Config => {
   if (data) {
     return [
       { ...CONFIG[NAME], value: data.name },
-      { ...CONFIG[DESCRIPTION], value: data.description }
+      { ...CONFIG[DESCRIPTION], value: data.description },
     ];
   }
 
@@ -51,16 +51,18 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
           if (id === undefined) {
             await addPattern({
               name: fields[NAME].value,
-              description: fields[DESCRIPTION].value
+              description: fields[DESCRIPTION].value,
             });
           } else {
             await editPattern(+id, {
               name: fields[NAME].value,
-              description: fields[DESCRIPTION].value
+              description: fields[DESCRIPTION].value,
             });
           }
 
-          history.replace(`/app/admin/dictionaries/patterns?query=${fields[NAME].value}`);
+          history.replace(
+            `/app/admin/dictionaries/patterns?query=${fields[NAME].value}`
+          );
         } catch {
           setPending(false);
         }
@@ -94,7 +96,11 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
         placeholder="Pattern description..."
       />
 
-      <Button disabled={(dirty && invalid) || pending} type="submit" theme="primaryDark">
+      <Button
+        disabled={(dirty && invalid) || pending}
+        type="submit"
+        theme="primaryDark"
+      >
         SUBMIT
       </Button>
     </form>

@@ -17,9 +17,14 @@ namespace TemplatesGrid {
   }
 }
 
-const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =>
+const renderSpaceholders = (
+  loading: boolean,
+  spaceholdersCount: number
+) => () =>
   loading
-    ? Array.from({ length: spaceholdersCount }, (_, idx) => <TemplateTile.Loader key={idx} />)
+    ? Array.from({ length: spaceholdersCount }, (_, idx) => (
+        <TemplateTile.Loader key={idx} />
+      ))
     : null;
 
 /**
@@ -35,27 +40,31 @@ const TemplatesGrid = ({
   loading,
   templates,
   pathname,
-  spaceholdersCount
+  spaceholdersCount,
 }: TemplatesGrid.Props) => {
   const { push, location } = useHistory();
 
   const goToDetails = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const templateId = e.currentTarget.getAttribute('data-idx');
-      push(`${pathname ? pathname : location.pathname}/${templateId}`);
+      push(`${pathname || location.pathname}/${templateId}`);
     },
     [location.pathname]
   );
 
   const spaceholders = useMemo(renderSpaceholders(loading, spaceholdersCount), [
     loading,
-    spaceholdersCount
+    spaceholdersCount,
   ]);
 
   return (
     <section className={`${csx.templatesGrid} ${className}`}>
       {templates.map((template) => (
-        <TemplateTile key={template.id} template={template} onClick={goToDetails} />
+        <TemplateTile
+          key={template.id}
+          template={template}
+          onClick={goToDetails}
+        />
       ))}
       {spaceholders}
     </section>

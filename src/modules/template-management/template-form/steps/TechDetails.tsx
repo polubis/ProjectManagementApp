@@ -4,7 +4,11 @@ import { Button, SelectBase, FieldBase, SelectControl } from 'ui';
 
 import { Form } from 'utils';
 
-import { PatternsSelect, TagsField, TechnologiesSelect } from 'shared/components';
+import {
+  PatternsSelect,
+  TagsField,
+  TechnologiesSelect,
+} from 'shared/components';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '../..';
 
@@ -21,14 +25,20 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
 
   const handleTechnologySelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
-      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
+      directChange(
+        [TECHNOLOGIES],
+        [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]
+      );
     },
     [fields]
   );
 
   const handlePatternSelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
-      directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
+      directChange(
+        [PATTERNS],
+        [{ ...fields[PATTERNS].value, [dataIdx]: value }]
+      );
     },
     [fields]
   );
@@ -43,7 +53,9 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
 
   const handleTagDelete = useCallback(
     (idx: number) => {
-      const tags = (fields[TAGS].value as string[]).filter((_, tIdx) => tIdx !== idx);
+      const tags = (fields[TAGS].value as string[]).filter(
+        (_, tIdx) => tIdx !== idx
+      );
       directChange([TAGS], [tags]);
     },
     [fields]
@@ -51,10 +63,18 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <FieldBase label="Technologies *" error={dirty ? fields[TECHNOLOGIES].error : ''}>
-        <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
+      <FieldBase
+        label="Technologies *"
+        error={dirty ? fields[TECHNOLOGIES].error : ''}
+      >
+        <TechnologiesSelect
+          value={fields[TECHNOLOGIES].value}
+          onSelect={handleTechnologySelect}
+        >
           <SelectControl
-            label={({ length }) => `${length} technolog${length > 1 ? 'ies' : 'y'} selected`}
+            label={({ length }) =>
+              `${length} technolog${length > 1 ? 'ies' : 'y'} selected`
+            }
             placeholder="Select technologies..."
             value={fields[TECHNOLOGIES].value}
           />
@@ -62,9 +82,14 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
       </FieldBase>
 
       <FieldBase label="Patterns *" error={dirty ? fields[PATTERNS].error : ''}>
-        <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect}>
+        <PatternsSelect
+          value={fields[PATTERNS].value}
+          onSelect={handlePatternSelect}
+        >
           <SelectControl
-            label={({ length }) => `${length} pattern${length > 1 ? 's' : ''} selected`}
+            label={({ length }) =>
+              `${length} pattern${length > 1 ? 's' : ''} selected`
+            }
             placeholder="Select patterns..."
             value={fields[PATTERNS].value}
           />

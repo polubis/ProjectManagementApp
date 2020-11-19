@@ -33,16 +33,18 @@ const Trigger: More.Trigger = (openMenu) => (
 const More = ({ children, trigger = Trigger }: More.Props) => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
-  const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
-    React.cloneElement(child, {
-      ...child.props,
-      onClick: (e: More.Events.Click) => {
-        if (child.props.onClick) {
-          child.props.onClick(e);
-        }
-        closeMenu();
-      }
-    } as More.InjectedProps)
+  const enhancedChildren = React.Children.map(
+    children,
+    (child: ReactElement<More.InjectedProps>) =>
+      React.cloneElement(child, {
+        ...child.props,
+        onClick: (e: More.Events.Click) => {
+          if (child.props.onClick) {
+            child.props.onClick(e);
+          }
+          closeMenu();
+        },
+      } as More.InjectedProps)
   );
 
   return (

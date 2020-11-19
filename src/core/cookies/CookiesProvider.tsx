@@ -19,7 +19,7 @@ namespace CookiesProvider {
 }
 
 const STATE: CookiesProvider.State = {
-  cookies: Cookies.get()
+  cookies: Cookies.get(),
 };
 
 const Context = createContext(STATE);
@@ -33,10 +33,14 @@ class Provider extends React.Component<CookiesProvider.Props, typeof STATE> {
 
   readonly state: typeof STATE = {
     ...STATE,
-    setCookies: this.setCookies
+    setCookies: this.setCookies,
   };
 
-  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
+  render = () => (
+    <Context.Provider value={this.state}>
+      {this.props.children}
+    </Context.Provider>
+  );
 }
 
 const CookiesProvider = Provider;

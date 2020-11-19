@@ -4,7 +4,11 @@ import { SelectBase, Checkbox, Tag } from 'ui';
 
 import csx from './ListItem.scss';
 
-const ListItem = ({ style, index, data: { items, onSelect } }: SelectBase.ListChildProps) => {
+const ListItem = ({
+  style,
+  index,
+  data: { items, onSelect },
+}: SelectBase.ListChildProps) => {
   const { dataIdx, label, value } = items[index];
 
   return (

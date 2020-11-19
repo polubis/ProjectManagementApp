@@ -3,14 +3,17 @@ import { TemplateCategory } from 'core/api';
 import { TemplatesSearchFilters } from '.';
 
 export const PAGE = 1;
-const LIMIT = 25;
-const CATEGORIES: TemplateCategory[] = [
+
+export const LIMIT = 25;
+
+export const CATEGORIES: TemplateCategory[] = [
   TemplateCategory.ALL,
   TemplateCategory.TOP,
   TemplateCategory.RECENT,
   TemplateCategory.YOURS,
 ];
-const FILTERS: TemplatesSearchFilters = {
+
+export const FILTERS: TemplatesSearchFilters = {
   page: `${PAGE}`,
   limit: `${LIMIT}`,
   category: TemplateCategory.ALL,

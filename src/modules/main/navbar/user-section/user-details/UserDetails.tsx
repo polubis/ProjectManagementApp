@@ -21,7 +21,7 @@ const UserDetails = forwardRef(() => {
     email,
     position,
     technologies,
-    connectedWithGithub
+    connectedWithGithub,
   } = user;
 
   const profileDetails = useMemo(
@@ -30,7 +30,7 @@ const UserDetails = forwardRef(() => {
         Company: company || 'Unknown',
         'Years of experience': getYearsLabel(yearsOfExperience),
         Seniority: getYearsLabel(seniority),
-        Position: position || 'Unknown'
+        Position: position || 'Unknown',
       }),
     [user]
   );
@@ -38,7 +38,9 @@ const UserDetails = forwardRef(() => {
   return (
     <div className={csx.userDetails}>
       <header>
-        <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
+        <Avatar className={csx.avatar}>
+          {username.charAt(0).toUpperCase()}
+        </Avatar>
 
         <div className={csx.personality}>
           <span>{username}</span>
@@ -55,7 +57,10 @@ const UserDetails = forwardRef(() => {
         ))}
 
         <div className={csx.detail}>
-          <span>Technologies {technologies.length > 0 ? `(${technologies.length})` : ''}</span>
+          <span>
+            Technologies{' '}
+            {technologies.length > 0 ? `(${technologies.length})` : ''}
+          </span>
 
           <div className={csx.technologies}>
             {technologies.length > 0 ? (
@@ -72,12 +77,14 @@ const UserDetails = forwardRef(() => {
       <div className={csx.github}>
         {connectedWithGithub ? (
           <div>
-            <span className={csx.success}>Connected</span> with <span>Github</span>
+            <span className={csx.success}>Connected</span> with{' '}
+            <span>Github</span>
           </div>
         ) : (
           <>
             <div>
-              <span className={csx.error}>No connection</span> with <span>Github</span>
+              <span className={csx.error}>No connection</span> with{' '}
+              <span>Github</span>
             </div>
             <Button onClick={logInViaGithub}>CONNECT TO GITHUB</Button>
           </>

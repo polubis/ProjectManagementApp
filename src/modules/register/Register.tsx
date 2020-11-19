@@ -3,9 +3,8 @@ import { Helmet } from 'react-helmet';
 
 import { useTechnologiesProvider } from 'core/technologies';
 
-import RegisterForm from './register-form';
-
 import { Footer, Navbar } from 'shared/components';
+import RegisterForm from './register-form';
 
 import csx from './Register.scss';
 
@@ -22,7 +21,9 @@ const Register = () => {
         />
       </Helmet>
       <Navbar />
-      <div className={csx.register}>{loadingTechnologies || <RegisterForm />}</div>
+      <div className={csx.register}>
+        {loadingTechnologies || <RegisterForm />}
+      </div>
       <Footer />
     </>
   );

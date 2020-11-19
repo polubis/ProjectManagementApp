@@ -9,7 +9,10 @@ import { Guard } from 'core/auth';
 import csx from './SidebarLinks.scss';
 
 namespace SidebarLinks {
-  export type RenderLink = (icon: React.ReactNode, label: string) => JSX.Element;
+  export type RenderLink = (
+    icon: React.ReactNode,
+    label: string
+  ) => JSX.Element;
 
   export interface Props {
     renderLink: RenderLink;

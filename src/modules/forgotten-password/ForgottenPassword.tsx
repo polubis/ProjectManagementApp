@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button } from "ui";
+import { Button } from 'ui';
 
 import { EmailSent, Footer, Navbar } from 'shared/components';
 
@@ -15,10 +15,10 @@ const ForgottenPassword = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className={sent ? csx.sent : csx.forgottenPassword}>
-        {sent
-          ? <EmailSent
+        {sent ? (
+          <EmailSent
             label="Email sent"
             description="Check your email and follow instructions"
           >
@@ -26,13 +26,17 @@ const ForgottenPassword = () => {
               <Button>OK</Button>
             </NavLink>
           </EmailSent>
-          : <>
+        ) : (
+          <>
             <h5>Password recovery</h5>
-            <ForgottenPasswordForm disabled={pending} onSubmit={handleRegister}/>
+            <ForgottenPasswordForm
+              disabled={pending}
+              onSubmit={handleRegister}
+            />
           </>
-        }
+        )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

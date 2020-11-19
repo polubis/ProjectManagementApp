@@ -37,7 +37,12 @@ const TemplateTile = ({ template, onClick }: TemplateTile.Props) => {
 
       <div className={csx.technologies}>
         {template.technologies.map(({ id, pictureUrl }) => (
-          <Img alt="Technology image" key={id} size="32px:32px" src={pictureUrl} />
+          <Img
+            alt="Technology image"
+            key={id}
+            size="32px:32px"
+            src={pictureUrl}
+          />
         ))}
       </div>
     </div>

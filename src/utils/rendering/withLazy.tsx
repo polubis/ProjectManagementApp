@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 
-export const withLazy = Component => {
+export const withLazy = (Component) => {
   const LazyComponent = lazy(Component);
 
-  const SuspendedComponent = props => (
+  const SuspendedComponent = (props) => (
     <Suspense fallback={null}>
       <LazyComponent {...props} />
     </Suspense>
