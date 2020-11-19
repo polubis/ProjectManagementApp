@@ -19,7 +19,7 @@ const makeBreadCrumbs = (url: string): Item[] => {
       (part, i) =>
         ({
           children: part,
-          to: `/app/${urls.slice(0, i + 1).join('/')}`
+          to: `/app/${urls.slice(0, i + 1).join('/')}`,
         } as Item)
     );
 };

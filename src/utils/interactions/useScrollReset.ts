@@ -6,7 +6,7 @@ export const useScrollReset = <T>(trigger: T, smooth = false): void => {
       window.scroll({
         left: 0,
         top: 0,
-        behavior: smooth ? 'smooth' : 'auto'
+        behavior: smooth ? 'smooth' : 'auto',
       });
     } else {
       window.scrollTo(0, 0);

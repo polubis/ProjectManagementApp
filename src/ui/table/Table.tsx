@@ -38,7 +38,9 @@ const getConfigItems = (config: Table.Config): Table.ConfigItem[] => {
       ({
         key,
         label: config[key].label ? config[key].label : key,
-        size: config[key].size ? config[key].size : { min: '150px', max: '1fr' }
+        size: config[key].size
+          ? config[key].size
+          : { min: '150px', max: '1fr' },
       } as Table.ConfigItem)
   );
 };
@@ -49,10 +51,15 @@ const getGridTemplateColumns = (items: Table.ConfigItem[]): string =>
 const Table = ({ className = '', config, data }: Table.Props) => {
   const items = useMemo(() => getConfigItems(config), [config]);
 
-  const gridTemplateColumns = useMemo(() => getGridTemplateColumns(items), [config]);
+  const gridTemplateColumns = useMemo(() => getGridTemplateColumns(items), [
+    config,
+  ]);
 
   return (
-    <table className={`${csx.table} ${className}`} style={{ gridTemplateColumns }}>
+    <table
+      className={`${csx.table} ${className}`}
+      style={{ gridTemplateColumns }}
+    >
       <thead>
         {items.map(({ key, label }) => (
           <tr key={label}>
@@ -65,7 +72,9 @@ const Table = ({ className = '', config, data }: Table.Props) => {
           <tr key={idx}>
             {items.map(({ key }) => (
               <td key={key}>
-                <div>{config[key].row ? config[key].row(key, item) : item[key]}</div>
+                <div>
+                  {config[key].row ? config[key].row(key, item) : item[key]}
+                </div>
               </td>
             ))}
           </tr>

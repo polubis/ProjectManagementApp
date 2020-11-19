@@ -6,7 +6,7 @@ import Content from '..';
 
 import csx from './TemplateAdded.scss';
 
-const TemplateAdded: Content.Component = item => {
+const TemplateAdded: Content.Component = (item) => {
   return (
     <div className={csx.templateAdded}>
       <figure>

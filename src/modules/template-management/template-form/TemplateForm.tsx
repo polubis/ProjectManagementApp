@@ -8,7 +8,12 @@ import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import { useTemplateManagement, BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS } from '..';
+import {
+  useTemplateManagement,
+  BASIC_INFO,
+  GITHUB_CONNECTION,
+  TECH_DETAILS,
+} from '..';
 
 namespace TemplateForm {
   export interface Props {
@@ -18,21 +23,21 @@ namespace TemplateForm {
 
 const STEPS: Steps.Item[] = [
   {
-    label: 'Basic information'
+    label: 'Basic information',
   },
   {
-    label: 'Github connection'
+    label: 'Github connection',
   },
   {
-    label: 'Technical details'
-  }
+    label: 'Technical details',
+  },
 ];
 
 const DESCRIPTIONS: string[] = [
   `Name your template and add a description. This information 
       will be displayed first`,
   `Connect template to github repository and set access settings`,
-  `Add technical details to your newly created template`
+  `Add technical details to your newly created template`,
 ];
 
 const TemplateForm = ({ config }: TemplateForm.Props) => {
@@ -79,7 +84,10 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
     <Loader />
   ) : (
     <>
-      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
+      <StepHeader
+        description={DESCRIPTIONS[activeStep]}
+        label={STEPS[activeStep].label}
+      />
 
       <FormSteps steps={STEPS} formManagers={formManagers} />
 
@@ -96,7 +104,11 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
       )}
 
       {activeStep === TECH_DETAILS && (
-        <TechDetails formManager={techDetailsManager} onBack={handleBack} onSubmit={handleSubmit} />
+        <TechDetails
+          formManager={techDetailsManager}
+          onBack={handleBack}
+          onSubmit={handleSubmit}
+        />
       )}
     </>
   );

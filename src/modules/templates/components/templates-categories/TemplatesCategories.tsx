@@ -16,14 +16,17 @@ const TemplatesCategories = () => {
   const { location, push } = useHistory();
 
   const {
-    params: { category }
+    params: { category },
   } = useRouteMatch<TemplatesRouteProps>();
 
   const { authorized, pending } = useAuthProvider();
 
   const handleClick = useCallback(
     (newCategory: TemplateCategory) => {
-      const url = Url(location).delete('page').replace(category, newCategory).value();
+      const url = Url(location)
+        .delete('page')
+        .replace(category, newCategory)
+        .value();
 
       push(url);
     },
@@ -31,7 +34,11 @@ const TemplatesCategories = () => {
   );
 
   return (
-    <Tabs active={category} className={csx.templatesCategories} onClick={handleClick}>
+    <Tabs
+      active={category}
+      className={csx.templatesCategories}
+      onClick={handleClick}
+    >
       <>{TemplateCategory.ALL}</>
       <>{TemplateCategory.RECENT}</>
       <>{TemplateCategory.TOP}</>

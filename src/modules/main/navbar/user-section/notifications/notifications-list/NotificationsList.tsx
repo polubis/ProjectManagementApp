@@ -15,7 +15,7 @@ namespace NotificationsList {
 const NotificationsList = ({ items }: NotificationsList.Props) => {
   return (
     <ul className={csx.list}>
-      {items.map(item => (
+      {items.map((item) => (
         <ListItem key={item.id} item={item} />
       ))}
     </ul>

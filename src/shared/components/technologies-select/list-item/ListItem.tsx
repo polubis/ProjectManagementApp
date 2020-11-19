@@ -11,7 +11,7 @@ import csx from './ListItem.scss';
 const ListItem = ({
   style,
   index,
-  data: { items, onSelect }
+  data: { items, onSelect },
 }: SelectBase.ListChildProps<Technology>) => {
   const { dataIdx, label, pictureUrl, value } = items[index];
 
@@ -19,7 +19,13 @@ const ListItem = ({
     <div className={csx.listItem} style={style}>
       <Checkbox
         dataIdx={dataIdx}
-        label={<TechnologyChip className={csx.technology} name={label} url={pictureUrl} />}
+        label={
+          <TechnologyChip
+            className={csx.technology}
+            name={label}
+            url={pictureUrl}
+          />
+        }
         value={value}
         onChange={onSelect}
       />

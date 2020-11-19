@@ -4,7 +4,9 @@ import { TemplateCategory } from 'core/api';
 
 import { TemplatesGrid } from 'shared/components';
 
-import TemplatesProvider, { useTemplatesProvider } from 'src/modules/templates/TemplatesProvider';
+import TemplatesProvider, {
+  useTemplatesProvider,
+} from 'src/modules/templates/TemplatesProvider';
 
 import csx from './RecentTemplates.scss';
 
@@ -18,7 +20,7 @@ const RecentTemplates = () => {
       category: TemplateCategory.RECENT,
       query: '',
       technologiesIds: [],
-      patternsIds: []
+      patternsIds: [],
     });
   }, []);
 

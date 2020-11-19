@@ -10,7 +10,7 @@ import csx from './ListItem.scss';
 
 namespace ListItem {
   export interface Props {
-    item: Notification
+    item: Notification;
   }
 }
 

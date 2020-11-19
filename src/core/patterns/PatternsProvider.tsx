@@ -18,13 +18,12 @@ namespace PatternsProvider {
 const STATE: PatternsProvider.State = {
   patterns: [],
   loading: true,
-  error: ''
+  error: '',
 };
 
 const Context = createContext(STATE);
 
 class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
-
   getPatterns = async (query = '') => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
@@ -41,10 +40,14 @@ class Provider extends React.Component<PatternsProvider.Props, typeof STATE> {
 
   readonly state: typeof STATE = {
     ...STATE,
-    getPatterns: this.getPatterns
+    getPatterns: this.getPatterns,
   };
 
-  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
+  render = () => (
+    <Context.Provider value={this.state}>
+      {this.props.children}
+    </Context.Provider>
+  );
 }
 
 const PatternsProvider = Provider;

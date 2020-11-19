@@ -20,9 +20,13 @@ const Templates = withLazy(() => import('src/modules/templates'));
 
 const TemplateDetails = withLazy(() => import('src/modules/template-details'));
 
-const TemplateDocumentation = withLazy(() => import('src/modules/template-documentation'));
+const TemplateDocumentation = withLazy(
+  () => import('src/modules/template-documentation')
+);
 
-const TemplateManagement = withLazy(() => import('src/modules/template-management'));
+const TemplateManagement = withLazy(
+  () => import('src/modules/template-management')
+);
 
 const Main = ({ match }: RouteChildrenProps) => {
   return (
@@ -51,12 +55,24 @@ const Main = ({ match }: RouteChildrenProps) => {
           <Route
             exact
             path={`${match.path}/templates`}
-            render={() => <Redirect to={`${match.path}/templates/${TemplateCategory.ALL}`} />}
+            render={() => (
+              <Redirect
+                to={`${match.path}/templates/${TemplateCategory.ALL}`}
+              />
+            )}
           />
 
-          <Route exact path={`${match.path}/templates/:category`} component={Templates} />
+          <Route
+            exact
+            path={`${match.path}/templates/:category`}
+            component={Templates}
+          />
 
-          <Route exact path={`${match.path}/templates/:category/:id`} component={TemplateDetails} />
+          <Route
+            exact
+            path={`${match.path}/templates/:category/:id`}
+            component={TemplateDetails}
+          />
 
           <Route
             exact
@@ -64,7 +80,10 @@ const Main = ({ match }: RouteChildrenProps) => {
             component={TemplateDocumentation}
           />
 
-          <Route path="*" render={() => <Redirect to={`${match.path}/templates/all`} />} />
+          <Route
+            path="*"
+            render={() => <Redirect to={`${match.path}/templates/all`} />}
+          />
         </Switch>
       </main>
     </div>

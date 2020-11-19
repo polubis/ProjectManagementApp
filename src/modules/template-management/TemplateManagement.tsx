@@ -17,7 +17,7 @@ import csx from './TemplateManagement.scss';
 
 const TemplateManagement = () => {
   const {
-    params: { id }
+    params: { id },
   } = useRouteMatch<{ id: string }>();
 
   const { loading: loadingTechnologies } = useTechnologiesProvider();

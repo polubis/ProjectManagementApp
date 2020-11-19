@@ -12,7 +12,10 @@ namespace TemplateAuthorGuard {
   }
 }
 
-const TemplateAuthorGuard = ({ children, redirect }: TemplateAuthorGuard.Props) => {
+const TemplateAuthorGuard = ({
+  children,
+  redirect,
+}: TemplateAuthorGuard.Props) => {
   const { authorized, user } = useAuthProvider();
 
   const { template } = useTemplateDetailsProvider();

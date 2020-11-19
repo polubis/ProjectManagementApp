@@ -2,7 +2,12 @@ import React from 'react';
 
 const WorkImage = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="191" height="132" viewBox="0 0 191 132">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="191"
+      height="132"
+      viewBox="0 0 191 132"
+    >
       <g transform="translate(-865 -348)">
         <rect
           width="22.86"

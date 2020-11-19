@@ -40,8 +40,8 @@ const AlmostDone = ({ formManager, onBack, onSubmit }: AlmostDone.Props) => {
       <AlmostDoneImage />
 
       <span className={csx.description}>
-        After confirming the regulations and acceptance we will send you an activation link to your
-        email address
+        After confirming the regulations and acceptance we will send you an
+        activation link to your email address
       </span>
 
       <div className={csx.divider} />

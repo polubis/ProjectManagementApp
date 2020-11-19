@@ -16,7 +16,10 @@ export namespace ConfirmTemplateDelete {
   }
 }
 
-const ConfirmTemplateDelete = ({ template, onClose }: ConfirmTemplateDelete.Props) => {
+const ConfirmTemplateDelete = ({
+  template,
+  onClose,
+}: ConfirmTemplateDelete.Props) => {
   const history = useHistory();
 
   const [pending, setPending] = useState(false);
@@ -45,7 +48,8 @@ const ConfirmTemplateDelete = ({ template, onClose }: ConfirmTemplateDelete.Prop
       deleteDisabled={name !== template.name || pending}
       description={() => (
         <>
-          This will delete template <b>{template.name}</b> with all connected work
+          This will delete template <b>{template.name}</b> with all connected
+          work
         </>
       )}
       title="You are about to delete template"

@@ -1,6 +1,12 @@
 import { isRefType } from '..';
 
-export const Url = ({ pathname, search }: { pathname: string; search: string }) => {
+export const Url = ({
+  pathname,
+  search,
+}: {
+  pathname: string;
+  search: string;
+}) => {
   return {
     concat: (value: string) => Url({ pathname: `${pathname}${value}`, search }),
     delete: (key: string) => {
@@ -15,7 +21,7 @@ export const Url = ({ pathname, search }: { pathname: string; search: string }) 
       const searchObj = new URLSearchParams(search);
 
       searchObj.delete(key);
-      searchObj.set(key, isRefType(value) ? JSON.stringify(value) : '' + value);
+      searchObj.set(key, isRefType(value) ? JSON.stringify(value) : `${value}`);
 
       return Url({ pathname, search: searchObj.toString() });
     },
@@ -27,6 +33,6 @@ export const Url = ({ pathname, search }: { pathname: string; search: string }) 
 
     search: () => search,
 
-    pathname: () => pathname
+    pathname: () => pathname,
   };
 };

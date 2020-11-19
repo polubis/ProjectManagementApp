@@ -8,8 +8,8 @@ import { useCookiesProvider } from 'core/cookies';
 
 import csx from './CookiesConsent.scss';
 
-const APPROVED = '1',
-  NAME = 'cookies-constent';
+const APPROVED = '1';
+const NAME = 'cookies-constent';
 
 const CookiesConsent = memo(
   () => {
@@ -27,7 +27,9 @@ const CookiesConsent = memo(
       ? null
       : render(
           <div className={csx.cookiesConsent}>
-            <span>This website uses cookies to enhance the user experience.</span>
+            <span>
+              This website uses cookies to enhance the user experience.
+            </span>
             <Button onClick={approveConstent}>GOT IT!</Button>
           </div>
         );

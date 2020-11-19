@@ -30,13 +30,13 @@ export const useSearch = (kind: DictionaryKind, { location }: History) => {
 
   const [state, setState] = useState<State>({
     data: [],
-    pending: true
+    pending: true,
   });
 
   useEffect(() => {
     load.next({
       kind,
-      query
+      query,
     });
   }, [location.key]);
 
@@ -59,9 +59,13 @@ export const useSearch = (kind: DictionaryKind, { location }: History) => {
       .pipe(
         tap(onInit),
         debounceTime(150),
-        map(({ kind, query }) => ({ kind, query: `?query=${query}` } as Payload)),
+        map(
+          ({ kind, query }) => ({ kind, query: `?query=${query}` } as Payload)
+        ),
         map(({ kind, query }) =>
-          kind === DictionaryKind.PATTERNS ? getPatterns(query) : getTechnologies(query)
+          kind === DictionaryKind.PATTERNS
+            ? getPatterns(query)
+            : getTechnologies(query)
         ),
         map((promise) => from(promise)),
         switchMap((obs) => obs.pipe(tap(onSuccess), catchError(onError)))

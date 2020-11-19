@@ -10,7 +10,14 @@ import { FormSteps } from 'shared/components';
 
 import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
 
-import { BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload } from '..';
+import {
+  BASE_CONFIG,
+  CREDENTIALS,
+  WORK,
+  ALMOST_DONE,
+  CONFIRM_ACCOUNT,
+  makePayload,
+} from '..';
 
 interface State {
   activeStep: number;
@@ -20,23 +27,23 @@ interface State {
 const DESCRIPTIONS: string[] = [
   `Choose username, email and use save password for log in`,
   `Describe yourself for other users`,
-  `Read our policy and confirm account creation`
+  `Read our policy and confirm account creation`,
 ];
 
 const STEPS: Steps.Item[] = [
   {
-    label: 'Account setup'
+    label: 'Account setup',
   },
   {
-    label: 'Work & Company'
+    label: 'Work & Company',
   },
-  { label: 'Almost done!' }
+  { label: 'Almost done!' },
 ];
 
 const RegisterForm = () => {
   const [state, setState] = useState<State>({
     activeStep: CREDENTIALS,
-    pending: false
+    pending: false,
   });
 
   const { activeStep, pending } = state;
@@ -76,7 +83,7 @@ const RegisterForm = () => {
       } else {
         setState((prevState) => ({
           ...prevState,
-          activeStep: nextStep
+          activeStep: nextStep,
         }));
       }
     },
@@ -86,7 +93,7 @@ const RegisterForm = () => {
   const handleBack = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
-      activeStep: prevState.activeStep - 1
+      activeStep: prevState.activeStep - 1,
     }));
   }, []);
 
@@ -100,7 +107,10 @@ const RegisterForm = () => {
 
   return (
     <>
-      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
+      <StepHeader
+        description={DESCRIPTIONS[activeStep]}
+        label={STEPS[activeStep].label}
+      />
 
       <FormSteps formManagers={formManagers} steps={STEPS} />
 
@@ -109,11 +119,19 @@ const RegisterForm = () => {
       )}
 
       {activeStep === WORK && (
-        <Work formManager={workManager} onBack={handleBack} onSubmit={handleSubmit} />
+        <Work
+          formManager={workManager}
+          onBack={handleBack}
+          onSubmit={handleSubmit}
+        />
       )}
 
       {activeStep === ALMOST_DONE && (
-        <AlmostDone formManager={almostDoneManager} onBack={handleBack} onSubmit={handleSubmit} />
+        <AlmostDone
+          formManager={almostDoneManager}
+          onBack={handleBack}
+          onSubmit={handleSubmit}
+        />
       )}
     </>
   );

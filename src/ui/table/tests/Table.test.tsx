@@ -11,7 +11,9 @@ describe('<Table>', () => {
   }
 
   it('adds className', () => {
-    const { container } = render(<Table className="class" config={{}} data={[]} />);
+    const { container } = render(
+      <Table className="class" config={{}} data={[]} />
+    );
 
     expect(container.querySelector('.class')).toBeInTheDocument();
   });
@@ -21,12 +23,12 @@ describe('<Table>', () => {
       <Table
         config={{
           id: {
-            label: 'Id'
+            label: 'Id',
           },
           firstName: {
-            col: () => <span title="First name">First name</span>
+            col: () => <span title="First name">First name</span>,
           },
-          lastName: {}
+          lastName: {},
         }}
         data={[]}
       />
@@ -44,12 +46,12 @@ describe('<Table>', () => {
         config={{
           id: {},
           firstName: {},
-          lastName: {}
+          lastName: {},
         }}
         data={[
           { id: 0, firstName: 'Piotr', lastName: 'Piotrowicz' },
           { id: 1, firstName: 'Tomek', lastName: 'Tomaszewski' },
-          { id: 2, firstName: 'Arek', lastName: 'Milik' }
+          { id: 2, firstName: 'Arek', lastName: 'Milik' },
         ]}
       />
     );
@@ -71,14 +73,18 @@ describe('<Table>', () => {
         config={{
           id: {},
           firstName: {
-            row: (key, data) => <span title={`First name ${data.firstName}`}>{data.firstName}</span>
+            row: (key, data) => (
+              <span title={`First name ${data.firstName}`}>
+                {data.firstName}
+              </span>
+            ),
           },
-          lastName: {}
+          lastName: {},
         }}
         data={[
           { id: 0, firstName: 'Piotr', lastName: 'Piotrowicz' },
           { id: 1, firstName: 'Tomek', lastName: 'Tomaszewski' },
-          { id: 2, firstName: 'Arek', lastName: 'Milik' }
+          { id: 2, firstName: 'Arek', lastName: 'Milik' },
         ]}
       />
     );
@@ -96,22 +102,32 @@ describe('<Table>', () => {
       expect(
         Table.getConfigItems({
           id: {
-            label: 'Id'
+            label: 'Id',
           },
           firstName: {
-            row: (label, value) => <span title={`First name ${value}`}>{value}</span>
+            row: (label, value) => (
+              <span title={`First name ${value}`}>{value}</span>
+            ),
           },
           lastName: {
             size: {
               min: '300px',
-              max: '2fr'
-            }
-          }
+              max: '2fr',
+            },
+          },
         })
       ).toEqual([
         { key: 'id', label: 'Id', size: { min: '150px', max: '1fr' } },
-        { key: 'firstName', label: 'firstName', size: { min: '150px', max: '1fr' } },
-        { key: 'lastName', label: 'lastName', size: { min: '300px', max: '2fr' } }
+        {
+          key: 'firstName',
+          label: 'firstName',
+          size: { min: '150px', max: '1fr' },
+        },
+        {
+          key: 'lastName',
+          label: 'lastName',
+          size: { min: '300px', max: '2fr' },
+        },
       ]);
     });
   });
@@ -120,17 +136,19 @@ describe('<Table>', () => {
     it('gets grid template columns', () => {
       const configItems = Table.getConfigItems({
         id: {
-          label: 'Id'
+          label: 'Id',
         },
         firstName: {
-          row: (label, value) => <span title={`First name ${value}`}>{value}</span>
+          row: (label, value) => (
+            <span title={`First name ${value}`}>{value}</span>
+          ),
         },
         lastName: {
           size: {
             min: '300px',
-            max: '2fr'
-          }
-        }
+            max: '2fr',
+          },
+        },
       });
 
       expect(Table.getGridTemplateColumns(configItems)).toEqual(

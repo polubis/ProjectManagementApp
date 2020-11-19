@@ -14,10 +14,15 @@ namespace TextareaField {
   }
 }
 
-const TextareaField = ({ label, error, className, ...inputProps }: TextareaField.Props) => {
+const TextareaField = ({
+  label,
+  error,
+  className,
+  ...inputProps
+}: TextareaField.Props) => {
   return (
     <FieldBase label={label} error={error} className={className}>
-      <textarea {...inputProps}></textarea>
+      <textarea {...inputProps} />
     </FieldBase>
   );
 };

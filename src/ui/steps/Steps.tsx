@@ -34,7 +34,11 @@ const Steps = ({ steps }: Steps.Props) => {
             <svg className={csx.marker} width="100%" height="8">
               <line x1="100%" strokeWidth="8" />
               {progress !== undefined && (
-                <line x1={`${progress}%`} strokeWidth="8" className={csx.markerValue} />
+                <line
+                  x1={`${progress}%`}
+                  strokeWidth="8"
+                  className={csx.markerValue}
+                />
               )}
             </svg>
           )}

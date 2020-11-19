@@ -22,7 +22,7 @@ const DictionariesSearch = ({ label }: DictionariesSearch.Props) => {
 
   const [{ values, next }, setForm] = useState(
     Form({
-      query: ''
+      query: '',
     })
   );
 

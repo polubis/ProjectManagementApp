@@ -17,7 +17,7 @@ namespace Content {
 }
 
 const ComponentsMap: Content.ComponentsMap = {
-  [NotificationType.TEMPLATE_ADDED]: TemplateAdded
+  [NotificationType.TEMPLATE_ADDED]: TemplateAdded,
 };
 
 const Content = ({ item }: Content.Props) => ComponentsMap[item.type](item);

@@ -7,7 +7,7 @@ import TreeItem from './tree-item';
 import csx from './ContentTree.scss';
 
 namespace ContentTree {
-  export interface Props extends Omit<Tree.Props, 'children'> {}
+  export type Props = Omit<Tree.Props, 'children'>;
 }
 
 const ContentTree = (props: ContentTree.Props) => {

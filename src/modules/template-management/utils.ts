@@ -10,38 +10,38 @@ export const BASE_CONFIG: Form.Config[] = [
     { label: 'Name', fns: [V.req, V.min(2), V.max(50)] },
     {
       label: 'Description',
-      fns: [V.req, V.min(20), V.max(5000)]
-    }
+      fns: [V.req, V.min(20), V.max(5000)],
+    },
   ],
   [
     {
       label: 'Repository link',
-      fns: [V.req, V.githubUrl]
+      fns: [V.req, V.githubUrl],
     },
     {
       label: 'Public access',
-      value: true
+      value: true,
     },
     {
       label: 'Private access',
-      value: false
-    }
+      value: false,
+    },
   ],
   [
     {
       label: 'Technologies',
       fns: [V.oneTruthy],
-      value: {}
+      value: {},
     },
     {
       label: 'Patterns',
       fns: [V.oneTruthy],
-      value: {}
+      value: {},
     },
     {
       label: 'Tags',
       fns: [V.req],
-      value: []
-    }
-  ]
+      value: [],
+    },
+  ],
 ];

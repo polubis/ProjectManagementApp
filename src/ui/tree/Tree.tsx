@@ -44,16 +44,24 @@ namespace Tree {
 
 const ITEM_SIZE = 52;
 
-const find = (id: number, items: Tree.Item[]): { idx: number; item: Tree.Item } => {
+const find = (
+  id: number,
+  items: Tree.Item[]
+): { idx: number; item: Tree.Item } => {
   const idx = items.findIndex((item) => item.id === id);
 
   return { idx, item: items[idx] };
 };
 
-const expand = (idx: number, items: Tree.Item[]) => (prevExpandedItems: Tree.ExpandedItems) => {
-  const item = items[idx],
-    expanded = !!prevExpandedItems[item.id],
-    expandedItems: Tree.ExpandedItems = { ...prevExpandedItems, [item.id]: !expanded };
+const expand = (idx: number, items: Tree.Item[]) => (
+  prevExpandedItems: Tree.ExpandedItems
+) => {
+  const item = items[idx];
+  const expanded = !!prevExpandedItems[item.id];
+  const expandedItems: Tree.ExpandedItems = {
+    ...prevExpandedItems,
+    [item.id]: !expanded,
+  };
 
   const shouldCollapse = expanded && !!item.childrenCount;
 
@@ -70,10 +78,19 @@ const expand = (idx: number, items: Tree.Item[]) => (prevExpandedItems: Tree.Exp
   return expandedItems;
 };
 
-const filterItems = (expandedItems: Tree.ExpandedItems, items: Tree.Item[]) => () =>
+const filterItems = (
+  expandedItems: Tree.ExpandedItems,
+  items: Tree.Item[]
+) => () =>
   items.filter((item) => !item.level || !!expandedItems[item.parentId]);
 
-const Tree = ({ activeItem, children, expandedItems, items, onClick }: Tree.Props) => {
+const Tree = ({
+  activeItem,
+  children,
+  expandedItems,
+  items,
+  onClick,
+}: Tree.Props) => {
   const [ref, size] = useSizeTracking();
 
   const handleClick = useCallback(
@@ -83,14 +100,17 @@ const Tree = ({ activeItem, children, expandedItems, items, onClick }: Tree.Prop
     [onClick]
   );
 
-  const filteredItems = useMemo(filterItems(expandedItems, items), [expandedItems, items]);
+  const filteredItems = useMemo(filterItems(expandedItems, items), [
+    expandedItems,
+    items,
+  ]);
 
   const itemsData: Tree.ItemData = useMemo(
     () => ({
       activeItem,
       expandedItems,
       items: filteredItems,
-      onClick: handleClick
+      onClick: handleClick,
     }),
     [activeItem, expandedItems, filteredItems, onClick]
   );

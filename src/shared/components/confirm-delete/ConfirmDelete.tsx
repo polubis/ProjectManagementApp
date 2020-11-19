@@ -25,7 +25,7 @@ const ConfirmDelete = ({
   deleteDisabled,
   title,
   onClose,
-  onDelete
+  onDelete,
 }: ConfirmDelete.Props) => {
   return (
     <Modal className={csx.confirmDelete}>
@@ -35,13 +35,19 @@ const ConfirmDelete = ({
 
       <header>
         <h5>{title}</h5>
-        <span>{typeof description === 'function' ? description() : description}</span>
+        <span>
+          {typeof description === 'function' ? description() : description}
+        </span>
       </header>
 
       <section>{children}</section>
 
       <footer>
-        <Button theme="primaryTransparent" disabled={cancelDisabled} onClick={onClose}>
+        <Button
+          theme="primaryTransparent"
+          disabled={cancelDisabled}
+          onClick={onClose}
+        >
           CANCEL
         </Button>
         <Button theme="danger" disabled={deleteDisabled} onClick={onDelete}>

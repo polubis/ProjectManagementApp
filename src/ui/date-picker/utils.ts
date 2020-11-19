@@ -2,7 +2,15 @@ import { V } from 'utils';
 
 import { DatePicker } from 'ui';
 
-export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const DAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 export const DAYS_SYMBOLS = DAYS.map((day) => day.slice(0, 3));
 
@@ -20,12 +28,20 @@ export const MONTHS = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 export const MONTHS_COUNT = MONTHS.length;
 
-export const getDayName = ({ year, month, day }: { day: number; month: number; year: number }) => {
+export const getDayName = ({
+  year,
+  month,
+  day,
+}: {
+  day: number;
+  month: number;
+  year: number;
+}) => {
   const date = new Date(year, month - 1, day);
 
   return DAYS[date.getDay()];
@@ -37,7 +53,7 @@ export const getNow = () => {
   return {
     day: +String(now.getDate()).padStart(2, '0'),
     month: +String(now.getMonth() + 1).padStart(2, '0'),
-    year: now.getFullYear()
+    year: now.getFullYear(),
   };
 };
 
@@ -85,6 +101,6 @@ export const getDays = (date: DatePicker.Date) => {
   return {
     prevDays,
     days,
-    nextDays
+    nextDays,
   };
 };

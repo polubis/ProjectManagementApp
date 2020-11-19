@@ -12,7 +12,10 @@ import { BASE_LINKS, IMPORTANT_LINKS, Link } from '.';
 
 import csx from './Navbar.scss';
 
-const getLinksByAuthState = (authorized: boolean, pending: boolean) => (): Link[] => {
+const getLinksByAuthState = (
+  authorized: boolean,
+  pending: boolean
+) => (): Link[] => {
   if (pending) {
     return [];
   }
@@ -35,7 +38,10 @@ const Navbar = () => {
     setSidebarOpen((prevSidebarOpen) => !prevSidebarOpen);
   }, []);
 
-  const links = useMemo(getLinksByAuthState(authorized, pending), [authorized, pending]);
+  const links = useMemo(getLinksByAuthState(authorized, pending), [
+    authorized,
+    pending,
+  ]);
 
   return (
     <nav className={csx.navbar}>
@@ -49,7 +55,12 @@ const Navbar = () => {
 
         <div className={`${csx.links} ${csx.baseLinks}`}>
           {BASE_LINKS.map((link) => (
-            <NavLink key={link.to} activeClassName={csx.activeLink} exact={true} {...link} />
+            <NavLink
+              key={link.to}
+              activeClassName={csx.activeLink}
+              exact
+              {...link}
+            />
           ))}
         </div>
 

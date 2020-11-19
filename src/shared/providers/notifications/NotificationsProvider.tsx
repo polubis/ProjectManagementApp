@@ -17,12 +17,15 @@ namespace NotificationsProvider {
 const STATE: NotificationsProvider.State = {
   loading: true,
   error: '',
-  notifications: []
+  notifications: [],
 };
 
 const Context = createContext(STATE);
 
-class Provider extends React.Component<NotificationsProvider.Props, typeof STATE> {
+class Provider extends React.Component<
+  NotificationsProvider.Props,
+  typeof STATE
+> {
   private _getNotifications = async () => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
@@ -44,10 +47,14 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
   }
 
   readonly state: typeof STATE = {
-    ...STATE
+    ...STATE,
   };
 
-  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
+  render = () => (
+    <Context.Provider value={this.state}>
+      {this.props.children}
+    </Context.Provider>
+  );
 }
 
 const NotificationsProvider = Provider;

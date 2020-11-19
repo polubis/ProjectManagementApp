@@ -11,8 +11,13 @@ namespace FormSteps {
   }
 }
 
-const decorateSteps = (formManagers: Form.Manager[], steps: Steps.Item[]): Steps.Item[] => {
-  const getStatus = ([{ dirty, invalid }]: Form.Manager): boolean | undefined => {
+const decorateSteps = (
+  formManagers: Form.Manager[],
+  steps: Steps.Item[]
+): Steps.Item[] => {
+  const getStatus = ([{ dirty, invalid }]: Form.Manager):
+    | boolean
+    | undefined => {
     return dirty ? !invalid : undefined;
   };
 
@@ -26,7 +31,7 @@ const decorateSteps = (formManagers: Form.Manager[], steps: Steps.Item[]): Steps
       ({
         ...s,
         status: getStatus(formManagers[idx]),
-        progress: getProgress(formManagers[idx])
+        progress: getProgress(formManagers[idx]),
       } as Steps.Item)
   );
 };

@@ -28,7 +28,10 @@ const Credentials = ({ formManager, onSubmit }: Credentials.Props) => {
 
   const handleRepeatedPasswordChange = useCallback(
     (e: Form.Events.Change) => {
-      directChange([PASSWORD, REPEATED_PASSWORD], [fields[PASSWORD].value, e.target.value]);
+      directChange(
+        [PASSWORD, REPEATED_PASSWORD],
+        [fields[PASSWORD].value, e.target.value]
+      );
     },
     [fields]
   );

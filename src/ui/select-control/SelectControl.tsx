@@ -14,7 +14,13 @@ namespace SelectControl {
   }
 }
 
-const SelectControl = ({ label, placeholder, menuOpen, value, onClick }: SelectControl.Props) => {
+const SelectControl = ({
+  label,
+  placeholder,
+  menuOpen,
+  value,
+  onClick,
+}: SelectControl.Props) => {
   const selected = SelectBase.getSelected(value);
 
   return (
@@ -25,7 +31,11 @@ const SelectControl = ({ label, placeholder, menuOpen, value, onClick }: SelectC
         <span className={csx.placeholder}>{placeholder}</span>
       )}
 
-      <Button className={csx.toggleBtn} theme="primaryTransparent" onClick={onClick}>
+      <Button
+        className={csx.toggleBtn}
+        theme="primaryTransparent"
+        onClick={onClick}
+      >
         <ExpandMoreIcon />
       </Button>
     </div>

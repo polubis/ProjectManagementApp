@@ -2,7 +2,7 @@ import { Technology, Pattern } from 'core/api';
 
 export enum DictionaryKind {
   TECHNOLOGIES = 'technologies',
-  PATTERNS = 'patterns'
+  PATTERNS = 'patterns',
 }
 
 export interface RouteProps {

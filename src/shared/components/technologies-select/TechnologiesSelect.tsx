@@ -26,14 +26,18 @@ const makeItems = (
   technologies.map(
     ({ id, name, pictureUrl }) =>
       ({
-        dataIdx: '' + id,
+        dataIdx: `${id}`,
         label: name,
         pictureUrl,
-        value: !!value[id]
+        value: !!value[id],
       } as SelectBase.Item<Technology>)
   );
 
-const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
+const TechnologiesSelect = ({
+  children,
+  value,
+  onSelect,
+}: TechnologiesSelect.Props) => {
   const { loading, technologies } = useTechnologiesProvider();
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);

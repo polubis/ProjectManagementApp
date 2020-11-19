@@ -19,11 +19,11 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
     Form<LogInPayload>(
       {
         password: '',
-        username: ''
+        username: '',
       },
       {
         password: [(v) => v.length < 3 || v.length > 50],
-        username: [(v) => v.length < 3 || v.length > 50]
+        username: [(v) => v.length < 3 || v.length > 50],
       }
     )
   );
@@ -33,7 +33,7 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
 
     setForm(
       next({
-        [key]: e.target.value
+        [key]: e.target.value,
       })
     );
   }, []);

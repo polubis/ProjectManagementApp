@@ -4,7 +4,7 @@ import React, {
   useCallback,
   useMemo,
   useState,
-  cloneElement
+  cloneElement,
 } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
@@ -57,13 +57,21 @@ namespace SelectBase {
     onClick(e: Events.Click): void;
   }
 
-  export interface ListChildProps<T = {}> extends Omit<ListChildComponentProps, 'data'> {
+  export interface ListChildProps<T = {}>
+    extends Omit<ListChildComponentProps, 'data'> {
     data: ListChildData<T>;
   }
 }
 
-const filterItems = (phrase: string, items: SelectBase.Item[]) => (): SelectBase.Item[] =>
-  phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
+const filterItems = (
+  phrase: string,
+  items: SelectBase.Item[]
+) => (): SelectBase.Item[] =>
+  phrase
+    ? items.filter(({ label }) =>
+        label.toLowerCase().includes(phrase.toLowerCase())
+      )
+    : items;
 
 const SelectBase = <T extends Object>({
   children,
@@ -75,7 +83,7 @@ const SelectBase = <T extends Object>({
   itemSize = 48,
   searchable = true,
   width = 300,
-  onSelect
+  onSelect,
 }: SelectBase.Props<T>) => {
   const [phrase, setPhrase] = useState('');
 
@@ -105,7 +113,7 @@ const SelectBase = <T extends Object>({
           }
 
           openMenu(e);
-        }
+        },
       })
   );
 
@@ -114,7 +122,7 @@ const SelectBase = <T extends Object>({
   const itemsData = useMemo(
     () => ({
       items: filteredItems,
-      onSelect: handleSelect
+      onSelect: handleSelect,
     }),
     [filteredItems, handleSelect]
   );
@@ -124,7 +132,12 @@ const SelectBase = <T extends Object>({
       {enhancedControlComponent}
 
       {menuOpen && (
-        <Menu anchorEl={anchorEl} keepMounted={false} width={width} onClose={closeMenu}>
+        <Menu
+          anchorEl={anchorEl}
+          keepMounted={false}
+          width={width}
+          onClose={closeMenu}
+        >
           {searchable && (
             <header className={csx.search}>
               <SearchIcon />
@@ -144,7 +157,9 @@ const SelectBase = <T extends Object>({
             </FixedSizeList>
           </div>
 
-          {renderSelectedItem && <SelectedItems items={items} renderItem={renderSelectedItem} />}
+          {renderSelectedItem && (
+            <SelectedItems items={items} renderItem={renderSelectedItem} />
+          )}
         </Menu>
       )}
     </>

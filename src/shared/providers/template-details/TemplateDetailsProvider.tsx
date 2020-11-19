@@ -14,7 +14,7 @@ namespace TemplateDetailsProvider {
 const STATE: TemplateDetailsProvider.State = {
   loading: true,
   error: '',
-  template: null
+  template: null,
 };
 
 const Context = createContext(STATE);
@@ -36,10 +36,14 @@ class Provider extends React.Component<any, typeof STATE> {
 
   readonly state: typeof STATE = {
     ...STATE,
-    getTemplateDetails: this.getTemplateDetails
+    getTemplateDetails: this.getTemplateDetails,
   };
 
-  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
+  render = () => (
+    <Context.Provider value={this.state}>
+      {this.props.children}
+    </Context.Provider>
+  );
 }
 
 const TemplateDetailsProvider = Provider;

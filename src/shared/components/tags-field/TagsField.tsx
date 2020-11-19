@@ -1,4 +1,9 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useState,
+} from 'react';
 
 import { IconButton } from '@material-ui/core';
 
@@ -29,7 +34,14 @@ namespace TagsField {
   }
 }
 
-const TagsField = ({ error, label, value, onChange, onDelete, ...inputProps }: TagsField.Props) => {
+const TagsField = ({
+  error,
+  label,
+  value,
+  onChange,
+  onDelete,
+  ...inputProps
+}: TagsField.Props) => {
   const [inputValue, setInputValue] = useState('');
 
   const minValidationError = V.min(2, false)(inputValue);

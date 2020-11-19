@@ -43,8 +43,12 @@ describe('<Tabs>', () => {
       </Tabs>
     );
 
-    expect(screen.getByText('Item').closest('button').className).toContain('active');
-    expect(screen.getByText('Item1').closest('button').className).not.toContain('active');
+    expect(screen.getByText('Item').closest('button').className).toContain(
+      'active'
+    );
+    expect(screen.getByText('Item1').closest('button').className).not.toContain(
+      'active'
+    );
   });
 
   it('calls onClick', () => {
