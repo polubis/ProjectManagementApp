@@ -2,12 +2,10 @@
 const path = require('path');
 
 const DefinePlugin = require('webpack').DefinePlugin;
-const TsConfigPathsPlugin = require('awesome-typescript-loader')
-  .TsConfigPathsPlugin;
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
 
@@ -39,19 +37,6 @@ module.exports = (env, { mode }) => {
 
     module: {
       rules: [
-        {
-          test: /\.(ts|tsx)$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                eslintPath: require.resolve('eslint'),
-              },
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
-          exclude: /node_modules/,
-        },
         {
           test: /\.tsx?$/,
           loader: 'awesome-typescript-loader',
@@ -188,9 +173,7 @@ module.exports = (env, { mode }) => {
     //     ]
     //   })
     // );
-    config.plugins.push(
-      new CopyPlugin([{ from: 'public', ignore: ['index.html'] }])
-    );
+    config.plugins.push(new CopyPlugin([{ from: 'public', ignore: ['index.html'] }]));
   }
 
   if (mode !== PROD) {

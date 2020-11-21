@@ -27,7 +27,7 @@ namespace SelectBase {
 
   export type RenderSelectItem<T> = (props: Item<T>) => ReactElement;
 
-  export type Item<T = Record<string, unknown>> = {
+  export type Item<T = any> = {
     dataIdx: string;
     label: string;
     value: boolean;
@@ -57,8 +57,7 @@ namespace SelectBase {
     onClick(e: Events.Click): void;
   }
 
-  export interface ListChildProps<T = Record<string, unknown>>
-    extends Omit<ListChildComponentProps, 'data'> {
+  export interface ListChildProps<T = any> extends Omit<ListChildComponentProps, 'data'> {
     data: ListChildData<T>;
   }
 }
@@ -66,7 +65,7 @@ namespace SelectBase {
 const filterItems = (phrase: string, items: SelectBase.Item[]) => (): SelectBase.Item[] =>
   phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
 
-const SelectBase = <T extends Record<string, unknown>>({
+const SelectBase = <T extends any>({
   children,
   items,
   listItem,
