@@ -40,19 +40,13 @@ const V = {
     ),
 
   max: (ln: number) => (value: string) =>
-    makeResult(
-      value.trim().length > ln,
-      `Field must have ${ln} or less characters`
-    ),
+    makeResult(value.trim().length > ln, `Field must have ${ln} or less characters`),
 
-  url: (value: string) =>
-    makeResult(!PATTERNS.URL.test(value), `Invalid url format`),
+  url: (value: string) => makeResult(!PATTERNS.URL.test(value), `Invalid url format`),
 
-  email: (value: string) =>
-    makeResult(!PATTERNS.EMAIL.test(value), `Invalid email format`),
+  email: (value: string) => makeResult(!PATTERNS.EMAIL.test(value), `Invalid email format`),
 
-  githubUrl: (value: string) =>
-    makeResult(!isGithubUrl(value), `Invalid Github url`),
+  githubUrl: (value: string) => makeResult(!isGithubUrl(value), `Invalid Github url`),
 
   date: (checksOnlyTruthy = true) => (value: string) =>
     makeResult(
@@ -63,16 +57,10 @@ const V = {
     ),
 
   oneTruthy: (value: { [key: string]: boolean }) =>
-    makeResult(
-      !Object.values(value).some((item) => !!item),
-      `At least one field must be checked`
-    ),
+    makeResult(!Object.values(value).some((item) => !!item), `At least one field must be checked`),
 
   sameAs: (idx: number, label: string) => (value: any, state: Form.State) =>
-    makeResult(
-      value !== state.fields[idx].value,
-      `Field must be same as ${label}`
-    ),
+    makeResult(value !== state.fields[idx].value, `Field must be same as ${label}`),
 
   unique: (values: string[]) => (value: string) =>
     makeResult(
@@ -80,8 +68,7 @@ const V = {
       'Elements should be unique'
     ),
 
-  run: (value: any, state: Form.State) => (...fns: V.Fn[]) =>
-    fns.map((fn) => fn(value, state)),
+  run: (value: any, state: Form.State) => (...fns: V.Fn[]) => fns.map((fn) => fn(value, state)),
 };
 
 export default V;

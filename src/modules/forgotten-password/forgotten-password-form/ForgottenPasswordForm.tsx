@@ -16,19 +16,12 @@ namespace ForgottenPasswordForm {
   }
 }
 
-const BASE_CONFIG: Form.Config = [
-  { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
-];
+const BASE_CONFIG: Form.Config = [{ label: 'Username', fns: [V.req, V.min(2), V.max(50)] }];
 
 const USERNAME = 0;
 
-const ForgottenPasswordForm = ({
-  disabled,
-  onSubmit,
-}: ForgottenPasswordForm.Props) => {
-  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(
-    BASE_CONFIG
-  );
+const ForgottenPasswordForm = ({ disabled, onSubmit }: ForgottenPasswordForm.Props) => {
+  const [{ fields, dirty, invalid }, change, _, submit] = Form.useManager(BASE_CONFIG);
 
   const handleSubmit = async (e: Form.Events.Submit) => {
     if (submit(e)) {

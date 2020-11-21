@@ -23,20 +23,12 @@ const TableItemMore = ({ data, kind, onDelete }: TableItemMore.Props) => {
   return (
     <More
       trigger={(open) => (
-        <Button
-          className={csx.moreBtn}
-          onClick={open}
-          theme="primaryTransparent"
-          variant="icon"
-        >
+        <Button className={csx.moreBtn} onClick={open} theme="primaryTransparent" variant="icon">
           <MoreHorizIcon />
         </Button>
       )}
     >
-      <NavLink
-        to={`/app/admin/dictionaries/${kind}/management/${data.id}`}
-        className={csx.edit}
-      >
+      <NavLink to={`/app/admin/dictionaries/${kind}/management/${data.id}`} className={csx.edit}>
         <EditIcon />
         EDIT
       </NavLink>

@@ -55,9 +55,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     technologiesIds,
     patternsIds,
   }: TemplatesPayload) => {
-    const technologiesPart = technologiesIds
-      .map((id) => `technologiesIds=${id}`)
-      .join('&');
+    const technologiesPart = technologiesIds.map((id) => `technologiesIds=${id}`).join('&');
     const patternsPart = patternsIds.map((id) => `patternsIds=${id}`).join('&');
 
     return `?page=${page}&limit=${limit}&query=${query}&category=${category}${
@@ -65,10 +63,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     }${patternsPart ? `&${patternsPart}` : ''}`;
   };
 
-  private _areAllLoaded = (
-    { limit }: TemplatesPayload,
-    { length }: Template[]
-  ) => length < limit;
+  private _areAllLoaded = ({ limit }: TemplatesPayload, { length }: Template[]) => length < limit;
 
   private _handleLoadRequest = () => {
     const initLoad = () => this.setState({ ...STATE });
@@ -89,19 +84,11 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
         return throwError(error);
       };
 
-      return getTemplates(this._makeUrl(payload)).pipe(
-        tap(handleSuccess),
-        catchError(handleError)
-      );
+      return getTemplates(this._makeUrl(payload)).pipe(tap(handleSuccess), catchError(handleError));
     };
 
     return this._loadRequest$
-      .pipe(
-        debounceTime(150),
-        distinctUntilChanged(),
-        tap(initLoad),
-        switchMap(handleGetTemplates)
-      )
+      .pipe(debounceTime(150), distinctUntilChanged(), tap(initLoad), switchMap(handleGetTemplates))
       .subscribe();
   };
 
@@ -141,17 +128,12 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     };
 
     return this._loadMoreRequest$
-      .pipe(
-        filter(isLoadingAllowed),
-        tap(initLoad),
-        concatMap(handleGetTemplates)
-      )
+      .pipe(filter(isLoadingAllowed), tap(initLoad), concatMap(handleGetTemplates))
       .subscribe();
   };
 
   getTemplates = (payload: TemplatesPayload) => {
-    const loadingMore =
-      payload.page > 1 && this.state.templates.length && !this.state.allLoaded;
+    const loadingMore = payload.page > 1 && this.state.templates.length && !this.state.allLoaded;
 
     if (loadingMore) {
       this._loadMoreRequest.next(payload);
@@ -174,11 +156,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
     getTemplates: this.getTemplates,
   };
 
-  render = () => (
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
-  );
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TemplatesProvider = Provider;

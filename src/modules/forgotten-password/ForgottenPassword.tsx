@@ -18,10 +18,7 @@ const ForgottenPassword = () => {
       <Navbar />
       <div className={sent ? csx.sent : csx.forgottenPassword}>
         {sent ? (
-          <EmailSent
-            label="Email sent"
-            description="Check your email and follow instructions"
-          >
+          <EmailSent label="Email sent" description="Check your email and follow instructions">
             <NavLink to="/login">
               <Button>OK</Button>
             </NavLink>
@@ -29,10 +26,7 @@ const ForgottenPassword = () => {
         ) : (
           <>
             <h5>Password recovery</h5>
-            <ForgottenPasswordForm
-              disabled={pending}
-              onSubmit={handleRegister}
-            />
+            <ForgottenPasswordForm disabled={pending} onSubmit={handleRegister} />
           </>
         )}
       </div>

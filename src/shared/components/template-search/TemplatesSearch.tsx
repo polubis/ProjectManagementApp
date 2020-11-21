@@ -27,10 +27,7 @@ const [QUERY, PATTERNS, TECHNOLOGIES] = [0, 1, 2];
 
 const parseFromString = (str: string) =>
   isJsonString(str)
-    ? (JSON.parse(str) as string[]).reduce(
-        (prev, id) => ({ ...prev, [id]: true }),
-        {}
-      )
+    ? (JSON.parse(str) as string[]).reduce((prev, id) => ({ ...prev, [id]: true }), {})
     : {};
 
 const CONFIG: Form.Config = [
@@ -55,20 +52,14 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
 
   const handlePatternSelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
-      directChange(
-        [PATTERNS],
-        [{ ...fields[PATTERNS].value, [dataIdx]: value }]
-      );
+      directChange([PATTERNS], [{ ...fields[PATTERNS].value, [dataIdx]: value }]);
     },
     [fields]
   );
 
   const handleTechnologySelect: SelectBase.OnSelect = useCallback(
     (dataIdx, value) => {
-      directChange(
-        [TECHNOLOGIES],
-        [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]
-      );
+      directChange([TECHNOLOGIES], [{ ...fields[TECHNOLOGIES].value, [dataIdx]: value }]);
     },
     [fields]
   );
@@ -81,11 +72,7 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
         return;
       }
 
-      const [
-        { value: query },
-        { value: patternsIds },
-        { value: technologiesIds },
-      ] = fields;
+      const [{ value: query }, { value: patternsIds }, { value: technologiesIds }] = fields;
 
       const search = Url(location)
         .swap('technologiesIds', SelectBase.getSelected(technologiesIds))
@@ -107,10 +94,7 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
   }, [query, patternsIds, technologiesIds]);
 
   return (
-    <form
-      className={`${csx.templatesSearch} ${className}`}
-      onSubmit={handleSubmit}
-    >
+    <form className={`${csx.templatesSearch} ${className}`} onSubmit={handleSubmit}>
       <input
         data-idx={QUERY}
         placeholder="Find your template..."
@@ -119,19 +103,13 @@ const TemplatesSearch = ({ className, pathname }: TemplatesSearch.Props) => {
         onChange={change}
       />
 
-      <PatternsSelect
-        value={fields[PATTERNS].value}
-        onSelect={handlePatternSelect}
-      >
+      <PatternsSelect value={fields[PATTERNS].value} onSelect={handlePatternSelect}>
         <ControlButton value={fields[PATTERNS].value}>
           <PlaylistAddIcon />
         </ControlButton>
       </PatternsSelect>
 
-      <TechnologiesSelect
-        value={fields[TECHNOLOGIES].value}
-        onSelect={handleTechnologySelect}
-      >
+      <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
         <ControlButton value={fields[TECHNOLOGIES].value}>
           <CodeIcon />
         </ControlButton>

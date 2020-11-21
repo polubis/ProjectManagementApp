@@ -4,16 +4,8 @@ import { render, screen } from '@testing-library/react';
 import { Table } from '..';
 
 describe('<Table>', () => {
-  interface User {
-    id: number;
-    firstName: string;
-    lastName: string;
-  }
-
   it('adds className', () => {
-    const { container } = render(
-      <Table className="class" config={{}} data={[]} />
-    );
+    const { container } = render(<Table className="class" config={{}} data={[]} />);
 
     expect(container.querySelector('.class')).toBeInTheDocument();
   });
@@ -74,9 +66,7 @@ describe('<Table>', () => {
           id: {},
           firstName: {
             row: (key, data) => (
-              <span title={`First name ${data.firstName}`}>
-                {data.firstName}
-              </span>
+              <span title={`First name ${data.firstName}`}>{data.firstName}</span>
             ),
           },
           lastName: {},
@@ -105,9 +95,7 @@ describe('<Table>', () => {
             label: 'Id',
           },
           firstName: {
-            row: (label, value) => (
-              <span title={`First name ${value}`}>{value}</span>
-            ),
+            row: (label, value) => <span title={`First name ${value}`}>{value}</span>,
           },
           lastName: {
             size: {
@@ -139,9 +127,7 @@ describe('<Table>', () => {
           label: 'Id',
         },
         firstName: {
-          row: (label, value) => (
-            <span title={`First name ${value}`}>{value}</span>
-          ),
+          row: (label, value) => <span title={`First name ${value}`}>{value}</span>,
         },
         lastName: {
           size: {

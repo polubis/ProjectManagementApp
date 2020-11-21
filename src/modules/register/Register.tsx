@@ -21,9 +21,7 @@ const Register = () => {
         />
       </Helmet>
       <Navbar />
-      <div className={csx.register}>
-        {loadingTechnologies || <RegisterForm />}
-      </div>
+      <div className={csx.register}>{loadingTechnologies || <RegisterForm />}</div>
       <Footer />
     </>
   );

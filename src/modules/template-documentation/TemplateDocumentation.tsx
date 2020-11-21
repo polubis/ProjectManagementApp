@@ -11,9 +11,7 @@ import TemplateDocumentationProvider, {
 
 import csx from './TemplateDocumentation.scss';
 
-const makeContentTreeItems = ({
-  headings = [],
-}: TemplateDocumentation) => () => {
+const makeContentTreeItems = ({ headings = [] }: TemplateDocumentation) => () => {
   if (!headings.length) {
     return [];
   }
@@ -42,19 +40,13 @@ const makeContentTreeItems = ({
 };
 
 const TemplateDocumentation = () => {
-  const {
-    documentation,
-    loading,
-    getTemplateDocumentation,
-  } = useTemplateDocumentationProvider();
+  const { documentation, loading, getTemplateDocumentation } = useTemplateDocumentationProvider();
 
   const [activeItem, setActiveItem] = useState<Tree.Item | null>(null);
 
   const [expandedItems, setExpandedItems] = useState<Tree.ExpandedItems>({});
 
-  const treeItems = useMemo(makeContentTreeItems(documentation), [
-    documentation,
-  ]);
+  const treeItems = useMemo(makeContentTreeItems(documentation), [documentation]);
 
   const handleClick: Tree.OnClick = useCallback(
     (id) => {

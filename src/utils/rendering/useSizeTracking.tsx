@@ -13,9 +13,7 @@ export const useSizeTracking = (heightGap = 0, widthGap = 0): Return => {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
-    const { height, width } = ref.current.getBoundingClientRect() as
-      | ClientRect
-      | DOMRect;
+    const { height, width } = ref.current.getBoundingClientRect() as ClientRect | DOMRect;
 
     setSize({ height: height - heightGap, width: width - widthGap });
   }, []);

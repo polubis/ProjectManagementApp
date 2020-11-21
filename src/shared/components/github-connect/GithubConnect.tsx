@@ -30,9 +30,8 @@ const GithubConnect = () => {
       </h3>
 
       <p>
-        Our system has detected that you have not yet linked your account to{' '}
-        <span>Github</span>. It will give you access to key functionalities of
-        the platform.
+        Our system has detected that you have not yet linked your account to <span>Github</span>. It
+        will give you access to key functionalities of the platform.
       </p>
 
       <p>You can connect now or do it later.</p>

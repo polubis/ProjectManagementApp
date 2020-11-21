@@ -4,9 +4,7 @@ import { V } from '.';
 
 namespace Form {
   export namespace Events {
-    export type Change<
-      T = HTMLInputElement | HTMLTextAreaElement
-    > = ChangeEvent<T>;
+    export type Change<T = HTMLInputElement | HTMLTextAreaElement> = ChangeEvent<T>;
 
     export type Submit = ChangeEvent<HTMLFormElement>;
   }
@@ -59,11 +57,7 @@ const makeInitState = (config: Form.Config): Form.State => {
 const useManager = (config: Form.Config): Form.Manager => {
   const [state, setState] = useState(makeInitState(config));
 
-  const makeField = (
-    value: any,
-    idx: number,
-    currState: Form.State
-  ): Form.Field.State => {
+  const makeField = (value: any, idx: number, currState: Form.State): Form.Field.State => {
     const { fns = [] } = config[idx];
 
     const result = V.run(value, currState)(...fns);
@@ -73,11 +67,7 @@ const useManager = (config: Form.Config): Form.Manager => {
     return { value, error, result };
   };
 
-  const makeState = (
-    positions: number[],
-    values: any[],
-    currState = state
-  ): Form.State => {
+  const makeState = (positions: number[], values: any[], currState = state): Form.State => {
     const newState: Form.State = { ...currState, fields: [...state.fields] };
 
     positions.forEach((position, idx) => {

@@ -9,11 +9,9 @@ import {
   PatternPayload,
 } from '..';
 
-export const getPatterns = (query: string) =>
-  core.get<Pattern[]>(GET_PATTERNS + query);
+export const getPatterns = (query: string) => core.get<Pattern[]>(GET_PATTERNS + query);
 
-export const getPattern = (id: number) =>
-  core.get<Pattern>(`${GET_PATTERN}/${id}`);
+export const getPattern = (id: number) => core.get<Pattern>(`${GET_PATTERN}/${id}`);
 
 export const deletePattern = (id: number) => {
   return core.delete(`${DELETE_PATTERN}/${id}`);

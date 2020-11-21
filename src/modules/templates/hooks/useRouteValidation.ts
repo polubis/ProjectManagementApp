@@ -18,10 +18,7 @@ export const useRouteValidation = () => {
   } = useRouteMatch<TemplatesRouteProps>();
 
   useEffect(() => {
-    if (
-      !isValidCategory(category) ||
-      (!authorized && category === TemplateCategory.YOURS)
-    ) {
+    if (!isValidCategory(category) || (!authorized && category === TemplateCategory.YOURS)) {
       const url = Url(location).replace(category, TemplateCategory.ALL).value();
 
       replace(url);

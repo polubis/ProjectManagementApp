@@ -44,21 +44,14 @@ namespace DictionariesTable {
   }
 }
 
-const getConfig = (
-  kind: DictionaryKind,
-  onDelete: (data: Dictionary) => void
-): Table.Config => {
+const getConfig = (kind: DictionaryKind, onDelete: (data: Dictionary) => void): Table.Config => {
   if (kind === DictionaryKind.PATTERNS) {
     return {
       ...BASE_CONFIG,
       options: {
         label: 'Options',
         row: (key, data) => (
-          <TableItemMore
-            kind={kind}
-            data={data}
-            onDelete={() => onDelete(data)}
-          />
+          <TableItemMore kind={kind} data={data} onDelete={() => onDelete(data)} />
         ),
         size: optionsSize,
       },
@@ -70,18 +63,12 @@ const getConfig = (
       ...BASE_CONFIG,
       name: {
         ...BASE_CONFIG.name,
-        row: (key, data) => (
-          <TechnologyChip name={data.name} url={data.pictureUrl} />
-        ),
+        row: (key, data) => <TechnologyChip name={data.name} url={data.pictureUrl} />,
       },
       options: {
         label: 'Options',
         row: (key, data) => (
-          <TableItemMore
-            kind={kind}
-            data={data}
-            onDelete={() => onDelete(data)}
-          />
+          <TableItemMore kind={kind} data={data} onDelete={() => onDelete(data)} />
         ),
         size: optionsSize,
       },
@@ -92,29 +79,20 @@ const getConfig = (
 };
 
 const DictionariesTable = ({ data, kind }: DictionariesTable.Props) => {
-  const [dictionaryToDelete, setDictionaryToDelete] = useState<Dictionary>(
-    null
-  );
+  const [dictionaryToDelete, setDictionaryToDelete] = useState<Dictionary>(null);
 
   const closeDelete = useCallback(() => {
     setDictionaryToDelete(null);
   }, []);
 
-  const config = useMemo(() => getConfig(kind, setDictionaryToDelete), [
-    data,
-    kind,
-  ]);
+  const config = useMemo(() => getConfig(kind, setDictionaryToDelete), [data, kind]);
 
   return (
     <div className={csx.dictionariesTable}>
       <Table config={config} data={data} />
 
       {dictionaryToDelete && (
-        <ConfirmDictionaryDelete
-          data={dictionaryToDelete}
-          kind={kind}
-          onClose={closeDelete}
-        />
+        <ConfirmDictionaryDelete data={dictionaryToDelete} kind={kind} onClose={closeDelete} />
       )}
     </div>
   );

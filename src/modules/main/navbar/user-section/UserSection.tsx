@@ -29,9 +29,7 @@ const UserSection = () => {
         {({ user: { username } }) => (
           <>
             <div className={csx.details} onClick={openMenu}>
-              <Avatar className={csx.avatar}>
-                {username.charAt(0).toUpperCase()}
-              </Avatar>
+              <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
               <span>Hi, {username}</span>
             </div>
 

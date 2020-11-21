@@ -4,22 +4,14 @@ import { FieldBase } from 'ui';
 
 namespace InputField {
   export interface Props
-    extends React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    > {
+    extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     label: string;
     className?: string;
     error?: string;
   }
 }
 
-const InputField = ({
-  label,
-  error,
-  className,
-  ...inputProps
-}: InputField.Props) => {
+const InputField = ({ label, error, className, ...inputProps }: InputField.Props) => {
   return (
     <FieldBase label={label} error={error} className={className}>
       <input {...inputProps} />

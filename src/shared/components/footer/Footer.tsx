@@ -18,8 +18,7 @@ const Footer = () => {
           </figure>
 
           <span className={csx.description}>
-            Do you lack any functionality? let me know what you need and we will
-            implement it :)
+            Do you lack any functionality? let me know what you need and we will implement it :)
           </span>
 
           <div className={csx.links}>
@@ -35,8 +34,8 @@ const Footer = () => {
           <h5>Subscribe for newsletter</h5>
 
           <span className={csx.description}>
-            Do you want to find out what's new? Give us your email address and
-            subscribe to the newsletter
+            Do you want to find out what's new? Give us your email address and subscribe to the
+            newsletter
           </span>
 
           <Guard.Unprotected>
@@ -52,10 +51,9 @@ const Footer = () => {
           <h5>History & Authors</h5>
 
           <span className={csx.description}>
-            The idea for application was born during the frustration that caught
-            young developers while working on many new projects. "Bad" choice of
-            technology or the use of bad practices causes pain with delay. The
-            solution is Jupi.io
+            The idea for application was born during the frustration that caught young developers
+            while working on many new projects. "Bad" choice of technology or the use of bad
+            practices causes pain with delay. The solution is Jupi.io
           </span>
         </div>
       </div>

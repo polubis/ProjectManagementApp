@@ -21,10 +21,7 @@ const Templates = () => {
   return (
     <div className={csx.templates}>
       <TemplatesCategories />
-      <TemplatesSearch
-        className={csx.templatesSearch}
-        pathname={location.pathname}
-      />
+      <TemplatesSearch className={csx.templatesSearch} pathname={location.pathname} />
       <TemplatesGrid
         className={csx.templatesGrid}
         loading={!!pendingRequests}

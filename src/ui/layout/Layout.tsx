@@ -12,11 +12,7 @@ namespace Layout {
 
 const Layout = ({ className, children, overgrown = false }: Layout.Props) => {
   return (
-    <div
-      className={`${csx.layout} ${className} ${overgrown ? csx.overgrown : ''}`}
-    >
-      {children}
-    </div>
+    <div className={`${csx.layout} ${className} ${overgrown ? csx.overgrown : ''}`}>{children}</div>
   );
 };
 

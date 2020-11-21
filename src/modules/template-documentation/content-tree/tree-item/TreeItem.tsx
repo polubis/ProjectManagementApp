@@ -19,15 +19,14 @@ const TreeItem = ({
 
   return (
     <div
-      className={`${csx.treeItem} ${
-        activeItem && activeItem.id === id ? csx.active : ''
-      } ${expandedItems[id] ? csx.expanded : ''}`}
+      className={`${csx.treeItem} ${activeItem && activeItem.id === id ? csx.active : ''} ${
+        expandedItems[id] ? csx.expanded : ''
+      }`}
       data-idx={id}
       style={{
         ...style,
         paddingLeft: `${
-          level * ITEM_INDENDATION +
-          (level === 0 ? 0 : level * ULTER_ITEM_INDENDATION)
+          level * ITEM_INDENDATION + (level === 0 ? 0 : level * ULTER_ITEM_INDENDATION)
         }px`,
       }}
       onClick={onClick}

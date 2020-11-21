@@ -61,11 +61,7 @@ const TechnologyManagement = () => {
 
   return (
     <div className={csx.technologyManagement}>
-      {pending ? (
-        <Loader />
-      ) : (
-        <TechnologyForm data={technology} id={match.params.id} />
-      )}
+      {pending ? <Loader /> : <TechnologyForm data={technology} id={match.params.id} />}
     </div>
   );
 };

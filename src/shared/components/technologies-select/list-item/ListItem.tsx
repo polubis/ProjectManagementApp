@@ -19,13 +19,7 @@ const ListItem = ({
     <div className={csx.listItem} style={style}>
       <Checkbox
         dataIdx={dataIdx}
-        label={
-          <TechnologyChip
-            className={csx.technology}
-            name={label}
-            url={pictureUrl}
-          />
-        }
+        label={<TechnologyChip className={csx.technology} name={label} url={pictureUrl} />}
         value={value}
         onChange={onSelect}
       />

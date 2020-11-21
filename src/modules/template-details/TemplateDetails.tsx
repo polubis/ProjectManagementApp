@@ -40,12 +40,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   const [forkOpen, setForkOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
-  const {
-    template,
-    error,
-    loading,
-    getTemplateDetails,
-  } = useTemplateDetailsProvider();
+  const { template, error, loading, getTemplateDetails } = useTemplateDetailsProvider();
 
   useEffect(() => {
     if (error) {
@@ -83,15 +78,10 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
         !error && (
           <>
             {confirmDeleteOpen && (
-              <ConfirmTemplateDelete
-                template={template}
-                onClose={closeConfirmDelete}
-              />
+              <ConfirmTemplateDelete template={template} onClose={closeConfirmDelete} />
             )}
 
-            {forkOpen && (
-              <ForkTemplate template={template} onClose={closeFork} />
-            )}
+            {forkOpen && <ForkTemplate template={template} onClose={closeFork} />}
 
             <header>
               <NavLink to={`${match.url}/documentation`}>
@@ -118,10 +108,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
 
               <TemplateAuthorGuard>
                 <More>
-                  <NavLink
-                    to={`/app/templates/management/${match.params.id}`}
-                    className={csx.edit}
-                  >
+                  <NavLink to={`/app/templates/management/${match.params.id}`} className={csx.edit}>
                     <EditIcon />
                     EDIT
                   </NavLink>
@@ -148,8 +135,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 {!!template.modifiedDate && (
                   <>
                     {' '}
-                    and modified{' '}
-                    <span>{convertDate(template.modifiedDate)}</span>
+                    and modified <span>{convertDate(template.modifiedDate)}</span>
                   </>
                 )}
               </p>

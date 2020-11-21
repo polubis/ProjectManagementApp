@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Modules from 'modules';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Modules />

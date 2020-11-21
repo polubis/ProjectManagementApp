@@ -50,12 +50,7 @@ class ScrollObserver {
 
   private _handleScroll = () =>
     fromEvent(this._target, 'scroll')
-      .pipe(
-        skip(1),
-        debounceTime(this._time),
-        map(this._toPosition),
-        tap(this._emitPosition)
-      )
+      .pipe(skip(1), debounceTime(this._time), map(this._toPosition), tap(this._emitPosition))
       .subscribe();
 
   private _handleEmit = () => this._position$.subscribe(this._onEmit);

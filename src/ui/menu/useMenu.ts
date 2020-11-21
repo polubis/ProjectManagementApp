@@ -10,12 +10,9 @@ type UseMenu = () => [
 export const useMenu: UseMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const open = useCallback(
-    ({ currentTarget }: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      setAnchorEl(currentTarget);
-    },
-    []
-  );
+  const open = useCallback(({ currentTarget }: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(currentTarget);
+  }, []);
 
   const close = useCallback(() => {
     setAnchorEl(null);

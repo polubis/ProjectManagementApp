@@ -90,12 +90,7 @@ const AlmostDoneImage = () => {
             transform="translate(90.436 103.525)"
             fill="#d0cde1"
           />
-          <rect
-            width="6.189"
-            height="6.189"
-            transform="translate(17.783 146.165)"
-            fill="#d0cde1"
-          />
+          <rect width="6.189" height="6.189" transform="translate(17.783 146.165)" fill="#d0cde1" />
           <path
             d="M292.136,744.612v7.516h7.516v-7.516Zm7.189,7.189h-6.864v-6.862h6.864Z"
             transform="translate(-271.921 -603.31)"
@@ -124,12 +119,7 @@ const AlmostDoneImage = () => {
             transform="translate(-221.921 -148.858)"
             fill="#3f3d56"
           />
-          <rect
-            width="0.531"
-            height="3.72"
-            transform="translate(24.362 13.93)"
-            fill="#3f3d56"
-          />
+          <rect width="0.531" height="3.72" transform="translate(24.362 13.93)" fill="#3f3d56" />
           <rect
             width="0.531"
             height="3.72"
@@ -166,23 +156,13 @@ const AlmostDoneImage = () => {
             transform="translate(35.373 40.52) rotate(-45)"
             fill="#3f3d56"
           />
-          <rect
-            width="0.531"
-            height="3.72"
-            transform="translate(24.362 44.224)"
-            fill="#3f3d56"
-          />
+          <rect width="0.531" height="3.72" transform="translate(24.362 44.224)" fill="#3f3d56" />
           <path
             d="M308.21,239.6a1.329,1.329,0,0,0-1.594,0,1.367,1.367,0,0,0-.38.446,1.329,1.329,0,1,0,1.974-.446Zm-.8,1.86a.8.8,0,0,1-.8-.8.812.812,0,0,1,.141-.452.8.8,0,1,1,.656,1.249Z"
             transform="translate(-282.786 -209.723)"
             fill="#3f3d56"
           />
-          <rect
-            width="4.783"
-            height="4.783"
-            transform="translate(22.236 7.818)"
-            fill="#3f3d56"
-          />
+          <rect width="4.783" height="4.783" transform="translate(22.236 7.818)" fill="#3f3d56" />
           <ellipse
             cx="6.378"
             cy="2.259"
@@ -191,18 +171,8 @@ const AlmostDoneImage = () => {
             transform="translate(18.25 4.098)"
             fill="#3f3d56"
           />
-          <rect
-            width="1.594"
-            height="9.035"
-            transform="translate(23.83 20.839)"
-            fill="#3f3d56"
-          />
-          <rect
-            width="49.958"
-            height="0.531"
-            transform="translate(0 48.729)"
-            fill="#3f3d56"
-          />
+          <rect width="1.594" height="9.035" transform="translate(23.83 20.839)" fill="#3f3d56" />
+          <rect width="49.958" height="0.531" transform="translate(0 48.729)" fill="#3f3d56" />
           <path
             d="M285.179,649.563c.206,7.063-3.92,9.651-9.1,9.8q-.18.005-.359.007-.36,0-.714-.012c-4.684-.194-8.391-2.681-8.583-9.249-.2-6.8,8.238-15.629,8.871-16.282h0l.036-.037S284.973,642.5,285.179,649.563Z"
             transform="translate(-251.89 -516.986)"

@@ -1,12 +1,6 @@
 import { isRefType } from '..';
 
-export const Url = ({
-  pathname,
-  search,
-}: {
-  pathname: string;
-  search: string;
-}) => {
+export const Url = ({ pathname, search }: { pathname: string; search: string }) => {
   return {
     concat: (value: string) => Url({ pathname: `${pathname}${value}`, search }),
     delete: (key: string) => {

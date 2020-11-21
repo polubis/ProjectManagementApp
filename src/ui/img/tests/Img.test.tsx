@@ -13,12 +13,8 @@ describe('<Img>', () => {
       />
     );
 
-    expect(
-      screen.getByAltText(/image/i).closest('figure').style.height
-    ).toEqual('32px');
-    expect(screen.getByAltText(/image/i).closest('figure').style.width).toEqual(
-      '32px'
-    );
+    expect(screen.getByAltText(/image/i).closest('figure').style.height).toEqual('32px');
+    expect(screen.getByAltText(/image/i).closest('figure').style.width).toEqual('32px');
   });
 
   it('hiddes image for invalid src', () => {

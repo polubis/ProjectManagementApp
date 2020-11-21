@@ -10,10 +10,7 @@ describe('ScrollObserver', () => {
     fireEvent.scroll(window, { target: { scrollY, innerHeight } });
   };
 
-  const ComponentStub = ({
-    offset = ScrollObserver.OFFSET,
-    time = ScrollObserver.TIME,
-  }) => {
+  const ComponentStub = ({ offset = ScrollObserver.OFFSET, time = ScrollObserver.TIME }) => {
     const [position, setPosition] = useState<ScrollObserver.Position>(null);
 
     useEffect(() => {

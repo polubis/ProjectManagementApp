@@ -13,9 +13,7 @@ const SidebarTrigger = memo(
   ({ active, onClick }: SidebarTrigger.Props) => {
     return (
       <button
-        className={`${csx.sidebarTrigger} ${
-          active ? csx.active : csx.inactive
-        }`}
+        className={`${csx.sidebarTrigger} ${active ? csx.active : csx.inactive}`}
         onClick={onClick}
       >
         <div />

@@ -5,12 +5,7 @@ import { SelectBase } from 'ui';
 
 import { Form } from 'utils';
 
-import {
-  addTemplate,
-  TemplatePayload,
-  editTemplate,
-  TemplateCategory,
-} from 'core/api';
+import { addTemplate, TemplatePayload, editTemplate, TemplateCategory } from 'core/api';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '.';
 
@@ -32,11 +27,7 @@ const makePayload = ([
   techDetailsManager,
 ]: Form.Manager[]): TemplatePayload => {
   const [{ value: name }, { value: description }] = basicInfoManager[0].fields;
-  const [
-    { value: githubLink },
-    ,
-    { value: isPrivate },
-  ] = githubConnectionManager[0].fields;
+  const [{ value: githubLink }, , { value: isPrivate }] = githubConnectionManager[0].fields;
   const technologies = techDetailsManager[0].fields[TECHNOLOGIES].value;
   const patterns = techDetailsManager[0].fields[PATTERNS].value;
   const tags = techDetailsManager[0].fields[TAGS].value;

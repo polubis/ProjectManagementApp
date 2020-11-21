@@ -15,9 +15,7 @@ const ConfirmAccount = () => {
         <Button>LOG IN</Button>
       </NavLink>
 
-      <Button theme="primaryTransparent">
-        I didn't receive an email. Send it again
-      </Button>
+      <Button theme="primaryTransparent">I didn't receive an email. Send it again</Button>
     </EmailSent>
   );
 };

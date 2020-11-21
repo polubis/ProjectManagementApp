@@ -53,12 +53,9 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
 
   const [pending, setPending] = useState(false);
 
-  const [
-    { dirty, invalid, fields },
-    change,
-    directChange,
-    submit,
-  ] = Form.useManager(makeConfig(data));
+  const [{ dirty, invalid, fields }, change, directChange, submit] = Form.useManager(
+    makeConfig(data)
+  );
 
   const pictureRef = useRef<HTMLInputElement>(null);
 
@@ -108,9 +105,7 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
             });
           }
 
-          history.replace(
-            `/app/admin/dictionaries/technologies?query=${fields[NAME].value}`
-          );
+          history.replace(`/app/admin/dictionaries/technologies?query=${fields[NAME].value}`);
 
           URL.revokeObjectURL(fields[PICTURE].value.src);
         } catch {
@@ -152,16 +147,8 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
             <figure>
               <img src={fields[PICTURE].value.src} />
             </figure>
-            <span>
-              {fields[PICTURE].value.file
-                ? fields[PICTURE].value.file.name
-                : ''}
-            </span>
-            <Button
-              variant="icon"
-              theme="primaryTransparent"
-              onClick={handlePictureDelete}
-            >
+            <span>{fields[PICTURE].value.file ? fields[PICTURE].value.file.name : ''}</span>
+            <Button variant="icon" theme="primaryTransparent" onClick={handlePictureDelete}>
               <CloseIcon />
             </Button>
           </div>
@@ -184,11 +171,7 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
         )}
       </FieldBase>
 
-      <Button
-        disabled={(dirty && invalid) || pending}
-        type="submit"
-        theme="primaryDark"
-      >
+      <Button disabled={(dirty && invalid) || pending} type="submit" theme="primaryDark">
         SUBMIT
       </Button>
     </form>

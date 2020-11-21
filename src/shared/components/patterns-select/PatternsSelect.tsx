@@ -17,10 +17,7 @@ namespace PatternsSelect {
   }
 }
 
-const makeItems = (
-  patterns: Pattern[],
-  value: { [key: string]: boolean }
-) => () =>
+const makeItems = (patterns: Pattern[], value: { [key: string]: boolean }) => () =>
   patterns.map(
     ({ id, name }) =>
       ({
@@ -30,11 +27,7 @@ const makeItems = (
       } as SelectBase.Item)
   );
 
-const PatternsSelect = ({
-  children,
-  value,
-  onSelect,
-}: PatternsSelect.Props) => {
+const PatternsSelect = ({ children, value, onSelect }: PatternsSelect.Props) => {
   const { loading, patterns } = usePatternsProvider();
 
   const handleSelect = useCallback(

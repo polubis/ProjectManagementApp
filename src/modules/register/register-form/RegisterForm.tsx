@@ -10,14 +10,7 @@ import { FormSteps } from 'shared/components';
 
 import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
 
-import {
-  BASE_CONFIG,
-  CREDENTIALS,
-  WORK,
-  ALMOST_DONE,
-  CONFIRM_ACCOUNT,
-  makePayload,
-} from '..';
+import { BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload } from '..';
 
 interface State {
   activeStep: number;
@@ -107,10 +100,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <StepHeader
-        description={DESCRIPTIONS[activeStep]}
-        label={STEPS[activeStep].label}
-      />
+      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
 
       <FormSteps formManagers={formManagers} steps={STEPS} />
 
@@ -119,19 +109,11 @@ const RegisterForm = () => {
       )}
 
       {activeStep === WORK && (
-        <Work
-          formManager={workManager}
-          onBack={handleBack}
-          onSubmit={handleSubmit}
-        />
+        <Work formManager={workManager} onBack={handleBack} onSubmit={handleSubmit} />
       )}
 
       {activeStep === ALMOST_DONE && (
-        <AlmostDone
-          formManager={almostDoneManager}
-          onBack={handleBack}
-          onSubmit={handleSubmit}
-        />
+        <AlmostDone formManager={almostDoneManager} onBack={handleBack} onSubmit={handleSubmit} />
       )}
     </>
   );

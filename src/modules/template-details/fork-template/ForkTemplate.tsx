@@ -56,24 +56,13 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
         <>
           <h3 className={csx.error}>Error occured</h3>
 
-          <span>
-            Something went wrong while forking the template. Please try again
-            later.
-          </span>
+          <span>Something went wrong while forking the template. Please try again later.</span>
 
           <footer>
-            <Button
-              disabled={pending}
-              theme="primaryTransparent"
-              onClick={onClose}
-            >
+            <Button disabled={pending} theme="primaryTransparent" onClick={onClose}>
               CLOSE
             </Button>
-            <Button
-              className={csx.retryBtn}
-              disabled={pending}
-              onClick={handleForkTemplate}
-            >
+            <Button className={csx.retryBtn} disabled={pending} onClick={handleForkTemplate}>
               RETRY
             </Button>
           </footer>

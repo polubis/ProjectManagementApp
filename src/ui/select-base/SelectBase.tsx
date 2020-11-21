@@ -27,7 +27,7 @@ namespace SelectBase {
 
   export type RenderSelectItem<T> = (props: Item<T>) => ReactElement;
 
-  export type Item<T = {}> = {
+  export type Item<T = Record<string, unknown>> = {
     dataIdx: string;
     label: string;
     value: boolean;
@@ -57,23 +57,16 @@ namespace SelectBase {
     onClick(e: Events.Click): void;
   }
 
-  export interface ListChildProps<T = {}>
+  export interface ListChildProps<T = Record<string, unknown>>
     extends Omit<ListChildComponentProps, 'data'> {
     data: ListChildData<T>;
   }
 }
 
-const filterItems = (
-  phrase: string,
-  items: SelectBase.Item[]
-) => (): SelectBase.Item[] =>
-  phrase
-    ? items.filter(({ label }) =>
-        label.toLowerCase().includes(phrase.toLowerCase())
-      )
-    : items;
+const filterItems = (phrase: string, items: SelectBase.Item[]) => (): SelectBase.Item[] =>
+  phrase ? items.filter(({ label }) => label.toLowerCase().includes(phrase.toLowerCase())) : items;
 
-const SelectBase = <T extends Object>({
+const SelectBase = <T extends Record<string, unknown>>({
   children,
   items,
   listItem,
@@ -84,7 +77,7 @@ const SelectBase = <T extends Object>({
   searchable = true,
   width = 300,
   onSelect,
-}: SelectBase.Props<T>) => {
+}: SelectBase.Props<T>): JSX.Element => {
   const [phrase, setPhrase] = useState('');
 
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
@@ -132,12 +125,7 @@ const SelectBase = <T extends Object>({
       {enhancedControlComponent}
 
       {menuOpen && (
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted={false}
-          width={width}
-          onClose={closeMenu}
-        >
+        <Menu anchorEl={anchorEl} keepMounted={false} width={width} onClose={closeMenu}>
           {searchable && (
             <header className={csx.search}>
               <SearchIcon />
@@ -157,9 +145,7 @@ const SelectBase = <T extends Object>({
             </FixedSizeList>
           </div>
 
-          {renderSelectedItem && (
-            <SelectedItems items={items} renderItem={renderSelectedItem} />
-          )}
+          {renderSelectedItem && <SelectedItems items={items} renderItem={renderSelectedItem} />}
         </Menu>
       )}
     </>

@@ -1,9 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import {
-  Button as MuiButton,
-  IconButton as MuiIconButton,
-} from '@material-ui/core';
+import { Button as MuiButton, IconButton as MuiIconButton } from '@material-ui/core';
 
 import csx from './Button.scss';
 
@@ -22,13 +19,7 @@ namespace Button {
 
 const Button = forwardRef(
   (
-    {
-      active,
-      children,
-      variant = 'default',
-      theme = 'primaryDark',
-      ...btnProps
-    }: Button.Props,
+    { active, children, variant = 'default', theme = 'primaryDark', ...btnProps }: Button.Props,
     ref
   ) => {
     if (variant === 'icon') {

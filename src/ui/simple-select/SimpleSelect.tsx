@@ -12,11 +12,7 @@ namespace SimpleSelect {
   }
 }
 
-const ListItem = ({
-  style,
-  index,
-  data: { items, onSelect },
-}: SelectBase.ListChildProps) => (
+const ListItem = ({ style, index, data: { items, onSelect } }: SelectBase.ListChildProps) => (
   <div className={csx.listItem} style={style}>
     <Checkbox {...items[index]} onChange={onSelect} />
   </div>

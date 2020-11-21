@@ -23,10 +23,7 @@ const STATE: TemplateDocumentationProvider.State = {
 
 const Context = createContext(STATE);
 
-class Provider extends React.Component<
-  TemplateDocumentationProvider.Props,
-  typeof STATE
-> {
+class Provider extends React.Component<TemplateDocumentationProvider.Props, typeof STATE> {
   getTemplateDocumentation = async (url: string) => {
     if (!this.state.loading) {
       this.setState({ ...STATE });
@@ -46,11 +43,7 @@ class Provider extends React.Component<
     getTemplateDocumentation: this.getTemplateDocumentation,
   };
 
-  render = () => (
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
-  );
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TemplateDocumentationProvider = Provider;

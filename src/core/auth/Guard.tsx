@@ -14,10 +14,7 @@ namespace Guard {
   }
 
   export namespace Children {
-    export type InjectedState = Omit<
-      AuthProvider.State,
-      'authorized' | 'pending'
-    >;
+    export type InjectedState = Omit<AuthProvider.State, 'authorized' | 'pending'>;
 
     export type RenderProp = (state: InjectedState) => JSX.Element;
   }
@@ -41,11 +38,7 @@ const Admin = ({ children }: Guard.Props) => {
     : null;
 };
 
-const AdminRoute = ({
-  component: Component,
-  redirect,
-  ...rest
-}: Guard.Route.Props) => {
+const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized, user } = useAuthProvider();
 
   return (
@@ -90,43 +83,27 @@ const Unprotected = ({ children }: Guard.Props) => {
     : children;
 };
 
-const ProtectedRoute = ({
-  component: Component,
-  redirect,
-  ...rest
-}: Guard.Route.Props) => {
+const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized } = useAuthProvider();
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        pending ? null : authorized ? (
-          <Component {...(props as any)} />
-        ) : (
-          <Redirect to={redirect} />
-        )
+        pending ? null : authorized ? <Component {...(props as any)} /> : <Redirect to={redirect} />
       }
     />
   );
 };
 
-const UnprotectedRoute = ({
-  component: Component,
-  redirect,
-  ...rest
-}: Guard.Route.Props) => {
+const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized } = useAuthProvider();
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        pending ? null : authorized ? (
-          <Redirect to={redirect} />
-        ) : (
-          <Component {...(props as any)} />
-        )
+        pending ? null : authorized ? <Redirect to={redirect} /> : <Component {...(props as any)} />
       }
     />
   );

@@ -5,10 +5,7 @@ import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
 import csx from './Checkbox.scss';
 
 namespace Checkbox {
-  export type OnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    value: boolean
-  ) => void;
+  export type OnChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => void;
 
   export interface Props {
     invalid?: boolean;
@@ -34,9 +31,7 @@ const Checkbox = ({
     <FormControlLabel
       label={label}
       classes={{
-        root: `${csx.checkboxLabel} ${csx[variant]} ${
-          invalid ? csx.invalid : ''
-        }`,
+        root: `${csx.checkboxLabel} ${csx[variant]} ${invalid ? csx.invalid : ''}`,
       }}
       control={
         <MuiCheckbox

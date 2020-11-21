@@ -15,11 +15,7 @@ export namespace ConfirmDictionaryDelete {
   }
 }
 
-const ConfirmDictionaryDelete = ({
-  data,
-  kind,
-  onClose,
-}: ConfirmDictionaryDelete.Props) => {
+const ConfirmDictionaryDelete = ({ data, kind, onClose }: ConfirmDictionaryDelete.Props) => {
   const history = useHistory();
 
   const [pending, setPending] = useState(false);
@@ -28,9 +24,7 @@ const ConfirmDictionaryDelete = ({
     setPending(true);
 
     try {
-      const callApi = DictionaryKind.TECHNOLOGIES
-        ? deleteTechnology
-        : deletePattern;
+      const callApi = DictionaryKind.TECHNOLOGIES ? deleteTechnology : deletePattern;
 
       await callApi(data.id);
 

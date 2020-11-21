@@ -39,11 +39,7 @@ class Provider extends React.Component<any, typeof STATE> {
     getTemplateDetails: this.getTemplateDetails,
   };
 
-  render = () => (
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
-  );
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const TemplateDetailsProvider = Provider;

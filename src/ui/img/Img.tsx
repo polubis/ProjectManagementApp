@@ -4,10 +4,7 @@ import csx from './Img.scss';
 
 namespace Img {
   export interface Props
-    extends React.DetailedHTMLProps<
-      React.ImgHTMLAttributes<HTMLImageElement>,
-      HTMLImageElement
-    > {
+    extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
     size: string;
   }
 }

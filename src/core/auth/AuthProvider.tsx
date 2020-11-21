@@ -1,14 +1,7 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import {
-  SelfUser,
-  LogInPayload,
-  getSelf,
-  logIn,
-  logOut,
-  logInViaGithub,
-} from 'core/api';
+import { SelfUser, LogInPayload, getSelf, logIn, logOut, logInViaGithub } from 'core/api';
 
 namespace AuthProvider {
   export interface State {
@@ -56,12 +49,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     try {
       const user = await logIn(payload);
 
-      this.setState(
-        { ...STATE, pending: false, authorized: true, user },
-        () => {
-          this.props.history.replace('/app');
-        }
-      );
+      this.setState({ ...STATE, pending: false, authorized: true, user }, () => {
+        this.props.history.replace('/app');
+      });
     } catch {
       this.setState({ ...STATE, pending: false });
     }
@@ -88,11 +78,7 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     logInViaGithub,
   };
 
-  render = () => (
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
-  );
+  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
 }
 
 const AuthProvider = withRouter(Provider);

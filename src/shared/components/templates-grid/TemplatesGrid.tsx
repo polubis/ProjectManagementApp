@@ -17,14 +17,9 @@ namespace TemplatesGrid {
   }
 }
 
-const renderSpaceholders = (
-  loading: boolean,
-  spaceholdersCount: number
-) => () =>
+const renderSpaceholders = (loading: boolean, spaceholdersCount: number) => () =>
   loading
-    ? Array.from({ length: spaceholdersCount }, (_, idx) => (
-        <TemplateTile.Loader key={idx} />
-      ))
+    ? Array.from({ length: spaceholdersCount }, (_, idx) => <TemplateTile.Loader key={idx} />)
     : null;
 
 /**
@@ -60,11 +55,7 @@ const TemplatesGrid = ({
   return (
     <section className={`${csx.templatesGrid} ${className}`}>
       {templates.map((template) => (
-        <TemplateTile
-          key={template.id}
-          template={template}
-          onClick={goToDetails}
-        />
+        <TemplateTile key={template.id} template={template} onClick={goToDetails} />
       ))}
       {spaceholders}
     </section>

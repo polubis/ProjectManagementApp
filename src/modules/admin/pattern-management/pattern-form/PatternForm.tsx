@@ -38,9 +38,7 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
 
   const [pending, setPending] = useState(false);
 
-  const [{ dirty, invalid, fields }, change, _, submit] = Form.useManager(
-    makeConfig(data)
-  );
+  const [{ dirty, invalid, fields }, change, _, submit] = Form.useManager(makeConfig(data));
 
   const handleSubmit = useCallback(
     async (e: Form.Events.Submit) => {
@@ -60,9 +58,7 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
             });
           }
 
-          history.replace(
-            `/app/admin/dictionaries/patterns?query=${fields[NAME].value}`
-          );
+          history.replace(`/app/admin/dictionaries/patterns?query=${fields[NAME].value}`);
         } catch {
           setPending(false);
         }
@@ -96,11 +92,7 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
         placeholder="Pattern description..."
       />
 
-      <Button
-        disabled={(dirty && invalid) || pending}
-        type="submit"
-        theme="primaryDark"
-      >
+      <Button disabled={(dirty && invalid) || pending} type="submit" theme="primaryDark">
         SUBMIT
       </Button>
     </form>

@@ -18,10 +18,7 @@ import csx from './Navbar.scss';
 const Navbar = () => {
   const location = useLocation();
 
-  const isTemplatesRoute = useMemo(
-    () => location.pathname.includes('templates'),
-    [location]
-  );
+  const isTemplatesRoute = useMemo(() => location.pathname.includes('templates'), [location]);
 
   const isAdminTechnologiesRoute = useMemo(
     () => location.pathname.includes('admin/dictionaries/technologies'),
@@ -55,10 +52,7 @@ const Navbar = () => {
 
         {isAdminTechnologiesRoute && (
           <>
-            <NavLink
-              replace
-              to="/app/admin/dictionaries/technologies/management"
-            >
+            <NavLink replace to="/app/admin/dictionaries/technologies/management">
               <Button>
                 <CodeIcon />
                 ADD TECHNOLOGY

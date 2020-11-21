@@ -64,9 +64,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
     setActiveDate({ day: 1, month, year });
   };
 
-  const onPrevDayClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onPrevDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     let month;
     let year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
@@ -87,9 +85,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
     setActiveDate({ ...activeDate, day });
   };
 
-  const onNextDayClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onNextDayClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     let month;
     let year: number;
     const day = +e.currentTarget.getAttribute('data-idx');
@@ -112,9 +108,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
 
   const { day, month, year } = activeDate;
 
-  const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [
-    activeDate,
-  ]);
+  const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [activeDate]);
 
   return (
     <Modal className={csx.datePicker}>
@@ -141,12 +135,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
             <div key={symbol}>{symbol}</div>
           ))}
           {prevDays.map((day) => (
-            <MuiButton
-              key={day}
-              data-idx={day}
-              className={csx.prevDay}
-              onClick={onPrevDayClick}
-            >
+            <MuiButton key={day} data-idx={day} className={csx.prevDay} onClick={onPrevDayClick}>
               {day}
             </MuiButton>
           ))}
@@ -161,12 +150,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
             </MuiButton>
           ))}
           {nextDays.map((day) => (
-            <MuiButton
-              key={day}
-              data-idx={day}
-              className={csx.nextDay}
-              onClick={onNextDayClick}
-            >
+            <MuiButton key={day} data-idx={day} className={csx.nextDay} onClick={onNextDayClick}>
               {day}
             </MuiButton>
           ))}

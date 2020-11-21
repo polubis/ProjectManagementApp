@@ -61,11 +61,7 @@ const PatternManagement = () => {
 
   return (
     <div className={csx.patternManagement}>
-      {pending ? (
-        <Loader />
-      ) : (
-        <PatternForm data={pattern} id={match.params.id} />
-      )}
+      {pending ? <Loader /> : <PatternForm data={pattern} id={match.params.id} />}
     </div>
   );
 };

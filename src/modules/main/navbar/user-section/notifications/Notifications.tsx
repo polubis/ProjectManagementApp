@@ -24,18 +24,11 @@ const Notifications = () => {
 
   const { loading, notifications } = useNotificationsProvider();
 
-  const unreadedCount = useMemo(getUnreadedCount(notifications), [
-    notifications,
-  ]);
+  const unreadedCount = useMemo(getUnreadedCount(notifications), [notifications]);
 
   return (
     <>
-      <Button
-        disabled={loading}
-        variant="icon"
-        theme="primaryTransparent"
-        onClick={openMenu}
-      >
+      <Button disabled={loading} variant="icon" theme="primaryTransparent" onClick={openMenu}>
         <NotificationsIcon />
         {unreadedCount > 0 && <UnreadedIcon className={csx.unreadedIcon} />}
       </Button>

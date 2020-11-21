@@ -4,10 +4,7 @@ import { makeInstance, makePaths, Api, CoreResponse } from '.';
 
 export const LOG_IN_VIA_GITHUB = 'GithubAuthorization/SignIn';
 
-export const [LOG_IN, LOG_OUT] = makePaths('Authorization')(
-  'SignIn',
-  'SignOut'
-);
+export const [LOG_IN, LOG_OUT] = makePaths('Authorization')('SignIn', 'SignOut');
 
 export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
   'ForgottenPassword',
@@ -15,13 +12,9 @@ export const [FORGOTTEN_PASSWORD, REGISTER, GET_SELF] = makePaths('Account')(
   'GetCurrentUserData'
 );
 
-export const [
-  GET_PATTERNS,
-  EDIT_PATTERN,
-  ADD_PATTERN,
-  GET_PATTERN,
-  DELETE_PATTERN,
-] = makePaths('TemplatePatterns')('Search', 'Update', 'Add', 'Get', 'Delete');
+export const [GET_PATTERNS, EDIT_PATTERN, ADD_PATTERN, GET_PATTERN, DELETE_PATTERN] = makePaths(
+  'TemplatePatterns'
+)('Search', 'Update', 'Add', 'Get', 'Delete');
 
 export const [
   ADD_TECHNOLOGY,
@@ -29,13 +22,7 @@ export const [
   GET_TECHNOLOGIES,
   DELETE_TECHNOLOGY,
   GET_TECHNOLOGY,
-] = makePaths('TemplateTechnologies')(
-  'Add',
-  'Update',
-  'Search',
-  'Delete',
-  'Get'
-);
+] = makePaths('TemplateTechnologies')('Add', 'Update', 'Search', 'Delete', 'Get');
 
 export const [
   GET_TEMPLATES,
@@ -48,12 +35,9 @@ export const [
 export const [ADD_TEMPLATE] = makePaths('Templates')('');
 
 const makeCoreInstance = () => {
-  const parseSuccess: Api.Parser.Success<CoreResponse> = ({ data: { data } }) =>
-    data;
+  const parseSuccess: Api.Parser.Success<CoreResponse> = ({ data: { data } }) => data;
 
-  const parseError: Api.Parser.Error<CoreResponse> = ({
-    response: { data, statusText },
-  }) => {
+  const parseError: Api.Parser.Error<CoreResponse> = ({ response: { data, statusText } }) => {
     if (data && data.hasErrors) {
       return data.errors[0];
     }

@@ -8,12 +8,7 @@ import { FormSteps } from 'shared/components';
 
 import { BasicInfo, GithubConnection, TechDetails } from './steps';
 
-import {
-  useTemplateManagement,
-  BASIC_INFO,
-  GITHUB_CONNECTION,
-  TECH_DETAILS,
-} from '..';
+import { useTemplateManagement, BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS } from '..';
 
 namespace TemplateForm {
   export interface Props {
@@ -84,10 +79,7 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
     <Loader />
   ) : (
     <>
-      <StepHeader
-        description={DESCRIPTIONS[activeStep]}
-        label={STEPS[activeStep].label}
-      />
+      <StepHeader description={DESCRIPTIONS[activeStep]} label={STEPS[activeStep].label} />
 
       <FormSteps steps={STEPS} formManagers={formManagers} />
 
@@ -104,11 +96,7 @@ const TemplateForm = ({ config }: TemplateForm.Props) => {
       )}
 
       {activeStep === TECH_DETAILS && (
-        <TechDetails
-          formManager={techDetailsManager}
-          onBack={handleBack}
-          onSubmit={handleSubmit}
-        />
+        <TechDetails formManager={techDetailsManager} onBack={handleBack} onSubmit={handleSubmit} />
       )}
     </>
   );

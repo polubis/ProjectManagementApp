@@ -25,21 +25,14 @@ const useStyles = makeStyles({
 const getSelectedCount = (value: { [key: string]: boolean }) =>
   Object.values(value).filter((v) => v).length;
 
-const ControlButton = ({
-  children,
-  loading,
-  value,
-  onClick,
-}: ControlButton.Props) => {
+const ControlButton = ({ children, loading, value, onClick }: ControlButton.Props) => {
   const classes = useStyles();
 
   const selectedCount = getSelectedCount(value);
 
   return (
     <Button
-      className={`${classes.btn} ${csx.btn} ${
-        selectedCount > 0 ? csx.active : ''
-      }`}
+      className={`${classes.btn} ${csx.btn} ${selectedCount > 0 ? csx.active : ''}`}
       disabled={loading}
       theme="primaryTransparent"
       onClick={onClick}

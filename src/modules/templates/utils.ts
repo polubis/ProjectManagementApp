@@ -22,5 +22,4 @@ export const FILTERS: TemplatesSearchFilters = {
   query: '',
 };
 
-export const isValidCategory = (category: TemplateCategory) =>
-  CATEGORIES.includes(category);
+export const isValidCategory = (category: TemplateCategory) => CATEGORIES.includes(category);

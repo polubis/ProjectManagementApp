@@ -33,11 +33,7 @@ const makeItems = (
       } as SelectBase.Item<Technology>)
   );
 
-const TechnologiesSelect = ({
-  children,
-  value,
-  onSelect,
-}: TechnologiesSelect.Props) => {
+const TechnologiesSelect = ({ children, value, onSelect }: TechnologiesSelect.Props) => {
   const { loading, technologies } = useTechnologiesProvider();
 
   const items = useMemo(makeItems(technologies, value), [technologies, value]);

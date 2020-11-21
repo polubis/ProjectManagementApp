@@ -30,18 +30,8 @@ const ModulesRouter = () => {
         redirect="/app"
         component={ForgottenPassword}
       />
-      <Guard.UnprotectedRoute
-        exact
-        path="/login"
-        redirect="/app"
-        component={Login}
-      />
-      <Guard.UnprotectedRoute
-        exact
-        path="/register"
-        redirect="/app"
-        component={Register}
-      />
+      <Guard.UnprotectedRoute exact path="/login" redirect="/app" component={Login} />
+      <Guard.UnprotectedRoute exact path="/register" redirect="/app" component={Register} />
       <Route path="/app" component={Main} />
       <Route exact path="/" component={Home} />
       <Route path="**" render={() => <div>Not Found Page </div>} />

@@ -7,7 +7,7 @@ describe('useManager()', () => {
 
   const _CONFIG_: Form.Config = [
     { label: 'Username', fns: [V.req, V.min(2), V.max(50)], value: 'Piotr' },
-    { label: 'Password', fns: [V.req, V.min(8), V.max(20)] }
+    { label: 'Password', fns: [V.req, V.min(8), V.max(20)] },
   ];
 
   it('creates initial state', () => {
@@ -18,14 +18,14 @@ describe('useManager()', () => {
         {
           value: 'Piotr',
           error: '',
-          result: []
+          result: [],
         },
         {
           value: '',
           error: '',
-          result: []
-        }
-      ]
+          result: [],
+        },
+      ],
     };
 
     const { result } = renderHook(() => Form.useManager(_CONFIG_));

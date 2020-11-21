@@ -32,13 +32,7 @@ const EcosystemImage = () => (
           transform="translate(585.626 2581.356)"
           fill="#fff"
         />
-        <circle
-          cx="3.9"
-          cy="3.9"
-          r="3.9"
-          transform="translate(543.285 2456.56)"
-          fill="#ff395b"
-        />
+        <circle cx="3.9" cy="3.9" r="3.9" transform="translate(543.285 2456.56)" fill="#ff395b" />
         <ellipse
           cx="4.457"
           cy="3.9"
@@ -55,34 +49,10 @@ const EcosystemImage = () => (
           transform="translate(900.958 2619.24)"
           fill="#ff395b"
         />
-        <circle
-          cx="3.9"
-          cy="3.9"
-          r="3.9"
-          transform="translate(484.23 2542.357)"
-          fill="#fff"
-        />
-        <circle
-          cx="3.9"
-          cy="3.9"
-          r="3.9"
-          transform="translate(905.415 2456.56)"
-          fill="#fff"
-        />
-        <circle
-          cx="3.9"
-          cy="3.9"
-          r="3.9"
-          transform="translate(387.29 2727.322)"
-          fill="#fff"
-        />
-        <circle
-          cx="3.9"
-          cy="3.9"
-          r="3.9"
-          transform="translate(847.474 2690.552)"
-          fill="#f2f2f2"
-        />
+        <circle cx="3.9" cy="3.9" r="3.9" transform="translate(484.23 2542.357)" fill="#fff" />
+        <circle cx="3.9" cy="3.9" r="3.9" transform="translate(905.415 2456.56)" fill="#fff" />
+        <circle cx="3.9" cy="3.9" r="3.9" transform="translate(387.29 2727.322)" fill="#fff" />
+        <circle cx="3.9" cy="3.9" r="3.9" transform="translate(847.474 2690.552)" fill="#f2f2f2" />
         <ellipse
           cx="3.343"
           cy="3.9"
@@ -237,24 +207,9 @@ const EcosystemImage = () => (
           transform="translate(581.169 2614.783)"
           fill="#f2f2f2"
         />
-        <rect
-          width="16.714"
-          height="3.343"
-          transform="translate(822.961 2527.872)"
-          fill="#fff"
-        />
-        <rect
-          width="16.714"
-          height="3.343"
-          transform="translate(822.961 2536.786)"
-          fill="#fff"
-        />
-        <rect
-          width="16.714"
-          height="1.114"
-          transform="translate(822.961 2533.443)"
-          fill="#fff"
-        />
+        <rect width="16.714" height="3.343" transform="translate(822.961 2527.872)" fill="#fff" />
+        <rect width="16.714" height="3.343" transform="translate(822.961 2536.786)" fill="#fff" />
+        <rect width="16.714" height="1.114" transform="translate(822.961 2533.443)" fill="#fff" />
       </g>
     </g>
   </svg>

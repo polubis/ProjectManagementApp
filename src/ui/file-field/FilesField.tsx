@@ -59,11 +59,7 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
     return this._filesAdded$
       .pipe(
         switchMap((files) =>
-          from(files).pipe(
-            mergeMap(this._loadFile),
-            toArray(),
-            tap(this.props.onChange)
-          )
+          from(files).pipe(mergeMap(this._loadFile), toArray(), tap(this.props.onChange))
         )
       )
       .subscribe();
@@ -91,15 +87,7 @@ class FilesField extends React.Component<FilesField.Props, unknown> {
   }
 
   render = () => {
-    const {
-      accept,
-      className,
-      error,
-      label,
-      formats,
-      multiple,
-      value,
-    } = this.props;
+    const { accept, className, error, label, formats, multiple, value } = this.props;
 
     return (
       <FieldBase className={className} error={error} label={label}>

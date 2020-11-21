@@ -16,11 +16,7 @@ namespace GithubConnection {
   }
 }
 
-const GithubConnection = ({
-  formManager,
-  onSubmit,
-  onBack,
-}: GithubConnection.Props) => {
+const GithubConnection = ({ formManager, onSubmit, onBack }: GithubConnection.Props) => {
   const [{ fields, dirty, invalid }, change, directChange] = formManager;
 
   const handlePublishAccessChange = useCallback(

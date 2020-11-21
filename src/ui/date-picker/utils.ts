@@ -2,15 +2,7 @@ import { V } from 'utils';
 
 import { DatePicker } from 'ui';
 
-export const DAYS = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export const DAYS_SYMBOLS = DAYS.map((day) => day.slice(0, 3));
 
@@ -33,15 +25,7 @@ export const MONTHS = [
 
 export const MONTHS_COUNT = MONTHS.length;
 
-export const getDayName = ({
-  year,
-  month,
-  day,
-}: {
-  day: number;
-  month: number;
-  year: number;
-}) => {
+export const getDayName = ({ year, month, day }: { day: number; month: number; year: number }) => {
   const date = new Date(year, month - 1, day);
 
   return DAYS[date.getDay()];

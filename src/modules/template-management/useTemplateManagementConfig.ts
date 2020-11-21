@@ -55,10 +55,7 @@ const makeConfig = (template: Template): Form.Config[] => {
   };
   techDetailsConfig[PATTERNS] = {
     ...techDetailsConfig[PATTERNS],
-    value: template.patterns.reduce(
-      (prev, pattern) => ({ ...prev, [pattern.id]: true }),
-      {}
-    ),
+    value: template.patterns.reduce((prev, pattern) => ({ ...prev, [pattern.id]: true }), {}),
   };
   techDetailsConfig[TAGS] = {
     ...techDetailsConfig[TAGS],
