@@ -2,6 +2,5 @@
 
 .patternManagement {
   @include colCenter;
-  height: 100%;
-  padding: 60px;
+  @include space;
 }

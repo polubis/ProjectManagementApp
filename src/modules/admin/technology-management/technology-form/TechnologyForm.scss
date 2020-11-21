@@ -2,7 +2,11 @@
 
 .technologyForm {
   @include col;
-  width: 400px;
+  width: 100%;
+
+  @include mobile-up {
+    width: 400px;
+  }
 
   & > div {
     & > textarea {

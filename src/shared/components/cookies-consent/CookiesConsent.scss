@@ -12,10 +12,10 @@
   width: 100%;
   bottom: 0;
   left: 0;
-  border-top: 1px solid rgba($primary, 0.41);
-  z-index: 20;
+  border-top: 1px solid rgba($primary, 0.43);
+  z-index: $cookiesConstentIndex;
 
-  @include tablet {
+  @include max-width(900px) {
     grid-template-columns: 1fr 120px;
   }
 
@@ -24,7 +24,7 @@
     grid-column: 2/3;
     color: $white;
 
-    @include tablet {
+    @include max-width(900px) {
       grid-column: unset;
     }
   }
@@ -32,7 +32,7 @@
   & > button {
     grid-column: 3/4;
 
-    @include tablet {
+    @include max-width(900px) {
       grid-column: unset;
     }
   }

@@ -2,7 +2,7 @@
 
 .templates {
   @include col;
-  padding: 60px;
+  @include space;
 
   & > form {
     margin: 62px auto 82px auto;

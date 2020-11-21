@@ -2,7 +2,7 @@
 
 .templateDetails {
   @include col;
-  padding: 60px;
+  @include space;
   height: 100%;
 
   & > header {

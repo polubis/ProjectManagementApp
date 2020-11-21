@@ -20,7 +20,7 @@ namespace Guard {
   }
 
   export interface Props {
-    children: JSX.Element | Children.RenderProp;
+    children: React.ReactNode | Children.RenderProp;
   }
 }
 

@@ -1,14 +1,9 @@
-@import './reset';
 @import './mixins';
 
 body {
-  font-family: $fontPrimary;
+  background: $surface;
   color: $white;
+  font-family: $fontPrimary;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  background: $surface;
-}
-
-#root {
-  min-height: 100vh;
 }

@@ -11,7 +11,7 @@ import { CookieConsent } from 'shared/components';
 
 import ModulesRouter from './ModulesRouter';
 
-const Modules = () => {
+const Modules = (): JSX.Element => {
   return (
     <ErrorBoundary>
       <AlertsManager />

@@ -1,39 +1,31 @@
 @import 'styles/mixins';
 
 .links {
-  position: relative;
+  @include col;
 
-  .link {
-    @include rowCenter;
+  a {
     height: 80px;
-
-    button {
-      width: 100%;
-      padding: 0;
-      border-radius: 0;
-      color: $primary;
-
-      & > span {
-        @include col;
-
-        & > span {
-          @include linkSmall;
-          margin-top: 6px;
-        }
-      }
-    }
 
     &.active button {
       color: $secondary;
     }
-  }
 
-  .marker {
-    position: absolute;
-    right: -2px;
-    width: 4px;
-    background: $secondary;
-    border-radius: 39px;
-    transition: transform 0.3s;
+    button {
+      width: 100%;
+
+      & > span {
+        @include colCenter;
+
+        svg {
+          margin-right: 0;
+        }
+
+        span {
+          @include linkSmall;
+          margin-top: 6px;
+          text-transform: capitalize;
+        }
+      }
+    }
   }
 }

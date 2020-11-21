@@ -1,24 +1,22 @@
 @import 'styles/mixins';
 
 .sidebar {
-  grid-area: sidebar;
-  border-right: 1px solid rgba($primary, 0.43);
-  background: $surface;
+  display: none;
 
-  .sidebarContent {
+  @include mobile-up {
+    display: block;
+    grid-area: sidebar;
+    border-right: 1px solid rgba($primary, 0.43);
+    background: $surface;
+  }
+
+  .content {
     @include col;
     position: sticky;
     top: 0;
 
     .logo {
       margin: 30px auto 78px auto;
-      cursor: pointer;
-    }
-
-    .link {
-      & > span {
-        text-transform: capitalize;
-      }
     }
   }
 }
