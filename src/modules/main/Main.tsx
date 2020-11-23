@@ -9,6 +9,7 @@ import { Guard } from 'core/auth';
 import { GithubConnect } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
 
+import MobileNavigation from './mobile-navigation';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
 
@@ -30,6 +31,8 @@ const Main = ({ match }: RouteChildrenProps) => {
       <Navbar />
 
       <Sidebar />
+
+      <MobileNavigation />
 
       <GithubConnect />
 
@@ -71,7 +74,7 @@ const Main = ({ match }: RouteChildrenProps) => {
   );
 };
 
-export default (props: RouteChildrenProps) => (
+export default (props: RouteChildrenProps): JSX.Element => (
   <NotificationsProvider>
     <Main {...props} />
   </NotificationsProvider>

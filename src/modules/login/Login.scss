@@ -2,9 +2,9 @@
 
 .login {
   @include centered;
+  @include page;
+  @include space;
   flex-flow: column;
-  min-height: 100vh;
-  padding: 80px 0;
 
   h5 {
     @include headingBig;

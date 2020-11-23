@@ -2,9 +2,9 @@
 
 .templateManagement {
   @include col;
+  @include space;
   height: 100%;
-  width: 400px;
-  padding: 60px 0;
+  max-width: 500px;
   margin: 0 auto;
 
   & > form {

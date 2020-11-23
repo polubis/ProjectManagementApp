@@ -1,0 +1,80 @@
+@import 'styles/mixins';
+
+button.trigger,
+.backdrop,
+.elevation,
+.menu {
+  @include mobile-up {
+    display: none;
+  }
+}
+
+button.trigger {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: $mobileNavigationTriggerIndex;
+
+  &.open {
+    background: transparent;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.elevation {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  width: 116px;
+  height: 116px;
+  background: $primaryDark;
+  box-shadow: $shadowPrimary;
+  z-index: $mobileNavigationTriggerElevation;
+  animation: animate-elevation 0.2s ease-in-out forwards;
+  transform-origin: bottom right;
+  will-change: transform;
+
+  @keyframes animate-elevation {
+    from {
+      transform: scale(0) translate(30px, 34px);
+    }
+
+    to {
+      transform: scale(1) translate(30px, 34px);
+    }
+  }
+}
+
+.menu {
+  @include col;
+  position: fixed;
+  max-height: 100%;
+  min-height: 60vh;
+  width: 100%;
+  padding: 28px 68px 28px 28px;
+  bottom: 0;
+  right: 0;
+  z-index: $mobileNavigationMenuIndex;
+  background: $surfacePrimary;
+  border-top: 1px solid rgba($primary, 0.43);
+  opacity: 0;
+  animation: animate-backdrop 0.2s ease-in-out forwards;
+
+  @keyframes animate-backdrop {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @include mobile-up {
+    display: none;
+  }
+}

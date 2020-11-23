@@ -6,41 +6,35 @@ import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { Guard } from 'core/auth';
 
+import { Button } from 'ui';
+
 import csx from './SidebarLinks.scss';
 
-namespace SidebarLinks {
-  export type RenderLink = (icon: React.ReactNode, label: string) => JSX.Element;
-
-  export interface Props {
-    renderLink: RenderLink;
-  }
-}
-
-const getActiveClassName = (pathname: string, path: string): string => {
-  return pathname.includes(path) ? csx.active : '';
-};
-
-const SidebarLinks = ({ renderLink }: SidebarLinks.Props) => {
+const SidebarLinks = (): JSX.Element => {
   const { path } = useRouteMatch();
   const { pathname } = useLocation();
 
   return (
     <div className={csx.links}>
       <NavLink
-        activeClassName={getActiveClassName(pathname, 'templates')}
-        className={csx.link}
+        activeClassName={pathname.includes('templates') ? csx.active : ''}
         to={`${path}/templates`}
       >
-        {renderLink(<TemplatesIcon />, 'Templates')}
+        <Button theme="primaryTransparent">
+          <TemplatesIcon />
+          <span>Templates</span>
+        </Button>
       </NavLink>
 
       <Guard.Admin>
         <NavLink
-          activeClassName={getActiveClassName(pathname, 'admin')}
-          className={csx.link}
+          activeClassName={pathname.includes('admin') ? csx.active : ''}
           to={`${path}/admin`}
         >
-          {renderLink(<AdminIcon />, 'Admin')}
+          <Button theme="primaryTransparent">
+            <AdminIcon />
+            <span>Admin</span>
+          </Button>
         </NavLink>
       </Guard.Admin>
     </div>

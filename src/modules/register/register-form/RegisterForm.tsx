@@ -33,7 +33,7 @@ const STEPS: Steps.Item[] = [
   { label: 'Almost done!' },
 ];
 
-const RegisterForm = () => {
+const RegisterForm = (): JSX.Element => {
   const [state, setState] = useState<State>({
     activeStep: CREDENTIALS,
     pending: false,
@@ -41,7 +41,7 @@ const RegisterForm = () => {
 
   const { activeStep, pending } = state;
 
-  useScrollReset(activeStep, true);
+  useScrollReset(activeStep);
 
   const credentialsManager = Form.useManager(BASE_CONFIG[CREDENTIALS]);
   const workManager = Form.useManager(BASE_CONFIG[WORK]);

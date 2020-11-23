@@ -2,7 +2,11 @@
 
 .loginForm {
   @include col;
-  width: 380px;
+  width: 100%;
+
+  @include mobile-up {
+    width: 380px;
+  }
 
   & > div:first-of-type {
     margin-bottom: 28px;

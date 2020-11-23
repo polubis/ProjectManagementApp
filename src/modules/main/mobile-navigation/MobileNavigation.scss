@@ -1,0 +1,43 @@
+@import 'styles/mixins';
+
+.link {
+  @include row;
+  @include link;
+  margin-bottom: 24px;
+  color: $primary;
+
+  span {
+    margin-left: 22px;
+  }
+
+  &.active {
+    color: $secondary;
+
+    svg {
+      color: $secondary;
+    }
+  }
+}
+
+.footer {
+  @include row;
+  margin-top: auto;
+
+  & > * {
+    animation: animate-item 0.2s ease-in-out forwards;
+
+    @keyframes animate-item {
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    &:not(:last-of-type) {
+      margin-right: 18px;
+    }
+  }
+}

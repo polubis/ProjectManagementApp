@@ -15,7 +15,7 @@ import { useTemplateManagementConfig } from '.';
 
 import csx from './TemplateManagement.scss';
 
-const TemplateManagement = () => {
+const TemplateManagement = (): JSX.Element => {
   const {
     params: { id },
   } = useRouteMatch<{ id: string }>();
@@ -43,7 +43,7 @@ const TemplateManagement = () => {
   );
 };
 
-export default () => (
+export default (): JSX.Element => (
   <TemplateDetailsProvider>
     <TemplateManagement />
   </TemplateDetailsProvider>

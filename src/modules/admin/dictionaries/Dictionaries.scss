@@ -2,5 +2,5 @@
 
 .dictionaries {
   @include colCenter;
-  padding: 60px;
+  @include space;
 }

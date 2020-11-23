@@ -13,7 +13,7 @@ const Login = withLazy(() => import('./login'));
 const Main = withLazy(() => import('./main'));
 const Register = withLazy(() => import('./register'));
 
-const ModulesRouter = () => {
+const ModulesRouter = (): JSX.Element => {
   const { getPatterns } = usePatternsProvider();
   const { getTechnologies } = useTechnologiesProvider();
 

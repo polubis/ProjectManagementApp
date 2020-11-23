@@ -1,14 +1,19 @@
 @import 'styles/mixins';
 
 .main {
-    position: relative;
-    display: grid;
+  @include page;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 99px 1fr;
+  grid-template-areas: 'nav' 'main';
+
+  @include mobile-up {
     grid-template-columns: 99px 1fr;
     grid-template-rows: 99px 1fr;
-    grid-template-areas: "sidebar nav" "sidebar main";
-    min-height: 100vh;
+    grid-template-areas: 'sidebar nav' 'sidebar main';
+  }
 
-    main {
-        grid-area: main;
-    }
+  main {
+    grid-area: main;
+  }
 }
