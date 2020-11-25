@@ -1,6 +1,8 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
-import { Notification, getNotifications } from 'core/api';
+import { getNotifications } from 'api';
+
+import { Notification } from 'shared/models';
 
 namespace NotificationsProvider {
   export interface State {

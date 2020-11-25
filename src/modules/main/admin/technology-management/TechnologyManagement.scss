@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.technologyManagement {
+  @include colCenter;
+  @include space;
+  height: 100%;
+}

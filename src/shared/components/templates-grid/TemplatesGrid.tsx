@@ -1,9 +1,8 @@
 import React, { useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { Template } from 'core/api';
-
-import { TemplateTile } from '..';
+import { Template } from 'shared/models';
+import { TemplateTile } from 'shared/components';
 
 import csx from './TemplatesGrid.scss';
 

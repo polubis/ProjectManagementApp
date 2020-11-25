@@ -32,10 +32,10 @@
       "shared/*": ["src/shared/*"],
       "ui": ["src/ui"],
       "modules": ["src/modules"],
+      "testing/*": ["src/testing/*"],
       "utils": ["src/utils"],
-      "core/*": ["src/core/*"],
+      "api": ["src/api"],
       "services*": ["src/services/*"],
-      "_mocks_": ["src/_mocks_"],
       "styles": ["src/styles"]
     },
     "plugins": [

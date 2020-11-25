@@ -1,0 +1,32 @@
+@import 'styles/mixins';
+
+.link {
+  @include row;
+  @include link;
+  margin-bottom: 24px;
+  color: $primary;
+
+  span {
+    margin-left: 22px;
+  }
+
+  &.active {
+    color: $secondary;
+
+    svg {
+      color: $secondary;
+    }
+  }
+}
+
+.logo {
+  @include row;
+  text-decoration: none;
+  color: $white;
+  margin-top: auto;
+
+  span {
+    @include heading;
+    margin-left: 18px;
+  }
+}

@@ -12,7 +12,7 @@
   }
 }
 
-@mixin mobile-only {
+@mixin mobile {
   @media (max-width: $mobile) {
     @content;
   }
@@ -24,7 +24,13 @@
   }
 }
 
-@mixin tablet-only {
+@mixin tablet-down {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin tablet {
   @media (min-width: $mobile) and (max-width: $tablet) {
     @content;
   }
@@ -36,13 +42,13 @@
   }
 }
 
-@mixin laptop-only {
+@mixin laptop {
   @media (min-width: $tablet) and (max-width: $laptop) {
     @content;
   }
 }
 
-@mixin desktop-only {
+@mixin desktop {
   @media (min-width: $desktop) {
     @content;
   }

@@ -1,15 +1,18 @@
 import React, { lazy, Suspense } from 'react';
 
-export const withLazy = (Component) => {
-  const LazyComponent = lazy(Component);
+export const withLazy = (
+  factory: () => Promise<{ default: React.ComponentType<any> }>,
+  Fallback: React.ComponentType = () => null
+) => {
+  const LazyComponent = lazy(factory);
 
   const SuspendedComponent = (props) => (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Fallback />}>
       <LazyComponent {...props} />
     </Suspense>
   );
 
-  SuspendedComponent.preload = Component;
+  SuspendedComponent.preload = factory;
 
   return SuspendedComponent;
 };

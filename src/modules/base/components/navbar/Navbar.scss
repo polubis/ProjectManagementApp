@@ -1,0 +1,68 @@
+@import 'styles/mixins';
+
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  height: 99px;
+  background: $surfacePrimary;
+  border-bottom: 1px solid rgba($primary, 0.43);
+  padding: 0 60px;
+
+  @include max-width(1328px) {
+    grid-template-columns: 1fr;
+    padding: 0 32px;
+  }
+
+  .wrapper {
+    @include row;
+    grid-column: 2/3;
+
+    @include max-width(1328px) {
+      grid-column: unset;
+    }
+
+    @include max-width(1000px) {
+      justify-content: space-between;
+    }
+
+    .logo {
+      @include row;
+      text-decoration: none;
+      color: $white;
+      margin-right: auto;
+
+      span {
+        @include heading;
+        margin-left: 18px;
+      }
+    }
+
+    .links {
+      @include row;
+
+      a {
+        @include centered;
+        @include link;
+        height: 99px;
+        width: 110px;
+        font-weight: $bold;
+        color: $primary;
+
+        &:not(:first-of-type) {
+          margin-left: 24px;
+        }
+
+        @include mobile {
+          &.register,
+          &.login {
+            display: none;
+          }
+        }
+
+        &.activeLink {
+          color: $secondary;
+        }
+      }
+    }
+  }
+}

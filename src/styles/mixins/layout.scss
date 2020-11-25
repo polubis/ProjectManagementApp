@@ -7,11 +7,11 @@
 @mixin space {
   padding: 60px;
 
-  @include tablet-only {
+  @include tablet {
     padding: 60px 32px;
   }
 
-  @include mobile-only {
+  @include mobile {
     padding: 60px 24px;
   }
 }

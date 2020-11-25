@@ -4,7 +4,7 @@ import { Button } from 'ui';
 
 import { usePortal } from 'utils';
 
-import { useCookiesProvider } from 'core/cookies';
+import { useCookiesProvider } from 'shared/providers/cookies';
 
 import csx from './CookiesConsent.scss';
 

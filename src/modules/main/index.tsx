@@ -1,3 +1,3 @@
-import Main from './Main';
+import MainModule from './MainModule';
 
-export default Main;
+export default MainModule;

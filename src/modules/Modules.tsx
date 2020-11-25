@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { AlertsManager } from 'core/api';
-import AuthProvider from 'core/auth';
-import CookiesProvider from 'core/cookies';
-import ErrorBoundary from 'core/error-boundary';
-import PatternsProvider from 'core/patterns';
-import TechnologiesProvider from 'core/technologies';
+import { ErrorBoundary } from 'utils';
 
-import { CookieConsent } from 'shared/components';
+import PatternsProvider from 'shared/providers/patterns';
+import TechnologiesProvider from 'shared/providers/technologies';
+import { AlertsManager, CookieConsent } from 'shared/components';
+import AuthProvider from 'shared/providers/auth';
+import CookiesProvider from 'shared/providers/cookies';
 
 import ModulesRouter from './ModulesRouter';
 
