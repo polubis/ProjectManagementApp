@@ -1,4 +1,4 @@
-import React, { ReactElement, memo } from 'react';
+import React, { ReactElement, useCallback, memo } from 'react';
 
 import { Button } from '..';
 
@@ -13,27 +13,39 @@ namespace Tabs {
   }
 }
 
-const Tabs = memo(({ active, children, className = '', onClick }: Tabs.Props) => {
-  const enhancedChildren = React.Children.map(children, (child: ReactElement) => ({
-    Component: child,
-    label: child ? child.props.children : '',
-  }));
+const Tabs = memo(
+  ({ active, children, className = '', onClick }: Tabs.Props): JSX.Element => {
+    const enhancedChildren = React.Children.map(children, (child: ReactElement) => ({
+      Component: child,
+      label: child ? child.props.children : '',
+    }));
 
-  return (
-    <nav className={`${csx.tabs} ${className}`}>
-      {enhancedChildren.map(({ Component, label }, idx) => (
-        <Button
-          key={idx}
-          active={active ? active.toLowerCase() === label.toLowerCase() : false}
-          className={csx.tab}
-          theme="secondary"
-          onClick={() => onClick(label)}
-        >
-          {Component}
-        </Button>
-      ))}
-    </nav>
-  );
-});
+    const handleClick = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+        onClick(e.currentTarget.getAttribute('data-label'));
+      },
+      [onClick]
+    );
+
+    return (
+      <nav className={`${csx.tabs} ${className}`}>
+        {enhancedChildren
+          .filter(({ Component }) => !!Component)
+          .map(({ Component, label }, idx) => (
+            <Button
+              key={idx}
+              data-label={label}
+              active={active ? active.toLowerCase() === label.toLowerCase() : false}
+              className={csx.tab}
+              theme="secondary"
+              onClick={handleClick}
+            >
+              {Component}
+            </Button>
+          ))}
+      </nav>
+    );
+  }
+);
 
 export default Tabs;

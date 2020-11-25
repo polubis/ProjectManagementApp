@@ -12,7 +12,7 @@ import { DictionaryKind, RouteProps } from '.';
 
 import csx from './Dictionaries.scss';
 
-const Dictionaries = () => {
+const Dictionaries = (): JSX.Element => {
   const history = useHistory();
   const {
     params: { kind },

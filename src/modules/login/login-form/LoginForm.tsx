@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const key = e.target.getAttribute('data-key') as keyof LogInPayload;
+    const key = e.currentTarget.getAttribute('data-key') as keyof LogInPayload;
 
     setForm(
       next({
