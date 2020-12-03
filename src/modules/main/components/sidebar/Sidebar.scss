@@ -12,16 +12,34 @@
 
     &.open {
       background: $surfacePrimary;
+
+      .toggleBtn {
+        background: $secondary;
+        color: $black;
+        transform: translateX(50px);
+
+        & > span {
+          transform: rotate(180deg);
+        }
+      }
     }
-  }
 
-  .content {
-    @include col;
-    position: sticky;
-    top: 0;
+    .content {
+      @include col;
+      position: sticky;
+      top: 0;
 
-    .logo {
-      margin: 30px auto 78px auto;
+      .logo {
+        margin: 30px auto 78px auto;
+      }
+
+      .toggleBtn {
+        width: 32px;
+        height: 32px;
+        align-self: center;
+        margin-top: 42px;
+        transition: 0.2s transform;
+      }
     }
   }
 }

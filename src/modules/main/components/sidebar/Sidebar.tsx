@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 
-import { Logo } from 'ui';
+import ChevronIcon from '@material-ui/icons/ChevronRight';
+
+import { Button, Logo } from 'ui';
 
 import SidebarLinks from './sidebar-links';
 import SidebarPanel from './sidebar-panel';
@@ -18,11 +20,15 @@ const Sidebar = (): JSX.Element => {
     <>
       <aside className={`${csx.sidebar} ${open ? csx.open : ''}`}>
         <div className={csx.content}>
-          <figure className={csx.logo} onClick={toggleOpen}>
+          <figure className={csx.logo}>
             <Logo />
           </figure>
 
           <SidebarLinks />
+
+          <Button className={csx.toggleBtn} variant="icon" onClick={toggleOpen}>
+            <ChevronIcon />
+          </Button>
         </div>
       </aside>
 
