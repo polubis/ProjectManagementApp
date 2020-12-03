@@ -88,7 +88,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 </Button>
               </NavLink>
 
-              <a href={template.githubLink} target="_blank">
+              <a href={template.githubLink} rel="noreferrer" target="_blank">
                 <Button>
                   <ShareIcon /> SOURCE
                 </Button>

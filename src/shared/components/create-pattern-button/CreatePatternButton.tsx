@@ -12,7 +12,7 @@ const CreatePatternButton = memo(
     <NavLink replace to={PATH}>
       <Button>
         <PlaylistAddIcon />
-        CREATE PATTERN
+        ADD PATTERN
       </Button>
     </NavLink>
   )

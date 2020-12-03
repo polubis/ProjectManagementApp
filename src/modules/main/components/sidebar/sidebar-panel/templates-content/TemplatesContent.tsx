@@ -1,16 +1,19 @@
 import React from 'react';
 
 import { CreateTemplateButton } from 'shared/components';
+import { Guard } from 'shared/guards';
+
+import ContentHeader from '../content-header';
 
 import csx from './TemplatesContent.scss';
 
 const TemplatesContent = (): JSX.Element => {
   return (
     <div className={csx.templatesContent}>
-      <h3>Templates</h3>
-      <span>Use filters and find template</span>
-
-      <CreateTemplateButton />
+      <ContentHeader description="Use filters and find template" title="Templates" />
+      <Guard.Protected>
+        <CreateTemplateButton />
+      </Guard.Protected>
     </div>
   );
 };

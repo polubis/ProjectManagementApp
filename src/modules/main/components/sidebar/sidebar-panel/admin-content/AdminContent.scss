@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.templatesContent {
+.adminContent {
   @include col;
 
   & > a {
@@ -8,6 +8,10 @@
 
     & > button {
       width: 100%;
+    }
+
+    &:first-of-type {
+      margin-bottom: 22px;
     }
   }
 }
