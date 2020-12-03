@@ -18,7 +18,7 @@ export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).
 export const BASE_CONFIG: Form.Config[] = [
   [
     { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
-    { label: 'Email', fns: [V.req, V.email] },
+    { label: 'Email', fns: [V.req, V.email, V.max(255)] },
     {
       label: 'Password',
       fns: [V.req, V.min(2), V.max(50), V.sameAs(REPEATED_PASSWORD, 'repeated password')],
@@ -31,7 +31,7 @@ export const BASE_CONFIG: Form.Config[] = [
   [
     {
       label: 'Position',
-      fns: [V.min(2), V.max(50)],
+      fns: [V.min(2), V.max(100)],
     },
     {
       label: 'Seniority',
