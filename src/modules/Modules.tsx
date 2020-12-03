@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { ErrorBoundary } from 'utils';
-
 import PatternsProvider from 'shared/providers/patterns';
 import TechnologiesProvider from 'shared/providers/technologies';
-import { AlertsManager, CookieConsent } from 'shared/components';
+import { AlertsManager, CookieConsent, ErrorBoundary } from 'shared/components';
 import AuthProvider from 'shared/providers/auth';
 import CookiesProvider from 'shared/providers/cookies';
 

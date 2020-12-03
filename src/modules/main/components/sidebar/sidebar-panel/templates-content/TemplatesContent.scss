@@ -1,0 +1,18 @@
+@import 'styles/mixins';
+
+.templatesContent {
+  @include col;
+
+  & > h3 {
+    @include headingMedium;
+    margin: 18px 0 10px 0;
+  }
+
+  & > span {
+    @include description;
+  }
+
+  & > a {
+    margin-top: 28px;
+  }
+}

@@ -12,15 +12,26 @@
     margin-left: auto;
   }
 
-  .divider {
-    height: 30px;
-    width: 1px;
-    margin: 0 32px;
-    background: rgba($primary, 0.43);
+  .breadcrumbs {
+    @include tablet-down {
+      display: none;
+    }
 
-    @include max-width(1000px) {
-      opacity: 0;
-      margin: 0 32px 0 0;
+    & > a {
+      @include headingSmall;
+      color: $primary;
+      text-transform: capitalize;
+      text-decoration: none;
+
+      &:first-of-type {
+        @include headingMedium;
+        text-transform: capitalize;
+      }
+    }
+
+    & > div {
+      color: $primary;
+      margin: 0 6px;
     }
   }
 }

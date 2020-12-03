@@ -18,6 +18,7 @@ $offset: 100px;
   left: 0;
   width: $width;
   height: 100vh;
+  padding: 28px;
   background: $surface;
   z-index: $sidebarPanelIndex;
   box-shadow: 4px 0 6px rgba($black, 0.64);
@@ -31,6 +32,18 @@ $offset: 100px;
 
     to {
       transform: translateX($offset);
+    }
+  }
+
+  .breadcrumbs {
+    & > * {
+      @include labelSmall;
+      color: $secondary;
+      text-transform: uppercase;
+    }
+
+    & > div {
+      margin: 0 2px;
     }
   }
 }

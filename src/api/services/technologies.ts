@@ -1,8 +1,9 @@
 import { Technology, AddTechnologyPayload, EditTechnologyPayload } from 'shared/models';
 
+import { toFormData } from 'utils';
+
 import {
   core,
-  toFormData,
   ADD_TECHNOLOGY,
   DELETE_TECHNOLOGY,
   GET_TECHNOLOGIES,

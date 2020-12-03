@@ -1,17 +1,15 @@
 import React from 'react';
-import { useLocation } from 'react-router';
+
+import { Breadcrumbs } from 'shared/components';
 
 import UserSection from './user-section';
-import BreadCrumbs from './bread-crumbs';
 
 import csx from './Navbar.scss';
 
-const Navbar = () => {
-  const location = useLocation();
-
+const Navbar = (): JSX.Element => {
   return (
     <nav className={csx.navbar}>
-      <BreadCrumbs pathname={location.pathname} />
+      <Breadcrumbs className={csx.breadcrumbs} divider=">" />
 
       <div className={csx.wrapper}>
         <UserSection />

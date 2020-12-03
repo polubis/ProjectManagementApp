@@ -1,0 +1,10 @@
+@import 'styles/mixins';
+
+.breadcrumbs {
+    @include row;
+    overflow: hidden;
+
+    .divider:last-of-type {
+        display: none;
+    }
+}

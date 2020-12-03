@@ -1,6 +1,6 @@
 import { CORE_API_PATH } from 'consts';
 
-import { makeInstance, makePaths, Api } from '.';
+import { makeInstance, makePaths, Api } from 'utils';
 
 interface CoreResponse<T = any> {
   data: T;
