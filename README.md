@@ -92,7 +92,7 @@ Makes code less prone to errors.
     import { useEffect } from 'react';
     import { useRouteMatch, useHistory } from 'react-router';
     
-    import { TemplateCategory } from 'core/api';
+    import { TemplateCategory } from 'api';
     
     import { Url } from 'utils';
     

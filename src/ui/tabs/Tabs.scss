@@ -2,7 +2,7 @@
 
 .tabs {
   @include row;
-  @include mobile-only {
+  @include mobile {
     flex-flow: column;
   }
 
@@ -10,7 +10,7 @@
     &:not(:last-of-type) {
       margin: 0 30px 0 0;
 
-      @include mobile-only {
+      @include mobile {
         margin: 0 0 30px 0;
       }
     }

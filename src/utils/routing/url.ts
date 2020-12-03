@@ -1,4 +1,4 @@
-import { isRefType } from '..';
+import { isRefType } from 'utils';
 
 export const Url = ({ pathname, search }: { pathname: string; search: string }) => {
   return {

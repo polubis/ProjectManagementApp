@@ -1,0 +1,17 @@
+@import 'styles/mixins';
+
+.adminContent {
+  @include col;
+
+  & > a {
+    width: 100%;
+
+    & > button {
+      width: 100%;
+    }
+
+    &:first-of-type {
+      margin-bottom: 22px;
+    }
+  }
+}

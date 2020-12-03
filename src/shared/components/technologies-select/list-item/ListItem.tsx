@@ -2,8 +2,7 @@ import React from 'react';
 
 import { SelectBase, Checkbox } from 'ui';
 
-import { Technology } from 'core/api';
-
+import { Technology } from 'shared/models';
 import { TechnologyChip } from 'shared/components';
 
 import csx from './ListItem.scss';

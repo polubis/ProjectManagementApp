@@ -1,0 +1,37 @@
+@import 'styles/mixins';
+
+.navbar {
+  @include row;
+  grid-area: nav;
+  border-bottom: 1px solid rgba($primary, 0.43);
+  background: $surface;
+  padding: 0 40px;
+
+  .wrapper {
+    @include row;
+    margin-left: auto;
+  }
+
+  .breadcrumbs {
+    @include tablet-down {
+      display: none;
+    }
+
+    & > a {
+      @include headingSmall;
+      color: $primary;
+      text-transform: capitalize;
+      text-decoration: none;
+
+      &:first-of-type {
+        @include headingMedium;
+        text-transform: capitalize;
+      }
+    }
+
+    & > div {
+      color: $primary;
+      margin: 0 6px;
+    }
+  }
+}

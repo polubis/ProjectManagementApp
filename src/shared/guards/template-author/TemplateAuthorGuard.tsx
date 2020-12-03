@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Redirect } from 'react-router';
 
-import { useAuthProvider } from 'core/auth';
-
+import { useAuthProvider } from 'shared/providers/auth';
 import { useTemplateDetailsProvider } from 'shared/providers/template-details';
 
 namespace TemplateAuthorGuard {

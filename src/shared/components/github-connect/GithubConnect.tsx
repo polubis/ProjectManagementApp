@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import { Modal, Button } from 'ui';
 
-import { useAuthProvider } from 'core/auth';
-import { useCookiesProvider } from 'core/cookies';
+import { useAuthProvider } from 'shared/providers/auth';
+import { useCookiesProvider } from 'shared/providers/cookies';
 
 import csx from './GithubConnect.scss';
 

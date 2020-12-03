@@ -2,8 +2,8 @@ import React, { useCallback, ReactElement, useMemo } from 'react';
 
 import { SelectBase, Tag } from 'ui';
 
-import { Pattern } from 'core/api';
-import { usePatternsProvider } from 'core/patterns';
+import { Pattern } from 'shared/models';
+import { usePatternsProvider } from 'shared/providers/patterns';
 
 import ListItem from './list-item';
 

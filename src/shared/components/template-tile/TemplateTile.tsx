@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Img, Tag } from 'ui';
 
-import { Template } from 'core/api';
-
+import { Template } from 'shared/models';
 import { TemplateStats } from 'shared/components';
 
 import csx from './TemplateTile.scss';

@@ -12,7 +12,7 @@ const CreateTemplateButton = memo(
     <NavLink replace to={PATH}>
       <Button>
         <AddTemplateIcon />
-        CREATE TEMPLATE
+        ADD TEMPLATE
       </Button>
     </NavLink>
   )

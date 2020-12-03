@@ -1,0 +1,26 @@
+import React from 'react';
+
+import { Notification } from 'shared/models';
+
+import Content from './content';
+
+import UnreadedIcon from '../../unreaded-icon';
+
+import csx from './ListItem.scss';
+
+namespace ListItem {
+  export interface Props {
+    item: Notification;
+  }
+}
+
+const ListItem = ({ item }: ListItem.Props) => {
+  return (
+    <li className={csx.listItem}>
+      <UnreadedIcon className={csx.unreadedIcon} />
+      <Content item={item} />
+    </li>
+  );
+};
+
+export default ListItem;

@@ -1,0 +1,49 @@
+@import 'styles/mixins';
+
+$width: 300px;
+$offset: 100px;
+
+.sidebarPanel,
+.backdrop {
+  display: none;
+
+  @include mobile-up {
+    display: block;
+  }
+}
+
+.sidebarPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $width;
+  height: 100vh;
+  padding: 28px;
+  background: $surface;
+  z-index: $sidebarPanelIndex;
+  box-shadow: 4px 0 6px rgba($black, 0.64);
+  animation: animate-in 0.3s forwards;
+  will-change: transform;
+
+  @keyframes animate-in {
+    from {
+      transform: translateX(-($offset + $width));
+    }
+
+    to {
+      transform: translateX($offset);
+    }
+  }
+
+  .breadcrumbs {
+    & > * {
+      @include labelSmall;
+      color: $secondary;
+      text-transform: uppercase;
+    }
+
+    & > div {
+      margin: 0 2px;
+    }
+  }
+}

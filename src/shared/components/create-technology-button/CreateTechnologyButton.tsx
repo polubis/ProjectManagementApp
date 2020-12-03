@@ -12,7 +12,7 @@ const CreateTechnologyButton = memo(
     <NavLink replace to={PATH}>
       <Button>
         <CodeIcon />
-        CREATE TECHNOLOGY
+        ADD TECHNOLOGY
       </Button>
     </NavLink>
   )

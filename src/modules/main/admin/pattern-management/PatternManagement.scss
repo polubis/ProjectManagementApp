@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.patternManagement {
+  @include colCenter;
+  @include space;
+  height: 100%;
+}

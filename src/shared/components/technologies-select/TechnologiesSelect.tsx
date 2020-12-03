@@ -2,8 +2,8 @@ import React, { useMemo, ReactElement } from 'react';
 
 import { SelectBase } from 'ui';
 
-import { Technology } from 'core/api';
-import { useTechnologiesProvider } from 'core/technologies';
+import { Technology } from 'shared/models';
+import { useTechnologiesProvider } from 'shared/providers/technologies';
 
 import { TechnologyChip } from 'shared/components';
 

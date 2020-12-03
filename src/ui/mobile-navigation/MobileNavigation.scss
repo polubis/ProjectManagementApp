@@ -14,9 +14,11 @@ button.trigger {
   bottom: 16px;
   right: 16px;
   z-index: $mobileNavigationTriggerIndex;
+  box-shadow: $shadowPrimary;
 
   &.open {
     background: transparent;
+    box-shadow: unset;
 
     &:hover {
       background: transparent;
