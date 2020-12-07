@@ -6,7 +6,7 @@
   height: 100%;
 
   & > header {
-    @include tablet-down {
+    @include laptop-down {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
@@ -17,7 +17,7 @@
       }
     }
 
-    @include tablet-up {
+    @include laptop-up {
       @include wrap;
       justify-content: flex-end;
 
@@ -32,7 +32,7 @@
     padding: 62px 0;
     width: 740px;
 
-    @include max-width(1000px) {
+    @include laptop-down {
       width: 100%;
     }
 

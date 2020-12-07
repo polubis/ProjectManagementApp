@@ -9,7 +9,7 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 
-import { Button, Loader, More, Tags } from 'ui';
+import { Button, More, Tags } from 'ui';
 
 import { convertDate } from 'utils';
 
@@ -21,6 +21,7 @@ import TemplateDetailsProvider, {
 } from 'shared/providers/template-details';
 
 import ConfirmTemplateDelete from './confirm-template-delete';
+import ContentLoader from './content-loader';
 import ForkTemplate from './fork-template';
 
 import csx from './TemplateDetails.scss';
@@ -71,7 +72,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   return (
     <div className={csx.templateDetails}>
       {loading ? (
-        <Loader />
+        <ContentLoader />
       ) : (
         !error && (
           <>

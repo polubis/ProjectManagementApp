@@ -42,8 +42,20 @@
   }
 }
 
+@mixin laptop-down {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
 @mixin laptop {
   @media (min-width: $tablet) and (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin laptop-up {
+  @media (min-width: $laptop) {
     @content;
   }
 }
