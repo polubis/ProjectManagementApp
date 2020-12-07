@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { Modal } from '..';
+import { Modal } from 'ui';
 
 describe('<Modal>', () => {
   const _LABEL_ = 'Content';

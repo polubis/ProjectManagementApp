@@ -1,0 +1,26 @@
+@import 'styles/mixins';
+
+.disclaimer {
+  @include colCenter;
+
+  &.error {
+    & > h3 {
+      color: $error;
+    }
+
+    & > button {
+      margin-top: 42px;
+    }
+  }
+
+  & > h3 {
+    @include heading;
+    color: $white;
+    margin-bottom: 12px;
+  }
+
+  & > span {
+    @include description;
+    color: $white;
+  }
+}

@@ -1,29 +1,32 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
+import CloseIcon from '@material-ui/icons/Close';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-import { Button, useMenu, Menu } from 'ui';
+import { Button, useMenu, Menu, Disclaimer } from 'ui';
 
-import { Palette } from 'styles';
-
-import { Notification } from 'shared/models';
+import { UnreadedIcon } from 'shared/components';
 import { useNotificationsProvider } from 'shared/providers/notifications';
 
 import NotificationsList from './notifications-list';
 
-import UnreadedIcon from './unreaded-icon';
-
 import csx from './Notifications.scss';
 
-const getUnreadedCount = (notifications: Notification[]) => () =>
-  notifications.filter(({ readed }) => !readed).length;
+const Notifications = (): JSX.Element => {
+  const { location } = useHistory();
 
-const Notifications = () => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
-  const { loading, notifications } = useNotificationsProvider();
+  const { loading, notifications, markNotificationAsRead } = useNotificationsProvider();
 
-  const unreadedCount = useMemo(getUnreadedCount(notifications), [notifications]);
+  const unreadedCount = useMemo(() => notifications.filter(({ readed }) => !readed).length, [
+    notifications,
+  ]);
+
+  useEffect(() => {
+    closeMenu();
+  }, [location.key]);
 
   return (
     <>
@@ -33,18 +36,23 @@ const Notifications = () => {
       </Button>
 
       {menuOpen && (
-        <Menu
-          anchorEl={anchorEl}
-          background={Palette.surfaceSecondary}
-          keepMounted={false}
-          width={540}
-          onClose={closeMenu}
-        >
-          <h5 className={csx.header}>
-            Notifications {unreadedCount > 0 ? `(${unreadedCount})` : ''}
-          </h5>
+        <Menu anchorEl={anchorEl} keepMounted={false} width={372} onClose={closeMenu}>
+          <div className={csx.notificationsMenu}>
+            <h3>Notifications {unreadedCount > 0 ? `(${unreadedCount})` : ''}</h3>
 
-          <NotificationsList items={notifications} />
+            <Button className={csx.closeBtn} variant="icon" onClick={closeMenu}>
+              <CloseIcon />
+            </Button>
+
+            {notifications.length > 0 ? (
+              <NotificationsList notifications={notifications} onClick={markNotificationAsRead} />
+            ) : (
+              <Disclaimer.NoContent
+                description={`Don't worry, with time there will be some`}
+                title="No notifications"
+              />
+            )}
+          </div>
         </Menu>
       )}
     </>

@@ -1,0 +1,20 @@
+@import 'styles/mixins';
+
+.icon {
+  border: 1px solid rgba($primary, 0.43);
+}
+
+.templateAddedContent {
+  @include col;
+
+  span {
+    @include labelThin;
+    color: $white;
+  }
+
+  a {
+    @include label;
+    color: $primary;
+    margin-top: 10px;
+  }
+}

@@ -1,6 +1,19 @@
 @import 'styles/mixins';
 
-.list {
+.notificationsList {
   @include col;
-  padding: 32px;
+  position: relative;
+
+  .marker {
+    top: 0;
+    left: 24.5px;
+    position: absolute;
+    width: 1px;
+    background: rgba($primary, 0.43);
+    height: 100%;
+  }
+
+  & > li:not(:last-of-type) {
+    margin-bottom: 28px;
+  }
 }

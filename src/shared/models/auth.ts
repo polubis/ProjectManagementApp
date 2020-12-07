@@ -1,25 +1,7 @@
-import { Technology } from '.';
+import { User, UserProfile } from '.';
 
-export enum UserRole {
-  Admin = 'Administrator',
-  User = 'User',
-}
-
-export interface SelfUser {
-  company: string | null;
-  connectedWithGithub: boolean;
-  email: string;
-  emailConfirmed: boolean;
-  firstName: string | null;
-  lastName: string | null;
-  id: string;
-  position: string | null;
-  seniority: number | null;
-  roles: UserRole[];
-  username: string;
-  yearsOfExperience: number | null;
-  technologies: Technology[];
-}
+export type SelfUser = User &
+  UserProfile & { connectedWithGithub: boolean; emailConfirmed: boolean };
 
 export interface LogInPayload {
   password: string;

@@ -5,8 +5,6 @@ import { Avatar } from '@material-ui/core';
 
 import { Button, useMenu, Menu } from 'ui';
 
-import { Palette } from 'styles';
-
 import { Guard } from 'shared/guards';
 
 import Notifications from './notifications';
@@ -36,7 +34,6 @@ const UserSection = () => {
             {menuOpen && (
               <Menu
                 anchorEl={anchorEl}
-                background={Palette.secondary}
                 keepMounted={false}
                 width={326}
                 onClose={closeMenu}

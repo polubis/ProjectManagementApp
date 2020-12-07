@@ -8,7 +8,8 @@ namespace NotificationsProvider {
   export interface State {
     loading: boolean;
     error: string;
-    notifications: Notification[];
+    notifications: Notification<unknown>[];
+    markNotificationAsRead?(id: number): void;
   }
 
   export interface Props {
@@ -41,20 +42,36 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
     }
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     this._getNotifications();
   }
 
-  readonly state: typeof STATE = {
-    ...STATE,
+  markNotificationAsRead = (id: number): void => {
+    this.setState((prevState) => ({
+      notifications: prevState.notifications.map((notification) =>
+        notification.id === id
+          ? {
+              ...notification,
+              readed: true,
+            }
+          : notification
+      ),
+    }));
   };
 
-  render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;
+  readonly state: typeof STATE = {
+    ...STATE,
+    markNotificationAsRead: this.markNotificationAsRead,
+  };
+
+  render = (): JSX.Element => (
+    <Context.Provider value={this.state}>{this.props.children}</Context.Provider>
+  );
 }
 
 const NotificationsProvider = Provider;
 
-export const useNotificationsProvider = () => {
+export const useNotificationsProvider = (): NotificationsProvider.State => {
   const context = useContext(Context);
 
   return context;

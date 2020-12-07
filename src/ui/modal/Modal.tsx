@@ -11,7 +11,7 @@ export namespace Modal {
   }
 }
 
-const Modal = ({ children, className = '' }: Modal.Props) => {
+const Modal = ({ children, className = '' }: Modal.Props): JSX.Element => {
   const render = usePortal();
 
   return render(

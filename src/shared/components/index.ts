@@ -10,6 +10,7 @@ export * from './email-sent';
 export * from './form-steps';
 export * from './github-connect';
 export * from './patterns-select';
+export * from './unreaded-icon';
 export * from './tags-field';
 export * from './technology-chip';
 export * from './technologies-select';

@@ -1,3 +1,3 @@
-import NotificationsList from './NotificationsList';
+import NotificatonsList from './NotificationsList';
 
-export default NotificationsList;
+export default NotificatonsList;
