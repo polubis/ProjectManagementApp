@@ -97,7 +97,8 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
 
               <Guard.Protected>
                 {({ user }) =>
-                  user.connectedWithGithub && (
+                  user.connectedWithGithub &&
+                  user.username !== template.addedBy && (
                     <Button onClick={openFork}>
                       <DeviceHubIcon /> FORK
                     </Button>
@@ -170,6 +171,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                   {template.contributors.map((contributor) => (
                     <a
                       target="_blank"
+                      rel="noreferrer"
                       key={contributor.name}
                       href={`https://github.com/${contributor.name}`}
                       title={contributor.name}
