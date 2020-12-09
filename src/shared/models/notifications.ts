@@ -1,12 +1,15 @@
+import { Template } from './templates';
+
 export enum NotificationType {
   TEMPLATE_ADDED = 'TEMPLATE_ADDED',
 }
 
-export interface Notification {
+export interface Notification<T> {
   id: number;
-  content: string;
+  data: T;
   type: NotificationType;
   creationDate: string;
   readed: boolean;
-  author: string | null;
 }
+
+export type TemplateAddedNotification = Notification<Template>;

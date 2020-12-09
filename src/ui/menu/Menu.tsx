@@ -37,11 +37,11 @@ const useStyles = makeStyles({
 const Menu = ({
   anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
   transformOrigin = { vertical: 'top', horizontal: 'right' },
-  background = Palette.surfacePrimary,
+  background = Palette.secondary,
   boxShadow = Palette.shadowPrimary,
   width = 300,
   ...props
-}: Menu.Props) => {
+}: Menu.Props): JSX.Element => {
   const classes = useStyles({ background, boxShadow, width });
 
   return (
