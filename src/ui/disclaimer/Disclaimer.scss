@@ -13,14 +13,18 @@
     }
   }
 
+  & > h3,
+  & > span {
+    color: $white;
+    text-align: center;
+  }
+
   & > h3 {
     @include heading;
-    color: $white;
     margin-bottom: 12px;
   }
 
   & > span {
     @include description;
-    color: $white;
   }
 }

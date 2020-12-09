@@ -111,7 +111,7 @@ const DatePicker = ({ value, onClose, onSave }: DatePicker.Props) => {
   const { prevDays, days, nextDays } = useMemo(() => getDays(activeDate), [activeDate]);
 
   return (
-    <Modal className={csx.datePicker}>
+    <Modal className={csx.datePicker} onClose={onClose}>
       <header>
         <span>{year}</span>
         <span>

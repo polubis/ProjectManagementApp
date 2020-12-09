@@ -5,12 +5,10 @@ import { withLazy } from 'utils';
 
 import { Guard } from 'shared/guards';
 
-import { PageLoader } from './components';
-
-const ForgottenPassword = withLazy(() => import('./forgotten-password'), PageLoader);
-const Home = withLazy(() => import('./home'), PageLoader);
-const Login = withLazy(() => import('./login'), PageLoader);
-const Register = withLazy(() => import('./register'), PageLoader);
+const ForgottenPassword = withLazy(() => import('./forgotten-password'));
+const Home = withLazy(() => import('./home'));
+const Login = withLazy(() => import('./login'));
+const Register = withLazy(() => import('./register'));
 
 const BaseModuleRouter = (): JSX.Element => {
   return (

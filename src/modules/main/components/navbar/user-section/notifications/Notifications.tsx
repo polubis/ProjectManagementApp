@@ -47,7 +47,7 @@ const Notifications = (): JSX.Element => {
             {notifications.length > 0 ? (
               <NotificationsList notifications={notifications} onClick={markNotificationAsRead} />
             ) : (
-              <Disclaimer.NoContent
+              <Disclaimer
                 description={`Don't worry, with time there will be some`}
                 title="No notifications"
               />

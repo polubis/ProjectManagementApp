@@ -1,0 +1,11 @@
+@import 'styles/mixins';
+
+.noResults {
+  svg {
+    margin-top: 42px;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+}

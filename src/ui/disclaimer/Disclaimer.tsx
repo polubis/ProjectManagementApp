@@ -7,9 +7,9 @@ import csx from './Disclaimer.scss';
 namespace Disclaimer {
   export interface Props {
     className?: string;
-    children?: React.ReactElement;
-    description: string;
-    title: string;
+    children?: React.ReactNode;
+    description: React.ReactNode;
+    title: React.ReactNode;
   }
 }
 
@@ -26,15 +26,14 @@ const Disclaimer = ({
   </div>
 );
 
-Disclaimer.NoContent = (props: Omit<Disclaimer.Props, 'children'>): JSX.Element => (
-  <Disclaimer {...props} />
-);
-
 Disclaimer.Error = ({
+  children,
+  className = '',
   onRetry,
   ...props
-}: Omit<Disclaimer.Props, 'children' | 'className'> & { onRetry(): void }): JSX.Element => (
-  <Disclaimer {...props} className={csx.error}>
+}: Disclaimer.Props & { onRetry(): void }): JSX.Element => (
+  <Disclaimer {...props} className={`${csx.error} ${className}`}>
+    {children}
     <Button onClick={onRetry}>TRY AGAIN</Button>
   </Disclaimer>
 );

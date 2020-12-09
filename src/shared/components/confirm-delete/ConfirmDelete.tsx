@@ -28,7 +28,7 @@ const ConfirmDelete = ({
   onDelete,
 }: ConfirmDelete.Props) => {
   return (
-    <Modal className={csx.confirmDelete}>
+    <Modal className={csx.confirmDelete} onClose={cancelDisabled ? undefined : onClose}>
       <figure>
         <BucketImage />
       </figure>
