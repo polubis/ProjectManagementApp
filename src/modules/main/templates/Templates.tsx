@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { TemplatesGrid, TemplatesSearch } from 'shared/components';
 import TemplatesProvider, { useTemplatesProvider } from 'shared/providers/templates';
 
-import { TemplatesCategories } from './components';
+import { NoResults, TemplatesCategories } from './components';
 import { useSearch, useRouteValidation } from './hooks';
 
 import { LIMIT } from '.';
@@ -22,12 +22,15 @@ const Templates = () => {
     <div className={csx.templates}>
       <TemplatesCategories />
       <TemplatesSearch className={csx.templatesSearch} pathname={location.pathname} />
+
       <TemplatesGrid
         className={csx.templatesGrid}
         loading={!!pendingRequests}
         spaceholdersCount={pendingRequests * LIMIT}
         templates={templates}
       />
+
+      {!pendingRequests && !templates.length && <NoResults />}
     </div>
   );
 };
