@@ -51,7 +51,7 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
   }, []);
 
   return (
-    <Modal className={csx.forkTemplate}>
+    <Modal className={csx.forkTemplate} onClose={pending ? undefined : onClose}>
       {pending ? (
         <Loader />
       ) : error ? (

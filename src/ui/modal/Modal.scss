@@ -14,5 +14,6 @@
     background: $surface;
     box-shadow: $shadow;
     border-radius: 10px;
+    z-index: $modalIndex;
   }
 }
