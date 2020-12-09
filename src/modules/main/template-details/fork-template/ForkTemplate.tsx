@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import { Modal, Loader, Button } from 'ui';
+import { Modal, Loader, Button, Disclaimer } from 'ui';
 
 import { forkTemplate } from 'api';
 
@@ -27,7 +27,7 @@ const STATE: State = {
   success: false,
 };
 
-const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
+const ForkTemplate = ({ template, onClose }: ForkTemplate.Props): JSX.Element => {
   const [state, setState] = useState<State>(STATE);
 
   const { error, pending, success } = state;
@@ -56,9 +56,10 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
         <Loader />
       ) : error ? (
         <>
-          <h3 className={csx.error}>Error occured</h3>
-
-          <span>Something went wrong while forking the template. Please try again later.</span>
+          <Disclaimer
+            description="Something went wrong while forking the template. Please try again later"
+            title={<span className={csx.error}>Error occured</span>}
+          />
 
           <footer>
             <Button disabled={pending} theme="primaryTransparent" onClick={onClose}>
@@ -72,16 +73,19 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props) => {
       ) : (
         success && (
           <>
-            <h3>
-              Template <span>{template.name}</span> has been{' '}
-              <span className={csx.success}>forked</span> !
-            </h3>
-
-            <span>This window can be closed</span>
+            <Disclaimer
+              description="This window can be closed"
+              title={
+                <>
+                  Template <span className={csx.primary}>{template.name}</span> has been{' '}
+                  <span className={csx.success}>forked</span> !
+                </>
+              }
+            />
 
             <footer>
               <Button disabled={pending} onClick={onClose}>
-                OK
+                CONFIRM
               </Button>
             </footer>
           </>

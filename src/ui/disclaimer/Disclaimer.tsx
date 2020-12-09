@@ -8,8 +8,8 @@ namespace Disclaimer {
   export interface Props {
     className?: string;
     children?: React.ReactNode;
-    description: string;
-    title: string;
+    description: React.ReactNode;
+    title: React.ReactNode;
   }
 }
 

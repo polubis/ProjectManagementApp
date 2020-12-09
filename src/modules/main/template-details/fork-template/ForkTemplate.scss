@@ -3,36 +3,29 @@
 .forkTemplate {
   @include colCenter;
   padding: 48px;
-  height: 300px;
-  width: 442px;
+  min-height: 220px;
+  width: 440px;
 
-  & > h3 {
-    @include heading;
-    @include noSelect;
-    text-align: center;
-
-    &.error {
-      color: $error;
-    }
-
-    span {
-      color: $primary;
-
-      &.success {
-        color: $ok;
-      }
-    }
+  @include mobile {
+    padding: 24px;
+    width: 94%;
   }
 
-  & > span {
-    @include description;
-    @include noSelect;
-    margin: 22px 0 68px 0;
-    text-align: center;
+  .error {
+    color: $error;
+  }
+
+  .success {
+    color: $ok;
+  }
+
+  .primary {
+    color: $primary;
   }
 
   footer {
     @include row;
+    margin-top: 48px;
 
     .retryBtn {
       margin-left: 32px;
