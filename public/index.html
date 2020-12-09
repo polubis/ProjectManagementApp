@@ -15,6 +15,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-flow: column;
       position: fixed;
       top: 0;
       left: 0;
@@ -24,11 +25,31 @@
       background: #101b48;
       font-family: 'Montserrat', 'Roboto', 'sans-serif';
     }
+
+    #loader > h3 {
+      margin-bottom: 12px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      line-height: 26px;
+    }
+
+    #loader > span {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: thin;
+    }
   </style>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <div id="root">
-      <div id="loader">Loading...</div>
+      <div id="loader">
+        <h3>Loading the application...</h3>
+        <span>Give us a second :)</span>
+      </div>
     </div>
   </body>
 </html>
