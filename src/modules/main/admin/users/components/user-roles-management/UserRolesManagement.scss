@@ -1,0 +1,31 @@
+@import 'styles/mixins';
+
+.userRolesManagement {
+  padding: 48px 48px 28px 48px;
+  width: 440px;
+
+  @include mobile {
+    width: 96%;
+    padding: 28px;
+  }
+
+  .rolesSelect {
+    margin: 32px 0 68px 0;
+  }
+
+  form {
+    @include col;
+
+    b {
+      color: $primary;
+    }
+
+    footer {
+      align-self: flex-end;
+
+      button:first-of-type {
+        margin: 0 28px 0 auto;
+      }
+    }
+  }
+}

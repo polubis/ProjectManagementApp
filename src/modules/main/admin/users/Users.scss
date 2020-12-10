@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.users {
+  @include colCenter;
+  @include space;
+}

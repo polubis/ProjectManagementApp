@@ -4,19 +4,19 @@ import Form from 'io-form';
 
 import { Button, InputField } from 'ui';
 
-import { LogInPayload } from 'shared/models';
+import { Credentials } from 'shared/models';
 
 import csx from './LoginForm.scss';
 
 namespace LoginForm {
   export interface Props {
-    onSubmit(credentials: LogInPayload): void;
+    onSubmit(credentials: Credentials): void;
   }
 }
 
 const LoginForm = ({ onSubmit }: LoginForm.Props) => {
   const [{ errors, dirty, invalid, next, submit, values }, setForm] = useState(
-    Form<LogInPayload>(
+    Form<Credentials>(
       {
         password: '',
         username: '',
@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit }: LoginForm.Props) => {
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const key = e.currentTarget.getAttribute('data-key') as keyof LogInPayload;
+    const key = e.currentTarget.getAttribute('data-key') as keyof Credentials;
 
     setForm(
       next({

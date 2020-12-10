@@ -1,0 +1,25 @@
+@import 'styles/mixins';
+
+.adminContentLinks {
+  @include col;
+  margin-bottom: 48px;
+
+  & > a {
+    &.active button {
+      color: $black;
+      background: $secondary;
+    }
+
+    & > button {
+      width: 100%;
+
+      & > span {
+        @include link;
+      }
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 22px;
+    }
+  }
+}

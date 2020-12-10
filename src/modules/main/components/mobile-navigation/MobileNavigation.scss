@@ -19,6 +19,12 @@
   }
 }
 
+.subLink {
+  @include label;
+  padding-left: 45px;
+  margin-bottom: 18px;
+}
+
 .footer {
   @include row;
   margin-top: auto;

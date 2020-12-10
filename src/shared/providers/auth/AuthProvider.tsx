@@ -3,14 +3,14 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import { getSelf, logIn, logOut, logInViaGithub } from 'api';
 
-import { SelfUser, LogInPayload } from 'shared/models';
+import { Self, Credentials } from 'shared/models';
 
 namespace AuthProvider {
   export interface State {
-    user: SelfUser;
+    user: Self;
     pending: boolean;
     authorized: boolean;
-    logIn?(payload: LogInPayload): void;
+    logIn?(payload: Credentials): void;
     logInViaGithub?(): void;
     logOut?(): void;
   }
@@ -43,7 +43,7 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     }
   };
 
-  logIn = async (payload: LogInPayload) => {
+  logIn = async (payload: Credentials) => {
     if (!this.state.pending) {
       this.setState({ ...STATE, pending: true });
     }

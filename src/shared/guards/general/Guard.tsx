@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router';
 
-import { UserRole } from 'shared/models';
+import { AccountRole } from 'shared/models';
 import AuthProvider, { useAuthProvider } from 'shared/providers/auth';
 
 namespace Guard {
@@ -29,7 +29,7 @@ const Admin = ({ children }: Guard.Props) => {
   return pending
     ? null
     : authorized
-    ? state.user.roles.includes(UserRole.Admin)
+    ? state.user.roles.includes(AccountRole.Admin)
       ? typeof children === 'function'
         ? children(state)
         : children
@@ -45,7 +45,7 @@ const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Pro
       {...rest}
       render={(props) =>
         pending ? null : authorized ? (
-          user.roles.includes(UserRole.Admin) ? (
+          user.roles.includes(AccountRole.Admin) ? (
             <Component {...(props as any)} />
           ) : (
             <Redirect to={redirect} />
