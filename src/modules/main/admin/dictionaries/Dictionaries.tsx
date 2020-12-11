@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRouteMatch, useHistory } from 'react-router';
 
-import { Tabs, Loader } from 'ui';
+import { Tabs, Loader, Disclaimer } from 'ui';
 
 import { Url } from 'utils';
 
@@ -44,7 +44,16 @@ const Dictionaries = (): JSX.Element => {
 
           <DictionariesSearch label={kind} />
 
-          {pending ? <Loader /> : <DictionariesTable data={data} kind={kind} />}
+          {pending ? (
+            <Loader />
+          ) : data.length > 0 ? (
+            <DictionariesTable data={data} kind={kind} />
+          ) : (
+            <Disclaimer
+              description="Change filters to find dictionaries"
+              title="No results for current filters"
+            />
+          )}
         </>
       )}
     </div>

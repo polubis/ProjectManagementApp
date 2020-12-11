@@ -10,7 +10,7 @@ namespace More {
   export type Trigger = (open: (e: Events.Click) => void) => ReactElement;
 
   export type Props = {
-    children: ReactElement[];
+    children: ReactElement | ReactElement[];
     trigger?: Trigger;
   };
 

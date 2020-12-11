@@ -6,8 +6,9 @@ import { withLazy } from 'utils';
 const Dictionaries = withLazy(() => import('./dictionaries'));
 const PatternManagement = withLazy(() => import('./pattern-management'));
 const TechnologyManagement = withLazy(() => import('./technology-management'));
+const Users = withLazy(() => import('./users'));
 
-const AdminModuleRouter = () => {
+const AdminModuleRouter = (): JSX.Element => {
   const match = useRouteMatch();
 
   return (
@@ -25,6 +26,8 @@ const AdminModuleRouter = () => {
       />
 
       <Route exact path={`${match.path}/dictionaries/:kind?`} component={Dictionaries} />
+
+      <Route exact path={`${match.path}/users/:role?`} component={Users} />
 
       <Route path="*" render={() => <Redirect to={`${match.path}/dictionaries`} />} />
     </Switch>

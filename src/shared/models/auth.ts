@@ -1,24 +1,21 @@
-import { User, UserProfile } from '.';
+import { User } from '.';
 
-export type SelfUser = User &
-  UserProfile & { connectedWithGithub: boolean; emailConfirmed: boolean };
+export type Self = User;
 
-export interface LogInPayload {
+export interface Credentials {
   password: string;
   username: string;
 }
 
-export interface RegisterPayload {
-  username: string;
+export type RegisterPayload = Credentials & {
   email: string;
-  password: string;
   confirmPassword: string;
   position?: string;
   seniority?: number;
   company?: string;
   yearsOfExperience?: number;
   technologiesIds?: number[];
-}
+};
 
 export interface ForgottenPasswordPayload {
   username: string;

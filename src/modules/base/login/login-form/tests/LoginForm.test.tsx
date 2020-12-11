@@ -3,7 +3,7 @@ import { Router } from 'react-router';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-import { LogInPayload } from 'shared/models';
+import { Credentials } from 'shared/models';
 
 import LoginForm from '..';
 
@@ -129,7 +129,7 @@ describe('<LoginForm>', () => {
     expect(spy).toHaveBeenCalledWith({
       password: _PASSWORD_,
       username: _USERNAME_,
-    } as LogInPayload);
+    } as Credentials);
     expect(spy).toHaveBeenCalledTimes(1);
   });
 });

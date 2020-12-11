@@ -31,6 +31,22 @@ const MobileNavigation = (): JSX.Element => {
           <AdminIcon />
           <span>Admin</span>
         </NavLink>
+
+        <NavLink
+          activeClassName={csx.active}
+          className={`${csx.link} ${csx.subLink}`}
+          to={`${path}/admin/dictionaries`}
+        >
+          Dictionaries
+        </NavLink>
+
+        <NavLink
+          activeClassName={csx.active}
+          className={`${csx.link} ${csx.subLink}`}
+          to={`${path}/admin/users`}
+        >
+          Users
+        </NavLink>
       </Guard.Admin>
 
       <footer className={csx.footer}>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import AdminModuleRouter from './AdminModuleRouter';
 
-const AdminModule = () => {
+const AdminModule = (): JSX.Element => {
   return <AdminModuleRouter />;
 };
 

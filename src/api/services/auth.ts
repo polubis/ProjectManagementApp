@@ -1,6 +1,6 @@
 import { CORE_API_PATH } from 'consts';
 
-import { ForgottenPasswordPayload, LogInPayload, RegisterPayload, SelfUser } from 'shared/models';
+import { ForgottenPasswordPayload, Credentials, RegisterPayload, Self } from 'shared/models';
 
 import {
   core,
@@ -15,7 +15,7 @@ import {
 export const forgottenPassword = (payload: ForgottenPasswordPayload) =>
   core.get(FORGOTTEN_PASSWORD, { params: payload });
 
-export const logIn = (payload: LogInPayload) => core.post<SelfUser>(LOG_IN, payload);
+export const logIn = (payload: Credentials) => core.post<Self>(LOG_IN, payload);
 
 export const logInViaGithub = () => {
   window.location.href = `${CORE_API_PATH}${LOG_IN_VIA_GITHUB}?redirectUrl=${window.location.origin}/app`;
