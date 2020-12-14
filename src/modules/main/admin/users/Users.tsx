@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { useRouteMatch, useHistory } from 'react-router';
 
 import { Tabs, Loader, Disclaimer } from 'ui';
 
-import { Url } from 'utils';
+import { Url, useQueryParams, getNumericParam, createQuery } from 'utils';
 
 import { AccountRole, User } from 'shared/models';
 
@@ -11,16 +11,24 @@ import { UserRolesManagement, UsersSearch, UsersTable } from './components';
 import { useRouteValidation, useUsersSearch } from './hooks';
 
 import csx from './Users.scss';
+import WithUrlFiltersManager from './hooks/WithUrlFiltersManagement';
+import { getUsers } from './services';
 
-const Users = (): JSX.Element => {
-  const history = useHistory();
+interface Filters {
+  limit: number;
+  page: number;
+  role: AccountRole;
+  query: string;
+}
+
+const Users = (props): JSX.Element => {
   const {
-    params: { role },
-  } = useRouteMatch<{ role: AccountRole }>();
+    data: users,
+    loading,
+    filters: { role },
+  } = props;
 
-  useRouteValidation(role, history);
-
-  const { data: users, pending } = useUsersSearch(role, history);
+  const history = useHistory();
 
   const [userToMange, setUserToManage] = useState<User | null>(null);
 
@@ -48,27 +56,23 @@ const Users = (): JSX.Element => {
   }, [handleRoleChange]);
 
   return (
-    <div className={csx.users}>
-      {role && (
-        <>
-          <Tabs active={role} onClick={handleRoleChange}>
-            <>{AccountRole.Admin}</>
-            <>{AccountRole.User}</>
-          </Tabs>
+    <>
+      <Tabs active={role} onClick={handleRoleChange}>
+        <>{AccountRole.Admin}</>
+        <>{AccountRole.User}</>
+      </Tabs>
 
-          <UsersSearch label={role} />
+      <UsersSearch label={role} />
 
-          {pending ? (
-            <Loader />
-          ) : users.length > 0 ? (
-            <UsersTable users={users} onRolesEditClick={setUserToManage} />
-          ) : (
-            <Disclaimer
-              description="Change filters to find users"
-              title="Not results for current filters"
-            />
-          )}
-        </>
+      {loading ? (
+        <Loader />
+      ) : users.length > 0 ? (
+        <UsersTable users={users} onRolesEditClick={setUserToManage} />
+      ) : (
+        <Disclaimer
+          description="Change filters to find users"
+          title="Not results for current filters"
+        />
       )}
 
       {userToMange && (
@@ -78,8 +82,35 @@ const Users = (): JSX.Element => {
           onSuccess={handleUserManagementSuccess}
         />
       )}
-    </div>
+    </>
   );
 };
 
-export default Users;
+const WrappedUsers = WithUrlFiltersManager<User, Filters>({
+  method: (filters) => getUsers(createQuery(filters)),
+  loadOn: ['limit', 'role', 'query'],
+  loadMoreOn: ['page'],
+})(Users);
+
+export default () => {
+  const history = useHistory();
+
+  const {
+    params: { role },
+  } = useRouteMatch<{ role: AccountRole }>();
+
+  useRouteValidation(role, history);
+
+  const [limit, page, query] = useQueryParams('limit', 'page', 'query');
+
+  const filters = useMemo((): Filters => {
+    const parsedLimit = getNumericParam(limit, 25);
+    const parsedPage = getNumericParam(page, 1);
+
+    return { role, limit: parsedLimit, page: parsedPage, query };
+  }, [history.location]);
+
+  console.log(filters);
+
+  return <div className={csx.users}>{role && <WrappedUsers filters={filters} />}</div>;
+};
