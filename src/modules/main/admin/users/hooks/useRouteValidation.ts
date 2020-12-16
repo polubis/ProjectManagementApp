@@ -5,7 +5,7 @@ import { Url } from 'utils';
 
 import { AccountRole } from 'shared/models';
 
-const isValidRole = (role: AccountRole): boolean => Object.values(AccountRole).includes(role);
+import { isValidRole } from '../utils';
 
 export const useRouteValidation = (role: AccountRole, { replace }: History): void => {
   useEffect(() => {

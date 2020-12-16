@@ -8,7 +8,8 @@ import { Url } from 'utils';
 import { AccountRole, User } from 'shared/models';
 
 import { UserRolesManagement, UsersSearch, UsersTable } from './components';
-import { useRouteValidation, useUsersSearch } from './hooks';
+import { useUsersSearch, useRouteValidation } from './hooks';
+import UsersProvider, { useUsersProvider } from './providers/users';
 
 import csx from './Users.scss';
 
@@ -20,7 +21,9 @@ const Users = (): JSX.Element => {
 
   useRouteValidation(role, history);
 
-  const { data: users, pending } = useUsersSearch(role, history);
+  const { pendingRequests, users } = useUsersProvider();
+
+  useUsersSearch();
 
   const [userToMange, setUserToManage] = useState<User | null>(null);
 
@@ -58,16 +61,16 @@ const Users = (): JSX.Element => {
 
           <UsersSearch label={role} />
 
-          {pending ? (
-            <Loader />
-          ) : users.length > 0 ? (
-            <UsersTable users={users} onRolesEditClick={setUserToManage} />
-          ) : (
+          {!!users.length && <UsersTable users={users} onRolesEditClick={setUserToManage} />}
+
+          {!pendingRequests && !users.length && (
             <Disclaimer
               description="Change filters to find users"
               title="Not results for current filters"
             />
           )}
+
+          {!!pendingRequests && <Loader className={csx.loader} />}
         </>
       )}
 
@@ -82,4 +85,8 @@ const Users = (): JSX.Element => {
   );
 };
 
-export default Users;
+export default (): JSX.Element => (
+  <UsersProvider>
+    <Users />
+  </UsersProvider>
+);
