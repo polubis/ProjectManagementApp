@@ -5,8 +5,7 @@ import { SelectBase } from 'ui';
 
 import { Form } from 'utils';
 
-import { addTemplate, editTemplate } from 'api';
-
+import { addTemplate, editTemplate } from 'shared/services';
 import { TemplatePayload, TemplateCategory } from 'shared/models';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '.';

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { Alert } from 'ui';
 
-import { core } from 'api';
+import { core } from 'shared/instances';
 
 const AlertsManager = (): JSX.Element => {
   const [alert, setAlert] = useState('');

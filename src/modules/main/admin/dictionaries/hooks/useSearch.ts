@@ -5,7 +5,7 @@ import { switchMap, tap, map, catchError, debounceTime } from 'rxjs/operators';
 
 import { useQueryParams } from 'utils';
 
-import { getPatterns, getTechnologies } from 'api';
+import { getPatterns, getTechnologies } from 'shared/services';
 
 import { DictionaryKind, Dictionary } from '..';
 

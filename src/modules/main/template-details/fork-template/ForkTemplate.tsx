@@ -2,9 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 
 import { Modal, Loader, Button, Disclaimer } from 'ui';
 
-import { forkTemplate } from 'api';
-
 import { Template } from 'shared/models';
+import { forkTemplate } from 'shared/services';
 
 import csx from './ForkTemplate.scss';
 

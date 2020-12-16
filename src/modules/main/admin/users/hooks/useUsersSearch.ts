@@ -3,10 +3,11 @@ import { useHistory } from 'react-router';
 
 import { Url, ScrollObserver } from 'utils';
 
+import { GetUsersPayload } from 'shared/models';
+
 import { useFilters } from '.';
 
 import { useUsersProvider } from '../providers/users';
-import { GetUsersPayload } from '../models';
 
 type StringifiedGetUsersPayload = Omit<GetUsersPayload, 'limit' | 'page'> & {
   limit: string;

@@ -2,7 +2,7 @@ import { Technology, AddTechnologyPayload, EditTechnologyPayload } from 'shared/
 
 import { createFormData } from 'utils';
 
-import { core } from '..';
+import { core } from 'shared/instances';
 
 // TODO: PING BACKEND TO RENAME
 const PATH = 'TemplateTechnologies';

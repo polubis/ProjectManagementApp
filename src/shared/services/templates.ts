@@ -5,7 +5,7 @@ import {
   TemplateDocumentation,
 } from 'shared/models';
 
-import { core } from '..';
+import { core } from 'shared/instances';
 
 const PATH = 'Templates';
 

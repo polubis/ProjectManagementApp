@@ -4,8 +4,7 @@ import Form from 'io-form';
 import { Modal, Button, Disclaimer, SimpleSelect, FieldBase, SelectControl, SelectBase } from 'ui';
 
 import { User, AccountRole } from 'shared/models';
-
-import { setUserRoles } from '../../services';
+import { setUserRoles } from 'shared/services';
 
 import csx from './UserRolesManagement.scss';
 

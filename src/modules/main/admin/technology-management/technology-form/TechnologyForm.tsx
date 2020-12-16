@@ -8,8 +8,7 @@ import { StepHeader, InputField, TextareaField, FieldBase, Button } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { addTechnology, editTechnology } from 'api';
-
+import { addTechnology, editTechnology } from 'shared/services';
 import { Technology } from 'shared/models';
 
 import csx from './TechnologyForm.scss';

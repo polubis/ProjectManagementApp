@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
-import { getNotifications } from 'api';
-
+import { getNotifications } from 'shared/services';
 import { Notification } from 'shared/models';
 
 namespace NotificationsProvider {

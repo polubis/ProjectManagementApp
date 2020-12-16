@@ -11,8 +11,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { getTemplates } from 'api';
-
+import { getTemplates } from 'shared/services';
 import { Template, TemplatesPayload } from 'shared/models';
 
 namespace TemplatesProvider {

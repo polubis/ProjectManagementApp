@@ -3,8 +3,7 @@ import { useRouteMatch } from 'react-router';
 
 import { Loader } from 'ui';
 
-import { getTechnology } from 'api';
-
+import { getTechnology } from 'shared/services';
 import { Technology } from 'shared/models';
 
 import { RouteProps } from '.';

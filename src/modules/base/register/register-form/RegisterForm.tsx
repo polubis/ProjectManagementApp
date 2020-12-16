@@ -4,8 +4,7 @@ import { Loader, StepHeader, Steps } from 'ui';
 
 import { Form, useScrollReset } from 'utils';
 
-import { register } from 'api';
-
+import { register } from 'shared/services';
 import { FormSteps } from 'shared/components';
 
 import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
