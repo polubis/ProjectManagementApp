@@ -5,7 +5,7 @@ import { template } from 'testing/mocks';
 
 import ForkTemplate from '..';
 
-jest.mock('api', () => ({
+jest.mock('shared/services', () => ({
   forkTemplate: () => Promise.reject('Error occured'),
 }));
 

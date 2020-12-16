@@ -5,8 +5,7 @@ import { InputField } from 'ui';
 
 import { Form } from 'utils';
 
-import { deleteTemplate } from 'api';
-
+import { deleteTemplate } from 'shared/services';
 import { ConfirmDelete } from 'shared/components';
 import { Template } from 'shared/models';
 

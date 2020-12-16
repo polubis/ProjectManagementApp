@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { getSelf, logIn, logOut, logInViaGithub } from 'api';
-
+import { getSelf, logIn, logOut, logInViaGithub } from 'shared/services';
 import { Self, Credentials } from 'shared/models';
 
 namespace AuthProvider {

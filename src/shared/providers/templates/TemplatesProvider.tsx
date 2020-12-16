@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { Subject, Subscription, throwError } from 'rxjs';
+import { Subject, Subscription, throwError, from } from 'rxjs';
 import {
   tap,
   filter,
@@ -11,8 +11,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { getTemplates } from 'api';
-
+import { getTemplates } from 'shared/services';
 import { Template, TemplatesPayload } from 'shared/models';
 
 namespace TemplatesProvider {
@@ -86,7 +85,10 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
         return throwError(error);
       };
 
-      return getTemplates(this._makeUrl(payload)).pipe(tap(handleSuccess), catchError(handleError));
+      return from(getTemplates(this._makeUrl(payload))).pipe(
+        tap(handleSuccess),
+        catchError(handleError)
+      );
     };
 
     return this._loadRequest$
@@ -122,7 +124,7 @@ class Provider extends React.Component<TemplatesProvider.Props, typeof STATE> {
         return throwError(error);
       };
 
-      return getTemplates(this._makeUrl(payload)).pipe(
+      return from(getTemplates(this._makeUrl(payload))).pipe(
         takeUntil(this._loadRequest$),
         tap(handleSuccess),
         catchError(handleError)

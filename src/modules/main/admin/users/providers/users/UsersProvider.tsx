@@ -13,10 +13,8 @@ import {
 
 import { createQuery } from 'utils';
 
-import { User } from 'shared/models';
-
-import { getUsers } from '../../services';
-import { GetUsersPayload } from '../../models';
+import { User, GetUsersPayload } from 'shared/models';
+import { getUsers } from 'shared/services';
 
 namespace UsersProvider {
   export interface State {

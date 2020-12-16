@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { getTemplateDetails } from 'api';
-
+import { getTemplateDetails } from 'shared/services';
 import { Template } from 'shared/models';
 
 namespace TemplateDetailsProvider {

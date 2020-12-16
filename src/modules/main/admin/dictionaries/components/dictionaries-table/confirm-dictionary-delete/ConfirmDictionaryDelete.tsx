@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { deleteTechnology, deletePattern } from 'api';
-
+import { deleteTechnology, deletePattern } from 'shared/services';
 import { ConfirmDelete } from 'shared/components';
 
 import { DictionaryKind, Dictionary } from '../../..';
