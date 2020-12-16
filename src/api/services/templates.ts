@@ -1,5 +1,3 @@
-import { from } from 'rxjs';
-
 import {
   TemplatePayload,
   ForkTemplatePayload,
@@ -7,30 +5,26 @@ import {
   TemplateDocumentation,
 } from 'shared/models';
 
-import {
-  core,
-  GET_TEMPLATES,
-  GET_TEMPLATE_DETAILS,
-  ADD_TEMPLATE,
-  EDIT_TEMPLATE,
-  DELETE_TEMPLATE,
-  FORK_TEMPLATE,
-} from '..';
+import { core } from '..';
 
-export const getTemplateDocumentation = (url: string) =>
+const PATH = 'Templates';
+
+export const getTemplateDocumentation = (url: string): Promise<TemplateDocumentation> =>
   core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${url}`);
 
-export const getTemplates = (url: string) => from(core.get<Template[]>(`${GET_TEMPLATES}${url}`));
+export const getTemplates = (query: string): Promise<Template[]> =>
+  core.get<Template[]>(`${PATH}/Search${query}`);
 
-export const getTemplateDetails = (id: string) =>
-  core.get<Template>(`${GET_TEMPLATE_DETAILS}${id}`);
+export const getTemplateDetails = (id: string): Promise<Template> =>
+  core.get<Template>(`${PATH}/${id}`);
 
-export const addTemplate = (payload: TemplatePayload) => core.post<string>(ADD_TEMPLATE, payload);
+export const addTemplate = (payload: TemplatePayload): Promise<string> =>
+  core.post<string>(PATH, payload);
 
-export const editTemplate = (id: string, payload: TemplatePayload) =>
-  core.put<string>(`${EDIT_TEMPLATE}${id}`, payload);
+export const editTemplate = (id: string, payload: TemplatePayload): Promise<string> =>
+  core.put<string>(`${PATH}/${id}`, payload);
 
-export const deleteTemplate = (id: string) => core.delete(`${DELETE_TEMPLATE}${id}`);
+export const deleteTemplate = (id: string): Promise<null> => core.delete<null>(`${PATH}/${id}`);
 
-export const forkTemplate = (payload: ForkTemplatePayload) =>
-  core.post(`${FORK_TEMPLATE}`, payload);
+export const forkTemplate = (payload: ForkTemplatePayload): Promise<null> =>
+  core.post<null>(`${PATH}/Fork`, payload);
