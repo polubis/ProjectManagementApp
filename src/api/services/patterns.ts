@@ -1,17 +1,20 @@
 import { Pattern, PatternPayload } from 'shared/models';
 
-import { core, DELETE_PATTERN, EDIT_PATTERN, ADD_PATTERN, GET_PATTERN, GET_PATTERNS } from '..';
+import { core } from '..';
 
-export const getPatterns = (query: string) => core.get<Pattern[]>(GET_PATTERNS + query);
+// TODO: Tell backend devs to rename
+const PATH = 'TemplatePatterns';
 
-export const getPattern = (id: number) => core.get<Pattern>(`${GET_PATTERN}/${id}`);
+export const getPatterns = (query: string): Promise<Pattern[]> =>
+  core.get<Pattern[]>(`${PATH}/Search${query}`);
 
-export const deletePattern = (id: number) => {
-  return core.delete(`${DELETE_PATTERN}/${id}`);
-};
+export const getPattern = (id: number): Promise<Pattern> => core.get<Pattern>(`${PATH}/Get/${id}`);
 
-export const editPattern = (id: number, payload: PatternPayload) =>
-  core.put<{ id: number }>(`${EDIT_PATTERN}/${id}`, payload);
+export const deletePattern = (id: number): Promise<null> =>
+  core.delete<null>(`${PATH}/Delete/${id}`);
 
-export const addPattern = (payload: PatternPayload) =>
-  core.post<{ id: number }>(ADD_PATTERN, payload);
+export const editPattern = (id: number, payload: PatternPayload): Promise<{ id: number }> =>
+  core.put<{ id: number }>(`${PATH}/Update/${id}`, payload);
+
+export const addPattern = (payload: PatternPayload): Promise<{ id: number }> =>
+  core.post<{ id: number }>(`${PATH}/Add`, payload);

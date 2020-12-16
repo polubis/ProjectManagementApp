@@ -9,5 +9,5 @@ const PATH = 'UserPermissions';
 export const getUsers = (query: string): Promise<User[]> =>
   core.get<User[]>(`${PATH}/SearchUsers${query}`);
 
-export const setUserRoles = (payload: SetUserRolesPayload): Promise<any> =>
-  core.post(`${PATH}/SetUserRoles`, payload);
+export const setUserRoles = (payload: SetUserRolesPayload): Promise<null> =>
+  core.post<null>(`${PATH}/SetUserRoles`, payload);
