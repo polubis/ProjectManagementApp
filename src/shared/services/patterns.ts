@@ -1,6 +1,6 @@
 import { Pattern, PatternPayload } from 'shared/models';
 
-import { core } from '..';
+import { core } from 'shared/instances';
 
 // TODO: Tell backend devs to rename
 const PATH = 'TemplatePatterns';

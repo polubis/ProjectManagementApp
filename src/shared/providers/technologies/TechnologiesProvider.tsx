@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
-import { getTechnologies } from 'api';
-
+import { getTechnologies } from 'shared/services';
 import { Technology } from 'shared/models';
 
 namespace TechnologiesProvider {

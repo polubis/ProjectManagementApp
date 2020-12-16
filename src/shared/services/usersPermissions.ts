@@ -1,9 +1,9 @@
 import { User } from 'shared/models';
+import { core } from 'shared/instances';
 
-import { core } from 'api';
+import { SetUserRolesPayload } from 'shared/models';
 
-import { SetUserRolesPayload } from '../models/users';
-
+// TODO TELL BE TO RENAME
 const PATH = 'UserPermissions';
 
 export const getUsers = (query: string): Promise<User[]> =>

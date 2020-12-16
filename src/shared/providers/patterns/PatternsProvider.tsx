@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
-import { getPatterns } from 'api';
-
 import { Pattern } from 'shared/models';
+import { getPatterns } from 'shared/services';
 
 namespace PatternsProvider {
   export interface State {

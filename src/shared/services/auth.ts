@@ -2,7 +2,7 @@ import { CORE_API_PATH } from 'consts';
 
 import { Credentials, Self, User } from 'shared/models';
 
-import { core } from '..';
+import { core } from 'shared/instances';
 
 const PATH = 'Authorization';
 

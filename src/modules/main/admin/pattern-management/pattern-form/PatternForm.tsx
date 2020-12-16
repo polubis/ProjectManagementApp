@@ -5,8 +5,7 @@ import { StepHeader, InputField, TextareaField, Button } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { addPattern, editPattern } from 'api';
-
+import { addPattern, editPattern } from 'shared/services';
 import { Pattern } from 'shared/models';
 
 import csx from './PatternForm.scss';

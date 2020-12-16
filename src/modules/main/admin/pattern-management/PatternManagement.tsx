@@ -3,8 +3,7 @@ import { useRouteMatch } from 'react-router';
 
 import { Loader } from 'ui';
 
-import { getPattern } from 'api';
-
+import { getPattern } from 'shared/services';
 import { Pattern } from 'shared/models';
 
 import { RouteProps } from '.';

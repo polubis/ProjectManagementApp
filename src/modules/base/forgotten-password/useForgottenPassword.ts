@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import { forgottenPassword } from 'api';
-
 import { ForgottenPasswordPayload } from 'shared/models';
+import { forgottenPassword } from 'shared/services';
 
 interface State {
   pending: boolean;
