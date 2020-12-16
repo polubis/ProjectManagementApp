@@ -1,80 +1,64 @@
-import { useState, useEffect, useMemo } from 'react';
-import { History } from 'history';
-import { BehaviorSubject, Observable, throwError, from } from 'rxjs';
-import { tap, debounceTime, map, switchMap, catchError } from 'rxjs/operators';
+import { useEffect, useMemo } from 'react';
+import { useHistory } from 'react-router';
 
-import { createQuery, useQueryParams } from 'utils';
+import { Url, ScrollObserver } from 'utils';
 
-import { AccountRole, User } from 'shared/models';
+import { useFilters } from '.';
 
-import { getUsers } from '../services';
+import { useUsersProvider } from '../providers/users';
+import { GetUsersPayload } from '../models';
 
-interface Payload {
-  limit: number;
-  page: number;
-  role: AccountRole;
-  query: string;
-}
+type StringifiedGetUsersPayload = Omit<GetUsersPayload, 'limit' | 'page'> & {
+  limit: string;
+  page: string;
+};
 
-interface State {
-  data: User[];
-  pending: boolean;
-}
+const parse = (filters: StringifiedGetUsersPayload) => (): GetUsersPayload => ({
+  ...filters,
+  page: +filters.page,
+  limit: +filters.limit,
+});
 
-const [LIMIT, PAGE] = [25, 1];
+export const useUsersSearch = () => {
+  const { replace, location } = useHistory();
 
-export const useUsersSearch = (role: AccountRole, { location }: History): State => {
-  const [query] = useQueryParams('query');
+  const filters = useFilters();
 
-  const load = useMemo(
-    () => new BehaviorSubject<Payload>({ role, query, limit: LIMIT, page: PAGE }),
-    []
-  );
-  const load$ = useMemo(() => load.asObservable(), []);
+  const { getUsers, allLoaded, pendingRequests } = useUsersProvider();
 
-  const [state, setState] = useState<State>({
-    data: [],
-    pending: true,
-  });
+  const parsedFilters = useMemo(parse(filters), [filters]);
 
   useEffect(() => {
-    load.next({
-      role,
-      query,
-      limit: LIMIT,
-      page: PAGE,
-    });
-  }, [location.key]);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
-    const onInit = (): void => {
-      setState({ data: [], pending: true });
+    let obs: ScrollObserver;
+
+    const onEmit = ({ bottom }: ScrollObserver.Position) => {
+      const incremenPage = () => {
+        const url = Url(location)
+          .swap('page', parsedFilters.page + 1)
+          .value();
+
+        replace(url);
+      };
+
+      if (!pendingRequests && !allLoaded && bottom) {
+        incremenPage();
+      }
     };
 
-    const onSuccess = (data: User[]): void => {
-      setState({ data, pending: false });
-    };
-
-    const onError = (error: string): Observable<string> => {
-      setState({ data: [], pending: false });
-
-      return throwError(error);
-    };
-
-    const sub = load$
-      .pipe(
-        tap(onInit),
-        debounceTime(150),
-        map((payload) => getUsers(createQuery(payload))),
-        map((promise) => from(promise)),
-        switchMap((obs) => obs.pipe(tap(onSuccess), catchError(onError)))
-      )
-      .subscribe();
+    if (!obs) {
+      obs = new ScrollObserver(document, onEmit);
+    }
 
     return () => {
-      sub.unsubscribe();
+      obs.unsubscribe();
     };
-  }, []);
+  }, [allLoaded, pendingRequests, parsedFilters]);
 
-  return state;
+  useEffect(() => {
+    getUsers(parsedFilters);
+  }, [location.key]);
 };
