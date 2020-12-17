@@ -14,7 +14,7 @@ export const deletePattern = (id: number): Promise<null> =>
   core.delete<null>(`${PATH}/Delete/${id}`);
 
 export const editPattern = (id: number, payload: PatternPayload): Promise<{ id: number }> =>
-  core.put<{ id: number }>(`${PATH}/Update/${id}`, payload);
+  core.put<PatternPayload, { id: number }>(`${PATH}/Update/${id}`, payload);
 
 export const addPattern = (payload: PatternPayload): Promise<{ id: number }> =>
-  core.post<{ id: number }>(`${PATH}/Add`, payload);
+  core.post<PatternPayload, { id: number }>(`${PATH}/Add`, payload);

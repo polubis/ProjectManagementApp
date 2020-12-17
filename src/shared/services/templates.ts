@@ -19,12 +19,12 @@ export const getTemplateDetails = (id: string): Promise<Template> =>
   core.get<Template>(`${PATH}/${id}`);
 
 export const addTemplate = (payload: TemplatePayload): Promise<string> =>
-  core.post<string>(PATH, payload);
+  core.post<TemplatePayload, string>(PATH, payload);
 
 export const editTemplate = (id: string, payload: TemplatePayload): Promise<string> =>
-  core.put<string>(`${PATH}/${id}`, payload);
+  core.put<TemplatePayload, string>(`${PATH}/${id}`, payload);
 
 export const deleteTemplate = (id: string): Promise<null> => core.delete<null>(`${PATH}/${id}`);
 
 export const forkTemplate = (payload: ForkTemplatePayload): Promise<null> =>
-  core.post<null>(`${PATH}/Fork`, payload);
+  core.post<ForkTemplatePayload, null>(`${PATH}/Fork`, payload);
