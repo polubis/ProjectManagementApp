@@ -1,5 +1,6 @@
 export * from './api';
 export * from './calculations';
+export * from './factories';
 export * from './form';
 export * from './interactions';
 export * from './listeners';

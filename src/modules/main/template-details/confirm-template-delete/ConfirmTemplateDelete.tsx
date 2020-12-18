@@ -8,6 +8,7 @@ import { Form } from 'utils';
 import { deleteTemplate } from 'shared/services';
 import { ConfirmDelete } from 'shared/components';
 import { Template } from 'shared/models';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 export namespace ConfirmTemplateDelete {
   export interface Props {
@@ -18,6 +19,8 @@ export namespace ConfirmTemplateDelete {
 
 const ConfirmTemplateDelete = ({ template, onClose }: ConfirmTemplateDelete.Props) => {
   const history = useHistory();
+
+  const { showAlert } = useAlertsProvider();
 
   const [pending, setPending] = useState(false);
 
@@ -36,6 +39,9 @@ const ConfirmTemplateDelete = ({ template, onClose }: ConfirmTemplateDelete.Prop
       history.push('/app/templates');
     } catch {
       setPending(false);
+      showAlert({
+        message: 'Error occured while deleting template. Please try again',
+      });
     }
   }, []);
 

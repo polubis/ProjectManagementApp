@@ -10,6 +10,7 @@ import { FormSteps } from 'shared/components';
 import { Credentials, Work, AlmostDone, ConfirmAccount } from './steps';
 
 import { BASE_CONFIG, CREDENTIALS, WORK, ALMOST_DONE, CONFIRM_ACCOUNT, makePayload } from '..';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 interface State {
   activeStep: number;
@@ -42,6 +43,8 @@ const RegisterForm = (): JSX.Element => {
 
   useScrollReset(activeStep);
 
+  const { showAlert } = useAlertsProvider();
+
   const credentialsManager = Form.useManager(BASE_CONFIG[CREDENTIALS]);
   const workManager = Form.useManager(BASE_CONFIG[WORK]);
   const almostDoneManager = Form.useManager(BASE_CONFIG[ALMOST_DONE]);
@@ -71,6 +74,9 @@ const RegisterForm = (): JSX.Element => {
           setState({ activeStep: nextStep, pending: false });
         } catch {
           setState({ activeStep, pending: false });
+          showAlert({
+            message: 'Something went wrong while creating account. Please try again',
+          });
         }
       } else {
         setState((prevState) => ({

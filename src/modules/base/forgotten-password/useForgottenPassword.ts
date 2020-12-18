@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { ForgottenPasswordPayload } from 'shared/models';
 import { forgottenPassword } from 'shared/services';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 interface State {
   pending: boolean;
@@ -18,6 +19,8 @@ const STATE: State = {
 };
 
 export const useForgottenPassword = (): Return => {
+  const { showAlert } = useAlertsProvider();
+
   const [state, setState] = useState(STATE);
 
   const handleForgottenPassword = useCallback(async (credentials: ForgottenPasswordPayload) => {
@@ -29,6 +32,9 @@ export const useForgottenPassword = (): Return => {
       setState({ ...STATE, sent: true });
     } catch (error) {
       setState({ ...STATE, error });
+      showAlert({
+        message: 'Something went wrong while changing password. Please try again',
+      });
     }
   }, []);
 

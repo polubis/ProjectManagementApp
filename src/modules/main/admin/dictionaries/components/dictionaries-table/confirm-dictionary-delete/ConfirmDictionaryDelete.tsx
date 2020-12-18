@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 
 import { deleteTechnology, deletePattern } from 'shared/services';
 import { ConfirmDelete } from 'shared/components';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 import { DictionaryKind, Dictionary } from '../../..';
 
@@ -16,6 +17,8 @@ export namespace ConfirmDictionaryDelete {
 
 const ConfirmDictionaryDelete = ({ data, kind, onClose }: ConfirmDictionaryDelete.Props) => {
   const history = useHistory();
+
+  const { showAlert } = useAlertsProvider();
 
   const [pending, setPending] = useState(false);
 
@@ -32,6 +35,7 @@ const ConfirmDictionaryDelete = ({ data, kind, onClose }: ConfirmDictionaryDelet
       onClose();
     } catch {
       setPending(false);
+      showAlert({ message: 'Error occured while deleteing dictionary. Please try again' });
     }
   }, []);
 

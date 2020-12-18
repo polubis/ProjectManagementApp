@@ -1,8 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
-
-import { usePortal } from 'utils';
 
 import { Button } from '..';
 
@@ -13,18 +11,43 @@ namespace Alert {
 
   export interface Props {
     id: number;
+    className?: string;
+    delay?: number;
     message: string;
-    type: Type;
+    type?: Type;
     onClose(): void;
   }
 }
 
 const Alert = memo(
-  ({ id, message, type, onClose }: Alert.Props) => {
-    const render = usePortal();
+  ({ className = '', delay = 5000, id, message, type = 'error', onClose }: Alert.Props) => {
+    const [animationClass, setAnimationClass] = useState(csx.animateIn);
 
-    return render(
-      <div className={`${csx.alert} ${csx[type]}`}>
+    useEffect(() => {
+      if (!delay) {
+        return;
+      }
+
+      let nestedTimeout;
+
+      const parentTimeout = setTimeout(() => {
+        setAnimationClass(csx.animateOut);
+        nestedTimeout = setTimeout(onClose, 300);
+      }, delay);
+
+      return () => {
+        if (parentTimeout) {
+          clearTimeout(parentTimeout);
+        }
+
+        if (nestedTimeout) {
+          clearTimeout(nestedTimeout);
+        }
+      };
+    }, []);
+
+    return (
+      <div className={`${csx.alert} ${className} ${animationClass} ${csx[type]}`}>
         <span className={csx.id}>{id}</span>
 
         <div className={csx.divider} />

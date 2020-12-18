@@ -10,6 +10,7 @@ import { Form, V } from 'utils';
 
 import { addTechnology, editTechnology } from 'shared/services';
 import { Technology } from 'shared/models';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 import csx from './TechnologyForm.scss';
 
@@ -51,6 +52,8 @@ namespace TechnologyForm {
 
 const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
   const history = useHistory();
+
+  const { showAlert } = useAlertsProvider();
 
   const [pending, setPending] = useState(false);
 
@@ -111,6 +114,9 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
           URL.revokeObjectURL(fields[PICTURE].value.src);
         } catch {
           setPending(false);
+          showAlert({
+            message: `Error occured while ${id === undefined ? 'adding' : 'editing'} technology`,
+          });
         }
       }
     },
