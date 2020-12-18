@@ -5,6 +5,7 @@ import { Modal, Button, Disclaimer, SimpleSelect, FieldBase, SelectControl, Sele
 
 import { User, AccountRole } from 'shared/models';
 import { setUserRoles } from 'shared/services';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 import csx from './UserRolesManagement.scss';
 
@@ -33,6 +34,8 @@ const UserRolesManagement = ({
   onClose,
   onSuccess,
 }: UserRolesManagement.Props): JSX.Element => {
+  const { showAlert } = useAlertsProvider();
+
   const [form, setForm] = useState(
     Form(
       {
@@ -87,6 +90,9 @@ const UserRolesManagement = ({
         onSuccess();
       } catch {
         setPending(false);
+        showAlert({
+          message: 'Error occured while changing roles. Please try again',
+        });
       }
     },
     [form, user]

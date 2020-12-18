@@ -7,6 +7,7 @@ import { Form, V } from 'utils';
 
 import { addPattern, editPattern } from 'shared/services';
 import { Pattern } from 'shared/models';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 import csx from './PatternForm.scss';
 
@@ -37,6 +38,8 @@ namespace PatternForm {
 const PatternForm = ({ data, id }: PatternForm.Props) => {
   const history = useHistory();
 
+  const { showAlert } = useAlertsProvider();
+
   const [pending, setPending] = useState(false);
 
   const [{ dirty, invalid, fields }, change, _, submit] = Form.useManager(makeConfig(data));
@@ -62,6 +65,11 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
           history.replace(`/app/admin/dictionaries/patterns?query=${fields[NAME].value}`);
         } catch {
           setPending(false);
+          showAlert({
+            message: `Error occured while ${
+              id === undefined ? 'adding' : 'editing'
+            } pattern. Please try again`,
+          });
         }
       }
     },

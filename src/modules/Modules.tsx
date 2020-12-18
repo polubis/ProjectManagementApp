@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Alerts } from 'ui';
+
 import PatternsProvider from 'shared/providers/patterns';
 import TechnologiesProvider from 'shared/providers/technologies';
 import { CookieConsent, ErrorBoundary } from 'shared/components';
@@ -12,7 +14,7 @@ import ModulesRouter from './ModulesRouter';
 const Modules = (): JSX.Element => {
   return (
     <ErrorBoundary>
-      <AlertsProvider>
+      <AlertsProvider presenter={Alerts}>
         <CookiesProvider>
           <CookieConsent />
           <AuthProvider>
