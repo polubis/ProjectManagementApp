@@ -70,8 +70,10 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       await logOut();
 
       this.setState({ ...STATE, pending: false });
+      this.context.showAlert('Successfully logged out', 'success');
     } catch {
       this.setState({ ...STATE, pending: false });
+      this.context.showAlert('Problem when logging out. Try again', 'error');
     }
   };
 
