@@ -11,7 +11,7 @@ import LoginForm from './login-form';
 
 import csx from './Login.scss';
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const { logIn, logInViaGithub } = useAuthProvider();
 
   return (

@@ -5,6 +5,8 @@ import { Alert } from 'ui';
 namespace AlertsProvider {
   export interface State {
     alerts: Alert.Props[];
+    showAlert?(message: string, type: Alert.Type): void;
+    closeAlert?(id: number): void;
   }
 
   export interface Props {
@@ -18,16 +20,40 @@ const STATE: AlertsProvider.State = {
 
 const Context = createContext(STATE);
 
-// ALERT OCCURS
 class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
-  readonly state: typeof STATE = {
-    ...STATE,
+  showAlert = (message: string, type: Alert.Type): void => {
+    this.setState(({ alerts }) => {
+      const id = alerts.length ? alerts.length + 1 : 1;
+      const alert = {
+        id,
+        message,
+        type,
+        onClose: () => this.closeAlert(id),
+      };
+
+      return {
+        alerts: [...alerts, alert],
+      };
+    });
   };
 
-  render = () => (
+  closeAlert = (id: number): void => {
+    this.setState(({ alerts }) => ({
+      alerts: alerts.filter((a) => a.id !== id),
+    }));
+  };
+
+  readonly state: typeof STATE = {
+    ...STATE,
+    showAlert: this.showAlert,
+    closeAlert: this.closeAlert,
+  };
+
+  render = (): JSX.Element => (
     <Context.Provider value={this.state}>
-      <Alert id={1} message="Error occured" type="error" onClose={() => {}} />
-      <Alert id={1} message="Success occured" type="success" onClose={() => {}} />
+      {this.state.alerts.map((alert) => (
+        <Alert key={alert.id} {...alert} />
+      ))}
 
       {this.props.children}
     </Context.Provider>
@@ -36,7 +62,7 @@ class Provider extends React.Component<AlertsProvider.Props, typeof STATE> {
 
 const AlertsProvider = Provider;
 
-export const useAlertsProvider = () => {
+export const useAlertsProvider = (): AlertsProvider.State => {
   const context = useContext(Context);
 
   return context;
