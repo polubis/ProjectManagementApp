@@ -14,7 +14,7 @@ namespace LoginForm {
   }
 }
 
-const LoginForm = ({ onSubmit }: LoginForm.Props) => {
+const LoginForm = ({ onSubmit }: LoginForm.Props): JSX.Element => {
   const [{ errors, dirty, invalid, next, submit, values }, setForm] = useState(
     Form<Credentials>(
       {
