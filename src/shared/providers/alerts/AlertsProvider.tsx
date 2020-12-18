@@ -68,4 +68,6 @@ export const useAlertsProvider = (): AlertsProvider.State => {
   return context;
 };
 
+export const AlertsContext = Context;
+
 export default AlertsProvider;
