@@ -1,22 +1,46 @@
 @import 'styles/mixins';
 
 .alert {
-  padding: 10px;
+  @include row;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  padding: 8px 14px;
   width: 100%;
+  width: 320px;
+  border-radius: 4px;
+  z-index: $alertIndex;
+  box-shadow: $shadowPrimary;
 
   &.error {
-    background: $error;
+    background: $errorSurface;
     color: $white;
   }
 
-  & > div {
+  &.success {
+    background: $okSurface;
+    color: $white;
+  }
+
+  .id {
     @include label;
-    @include noSelect;
+  }
+
+  .divider {
+    height: 8px;
+    width: 1px;
+    background: $white;
+    margin: 0 12px;
+  }
+
+  .message {
+    @include labelSmall;
   }
 
   .closeBtn {
     height: 40px;
     width: 40px;
+    margin-left: auto;
 
     svg {
       font-size: 20px;
