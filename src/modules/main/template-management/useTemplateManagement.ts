@@ -69,11 +69,9 @@ export const useTemplateManagement = (): Return => {
         const addedTemplateId = await addTemplate(payload);
         setState({ ...STATE, id: addedTemplateId });
       }
-    } catch {
+    } catch (message) {
       setState({ ...STATE });
-      showAlert({
-        message: `Error while ${id ? 'editing' : 'adding'} template`,
-      });
+      showAlert({ message });
     }
   }, []);
 

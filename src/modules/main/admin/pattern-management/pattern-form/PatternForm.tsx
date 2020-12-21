@@ -63,13 +63,9 @@ const PatternForm = ({ data, id }: PatternForm.Props) => {
           }
 
           history.replace(`/app/admin/dictionaries/patterns?query=${fields[NAME].value}`);
-        } catch {
+        } catch (message) {
           setPending(false);
-          showAlert({
-            message: `Error occured while ${
-              id === undefined ? 'adding' : 'editing'
-            } pattern. Please try again`,
-          });
+          showAlert({ message });
         }
       }
     },

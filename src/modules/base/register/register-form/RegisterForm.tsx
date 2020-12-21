@@ -72,11 +72,9 @@ const RegisterForm = (): JSX.Element => {
           await register(makePayload(formManagers));
 
           setState({ activeStep: nextStep, pending: false });
-        } catch {
+        } catch (message) {
           setState({ activeStep, pending: false });
-          showAlert({
-            message: 'Something went wrong while creating account. Please try again',
-          });
+          showAlert({ message });
         }
       } else {
         setState((prevState) => ({
