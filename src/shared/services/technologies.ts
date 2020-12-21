@@ -11,7 +11,7 @@ export const getTechnologies = (query: string): Promise<Technology[]> =>
   core.get<Technology[]>(`${PATH}/Search${query}`);
 
 export const addTechnology = (payload: AddTechnologyPayload): Promise<{ id: number }> =>
-  core.post<{ id: number }>(`${PATH}/Add`, createFormData(payload), {
+  core.post<FormData, { id: number }>(`${PATH}/Add`, createFormData(payload), {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
@@ -19,7 +19,7 @@ export const editTechnology = (
   id: number,
   payload: EditTechnologyPayload
 ): Promise<{ id: number }> =>
-  core.put<{ id: number }>(`${PATH}/Update/${id}`, createFormData(payload), {
+  core.put<FormData, { id: number }>(`${PATH}/Update/${id}`, createFormData(payload), {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 

@@ -10,4 +10,4 @@ export const getUsers = (query: string): Promise<User[]> =>
   core.get<User[]>(`${PATH}/SearchUsers${query}`);
 
 export const setUserRoles = (payload: SetUserRolesPayload): Promise<null> =>
-  core.post<null>(`${PATH}/SetUserRoles`, payload);
+  core.post<SetUserRolesPayload, null>(`${PATH}/SetUserRoles`, payload);

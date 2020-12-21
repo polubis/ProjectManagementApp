@@ -1,4 +1,3 @@
-export * from './alerts-manager';
 export * from './breadcrumbs';
 export * from './cookies-consent';
 export * from './confirm-delete';

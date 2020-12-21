@@ -1,6 +1,5 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { Button } from '..';
@@ -8,40 +7,62 @@ import { Button } from '..';
 import csx from './Alert.scss';
 
 namespace Alert {
-  export type Types = 'warning' | 'error' | 'success' | 'info';
+  export type Type = 'error' | 'success';
 
   export interface Props {
+    id: number;
+    className?: string;
+    delay?: number;
     message: string;
-    type?: Types;
+    type?: Type;
     onClose(): void;
   }
 }
 
 const Alert = memo(
-  ({ message, type = 'error', onClose }: Alert.Props) => {
-    const [open, setOpen] = useState(true);
+  ({ className = '', delay = 5000, id, message, type = 'error', onClose }: Alert.Props) => {
+    const [animationClass, setAnimationClass] = useState(csx.animateIn);
 
-    const handleClose = useCallback(() => {
-      setOpen(false);
-      onClose();
+    useEffect(() => {
+      if (!delay) {
+        return;
+      }
+
+      let nestedTimeout;
+
+      const parentTimeout = setTimeout(() => {
+        setAnimationClass(csx.animateOut);
+        nestedTimeout = setTimeout(onClose, 300);
+      }, delay);
+
+      return () => {
+        if (parentTimeout) {
+          clearTimeout(parentTimeout);
+        }
+
+        if (nestedTimeout) {
+          clearTimeout(nestedTimeout);
+        }
+      };
     }, []);
 
     return (
-      <Snackbar
-        open={open}
-        message={message}
-        ContentProps={{ classes: { root: `${csx.alert} ${csx[type]}` } }}
-        action={
-          <Button
-            className={csx.closeBtn}
-            variant="icon"
-            theme="primaryTransparent"
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </Button>
-        }
-      />
+      <div className={`${csx.alert} ${className} ${animationClass} ${csx[type]}`}>
+        <span className={csx.id}>{id}</span>
+
+        <div className={csx.divider} />
+
+        <span className={csx.message}>{message}</span>
+
+        <Button
+          className={csx.closeBtn}
+          variant="icon"
+          theme="primaryTransparent"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </Button>
+      </div>
     );
   },
   () => true

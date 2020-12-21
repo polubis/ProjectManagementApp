@@ -7,6 +7,7 @@ import { Form } from 'utils';
 
 import { addTemplate, editTemplate } from 'shared/services';
 import { TemplatePayload, TemplateCategory } from 'shared/models';
+import { useAlertsProvider } from 'shared/providers/alerts';
 
 import { TECHNOLOGIES, PATTERNS, TAGS } from '.';
 
@@ -51,6 +52,8 @@ export const useTemplateManagement = (): Return => {
 
   const history = useHistory();
 
+  const { showAlert } = useAlertsProvider();
+
   const [state, setState] = useState(STATE);
 
   const handleManagement = useCallback(async (formManagers: Form.Manager[]) => {
@@ -68,6 +71,9 @@ export const useTemplateManagement = (): Return => {
       }
     } catch {
       setState({ ...STATE });
+      showAlert({
+        message: `Error while ${id ? 'editing' : 'adding'} template`,
+      });
     }
   }, []);
 

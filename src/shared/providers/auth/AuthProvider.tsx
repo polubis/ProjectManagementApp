@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import { getSelf, logIn, logOut, logInViaGithub } from 'shared/services';
 import { Self, Credentials } from 'shared/models';
+import AlertsProvider, { AlertsContext } from 'shared/providers/alerts';
 
 namespace AuthProvider {
   export interface State {
@@ -28,6 +29,10 @@ const STATE: AuthProvider.State = {
 const Context = createContext(STATE);
 
 class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
+  static contextType = AlertsContext;
+
+  context: React.ContextType<React.Context<AlertsProvider.State>>;
+
   private _authorize = async () => {
     if (!this.state.pending) {
       this.setState({ ...STATE });
@@ -55,6 +60,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       });
     } catch {
       this.setState({ ...STATE, pending: false });
+      this.context.showAlert({
+        message: 'Invalid username or password',
+      });
     }
   };
 
@@ -65,6 +73,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       this.setState({ ...STATE, pending: false });
     } catch {
       this.setState({ ...STATE, pending: false });
+      this.context.showAlert({
+        message: 'Problem when logging out. Try again',
+      });
     }
   };
 

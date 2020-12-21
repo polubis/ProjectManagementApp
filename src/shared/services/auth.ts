@@ -8,7 +8,7 @@ const PATH = 'Authorization';
 
 // TODO: TELL BACKEND TO RENAME
 export const logIn = (payload: Credentials): Promise<User> =>
-  core.post<Self>(`${PATH}/SignIn`, payload);
+  core.post<Credentials, Self>(`${PATH}/SignIn`, payload);
 
 // TODO: TELL BACKEND TO RENAME
 export const logInViaGithub = (): void => {
@@ -16,4 +16,4 @@ export const logInViaGithub = (): void => {
 };
 
 // TODO: TELL BACKEND TO RENAME
-export const logOut = (): Promise<null> => core.post<null>(`${PATH}/SignOut`);
+export const logOut = (): Promise<null> => core.post<undefined, null>(`${PATH}/SignOut`);
