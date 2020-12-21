@@ -33,9 +33,9 @@ const ConfirmDictionaryDelete = ({ data, kind, onClose }: ConfirmDictionaryDelet
       history.push(`/app/admin/dictionaries/${kind}`);
 
       onClose();
-    } catch {
+    } catch (message) {
       setPending(false);
-      showAlert({ message: 'Error occured while deleteing dictionary. Please try again' });
+      showAlert({ message });
     }
   }, []);
 

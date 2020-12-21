@@ -88,11 +88,9 @@ const UserRolesManagement = ({
         });
 
         onSuccess();
-      } catch {
+      } catch (message) {
         setPending(false);
-        showAlert({
-          message: 'Error occured while changing roles. Please try again',
-        });
+        showAlert({ message });
       }
     },
     [form, user]

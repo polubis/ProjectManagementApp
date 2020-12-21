@@ -5,6 +5,10 @@
   position: relative;
   outline: none;
 
+  .loader {
+    margin-top: 24px;
+  }
+
   & > h3 {
     @include heading;
     color: $white;

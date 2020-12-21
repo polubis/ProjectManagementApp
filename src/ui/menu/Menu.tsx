@@ -8,6 +8,7 @@ namespace Menu {
   type BaseProps = {
     background?: string;
     boxShadow?: string;
+    open?: boolean;
     width?: number;
   };
 

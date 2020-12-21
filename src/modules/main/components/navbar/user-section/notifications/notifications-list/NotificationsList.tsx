@@ -10,14 +10,14 @@ import csx from './NotificationsList.scss';
 namespace NotificationsList {
   export interface Props {
     notifications: Notification<unknown>[];
-    onClick?(id: number): void;
+    onClick?(id: string): void;
   }
 }
 
 const NotificationsList = ({ notifications, onClick }: NotificationsList.Props): JSX.Element => {
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
-      onClick(+e.currentTarget.getAttribute('data-id'));
+      onClick(e.currentTarget.getAttribute('data-id'));
     },
     [onClick]
   );

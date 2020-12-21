@@ -30,11 +30,9 @@ export const useForgottenPassword = (): Return => {
       await forgottenPassword(credentials);
 
       setState({ ...STATE, sent: true });
-    } catch (error) {
-      setState({ ...STATE, error });
-      showAlert({
-        message: 'Something went wrong while changing password. Please try again',
-      });
+    } catch (message) {
+      setState({ ...STATE, error: message });
+      showAlert({ message });
     }
   }, []);
 
