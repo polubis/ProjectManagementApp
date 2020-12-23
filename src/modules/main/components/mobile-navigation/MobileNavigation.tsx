@@ -43,6 +43,14 @@ const MobileNavigation = (): JSX.Element => {
         <NavLink
           activeClassName={csx.active}
           className={`${csx.link} ${csx.subLink}`}
+          to={`${path}/admin/surveys`}
+        >
+          Surveys
+        </NavLink>
+
+        <NavLink
+          activeClassName={csx.active}
+          className={`${csx.link} ${csx.subLink}`}
           to={`${path}/admin/users`}
         >
           Users

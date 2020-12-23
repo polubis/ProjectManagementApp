@@ -12,6 +12,10 @@ const AdminContentLinks = (): JSX.Element => {
         <Button theme="primaryTransparent">Dictionaries</Button>
       </NavLink>
 
+      <NavLink activeClassName={csx.active} to="/app/admin/surveys">
+        <Button theme="primaryTransparent">Surveys</Button>
+      </NavLink>
+
       <NavLink activeClassName={csx.active} to="/app/admin/users">
         <Button theme="primaryTransparent">Users</Button>
       </NavLink>
