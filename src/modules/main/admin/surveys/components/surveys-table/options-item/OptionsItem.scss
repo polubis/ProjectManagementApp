@@ -1,0 +1,11 @@
+@import 'styles/mixins';
+
+.moreBtn {
+  height: 40px;
+  width: 40px;
+}
+
+.delete {
+  @include text;
+  color: $error;
+}

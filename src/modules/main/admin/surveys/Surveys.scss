@@ -1,0 +1,10 @@
+@import 'styles/mixins';
+
+.surveys {
+  @include colCenter;
+  @include space;
+
+  .loader {
+    margin: 24px 0 48px 0;
+  }
+}
