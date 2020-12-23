@@ -89,7 +89,6 @@ const AddSurvey = ({ onClose }: AddSurvey.Props): JSX.Element => {
         });
 
         showAlert({ message: 'Thank you :). Your survey has been added', type: 'success' });
-        setPending(false);
         onClose();
       } catch (message) {
         setPending(false);
