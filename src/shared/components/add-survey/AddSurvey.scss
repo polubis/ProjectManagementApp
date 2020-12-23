@@ -6,6 +6,11 @@
   padding: 90px 48px 28px 48px;
   width: 424px;
 
+  @include mobile {
+    width: 96%;
+    padding: 48px 24px 28px 24px;
+  }
+
   & > form {
     @include col;
 
@@ -21,14 +26,26 @@
       margin: 0 auto;
       border: 2px solid $primary;
       background: $surfacePrimary;
+
+      @include mobile {
+        display: none;
+      }
     }
 
     .rate {
       margin-top: 52px;
+
+      @include mobile {
+        margin-top: 28px;
+      }
     }
 
     .opinion {
       margin: 28px 0 120px 0;
+
+      @include mobile {
+        margin: 28px 0 68px 0;
+      }
 
       textarea {
         resize: none;
@@ -36,10 +53,27 @@
     }
 
     & > footer {
-      align-self: flex-end;
+      @include row;
+      width: 100%;
 
-      & > button:first-of-type {
-        margin: 0 28px 0 auto;
+      @include mobile {
+        @include col;
+        flex-flow: column-reverse;
+        align-self: center;
+      }
+
+      & > button {
+        &:first-of-type {
+          margin: 0 28px 0 auto;
+        }
+
+        @include mobile {
+          width: 100%;
+
+          &:first-of-type {
+            margin: 28px 0 0 0;
+          }
+        }
       }
     }
   }

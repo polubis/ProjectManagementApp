@@ -45,7 +45,7 @@ const AddSurvey = ({ onClose }: AddSurvey.Props): JSX.Element => {
         rate: {} as Record<number, boolean>,
       },
       {
-        opinion: [(v) => (v ? v.length < 10 || v.length > 500 : false)],
+        opinion: [(v) => (v ? v.length < 10 || v.length > 1000 : false)],
         rate: [(v) => !Object.values(v).some((v) => v)],
       }
     )
