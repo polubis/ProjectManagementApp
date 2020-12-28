@@ -1,7 +1,8 @@
 import React from 'react';
 
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DeleteIcon from '@material-ui/icons/Delete';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 
 import { Survey } from 'shared/models';
 
@@ -13,10 +14,11 @@ namespace OptionsItem {
   export interface Props {
     survey: Survey;
     onDeleteClick(survey: Survey): void;
+    onPreviewClick(survey: Survey): void;
   }
 }
 
-const OptionsItem = ({ survey, onDeleteClick }: OptionsItem.Props): JSX.Element => {
+const OptionsItem = ({ survey, onDeleteClick, onPreviewClick }: OptionsItem.Props): JSX.Element => {
   return (
     <More
       trigger={(open) => (
@@ -25,6 +27,11 @@ const OptionsItem = ({ survey, onDeleteClick }: OptionsItem.Props): JSX.Element 
         </Button>
       )}
     >
+      <div className={csx.preview} onClick={() => onPreviewClick(survey)}>
+        <ViewHeadlineIcon />
+        PREVIEW
+      </div>
+
       <div className={csx.delete} onClick={() => onDeleteClick(survey)}>
         <DeleteIcon />
         DELETE

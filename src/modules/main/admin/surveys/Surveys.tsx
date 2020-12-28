@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { Disclaimer, Loader } from 'ui';
 
-import { SurveysSearch, SurveysTable } from './components';
+import { Survey } from 'shared/models';
+
+import { SurveysSearch, SurveysTable, SurveyPreview } from './components';
 import { useSurveysSearch } from './hooks';
 import SurveysProvider, { useSurveysProvider } from './providers';
 
@@ -13,11 +15,27 @@ const Surveys = (): JSX.Element => {
 
   useSurveysSearch();
 
+  const [surveyToPreview, setSurveyToPreview] = useState<Survey>(null);
+
+  const openSurveyPreview = useCallback((survey: Survey) => {
+    setSurveyToPreview(survey);
+  }, []);
+
+  const closeSurveyToPreview = useCallback(() => {
+    setSurveyToPreview(null);
+  }, []);
+
   return (
     <div className={csx.surveys}>
       <SurveysSearch />
 
-      {!!surveys.length && <SurveysTable survyes={surveys} onDeleteClick={() => {}} />}
+      {!!surveys.length && (
+        <SurveysTable
+          survyes={surveys}
+          onDeleteClick={() => {}}
+          onPreviewClick={openSurveyPreview}
+        />
+      )}
 
       {!pendingRequests && !surveys.length && (
         <Disclaimer
@@ -27,6 +45,8 @@ const Surveys = (): JSX.Element => {
       )}
 
       {!!pendingRequests && <Loader className={csx.loader} />}
+
+      {surveyToPreview && <SurveyPreview survey={surveyToPreview} onClose={closeSurveyToPreview} />}
     </div>
   );
 };
