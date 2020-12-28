@@ -12,6 +12,7 @@ namespace SurvyesTable {
   export interface Props {
     survyes: Survey[];
     onDeleteClick(survey: Survey): void;
+    onPreviewClick(survey: Survey): void;
   }
 }
 
@@ -52,13 +53,13 @@ const CONFIG: Table.Config = {
   },
 };
 
-const SurvyesTable = ({ survyes, onDeleteClick }: SurvyesTable.Props): JSX.Element => {
+const SurvyesTable = ({ survyes, onDeleteClick, onPreviewClick }: SurvyesTable.Props): JSX.Element => {
   const config = useMemo(() => {
     return {
       ...CONFIG,
       roles: {
         label: 'Options',
-        row: (key, survey: Survey) => <OptionsItem survey={survey} onDeleteClick={onDeleteClick} />,
+        row: (key, survey: Survey) => <OptionsItem survey={survey} onDeleteClick={onDeleteClick} onPreviewClick={onPreviewClick} />,
         size: {
           min: '120px',
           max: '120px',

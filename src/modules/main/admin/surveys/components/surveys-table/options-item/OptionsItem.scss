@@ -9,3 +9,8 @@
   @include text;
   color: $error;
 }
+
+.preview {
+  @include text;
+  color: $primary;
+}
