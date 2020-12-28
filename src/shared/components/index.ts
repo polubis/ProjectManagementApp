@@ -1,3 +1,4 @@
+export * from './add-survey';
 export * from './breadcrumbs';
 export * from './cookies-consent';
 export * from './confirm-delete';
