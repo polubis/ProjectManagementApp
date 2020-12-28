@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Notification } from 'shared/models';
 
@@ -10,23 +10,28 @@ import csx from './NotificationsList.scss';
 namespace NotificationsList {
   export interface Props {
     notifications: Notification<unknown>[];
-    onClick?(id: number): void;
+    onClick?(id: string): void;
   }
 }
 
 const NotificationsList = ({ notifications, onClick }: NotificationsList.Props): JSX.Element => {
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
-      onClick(+e.currentTarget.getAttribute('data-id'));
+      onClick(e.currentTarget.getAttribute('data-id'));
     },
     [onClick]
   );
 
+  const filteredNotifications = useMemo(
+    () => notifications.filter((notification) => NotificationsListItemsMap[notification.type]),
+    [notifications]
+  );
+
   return (
     <ul className={csx.notificationsList}>
-      {notifications.length > 1 && <div className={csx.marker} />}
+      {filteredNotifications.length > 1 && <div className={csx.marker} />}
 
-      {notifications.map((notification) => (
+      {filteredNotifications.map((notification) => (
         <NotificationListItem
           {...NotificationsListItemsMap[notification.type](notification)}
           key={notification.id}

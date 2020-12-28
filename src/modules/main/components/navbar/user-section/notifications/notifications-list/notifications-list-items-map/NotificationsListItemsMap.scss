@@ -1,10 +1,6 @@
 @import 'styles/mixins';
 
-.icon {
-  border: 1px solid rgba($primary, 0.43);
-}
-
-.templateAddedContent {
+@mixin content {
   @include col;
 
   span {
@@ -15,6 +11,23 @@
   a {
     @include label;
     color: $primary;
-    margin-top: 10px;
+    margin-top: 8px;
+  }
+}
+
+.icon {
+  border: 1px solid rgba($primary, 0.43);
+}
+
+.templateAddedContent {
+  @include content;
+}
+
+.templateDeletedContent,
+.templateUpdatedContent {
+  @include content;
+
+  b {
+    color: $primary;
   }
 }

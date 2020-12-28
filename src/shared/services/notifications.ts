@@ -1,3 +1,17 @@
-import { Notification } from 'shared/models';
+import {
+  Notification,
+  GetNotificationsPayload,
+  MarkNotificationAsReadPayload,
+} from 'shared/models';
+import { core } from 'shared/instances';
 
-export const getNotifications = () => Promise.resolve([] as Notification<unknown>[]);
+// TODO REFACTOR ON BE
+const PATH = 'Notifications';
+
+export const getNotifications = (
+  params: GetNotificationsPayload
+): Promise<Notification<unknown>[]> =>
+  core.get<Notification<unknown>[]>(`${PATH}/GetUserNotifications`, { params });
+
+export const markNotificationAsRead = (params: MarkNotificationAsReadPayload): Promise<null> =>
+  core.patch<undefined, null>(`${PATH}/MarkAsRead`, undefined, { params });

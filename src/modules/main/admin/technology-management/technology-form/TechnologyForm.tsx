@@ -112,11 +112,9 @@ const TechnologyForm = ({ data, id }: TechnologyForm.Props) => {
           history.replace(`/app/admin/dictionaries/technologies?query=${fields[NAME].value}`);
 
           URL.revokeObjectURL(fields[PICTURE].value.src);
-        } catch {
+        } catch (message) {
           setPending(false);
-          showAlert({
-            message: `Error occured while ${id === undefined ? 'adding' : 'editing'} technology`,
-          });
+          showAlert({ message });
         }
       }
     },

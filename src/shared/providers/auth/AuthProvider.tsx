@@ -58,11 +58,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       this.setState({ ...STATE, pending: false, authorized: true, user }, () => {
         this.props.history.replace('/app');
       });
-    } catch {
+    } catch (message) {
       this.setState({ ...STATE, pending: false });
-      this.context.showAlert({
-        message: 'Invalid username or password',
-      });
+      this.context.showAlert({ message });
     }
   };
 
@@ -71,11 +69,9 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
       await logOut();
 
       this.setState({ ...STATE, pending: false });
-    } catch {
+    } catch (message) {
       this.setState({ ...STATE, pending: false });
-      this.context.showAlert({
-        message: 'Problem when logging out. Try again',
-      });
+      this.context.showAlert({ message });
     }
   };
 

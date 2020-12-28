@@ -37,11 +37,9 @@ const ConfirmTemplateDelete = ({ template, onClose }: ConfirmTemplateDelete.Prop
       await deleteTemplate(template.id);
 
       history.push('/app/templates');
-    } catch {
+    } catch (message) {
       setPending(false);
-      showAlert({
-        message: 'Error occured while deleting template. Please try again',
-      });
+      showAlert({ message });
     }
   }, []);
 

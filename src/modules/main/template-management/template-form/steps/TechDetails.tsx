@@ -86,7 +86,7 @@ const TechDetails = ({ formManager, onBack, onSubmit }: TechDetails.Props) => {
         </Button>
 
         <Button type="submit" disabled={dirty && invalid}>
-          SUBMIT & CREATE
+          SUBMIT
         </Button>
       </footer>
     </form>
