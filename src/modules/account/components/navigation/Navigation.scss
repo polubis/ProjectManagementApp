@@ -1,0 +1,75 @@
+@import 'styles/mixins';
+
+.navigation {
+  @include col;
+  align-items: flex-end;
+
+  @include tablet-up {
+    position: sticky;
+    top: 48px;
+  }
+
+  @include tablet-down {
+    flex-flow: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .links {
+    @include col;
+
+    @include tablet-down {
+      align-items: center;
+      flex-flow: row;
+      width: 100%;
+    }
+
+    .version {
+      @include labelSmall;
+      color: $grey;
+      margin-left: 8px;
+
+      @include tablet-down {
+        display: none;
+      }
+    }
+
+    .label {
+      @include label;
+      margin: 82px 0 24px 8px;
+      color: $grey;
+
+      @include tablet-down {
+        display: none;
+      }
+    }
+
+    .link {
+      @include link;
+      color: $primary;
+      padding: 12px 8px;
+
+      &:not(:last-of-type) {
+        @include tablet-down {
+          margin: 0 8px 0 0;
+        }
+      }
+
+      @include mobile {
+        display: none;
+      }
+
+      &.active {
+        color: $secondary;
+      }
+    }
+
+    .logout {
+      margin: 132px auto 0 8px;
+
+      @include tablet-down {
+        margin: 0 0 0 auto;
+      }
+    }
+  }
+}

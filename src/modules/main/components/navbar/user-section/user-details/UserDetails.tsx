@@ -72,12 +72,14 @@ const UserDetails = forwardRef(() => {
       <div className={csx.github}>
         {connectedWithGithub ? (
           <div>
-            <span className={csx.success}>Connected</span> with <span>Github</span>
+            <span className={csx.success}>Connected</span> with{' '}
+            <span className={csx.primary}>Github</span>
           </div>
         ) : (
           <>
             <div>
-              <span className={csx.error}>No connection</span> with <span>Github</span>
+              <span className={csx.error}>No connection</span> with{' '}
+              <span className={csx.primary}>Github</span>
             </div>
             <Button onClick={logInViaGithub}>CONNECT TO GITHUB</Button>
           </>

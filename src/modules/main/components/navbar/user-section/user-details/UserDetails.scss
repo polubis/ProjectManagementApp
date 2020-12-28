@@ -69,14 +69,12 @@
       color: $error;
     }
 
-    & > button {
-      margin-top: 18px;
+    .primary {
+      color: $primary;
     }
 
-    & > span > span {
-      &:last-of-type {
-        color: $primary;
-      }
+    & > button {
+      margin-top: 18px;
     }
   }
 
