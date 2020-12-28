@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GithubConnect } from 'shared/components';
+import { GithubConnect, AddSurvey } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
 
 import { MobileNavigation, Navbar, Sidebar } from './components';
@@ -19,6 +19,8 @@ const MainModule = () => {
         <MobileNavigation />
 
         <GithubConnect />
+
+        <AddSurvey />
 
         <main>
           <MainModuleRouter />
