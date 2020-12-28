@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Notification } from 'shared/models';
 
@@ -22,11 +22,16 @@ const NotificationsList = ({ notifications, onClick }: NotificationsList.Props):
     [onClick]
   );
 
+  const filteredNotifications = useMemo(
+    () => notifications.filter((notification) => NotificationsListItemsMap[notification.type]),
+    [notifications]
+  );
+
   return (
     <ul className={csx.notificationsList}>
-      {notifications.length > 1 && <div className={csx.marker} />}
+      {filteredNotifications.length > 1 && <div className={csx.marker} />}
 
-      {notifications.map((notification) => (
+      {filteredNotifications.map((notification) => (
         <NotificationListItem
           {...NotificationsListItemsMap[notification.type](notification)}
           key={notification.id}

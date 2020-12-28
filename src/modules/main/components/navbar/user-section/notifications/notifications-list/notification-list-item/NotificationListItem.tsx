@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { toDate } from 'utils';
+
 import { Notification } from 'shared/models';
 import { UnreadedIcon } from 'shared/components';
 
@@ -29,11 +31,11 @@ const NotificationListItem = ({
     >
       <figure className={csx.avatar}>
         {avatar}
-        {data.readed || <UnreadedIcon className={csx.unreadedIcon} />}
+        {data.isRead || <UnreadedIcon className={csx.unreadedIcon} />}
       </figure>
 
       <div className={csx.content}>
-        <span className={csx.date}>{data.creationDate}</span>
+        <span className={csx.date}>{toDate(data.createdDate)}</span>
         {content}
       </div>
     </li>
