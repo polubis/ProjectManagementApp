@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, memo } from 'react';
 import Form from 'io-form';
 
 import {
@@ -18,6 +18,8 @@ import { useAlertsProvider } from 'shared/providers/alerts';
 import AddSurveyImage from './AddSurveyImage';
 
 import csx from './AddSurvey.scss';
+import { useCookiesProvider } from 'shared/providers/cookies';
+import { useAuthProvider } from 'shared/providers/auth';
 
 namespace AddSurvey {
   export interface Props {
@@ -148,4 +150,21 @@ const AddSurvey = ({ onClose }: AddSurvey.Props): JSX.Element => {
   );
 };
 
-export default AddSurvey;
+const [NAME, SURVEY_ADD_DISPLAYED] = ['survey-add-displayed', '1'];
+
+export default memo(
+  (): JSX.Element => {
+    const { cookies, setCookies } = useCookiesProvider();
+
+    const { authorized, user } = useAuthProvider();
+
+    const handleClose = useCallback(() => {
+      setCookies(NAME, SURVEY_ADD_DISPLAYED);
+    }, []);
+
+    const open = authorized && user.connectedWithGithub && !cookies[NAME];
+
+    return open ? <AddSurvey onClose={handleClose} /> : null;
+  },
+  () => true
+);
