@@ -77,8 +77,9 @@ const AddSurvey = ({ onClose }: AddSurvey.Props): JSX.Element => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       const checkedForm = submit(e);
 
+      setForm(checkedForm);
+
       if (checkedForm.invalid) {
-        setForm(checkedForm);
         return;
       }
 

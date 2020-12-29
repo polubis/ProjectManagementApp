@@ -9,7 +9,8 @@
     color: $grey;
   }
 
-  & > button {
+  & > button,
+  & > a {
     margin-right: auto;
   }
 }
@@ -36,7 +37,15 @@
       @include row;
 
       .avatar {
+        @include headingMedium;
+        box-shadow: $shadowPrimary;
         border-radius: 50%;
+        background: $surface;
+        border: 1px solid rgba($primary, 0.43);
+
+        img {
+          border-radius: 50%;
+        }
       }
 
       & > b {

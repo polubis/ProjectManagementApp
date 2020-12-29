@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Img, Button } from 'ui';
 
@@ -7,7 +8,7 @@ import { useAuthProvider } from 'shared/providers/auth';
 import csx from './General.scss';
 
 const General = (): JSX.Element => {
-  const { user } = useAuthProvider();
+  const { user, logInViaGithub } = useAuthProvider();
 
   return (
     <div className={csx.general}>
@@ -15,7 +16,9 @@ const General = (): JSX.Element => {
 
       <div className={csx.user}>
         <header>
-          <Img className={csx.avatar} size="74px:74px" src={user.githubAvatarUrl} />
+          <Img className={csx.avatar} size="74px:74px" src={user.githubAvatarUrl}>
+            {user.username.charAt(0).toUpperCase()}
+          </Img>
           <b>{user.id}</b>
         </header>
 
@@ -29,6 +32,11 @@ const General = (): JSX.Element => {
             <span>Email</span>
             <span>{user.email}</span>
           </div>
+
+          <div className={csx.detail}>
+            <span>Roles</span>
+            <span>{user.roles.join(', ')}</span>
+          </div>
         </div>
       </div>
 
@@ -37,7 +45,9 @@ const General = (): JSX.Element => {
       <div className={csx.passwordSetup}>
         <span className={csx.title}>Password setup</span>
 
-        <Button>CHANGE PASSWORD</Button>
+        <Link to="/account/general/change-password">
+          <Button>CHANGE PASSWORD</Button>
+        </Link>
       </div>
 
       <div className={csx.divider} />
@@ -59,7 +69,7 @@ const General = (): JSX.Element => {
               <span className={csx.primary}>Github</span>
             </div>
 
-            <Button>CONNECT TO GITHUB</Button>
+            <Button onClick={logInViaGithub}>CONNECT TO GITHUB</Button>
           </>
         )}
       </div>

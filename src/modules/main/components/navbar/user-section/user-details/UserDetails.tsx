@@ -1,6 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Avatar } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import { Button, Img } from 'ui';
 
@@ -38,12 +39,20 @@ const UserDetails = forwardRef(() => {
   return (
     <div className={csx.userDetails}>
       <header>
-        <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
+        <Img className={csx.avatar} src={user.githubAvatarUrl} size="50px:50px">
+          {username.charAt(0).toUpperCase()}
+        </Img>
 
         <div className={csx.personality}>
           <span>{username}</span>
           <span>{email}</span>
         </div>
+
+        <Link to="/account" className={csx.accountLink}>
+          <Button variant="icon" theme="primaryTransparent">
+            <SettingsIcon />
+          </Button>
+        </Link>
       </header>
 
       <div className={csx.details}>

@@ -1,4 +1,9 @@
-import { RegisterPayload, Self, ForgottenPasswordPayload } from 'shared/models';
+import {
+  RegisterPayload,
+  Self,
+  ForgottenPasswordPayload,
+  ChangePasswordPayload,
+} from 'shared/models';
 
 import { core } from 'shared/instances';
 
@@ -11,3 +16,6 @@ export const getSelf = (): Promise<Self> => core.get<Self>(`${PATH}/GetCurrentUs
 
 export const forgottenPassword = (payload: ForgottenPasswordPayload): Promise<null> =>
   core.get<null>(`${PATH}/ForgottenPassword`, { params: payload });
+
+export const changePassword = (payload: ChangePasswordPayload): Promise<null> =>
+  core.post<ChangePasswordPayload, null>(`${PATH}/ChangePassword`, payload);

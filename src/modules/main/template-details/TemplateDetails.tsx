@@ -2,14 +2,13 @@ import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps, useHistory } from 'react-router';
 
-import { Avatar } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ShareIcon from '@material-ui/icons/Share';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 
-import { Button, More, Tags } from 'ui';
+import { Button, More, Tags, Img } from 'ui';
 
 import { convertDate } from 'utils';
 
@@ -176,7 +175,13 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                       href={`https://github.com/${contributor.name}`}
                       title={contributor.name}
                     >
-                      <Avatar src={contributor.avatar} />
+                      <Img
+                        className={csx.contributorAvatar}
+                        size="50px:50px"
+                        src={contributor.avatarUrl}
+                      >
+                        {contributor.name.charAt(0)}
+                      </Img>
                     </a>
                   ))}
                 </div>

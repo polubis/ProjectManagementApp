@@ -22,12 +22,8 @@ const Navigation = memo(
             General
           </NavLink>
 
-          <NavLink activeClassName={csx.active} className={csx.link} to="/account/profile">
-            Profile
-          </NavLink>
-
-          <NavLink activeClassName={csx.active} className={csx.link} to="/account/notifications">
-            Notifications
+          <NavLink className={`${csx.link} ${csx.backToApp}`} to="/app">
+            Back to app
           </NavLink>
 
           <Button className={csx.logout} onClick={logOut}>

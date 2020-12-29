@@ -1,9 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Avatar } from '@material-ui/core';
-
-import { Button, useMenu, Menu } from 'ui';
+import { Button, useMenu, Menu, Img } from 'ui';
 
 import { Guard } from 'shared/guards';
 
@@ -18,16 +16,18 @@ const paperProps = {
   },
 };
 
-const UserSection = () => {
+const UserSection = (): JSX.Element => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   return (
     <div className={csx.userSection}>
       <Guard.Protected>
-        {({ user: { username } }) => (
+        {({ user: { username, githubAvatarUrl } }) => (
           <>
             <div className={csx.details} onClick={openMenu}>
-              <Avatar className={csx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
+              <Img className={csx.avatar} src={githubAvatarUrl} size="50px:50px">
+                {username.charAt(0).toUpperCase()}
+              </Img>
               <span>Hi, {username}</span>
             </div>
 
