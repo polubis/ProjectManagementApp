@@ -8,7 +8,7 @@ import { useAuthProvider } from 'shared/providers/auth';
 import csx from './Profile.scss';
 
 const Profile = (): JSX.Element => {
-  const { user, logInViaGithub } = useAuthProvider();
+  const { user } = useAuthProvider();
 
   return (
     <div className={csx.profile}>

@@ -12,3 +12,11 @@ export interface UserProfile {
   yearsOfExperience: number | null;
   technologies: Technology[];
 }
+
+export interface UpdateUserDataPayload {
+  position: string;
+  seniority: number;
+  company: string;
+  yearsOfExperience: number;
+  technologiesIds: number[];
+}
