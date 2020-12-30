@@ -66,7 +66,7 @@ const Users = (): JSX.Element => {
           {!pendingRequests && !users.length && (
             <Disclaimer
               description="Change filters to find users"
-              title="Not results for current filters"
+              title="No results for current filters"
             />
           )}
 

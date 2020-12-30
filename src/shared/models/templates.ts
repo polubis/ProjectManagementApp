@@ -18,7 +18,7 @@ export interface Template {
 
 export interface Contributors {
   name: string;
-  avatar: string;
+  avatarUrl: string;
 }
 
 export interface TemplatePayload {

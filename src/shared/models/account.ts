@@ -11,3 +11,9 @@ export interface Account {
   connectedWithGithub?: boolean;
   emailConfirmed?: boolean;
 }
+
+export interface ChangePasswordPayload {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}

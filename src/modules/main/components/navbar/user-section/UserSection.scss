@@ -17,7 +17,15 @@
     }
 
     .avatar {
+      @include heading;
       box-shadow: $shadowPrimary;
+      border-radius: 50%;
+      border: 1px solid rgba($primary, 0.43);
+      background: $surface;
+
+      img {
+        border-radius: 50%;
+      }
     }
 
     & > svg {

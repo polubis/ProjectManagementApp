@@ -50,7 +50,7 @@ const Surveys = (): JSX.Element => {
       {!pendingRequests && !surveys.length && (
         <Disclaimer
           description="Change filters to find surveys"
-          title="Not results for current filters"
+          title="No results for current filters"
         />
       )}
 

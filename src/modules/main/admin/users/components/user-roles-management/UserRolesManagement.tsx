@@ -74,8 +74,9 @@ const UserRolesManagement = ({
     async (e: React.FormEvent<HTMLFormElement>) => {
       const checkedForm = form.submit(e);
 
+      setForm(checkedForm);
+
       if (checkedForm.invalid) {
-        setForm(checkedForm);
         return;
       }
 

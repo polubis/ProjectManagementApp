@@ -4,8 +4,16 @@ button.trigger,
 .backdrop,
 .elevation,
 .menu {
-  @include mobile-up {
-    display: none;
+  &.mobile {
+    @include mobile-up {
+      display: none;
+    }
+  }
+
+  &.tablet {
+    @include tablet-up {
+      display: none;
+    }
   }
 }
 
@@ -52,8 +60,8 @@ button.trigger {
 }
 
 .menu {
-  @include col;
   position: fixed;
+  flex-flow: column;
   max-height: 100%;
   min-height: 60vh;
   width: 100%;
@@ -76,7 +84,15 @@ button.trigger {
     }
   }
 
-  @include mobile-up {
-    display: none;
+  &.mobile {
+    @include mobile {
+      display: flex;
+    }
+  }
+
+  &.tablet {
+    @include tablet-down {
+      display: flex;
+    }
   }
 }

@@ -1,0 +1,37 @@
+@import 'styles/mixins';
+
+.layout {
+  @include page;
+  display: flex;
+
+  @include tablet-down {
+    flex-flow: column;
+  }
+
+  & > aside {
+    position: relative;
+    width: 36%;
+    background: $surfacePrimary;
+    padding: 48px;
+    border-right: 1px solid rgba($primary, 0.43);
+
+    @include tablet-down {
+      display: none;
+    }
+  }
+
+  & > section {
+    background: $surface;
+    width: 64%;
+    padding: 48px;
+
+    @include tablet-down {
+      width: 100%;
+      padding: 48px 24px;
+    }
+
+    .content {
+      max-width: 520px;
+    }
+  }
+}
