@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.profile {
+  & > h3 {
+    @include headingMedium;
+  }
+}

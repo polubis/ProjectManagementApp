@@ -5,6 +5,7 @@ import { withLazy } from 'utils';
 
 const ChangePassword = withLazy(() => import('./change-password'));
 const General = withLazy(() => import('./general'));
+const Profile = withLazy(() => import('./profile'));
 
 const AcountModuleRouter = (): JSX.Element => {
   return (
@@ -12,6 +13,8 @@ const AcountModuleRouter = (): JSX.Element => {
       <Route exact path="/account/general/change-password" component={ChangePassword} />
 
       <Route exact path="/account/general" component={General} />
+
+      <Route exact path="/account/profile" component={Profile} />
 
       <Route path="*" render={() => <Redirect to="/account/general" />} />
     </Switch>
