@@ -1,8 +1,17 @@
 @import 'styles/mixins';
 
 .profile {
-  & > h3 {
-    @include headingMedium;
+  & > header {
+    @include row;
+
+    & > span {
+      @include headingMedium;
+      margin-right: 12px;
+    }
+
+    & > a {
+      margin-left: auto;
+    }
   }
 
   .user {
@@ -11,14 +20,14 @@
     background: $surfacePrimary;
     border: 1px solid rgba($primary, 0.43);
     border-radius: 4px;
-    margin: 82px 0 48px 0;
+    margin: 72px 0 48px 0;
 
     &.sliced {
       padding: 28px 16px 16px 28px;
     }
 
-    header {
-      @include row;
+    & > header {
+      display: flex;
 
       .avatar {
         @include headingMedium;
@@ -35,7 +44,7 @@
       & > b {
         @include heading;
         @include dottedText;
-        color: $primary;
+        align-self: center;
         margin-left: 22px;
       }
     }

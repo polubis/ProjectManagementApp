@@ -61,5 +61,5 @@ export const useUsersSearch = () => {
 
   useEffect(() => {
     getUsers(parsedFilters);
-  }, [location.key]);
+  }, [location]);
 };

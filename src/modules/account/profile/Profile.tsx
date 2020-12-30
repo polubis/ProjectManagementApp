@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Img } from 'ui';
+import EditIcon from '@material-ui/icons/Edit';
 
+import { Img, Button } from 'ui';
+
+import { SENIORITY_ITEMS } from 'shared/consts';
 import { useAuthProvider } from 'shared/providers/auth';
 
 import csx from './Profile.scss';
@@ -16,14 +20,22 @@ const Profile = (): JSX.Element => {
 
   return (
     <div className={csx.profile}>
-      <h3>Profile</h3>
+      <header>
+        <span>Profile</span>
+        <Link to="/account/profile/management">
+          <Button>
+            <EditIcon />
+            EDIT
+          </Button>
+        </Link>
+      </header>
 
       <div className={`${csx.user} ${hasTechnologies ? csx.sliced : ''}`}>
         <header>
           <Img className={csx.avatar} size="74px:74px" src={user.githubAvatarUrl}>
             {user.username.charAt(0).toUpperCase()}
           </Img>
-          <b>{user.id}</b>
+          <b>{user.username}</b>
         </header>
 
         <div className={csx.details}>
@@ -34,7 +46,7 @@ const Profile = (): JSX.Element => {
 
           <div className={csx.detail}>
             <span>Seniority</span>
-            <span>{user.seniority || 'Unknown'}</span>
+            <span>{user.seniority !== null ? SENIORITY_ITEMS[user.seniority] : 'Unknown'}</span>
           </div>
 
           <div className={csx.detail}>
