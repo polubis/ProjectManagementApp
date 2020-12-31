@@ -3,10 +3,12 @@ import {
   Self,
   ForgottenPasswordPayload,
   ChangePasswordPayload,
+  UpdateUserDataPayload,
 } from 'shared/models';
 
 import { core } from 'shared/instances';
 
+// TODO: Refactor naming conventions talk with backend developers
 const PATH = 'Account';
 
 export const register = (payload: RegisterPayload): Promise<null> =>
@@ -19,3 +21,6 @@ export const forgottenPassword = (payload: ForgottenPasswordPayload): Promise<nu
 
 export const changePassword = (payload: ChangePasswordPayload): Promise<null> =>
   core.post<ChangePasswordPayload, null>(`${PATH}/ChangePassword`, payload);
+
+export const updateUserData = (payload: UpdateUserDataPayload): Promise<null> =>
+  core.put<UpdateUserDataPayload, null>(`${PATH}/UpdateUserData`, payload);

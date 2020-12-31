@@ -1,28 +1,17 @@
 @import 'styles/mixins';
 
-@mixin section {
-  @include col;
-  margin: 28px 0;
+.profile {
+  & > header {
+    @include row;
 
-  .title {
-    @include label;
-    color: $grey;
-  }
+    & > span {
+      @include headingMedium;
+      margin-right: 12px;
+    }
 
-  & > button,
-  & > a {
-    margin-right: auto;
-  }
-}
-
-.divider {
-  height: 1px;
-  background: rgba($primary, 0.43);
-}
-
-.general {
-  & > h3 {
-    @include headingMedium;
+    & > a {
+      margin-left: auto;
+    }
   }
 
   .user {
@@ -31,10 +20,14 @@
     background: $surfacePrimary;
     border: 1px solid rgba($primary, 0.43);
     border-radius: 4px;
-    margin: 86px 0 48px 0;
+    margin: 72px 0 48px 0;
 
-    header {
-      @include row;
+    &.sliced {
+      padding: 28px 16px 16px 28px;
+    }
+
+    & > header {
+      display: flex;
 
       .avatar {
         @include headingMedium;
@@ -51,7 +44,7 @@
       & > b {
         @include heading;
         @include dottedText;
-        color: $primary;
+        align-self: center;
         margin-left: 22px;
       }
     }
@@ -82,45 +75,23 @@
     }
   }
 
-  .passwordSetup {
-    @include section;
+  .technologies {
+    @include col;
+    margin-top: 32px;
 
-    .title {
-      margin-bottom: 28px;
-    }
-  }
-
-  .githubConnection {
-    @include section;
-
-    .connectionLabel {
+    & > span {
       @include label;
-      margin-top: 14px;
-
-      .red {
-        color: $error;
-      }
-
-      .primary {
-        color: $primary;
-      }
-
-      .green {
-        color: $ok;
-      }
+      color: $grey;
+      margin-bottom: 16px;
     }
 
-    & > button {
-      margin-top: 28px;
-    }
-  }
+    .technologiesList {
+      @include row;
+      flex-flow: wrap;
 
-  .dangerZone {
-    @include section;
-
-    .description {
-      @include description;
-      margin: 14px 0 28px;
+      figure {
+        margin: 0 12px 12px 0;
+      }
     }
   }
 }

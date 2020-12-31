@@ -1,11 +1,13 @@
 import React, { forwardRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import AccountIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { Button, Img } from 'ui';
 
 import { useAuthProvider } from 'shared/providers/auth';
+import { SENIORITY_ITEMS } from 'shared/consts';
 
 import csx from './UserDetails.scss';
 
@@ -30,7 +32,7 @@ const UserDetails = forwardRef(() => {
       Object.entries({
         Company: company || 'Unknown',
         'Years of experience': getYearsLabel(yearsOfExperience),
-        Seniority: getYearsLabel(seniority),
+        Seniority: seniority !== null ? SENIORITY_ITEMS[seniority] : 'Unknown',
         Position: position || 'Unknown',
       }),
     [user]
@@ -48,9 +50,15 @@ const UserDetails = forwardRef(() => {
           <span>{email}</span>
         </div>
 
-        <Link to="/account" className={csx.accountLink}>
+        <Link to="/account/general" className={csx.generalLink}>
           <Button variant="icon" theme="primaryTransparent">
             <SettingsIcon />
+          </Button>
+        </Link>
+
+        <Link to="/account/profile" className={csx.profileLink}>
+          <Button variant="icon" theme="primaryTransparent">
+            <AccountIcon />
           </Button>
         </Link>
       </header>

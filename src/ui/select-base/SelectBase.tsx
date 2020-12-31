@@ -151,7 +151,7 @@ const SelectBase = <T extends any>({
   );
 };
 
-SelectBase.getSelected = (value: { [key: string]: boolean }) =>
+SelectBase.getSelected = (value: { [key: string]: boolean }): string[] =>
   Object.keys(value).filter((k) => value[k]);
 
 export default SelectBase;

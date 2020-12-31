@@ -9,12 +9,6 @@ export const [USERNAME, EMAIL, PASSWORD, REPEATED_PASSWORD] = [0, 1, 2, 3];
 export const [POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES] = [0, 1, 2, 3, 4];
 export const [COMPANY_REGULATIONS, COMMERCIAL_INFO] = [0, 1];
 
-export const SENIORITY_ITEMS = ['Junior', 'Mid', 'Regular', 'Pro', 'Senior'];
-
-export const EXPERIENCE_ITEMS = Array.from({ length: 30 }, (_, idx) => idx + 1).map((idx) =>
-  idx !== 1 ? `${idx} years` : `${idx} year`
-);
-
 export const BASE_CONFIG: Form.Config[] = [
   [
     { label: 'Username', fns: [V.req, V.min(2), V.max(50)] },
@@ -39,7 +33,7 @@ export const BASE_CONFIG: Form.Config[] = [
     },
     {
       label: 'Company',
-      fns: [V.min(2), V.max(50)],
+      fns: [V.min(2), V.max(100)],
     },
     {
       label: 'Years of experience',

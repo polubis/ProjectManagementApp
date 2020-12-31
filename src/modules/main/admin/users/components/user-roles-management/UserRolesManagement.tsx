@@ -88,6 +88,8 @@ const UserRolesManagement = ({
           roles: SelectBase.getSelected(values.roles) as AccountRole[],
         });
 
+        showAlert({ message: 'User role has been changed', type: 'success' });
+
         onSuccess();
       } catch (message) {
         setPending(false);
@@ -112,7 +114,7 @@ const UserRolesManagement = ({
         <FieldBase
           className={csx.rolesSelect}
           label="Roles *"
-          error={errors.roles ? 'Atleast one role must be selected' : ''}
+          error={form.dirty ? (errors.roles ? 'Atleast one role must be selected' : '') : ''}
         >
           <SimpleSelect items={roles} onSelect={handleRoleSelect}>
             <SelectControl

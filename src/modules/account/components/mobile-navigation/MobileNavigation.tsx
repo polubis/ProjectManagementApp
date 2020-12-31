@@ -16,6 +16,10 @@ const MobileNavigation = (): JSX.Element => {
         General
       </NavLink>
 
+      <NavLink activeClassName={csx.active} className={csx.link} to="/account/profile">
+        Profile
+      </NavLink>
+
       <NavLink className={`${csx.link} ${csx.backToApp}`} to="/app">
         Back to app
       </NavLink>
