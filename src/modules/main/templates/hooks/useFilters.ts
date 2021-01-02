@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useRouteMatch } from 'react-router';
-import { pipe } from 'ramda';
 
 import { useQueryParams, isJsonString } from 'utils';
 
@@ -29,6 +28,9 @@ const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: stri
   !isJsonString(value) || (JSON.parse(value) as string[]).some((id) => Number.isNaN(+id))
     ? filters
     : { ...filters, [key]: value };
+
+const pipe = (...fns: any[]) => (filters: TemplatesSearchFilters) =>
+  fns.reduce((v, f) => f(v), filters);
 
 export const useFilters = () => {
   const {
