@@ -1,29 +1,14 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
+import { GreyBackground } from './style';
+
 import { Checkbox } from 'ui';
 
 export default {
   title: 'ui/Checkbox',
   component: Checkbox,
 } as Meta;
-
-const GreyBackground = (props) => {
-  return (
-    <div
-      style={{
-        width: 300,
-        height: 300,
-        background: '#aaa',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {props.children}
-    </div>
-  );
-};
 
 const Template: Story<any> = (args) => {
   return <Checkbox {...args} />;

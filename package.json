@@ -12,7 +12,7 @@
     "test-watch-silent": "jest --watch --silent",
     "lint": "npx eslint . --ext .ts,.tsx",
     "lint-fix": "npx eslint . --ext .ts,.tsx --fix",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook"
   },
   "author": "Adrian Połubiński",

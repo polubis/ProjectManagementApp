@@ -3,8 +3,6 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Alert } from 'ui';
 
-const OPTIONS = ['default', 'warning', 'success', 'info'];
-
 export default {
   title: 'ui/Alert',
   component: Alert,
@@ -21,11 +19,8 @@ const Template: Story<any> = (args) => {
 export const DefaultError = Template.bind({});
 DefaultError.args = { message: `This is an alert of default type 'error'` };
 
-export const Warning = Template.bind({});
-Warning.args = { message: `This is an alert of type 'warning'`, type: 'warning' };
-
 export const Success = Template.bind({});
 Success.args = { message: `This is an alert of type 'success'`, type: 'success' };
 
-export const Info = Template.bind({});
-Info.args = { message: `This is an alert of type 'info'`, type: 'info' };
+export const CustomDelay = Template.bind({});
+CustomDelay.args = { message: `This is an alert of type 'success'`, type: 'success', delay: 1000 };
