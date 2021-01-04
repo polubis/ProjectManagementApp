@@ -1,34 +1,23 @@
-export class CustomState<T> {
-  private error: string;
-  private pending: boolean;
-  private data: T;
-  private readonly preparedData: T;
+export function State<T>(data: T): CustomState<T> {
+  return new CustomState(data);
+}
 
-  constructor(preparedData: T) {
-    this.preparedData = preparedData;
+class CustomState<T> {
+  error: string;
+  pending: boolean;
+  preparedData: T;
+
+  constructor(public data: T) {}
+
+  init(): CustomState<T> {
+    return { ...this, pending: true, data: this.preparedData, error: '' };
   }
 
-  public init(): CustomState<T> {
-    const copy: CustomState<T> = new CustomState<T>(this.preparedData);
-    copy.pending = true;
-    copy.data = this.preparedData;
-    copy.error = '';
-    return copy;
+  ok(data: T): CustomState<T> {
+    return { ...this, pending: false, data: data, error: '' };
   }
 
-  public ok(data: T): CustomState<T> {
-    const copy: CustomState<T> = new CustomState<T>(this.preparedData);
-    copy.pending = false;
-    copy.data = data;
-    copy.error = '';
-    return copy;
-  }
-
-  public fail(message: string): CustomState<T> {
-    const copy: CustomState<T> = new CustomState<T>(this.preparedData);
-    copy.pending = false;
-    copy.error = message;
-    copy.data = this.preparedData;
-    return copy;
+  fail(message: string): CustomState<T> {
+    return { ...this, pending: false, data: this.preparedData, error: message };
   }
 }
