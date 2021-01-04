@@ -29,7 +29,7 @@ const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: stri
     ? filters
     : { ...filters, [key]: value };
 
-const pipe = (...fns: any[]) => (filters: TemplatesSearchFilters) =>
+const pipe = (...fns: Function[]) => (filters: TemplatesSearchFilters) =>
   fns.reduce((v, f) => f(v), filters);
 
 export const useFilters = () => {
