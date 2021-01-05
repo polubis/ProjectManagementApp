@@ -1,24 +1,24 @@
-export type Validators<T, R> = {
-  [K in keyof T]?: ((value: T[K], values: T) => R)[];
+export type Validators<T extends object, R> = {
+  [K in keyof T]?: ((value: T[K], values: NonNullable<T & Exclude<T, any[]>>) => R)[];
 };
 
-export type Errors<T, R> = Record<keyof T, R>;
+export type Errors<T extends object, R> = Record<keyof T, R>;
 
-export type GetError<R> = <T>(
+export type GetError<R> = <T extends object>(
   key: keyof T,
   values: NonNullable<T & Exclude<T, any[]>>,
   validators: Validators<T, R>
 ) => R;
 
-export type GetInvalid<R> = <T>(key: keyof T, errors: Errors<T, R>) => boolean;
+export type GetInvalid<R> = <T extends object>(key: keyof T, errors: Errors<T, R>) => boolean;
 
-export interface State<T, R> {
+export interface State<T extends object, R> {
   errors: Errors<T, R>;
   invalid: boolean;
   values: NonNullable<T & Exclude<T, any[]>>;
 }
 
-export interface Formed<T, R> extends State<T, R> {
+export interface Formed<T extends object, R> extends State<T, R> {
   next(values: Partial<NonNullable<T & Exclude<T, any[]>>>): Formed<T, R>;
 }
 
