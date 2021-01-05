@@ -1,65 +1,114 @@
-import { Form, Formed, Errors } from '..';
-
-import { RegisterPayload } from './models';
-import { getPayload, getValidators, getUpdateValuesAttempts } from './utils';
+import { Form, Errors, Validators } from '..';
 
 describe('Form', () => {
-  const testValuesUpdate = (values: Partial<RegisterPayload>): void =>
-    expect(Form<RegisterPayload>(getPayload(values), getValidators()).values).toEqual(
-      getPayload(values)
-    );
+  interface Values {
+    username: string;
+    email: string;
+    password: string;
+    repeatedPassword: string;
+    phone: string;
+    policyConfirmation: boolean;
+    age: number;
+    items: {
+      id: number;
+      name: string;
+    }[];
+  }
 
-  const testValuesUpdateSequence = (
-    values: Partial<RegisterPayload>[],
-    form: Formed<RegisterPayload, boolean>
-  ): void => {
-    let prevForm = form;
-
-    values.forEach((attempt) => {
-      prevForm = prevForm.next(attempt);
-      expect(prevForm.values).toEqual({ ...prevForm.values, ...attempt });
-    });
+  const VALUES: Values = {
+    username: 'piotr',
+    email: 'piotr@wp.pl',
+    password: 'piotr1994',
+    repeatedPassword: 'piotr1994',
+    phone: '223332333',
+    policyConfirmation: false,
+    age: 18,
+    items: [{ id: 0, name: 'Item1' }],
   };
 
-  describe('on init', () => {
-    it('assigns values', () => {
-      testValuesUpdate({});
-    });
+  const VALIDATORS: Validators<Values, boolean> = {
+    email: null,
+    items: undefined,
+    username: [(value) => value.length === 0],
+    age: [(value) => value < 16],
+    policyConfirmation: [(value) => !value],
+    repeatedPassword: [(value, values) => value !== values.password],
+    password: [(value, values) => value !== values.repeatedPassword],
+  };
 
-    it('assigns errors', () => {
-      const form = Form<RegisterPayload>(getPayload({ repeatedPassword: '' }), getValidators());
-
-      expect(form.errors).toEqual({
-        email: false,
-        username: false,
-        items: false,
-        age: false,
-        password: false,
-        phone: false,
-        policyConfirmation: true,
-        repeatedPassword: true,
-      } as Errors<RegisterPayload, boolean>);
-    });
-
-    it('assings invalid flag', () => {
-      (() => {
-        expect(
-          Form<RegisterPayload>(getPayload({ repeatedPassword: '' }), getValidators()).invalid
-        ).toBe(true);
-      })();
-
-      (() => {
-        expect(Form<RegisterPayload>(getPayload(), {}).invalid).toBe(false);
-      })();
-    });
+  it('inits', () => {
+    expect(Form<Values>(VALUES).values).toEqual(VALUES);
+    expect(Form<Values>(VALUES).invalid).toBe(false);
+    expect(Form<Values>(VALUES).errors).toEqual({
+      username: false,
+      email: false,
+      password: false,
+      repeatedPassword: false,
+      phone: false,
+      policyConfirmation: false,
+      age: false,
+      items: false,
+    } as Errors<Values, boolean>);
+    expect(Form<Values>(VALUES).next).toBeTruthy();
   });
 
-  it('updates values', () => {
-    getUpdateValuesAttempts().forEach(testValuesUpdate);
+  it('validates on init', () => {
+    const form = Form<Values>({ ...VALUES, repeatedPassword: '', age: 15 }, VALIDATORS);
 
-    testValuesUpdateSequence(
-      getUpdateValuesAttempts(),
-      Form<RegisterPayload>(getPayload(), getValidators())
-    );
+    expect(form.invalid).toBe(true);
+    expect(form.errors).toEqual({
+      username: false,
+      email: false,
+      password: true,
+      repeatedPassword: true,
+      phone: false,
+      policyConfirmation: true,
+      age: true,
+      items: false,
+    } as Errors<Values, boolean>);
+  });
+
+  it('validates on update', () => {
+    const firstAttemptForm = Form<Values>({ ...VALUES, repeatedPassword: '', age: 15 }, VALIDATORS);
+
+    expect(firstAttemptForm.invalid).toBe(true);
+    expect(firstAttemptForm.errors).toEqual({
+      username: false,
+      email: false,
+      password: true,
+      repeatedPassword: true,
+      phone: false,
+      policyConfirmation: true,
+      age: true,
+      items: false,
+    } as Errors<Values, boolean>);
+
+    const secondAttemptForm = firstAttemptForm.next({ repeatedPassword: 'piotr1994', age: 16 });
+
+    expect(secondAttemptForm.invalid).toBe(true);
+    expect(secondAttemptForm.errors).toEqual({
+      username: false,
+      email: false,
+      password: false,
+      repeatedPassword: false,
+      phone: false,
+      policyConfirmation: true,
+      age: false,
+      items: false,
+    } as Errors<Values, boolean>);
+
+    const thirdAttemptForm = secondAttemptForm.next({ policyConfirmation: true });
+
+    expect(thirdAttemptForm.invalid).toBe(false);
+    expect(thirdAttemptForm.errors).toEqual({
+      username: false,
+      email: false,
+      password: false,
+      repeatedPassword: false,
+      phone: false,
+      policyConfirmation: false,
+      age: false,
+      items: false,
+    } as Errors<Values, boolean>);
   });
 });
