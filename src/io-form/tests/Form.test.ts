@@ -1,41 +1,10 @@
-import { Form, Errors, Validators } from '..';
+import { Errors } from '../models';
+import { Form } from '../Form';
+
+import { VALUES, VALIDATORS } from './utils';
+import { Values } from './models';
 
 describe('Form', () => {
-  interface Values {
-    username: string;
-    email: string;
-    password: string;
-    repeatedPassword: string;
-    phone: string;
-    policyConfirmation: boolean;
-    age: number;
-    items: {
-      id: number;
-      name: string;
-    }[];
-  }
-
-  const VALUES: Values = {
-    username: 'piotr',
-    email: 'piotr@wp.pl',
-    password: 'piotr1994',
-    repeatedPassword: 'piotr1994',
-    phone: '223332333',
-    policyConfirmation: false,
-    age: 18,
-    items: [{ id: 0, name: 'Item1' }],
-  };
-
-  const VALIDATORS: Validators<Values, boolean> = {
-    email: null,
-    items: undefined,
-    username: [(value) => value.length === 0],
-    age: [(value) => value < 16],
-    policyConfirmation: [(value) => !value],
-    repeatedPassword: [(value, values) => value !== values.password],
-    password: [(value, values) => value !== values.repeatedPassword],
-  };
-
   it('inits', () => {
     expect(Form<Values>(VALUES).values).toEqual(VALUES);
     expect(Form<Values>(VALUES).invalid).toBe(false);
@@ -49,7 +18,8 @@ describe('Form', () => {
       age: false,
       items: false,
     } as Errors<Values, boolean>);
-    expect(Form<Values>(VALUES).next).toBeTruthy();
+    expect(Form<Values>(VALUES).dirty).toBe(false);
+    expect(Form<Values>(VALUES).set).toBeTruthy();
   });
 
   it('validates on init', () => {
@@ -68,6 +38,20 @@ describe('Form', () => {
     } as Errors<Values, boolean>);
   });
 
+  it('updates values', () => {
+    const firstAttemptForm = Form<Values>(VALUES);
+
+    expect(firstAttemptForm.values).toEqual(VALUES);
+
+    const secondAttemptForm = firstAttemptForm.set({ repeatedPassword: '' });
+
+    expect(secondAttemptForm.values).toEqual({ ...VALUES, repeatedPassword: '' });
+
+    const thirdAttemptForm = secondAttemptForm.set({ age: 12 });
+
+    expect(thirdAttemptForm.values).toEqual({ ...VALUES, repeatedPassword: '', age: 12 });
+  });
+
   it('validates on update', () => {
     const firstAttemptForm = Form<Values>({ ...VALUES, repeatedPassword: '', age: 15 }, VALIDATORS);
 
@@ -83,7 +67,7 @@ describe('Form', () => {
       items: false,
     } as Errors<Values, boolean>);
 
-    const secondAttemptForm = firstAttemptForm.next({ repeatedPassword: 'piotr1994', age: 16 });
+    const secondAttemptForm = firstAttemptForm.set({ repeatedPassword: 'piotr1994', age: 16 });
 
     expect(secondAttemptForm.invalid).toBe(true);
     expect(secondAttemptForm.errors).toEqual({
@@ -97,7 +81,7 @@ describe('Form', () => {
       items: false,
     } as Errors<Values, boolean>);
 
-    const thirdAttemptForm = secondAttemptForm.next({ policyConfirmation: true });
+    const thirdAttemptForm = secondAttemptForm.set({ policyConfirmation: true });
 
     expect(thirdAttemptForm.invalid).toBe(false);
     expect(thirdAttemptForm.errors).toEqual({
@@ -110,5 +94,12 @@ describe('Form', () => {
       age: false,
       items: false,
     } as Errors<Values, boolean>);
+  });
+
+  it('marks as dirty', () => {
+    const form = Form<Values>(VALUES);
+
+    expect(form.dirty).toBe(false);
+    expect(form.set({}, true).dirty).toBe(true);
   });
 });
