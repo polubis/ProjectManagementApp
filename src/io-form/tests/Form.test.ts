@@ -8,6 +8,7 @@ describe('Form', () => {
   it('inits', () => {
     expect(Form<Values>(VALUES).values).toEqual(VALUES);
     expect(Form<Values>(VALUES).invalid).toBe(false);
+    expect(Form<Values>(VALUES).touched).toBe(false);
     expect(Form<Values>(VALUES).errors).toEqual({
       username: false,
       email: false,
@@ -94,6 +95,20 @@ describe('Form', () => {
       age: false,
       items: false,
     } as Errors<Values, boolean>);
+  });
+
+  it('marks as touched', () => {
+    const firstAttemptForm = Form<Values>(VALUES);
+
+    expect(firstAttemptForm.touched).toBe(false);
+
+    const secondAttemptForm = firstAttemptForm.set({ repeatedPassword: '' });
+
+    expect(secondAttemptForm.touched).toBe(true);
+
+    const thirdAttemptForm = secondAttemptForm.set({ repeatedPassword: 'password' });
+
+    expect(thirdAttemptForm.touched).toBe(true);
   });
 
   it('marks as dirty', () => {

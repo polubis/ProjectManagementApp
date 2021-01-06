@@ -21,6 +21,7 @@ export interface State<T extends object, R> {
   errors: Errors<T, R>;
   dirty: boolean;
   invalid: boolean;
+  touched: boolean;
   values: NonNullable<T & Exclude<T, any[]>>;
 }
 

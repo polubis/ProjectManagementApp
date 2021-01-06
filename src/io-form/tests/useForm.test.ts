@@ -14,6 +14,7 @@ describe('useForm()', () => {
     expect(state).toEqual({
       values: VALUES,
       invalid: false,
+      touched: false,
       errors: {
         username: false,
         email: false,
@@ -114,32 +115,48 @@ describe('useForm()', () => {
     } as Errors<Values, boolean>);
   });
 
-  describe('after submit', () => {
-    it('marks as dirty', () => {
-      const { result } = renderHook(() => useForm(VALUES));
+  it('marks as touched', () => {
+    const { result } = renderHook(() => useForm(VALUES));
 
-      expect(result.current.state.dirty).toBe(false);
+    expect(result.current.state.touched).toBe(false);
 
-      act(() => {
-        result.current.submit({ preventDefault: () => {} });
-      });
-
-      expect(result.current.state.dirty).toBe(true);
+    act(() => {
+      result.current.change({ repeatedPassword: '' });
     });
 
-    it('prevents default', () => {
-      const preventDefaultSpy = jest.fn().mockImplementation(() => {});
-      const { result } = renderHook(() => useForm(VALUES));
+    expect(result.current.state.touched).toBe(true);
 
-      act(() => {
-        result.current.submit({ preventDefault: preventDefaultSpy });
-      });
-
-      expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+    act(() => {
+      result.current.change({ repeatedPassword: 'password' });
     });
 
-    afterEach(() => {
-      jest.clearAllMocks();
+    expect(result.current.state.touched).toBe(true);
+  });
+
+  it('marks as dirty', () => {
+    const { result } = renderHook(() => useForm(VALUES));
+
+    expect(result.current.state.dirty).toBe(false);
+
+    act(() => {
+      result.current.submit({ preventDefault: () => {} });
     });
+
+    expect(result.current.state.dirty).toBe(true);
+  });
+
+  it('prevents default', () => {
+    const preventDefaultSpy = jest.fn().mockImplementation(() => {});
+    const { result } = renderHook(() => useForm(VALUES));
+
+    act(() => {
+      result.current.submit({ preventDefault: preventDefaultSpy });
+    });
+
+    expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 });
