@@ -1,23 +1,17 @@
-export function State<T>(data: T): CustomState<T> {
-  return new CustomState(data);
-}
-
 class CustomState<T> {
   error: string;
   pending: boolean;
-  preparedData: T;
+  data: T;
 
-  constructor(public data: T) {}
-
-  init(): CustomState<T> {
-    return { ...this, pending: true, data: this.preparedData, error: '' };
-  }
-
-  ok(data: T): CustomState<T> {
-    return { ...this, pending: false, data: data, error: '' };
-  }
-
-  fail(message: string): CustomState<T> {
-    return { ...this, pending: false, data: this.preparedData, error: message };
-  }
+  constructor(private _data: T) {}
+  init = (): CustomState<T> => ({ ...this, pending: true, data: this._data, error: '' });
+  ok = (data: T): CustomState<T> => ({ ...this, pending: false, data, error: '' });
+  fail = (message: string): CustomState<T> => ({
+    ...this,
+    pending: false,
+    data: this._data,
+    error: message,
+  });
 }
+
+export const State = <T>(data: T): CustomState<T> => new CustomState<T>(data);
