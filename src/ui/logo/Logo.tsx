@@ -4,6 +4,10 @@ import { IMGS_PATH } from 'consts';
 
 import csx from './Logo.scss';
 
-export const Logo = () => {
-  return <img className={csx.root} src={`${IMGS_PATH}/Logo.png`} alt="Jupi.io Logo" />;
+interface LogoProps {
+  path?: string;
+}
+
+export const Logo = ({ path = IMGS_PATH }: LogoProps) => {
+  return <img className={csx.root} src={`${path}/Logo.png`} alt="Jupi.io Logo" />;
 };
