@@ -4,7 +4,7 @@ import { Disclaimer, Loader } from 'ui';
 
 import { Survey } from 'shared/models';
 
-import { SurveysSearch, SurveysTable, SurveyPreview } from './components';
+import { SurveysSearch, SurveysTable, SurveyPreview, ConfirmSurveyDelete } from './components';
 import { useSurveysSearch } from './hooks';
 import SurveysProvider, { useSurveysProvider } from './providers';
 
@@ -15,7 +15,9 @@ const Surveys = (): JSX.Element => {
 
   useSurveysSearch();
 
-  const [surveyToPreview, setSurveyToPreview] = useState<Survey>(null);
+  const [surveyToPreview, setSurveyToPreview] = useState<Survey | null>(null);
+
+  const [surveyToDelete, setSurveyToDelete] = useState<Survey | null>(null);
 
   const openSurveyPreview = useCallback((survey: Survey) => {
     setSurveyToPreview(survey);
@@ -25,6 +27,14 @@ const Surveys = (): JSX.Element => {
     setSurveyToPreview(null);
   }, []);
 
+  const openSurveyToDelete = useCallback((survey: Survey) => {
+    setSurveyToDelete(survey);
+  }, []);
+
+  const closeSurveyToDelete = useCallback(() => {
+    setSurveyToDelete(null);
+  }, []);
+
   return (
     <div className={csx.surveys}>
       <SurveysSearch />
@@ -32,7 +42,7 @@ const Surveys = (): JSX.Element => {
       {!!surveys.length && (
         <SurveysTable
           survyes={surveys}
-          onDeleteClick={() => {}}
+          onDeleteClick={openSurveyToDelete}
           onPreviewClick={openSurveyPreview}
         />
       )}
@@ -40,13 +50,17 @@ const Surveys = (): JSX.Element => {
       {!pendingRequests && !surveys.length && (
         <Disclaimer
           description="Change filters to find surveys"
-          title="Not results for current filters"
+          title="No results for current filters"
         />
       )}
 
       {!!pendingRequests && <Loader className={csx.loader} />}
 
       {surveyToPreview && <SurveyPreview survey={surveyToPreview} onClose={closeSurveyToPreview} />}
+
+      {surveyToDelete && (
+        <ConfirmSurveyDelete survey={surveyToDelete} onClose={closeSurveyToDelete} />
+      )}
     </div>
   );
 };

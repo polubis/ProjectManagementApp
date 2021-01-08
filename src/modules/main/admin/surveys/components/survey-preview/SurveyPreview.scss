@@ -5,6 +5,11 @@
   padding: 48px;
   width: 424px;
 
+  @include mobile {
+    width: 96%;
+    padding: 24px;
+  }
+
   .feedback {
     @include description;
     margin: 28px 0 42px 0;

@@ -93,6 +93,21 @@
         a {
           margin: 0 22px 22px 0;
           cursor: pointer;
+          text-decoration: none;
+
+          .contributorAvatar {
+            @include heading;
+            border-radius: 50%;
+            box-shadow: $shadowPrimary;
+            border: 1px solid rgba($primary, 0.43);
+            background: $surface;
+            color: $white;
+            text-transform: uppercase;
+
+            img {
+              border-radius: 50%;
+            }
+          }
 
           & > div {
             width: 50px;

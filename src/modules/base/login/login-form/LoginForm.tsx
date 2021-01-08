@@ -42,8 +42,9 @@ const LoginForm = ({ onSubmit }: LoginForm.Props): JSX.Element => {
     (e: React.FormEvent<HTMLFormElement>) => {
       const checkedForm = submit(e);
 
+      setForm(checkedForm);
+
       if (checkedForm.invalid) {
-        setForm(checkedForm);
         return;
       }
 

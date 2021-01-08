@@ -10,6 +10,7 @@ import { Button, useMenu, Menu, Disclaimer, Loader } from 'ui';
 
 import { UnreadedIcon } from 'shared/components';
 import { useNotificationsProvider } from 'shared/providers/notifications';
+import { useAuthProvider } from 'shared/providers/auth';
 
 import NotificationsList from './notifications-list';
 
@@ -28,7 +29,7 @@ const Notifications = (): JSX.Element => {
     loadNotifications,
   } = useNotificationsProvider();
 
-  const unreadedCount = useMemo(() => notifications.filter(({ readed }) => !readed).length, [
+  const unreadedCount = useMemo(() => notifications.filter(({ isRead }) => !isRead).length, [
     notifications,
   ]);
 
@@ -103,4 +104,8 @@ const Notifications = (): JSX.Element => {
   );
 };
 
-export default Notifications;
+export default (): JSX.Element => {
+  const { pending } = useAuthProvider();
+
+  return pending ? null : <Notifications />;
+};

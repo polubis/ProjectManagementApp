@@ -74,8 +74,9 @@ const UserRolesManagement = ({
     async (e: React.FormEvent<HTMLFormElement>) => {
       const checkedForm = form.submit(e);
 
+      setForm(checkedForm);
+
       if (checkedForm.invalid) {
-        setForm(checkedForm);
         return;
       }
 
@@ -86,6 +87,8 @@ const UserRolesManagement = ({
           username: user.username,
           roles: SelectBase.getSelected(values.roles) as AccountRole[],
         });
+
+        showAlert({ message: 'User role has been changed', type: 'success' });
 
         onSuccess();
       } catch (message) {
@@ -111,7 +114,7 @@ const UserRolesManagement = ({
         <FieldBase
           className={csx.rolesSelect}
           label="Roles *"
-          error={errors.roles ? 'Atleast one role must be selected' : ''}
+          error={form.dirty ? (errors.roles ? 'Atleast one role must be selected' : '') : ''}
         >
           <SimpleSelect items={roles} onSelect={handleRoleSelect}>
             <SelectControl

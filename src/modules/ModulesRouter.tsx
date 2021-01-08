@@ -3,11 +3,13 @@ import { Route, Switch, Redirect } from 'react-router';
 
 import { withLazy } from 'utils';
 
+import { Guard } from 'shared/guards';
 import { usePatternsProvider } from 'shared/providers/patterns';
 import { useTechnologiesProvider } from 'shared/providers/technologies';
 
 const BaseModule = withLazy(() => import('./base'));
 const MainModule = withLazy(() => import('./main'));
+const AccountModule = withLazy(() => import('./account'));
 
 const ModulesRouter = (): JSX.Element => {
   const { getPatterns } = usePatternsProvider();
@@ -20,9 +22,10 @@ const ModulesRouter = (): JSX.Element => {
 
   return (
     <Switch>
+      <Guard.ProtectedRoute path="/account" redirect="/app" component={AccountModule} />
       <Route path="/app" component={MainModule} />
       <Route path="/" component={BaseModule} />
-      <Route path="**" render={() => <Redirect to="/" />} />
+      <Route path="*" render={() => <Redirect to="/" />} />
     </Switch>
   );
 };

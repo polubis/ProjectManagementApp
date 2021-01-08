@@ -28,12 +28,12 @@ const Users = (): JSX.Element => {
   const [userToMange, setUserToManage] = useState<User | null>(null);
 
   const handleRoleChange = useCallback(
-    (newRole: AccountRole): void => {
+    (newRole: AccountRole) => {
       const url = Url({ ...location, search: '' })
         .replace(role, newRole)
         .value();
 
-      history.push(url);
+      history.replace(url);
     },
     [history.location]
   );
@@ -48,7 +48,7 @@ const Users = (): JSX.Element => {
     setTimeout(() => {
       handleRoleChange(role);
     }, 100);
-  }, [handleRoleChange]);
+  }, [role, handleRoleChange]);
 
   return (
     <div className={csx.users}>
@@ -66,7 +66,7 @@ const Users = (): JSX.Element => {
           {!pendingRequests && !users.length && (
             <Disclaimer
               description="Change filters to find users"
-              title="Not results for current filters"
+              title="No results for current filters"
             />
           )}
 

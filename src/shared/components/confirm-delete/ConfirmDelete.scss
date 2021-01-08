@@ -6,6 +6,11 @@
   padding: 90px 48px 28px 48px;
   width: 424px;
 
+  @include mobile {
+    width: 96%;
+    padding: 90px 24px 24px 24px;
+  }
+
   & > figure {
     @include centered;
     position: absolute;
@@ -47,9 +52,19 @@
   & > footer {
     align-self: flex-end;
 
+    @include mobile {
+      @include col;
+      width: 100%;
+      flex-flow: column-reverse;
+    }
+
     & > button {
       &:first-of-type {
         margin: 0 28px 0 auto;
+
+        @include mobile {
+          margin: 28px 0 0 0;
+        }
       }
     }
   }

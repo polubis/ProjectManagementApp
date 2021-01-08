@@ -5,18 +5,11 @@ import { Button, InputField, SimpleSelect, FieldBase, SelectBase, SelectControl 
 import { Form } from 'utils';
 
 import { TechnologiesSelect } from 'shared/components';
+import { EXPERIENCE_ITEMS, SENIORITY_ITEMS } from 'shared/consts';
 
 import { WorkImage } from '.';
 
-import {
-  POSITION,
-  SENIORITY,
-  COMPANY,
-  EXPERIENCE,
-  TECHNOLOGIES,
-  SENIORITY_ITEMS,
-  EXPERIENCE_ITEMS,
-} from '../../..';
+import { POSITION, SENIORITY, COMPANY, EXPERIENCE, TECHNOLOGIES } from '../../..';
 
 import csx from './Work.scss';
 
@@ -94,7 +87,7 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           onChange={change}
         />
 
-        <FieldBase label="Seniority *" error={dirty ? fields[SENIORITY].error : ''}>
+        <FieldBase label="Seniority" error={dirty ? fields[SENIORITY].error : ''}>
           <SimpleSelect items={mappedSeniorityItems} onSelect={handleSenioritySelect}>
             <SelectControl
               label={(selected) => mappedSeniorityItems[+selected[0]].label}
@@ -115,7 +108,7 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
           onChange={change}
         />
 
-        <FieldBase label="Years of experience *" error={dirty ? fields[EXPERIENCE].error : ''}>
+        <FieldBase label="Years of experience" error={dirty ? fields[EXPERIENCE].error : ''}>
           <SimpleSelect items={mappedExperienceItems} onSelect={handleExperienceSelect}>
             <SelectControl
               label={(selected) => mappedExperienceItems[+selected[0]].label}
@@ -126,7 +119,7 @@ const Work = ({ formManager, onBack, onSubmit }: Work.Props) => {
         </FieldBase>
       </div>
 
-      <FieldBase label="Technologies *" error={dirty ? fields[TECHNOLOGIES].error : ''}>
+      <FieldBase label="Technologies" error={dirty ? fields[TECHNOLOGIES].error : ''}>
         <TechnologiesSelect value={fields[TECHNOLOGIES].value} onSelect={handleTechnologySelect}>
           <SelectControl
             label={({ length }) => `${length} technolog${length > 1 ? 'ies' : 'y'} selected`}

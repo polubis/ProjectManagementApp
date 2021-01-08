@@ -13,6 +13,7 @@ namespace AuthProvider {
     logIn?(payload: Credentials): void;
     logInViaGithub?(): void;
     logOut?(): void;
+    updateUser?(user: Partial<Self>): void;
   }
 
   export interface Props extends RouteComponentProps {
@@ -45,6 +46,12 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     } catch {
       this.setState({ ...STATE, pending: false });
     }
+  };
+
+  updateUser = (user: Partial<Self>): void => {
+    this.setState((prevState) => ({
+      user: { ...prevState.user, ...user },
+    }));
   };
 
   logIn = async (payload: Credentials) => {
@@ -83,6 +90,7 @@ class Provider extends React.Component<AuthProvider.Props, typeof STATE> {
     ...STATE,
     logIn: this.logIn,
     logOut: this.logOut,
+    updateUser: this.updateUser,
     logInViaGithub,
   };
 

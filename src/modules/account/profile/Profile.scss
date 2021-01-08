@@ -1,0 +1,97 @@
+@import 'styles/mixins';
+
+.profile {
+  & > header {
+    @include row;
+
+    & > span {
+      @include headingMedium;
+      margin-right: 12px;
+    }
+
+    & > a {
+      margin-left: auto;
+    }
+  }
+
+  .user {
+    @include col;
+    padding: 28px;
+    background: $surfacePrimary;
+    border: 1px solid rgba($primary, 0.43);
+    border-radius: 4px;
+    margin: 72px 0 48px 0;
+
+    &.sliced {
+      padding: 28px 16px 16px 28px;
+    }
+
+    & > header {
+      display: flex;
+
+      .avatar {
+        @include headingMedium;
+        box-shadow: $shadowPrimary;
+        border-radius: 50%;
+        background: $surface;
+        border: 1px solid rgba($primary, 0.43);
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      & > b {
+        @include heading;
+        @include dottedText;
+        align-self: center;
+        margin-left: 22px;
+      }
+    }
+
+    .details {
+      @include wrap;
+      padding: 22px 0 0 22px;
+      margin-top: 38px;
+      background: $surface;
+      border: 1px solid rgba($primary, 0.43);
+      border-radius: 4px;
+
+      .detail {
+        @include col;
+        margin: 0 22px 22px 0;
+
+        & > span {
+          &:first-of-type {
+            @include labelSmall;
+            color: $grey;
+          }
+
+          &:last-of-type {
+            @include label;
+          }
+        }
+      }
+    }
+  }
+
+  .technologies {
+    @include col;
+    margin-top: 32px;
+
+    & > span {
+      @include label;
+      color: $grey;
+      margin-bottom: 16px;
+    }
+
+    .technologiesList {
+      @include row;
+      flex-flow: wrap;
+
+      figure {
+        margin: 0 12px 12px 0;
+      }
+    }
+  }
+}

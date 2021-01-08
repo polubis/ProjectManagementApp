@@ -1,0 +1,42 @@
+@import 'styles/mixins';
+
+.navigation {
+  @include col;
+  align-items: flex-end;
+  position: sticky;
+  top: 48px;
+
+  .links {
+    @include col;
+
+    .version {
+      @include labelSmall;
+      color: $grey;
+      margin-left: 8px;
+    }
+
+    .label {
+      @include label;
+      margin: 82px 0 24px 8px;
+      color: $grey;
+    }
+
+    .link {
+      @include link;
+      color: $primary;
+      padding: 12px 8px;
+
+      &.active {
+        color: $secondary;
+      }
+
+      &.backToApp {
+        margin: 24px 0 0 0;
+      }
+    }
+
+    .logout {
+      margin: 132px auto 0 8px;
+    }
+  }
+}

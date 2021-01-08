@@ -5,6 +5,7 @@ export * from './factories';
 export * from './form';
 export * from './interactions';
 export * from './listeners';
+export * from './management';
 export * from './rendering';
 export * from './routing';
 export * from './parsing';

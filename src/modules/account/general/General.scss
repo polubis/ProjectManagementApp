@@ -1,0 +1,126 @@
+@import 'styles/mixins';
+
+@mixin section {
+  @include col;
+  margin: 28px 0;
+
+  .title {
+    @include label;
+    color: $grey;
+  }
+
+  & > button,
+  & > a {
+    margin-right: auto;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: rgba($primary, 0.43);
+}
+
+.general {
+  & > h3 {
+    @include headingMedium;
+  }
+
+  .user {
+    @include col;
+    padding: 28px;
+    background: $surfacePrimary;
+    border: 1px solid rgba($primary, 0.43);
+    border-radius: 4px;
+    margin: 86px 0 48px 0;
+
+    header {
+      @include row;
+
+      .avatar {
+        @include headingMedium;
+        box-shadow: $shadowPrimary;
+        border-radius: 50%;
+        background: $surface;
+        border: 1px solid rgba($primary, 0.43);
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      & > b {
+        @include heading;
+        @include dottedText;
+        color: $primary;
+        margin-left: 22px;
+      }
+    }
+
+    .details {
+      @include wrap;
+      padding: 22px 0 0 22px;
+      margin-top: 38px;
+      background: $surface;
+      border: 1px solid rgba($primary, 0.43);
+      border-radius: 4px;
+
+      .detail {
+        @include col;
+        margin: 0 22px 22px 0;
+
+        & > span {
+          &:first-of-type {
+            @include labelSmall;
+            color: $grey;
+          }
+
+          &:last-of-type {
+            @include label;
+          }
+        }
+      }
+    }
+  }
+
+  .passwordSetup {
+    @include section;
+
+    .title {
+      margin-bottom: 28px;
+    }
+  }
+
+  .githubConnection {
+    @include section;
+
+    .connectionLabel {
+      @include label;
+      margin-top: 14px;
+
+      .red {
+        color: $error;
+      }
+
+      .primary {
+        color: $primary;
+      }
+
+      .green {
+        color: $ok;
+      }
+    }
+
+    & > button {
+      margin-top: 28px;
+    }
+  }
+
+  .dangerZone {
+    @include section;
+
+    .description {
+      @include description;
+      margin: 14px 0 28px;
+    }
+  }
+}

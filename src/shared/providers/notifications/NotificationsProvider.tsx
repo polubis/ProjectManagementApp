@@ -47,6 +47,11 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
 
   private _allLoaded = false;
 
+  private _parseNotificationsData = (
+    notifications: Notification<unknown>[]
+  ): Notification<unknown>[] =>
+    notifications.map((n) => (typeof n.data === 'string' ? { ...n, data: JSON.parse(n.data) } : n));
+
   private _handleLoad = (): Subscription =>
     this._load$
       .pipe(
@@ -58,7 +63,11 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
           from(getNotifications(this._payload)).pipe(
             tap((notifications) => {
               this._allLoaded = this._areAllLoaded(this._payload.limit, notifications.length);
-              this.setState({ ...STATE, loading: false, notifications });
+              this.setState({
+                ...STATE,
+                loading: false,
+                notifications: this._parseNotificationsData(notifications),
+              });
             }),
             catchError((error) => {
               this.setState({ ...STATE, error, loading: false });
@@ -85,7 +94,10 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
               this._allLoaded = this._areAllLoaded(this._payload.limit, notifications.length);
 
               this.setState((prevState) => ({
-                notifications: [...prevState.notifications, ...notifications],
+                notifications: [
+                  ...prevState.notifications,
+                  ...this._parseNotificationsData(notifications),
+                ],
                 error: '',
                 loadingMore: false,
               }));
@@ -114,13 +126,13 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
     const idx = this.state.notifications.findIndex((n) => n.id === id);
     const notification = this.state.notifications[idx];
 
-    if (!notification || notification.readed) {
+    if (!notification || notification.isRead) {
       return;
     }
 
     this.setState(({ notifications }) => {
       const newNotifications = [...notifications];
-      notifications[idx] = { ...notification, readed: true };
+      newNotifications[idx] = { ...notification, isRead: true };
 
       return { notifications: newNotifications };
     });
@@ -131,7 +143,7 @@ class Provider extends React.Component<NotificationsProvider.Props, typeof STATE
       this.setState(
         ({ notifications }) => {
           const newNotifications = [...notifications];
-          notifications[idx] = { ...notification, readed: false };
+          newNotifications[idx] = { ...notification, isRead: false };
 
           return { notifications: newNotifications };
         },

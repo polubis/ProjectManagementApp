@@ -1,0 +1,24 @@
+@import 'styles/mixins';
+
+.mobileNavigation {
+  padding: 28px 56px 28px 16px;
+
+  .link {
+    @include row;
+    @include link;
+    padding: 12px 8px;
+    color: $primary;
+
+    &.active {
+      color: $secondary;
+    }
+
+    &.backToApp {
+      margin: 24px 0 0 0;
+    }
+  }
+
+  .logout {
+    margin: auto auto 0 0;
+  }
+}

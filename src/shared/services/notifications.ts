@@ -6,7 +6,7 @@ import {
 import { core } from 'shared/instances';
 
 // TODO REFACTOR ON BE
-const PATH = '/api/Notifications';
+const PATH = 'Notifications';
 
 export const getNotifications = (
   params: GetNotificationsPayload
