@@ -7,15 +7,6 @@ export interface MarkNotificationAsReadPayload {
   notificationId: string;
 }
 
-export interface GetNotificationsPayload {
-  limit: number;
-  page: number;
-}
-
-export interface MarkNotificationAsReadPayload {
-  notificationId: string;
-}
-
 export enum NotificationType {
   TEMPLATE_ADDED = 'TEMPLATE_ADDED',
   TEMPLATE_DELETED = 'TEMPLATE_DELETED',
