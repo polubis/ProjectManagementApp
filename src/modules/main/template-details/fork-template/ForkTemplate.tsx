@@ -15,13 +15,13 @@ export namespace ForkTemplate {
 }
 
 interface State {
-  error: boolean;
+  error: string;
   pending: boolean;
   success: boolean;
 }
 
 const STATE: State = {
-  error: false,
+  error: '',
   pending: true,
   success: false,
 };
@@ -39,9 +39,9 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props): JSX.Element =>
     try {
       await forkTemplate({ templateId: template.id });
 
-      setState({ error: false, pending: false, success: true });
+      setState({ error: '', pending: false, success: true });
     } catch {
-      setState({ error: true, pending: false, success: false });
+      setState({ error: 'Error', pending: false, success: false });
     }
   }, [pending]);
 
