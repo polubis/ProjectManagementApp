@@ -41,7 +41,7 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props): JSX.Element =>
 
       setState({ error: '', pending: false, success: true });
     } catch {
-      setState({ error: 'Error', pending: false, success: false });
+      setState({ error: 'Error occurred', pending: false, success: false });
     }
   }, [pending]);
 
@@ -57,7 +57,7 @@ const ForkTemplate = ({ template, onClose }: ForkTemplate.Props): JSX.Element =>
         <>
           <Disclaimer
             description="Something went wrong while forking the template. Please try again later"
-            title={<span className={csx.error}>Error occured</span>}
+            title={<span className={csx.error}>{state.error}</span>}
           />
 
           <footer>
