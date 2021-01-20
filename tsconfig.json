@@ -36,7 +36,7 @@
       "utils": ["src/utils"],
       "services*": ["src/services/*"],
       "styles": ["src/styles"],
-      "comparision": ["io-fdk/comparision"]
+      "io-fdk": ["src/io-fdk"]
     },
     "plugins": [
       {
