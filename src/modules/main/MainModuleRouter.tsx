@@ -3,7 +3,7 @@ import { useRouteMatch, Route, Redirect, Switch } from 'react-router';
 
 import { withLazy } from 'utils';
 
-import { Guard } from 'shared/guards';
+import { OnlyAdminRoute, OnlyAuthorizedRoute } from 'shared/guards';
 import { TemplateCategory } from 'shared/models';
 
 const AdminModule = withLazy(() => import('./admin'));
@@ -17,13 +17,13 @@ const MainModuleRouter = (): JSX.Element => {
 
   return (
     <Switch>
-      <Guard.AdminRoute
+      <OnlyAdminRoute
         redirect={`${match.path}/templates`}
         path={`${match.path}/admin`}
         component={AdminModule}
       />
 
-      <Guard.ProtectedRoute
+      <OnlyAuthorizedRoute
         exact
         redirect={`${match.path}/templates`}
         path={`${match.path}/templates/management/:id?`}

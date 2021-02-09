@@ -1,1 +1,1 @@
-export { default as Guard } from './Guard';
+export { OnlyAdmin, OnlyAdminRoute, OnlyAuthorized, OnlyUnauthorized, OnlyAuthorizedRoute, OnlyUnauthorizedRoute } from './Guard';

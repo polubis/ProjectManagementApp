@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Logo } from 'ui';
 
-import { Guard } from 'shared/guards';
+import { OnlyUnauthorized } from 'shared/guards';
 
 import csx from './Footer.scss';
 
@@ -38,13 +38,13 @@ const Footer = () => {
             newsletter
           </span>
 
-          <Guard.Unprotected>
+          <OnlyUnauthorized>
             <div className={csx.links}>
               <Link to="/register">Register</Link>
 
               <Link to="/login">Log In</Link>
             </div>
-          </Guard.Unprotected>
+          </OnlyUnauthorized>
         </div>
 
         <div className={csx.history}>

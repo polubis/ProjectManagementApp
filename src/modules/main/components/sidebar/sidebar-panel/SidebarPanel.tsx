@@ -6,7 +6,7 @@ import { Backdrop } from 'ui';
 import { usePortal } from 'utils';
 
 import { Breadcrumbs } from 'shared/components';
-import { Guard } from 'shared/guards';
+import { OnlyAdmin } from 'shared/guards';
 
 import AdminContent from './admin-content';
 import TemplatesContent from './templates-content';
@@ -28,9 +28,9 @@ const SidebarPanel = ({ onClose }: SidebarPanel.Props): JSX.Element => {
         <div className={csx.sidebarPanel}>
           <Breadcrumbs className={csx.breadcrumbs} divider="/" />
 
-          <Guard.Admin>
+          <OnlyAdmin>
             <Route path="/app/admin" component={AdminContent} />
-          </Guard.Admin>
+          </OnlyAdmin>
           <Route path="/app/templates" component={TemplatesContent} />
         </div>
       )}

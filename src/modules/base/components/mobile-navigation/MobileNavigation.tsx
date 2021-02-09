@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Guard } from 'shared/guards';
+import { OnlyUnauthorized } from 'shared/guards';
 
 import { MobileNavigation as UIMobileNavigation, Logo } from 'ui';
 
@@ -14,14 +14,14 @@ const MobileNavigation = (): JSX.Element => {
         App
       </NavLink>
 
-      <Guard.Unprotected>
+      <OnlyUnauthorized>
         <NavLink activeClassName={csx.active} className={csx.link} to="/register">
           Register
         </NavLink>
         <NavLink activeClassName={csx.active} className={csx.link} to="/login">
           Log In
         </NavLink>
-      </Guard.Unprotected>
+      </OnlyUnauthorized>
 
       <NavLink className={csx.logo} to="/">
         <figure>

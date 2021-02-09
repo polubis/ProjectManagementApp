@@ -13,7 +13,7 @@ import { Button, More, Tags, Img } from 'ui';
 import { convertDate } from 'utils';
 
 import { TemplateTags, TemplateStats, TechnologyChip } from 'shared/components';
-import { TemplateAuthorGuard, Guard } from 'shared/guards';
+import { TemplateAuthorGuard, OnlyAuthorized } from 'shared/guards';
 import { Template } from 'shared/models';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider,
@@ -94,7 +94,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                 </Button>
               </a>
 
-              <Guard.Protected>
+              <OnlyAuthorized>
                 {({ user }) =>
                   user.connectedWithGithub &&
                   user.username !== template.addedBy && (
@@ -103,7 +103,7 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
                     </Button>
                   )
                 }
-              </Guard.Protected>
+              </OnlyAuthorized>
 
               <TemplateAuthorGuard>
                 <More>

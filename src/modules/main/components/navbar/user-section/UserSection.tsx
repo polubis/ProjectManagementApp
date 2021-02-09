@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, useMenu, Menu, Img } from 'ui';
 
-import { Guard } from 'shared/guards';
+import { OnlyAuthorized, OnlyUnauthorized } from 'shared/guards';
 
 import Notifications from './notifications';
 import UserDetails from './user-details';
@@ -21,7 +21,7 @@ const UserSection = (): JSX.Element => {
 
   return (
     <div className={csx.userSection}>
-      <Guard.Protected>
+      <OnlyAuthorized>
         {({ user: { username, githubAvatarUrl } }) => (
           <>
             <div className={csx.details} onClick={openMenu}>
@@ -48,9 +48,9 @@ const UserSection = (): JSX.Element => {
             <Notifications />
           </>
         )}
-      </Guard.Protected>
+      </OnlyAuthorized>
 
-      <Guard.Unprotected>
+      <OnlyUnauthorized>
         <>
           <NavLink to="/login">
             <Button className={csx.logInBtn}>LOG IN</Button>
@@ -60,7 +60,7 @@ const UserSection = (): JSX.Element => {
             <Button>CREATE ACCOUNT</Button>
           </NavLink>
         </>
-      </Guard.Unprotected>
+      </OnlyUnauthorized>
     </div>
   );
 };
