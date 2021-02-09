@@ -4,7 +4,7 @@ import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import AdminIcon from '@material-ui/icons/SupervisorAccount';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
-import { Guard } from 'shared/guards';
+import { OnlyAdmin } from 'shared/guards';
 
 import { Button } from 'ui';
 
@@ -26,7 +26,7 @@ const SidebarLinks = (): JSX.Element => {
         </Button>
       </NavLink>
 
-      <Guard.Admin>
+      <OnlyAdmin>
         <NavLink
           activeClassName={pathname.includes('admin') ? csx.active : ''}
           to={`${path}/admin`}
@@ -36,7 +36,7 @@ const SidebarLinks = (): JSX.Element => {
             <span>Admin</span>
           </Button>
         </NavLink>
-      </Guard.Admin>
+      </OnlyAdmin>
     </div>
   );
 };

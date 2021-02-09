@@ -23,7 +23,7 @@ namespace Guard {
   }
 }
 
-const Admin = ({ children }: Guard.Props) => {
+const OnlyAdmin = ({ children }: Guard.Props) => {
   const { pending, authorized, ...state } = useAuthProvider();
 
   return pending
@@ -37,7 +37,7 @@ const Admin = ({ children }: Guard.Props) => {
     : null;
 };
 
-const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
+const OnlyAdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized, user } = useAuthProvider();
 
   return (
@@ -58,7 +58,7 @@ const AdminRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Pro
   );
 };
 
-const Protected = ({ children }: Guard.Props) => {
+const OnlyAuthorized = ({ children }: Guard.Props) => {
   const { pending, authorized, ...state } = useAuthProvider();
 
   return pending
@@ -70,7 +70,7 @@ const Protected = ({ children }: Guard.Props) => {
     : null;
 };
 
-const Unprotected = ({ children }: Guard.Props) => {
+const OnlyUnauthorized = ({ children }: Guard.Props) => {
   const { pending, authorized, ...state } = useAuthProvider();
 
   return pending
@@ -82,7 +82,7 @@ const Unprotected = ({ children }: Guard.Props) => {
     : children;
 };
 
-const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
+const OnlyAuthorizedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized } = useAuthProvider();
 
   return (
@@ -95,7 +95,7 @@ const ProtectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route
   );
 };
 
-const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
+const OnlyUnauthorizedRoute = ({ component: Component, redirect, ...rest }: Guard.Route.Props) => {
   const { pending, authorized } = useAuthProvider();
 
   return (
@@ -108,13 +108,11 @@ const UnprotectedRoute = ({ component: Component, redirect, ...rest }: Guard.Rou
   );
 };
 
-const Guard = {
-  Admin,
-  AdminRoute,
-  Protected,
-  Unprotected,
-  ProtectedRoute,
-  UnprotectedRoute,
+export { OnlyAdmin, 
+  OnlyAdminRoute, 
+  OnlyAuthorized, 
+  OnlyUnauthorized, 
+  OnlyAuthorizedRoute, 
+  OnlyUnauthorizedRoute 
 };
 
-export default Guard;

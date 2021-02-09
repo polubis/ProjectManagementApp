@@ -7,7 +7,7 @@ import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { MobileNavigation as UIMobileNavigation } from 'ui';
 
-import { Guard } from 'shared/guards';
+import { OnlyAdmin, OnlyAuthorized } from 'shared/guards';
 import {
   CreateTemplateMobileButton,
   CreateTechnologyMobileButton,
@@ -26,7 +26,7 @@ const MobileNavigation = (): JSX.Element => {
         <span>Templates</span>
       </NavLink>
 
-      <Guard.Admin>
+      <OnlyAdmin>
         <NavLink activeClassName={csx.active} className={csx.link} to={`${path}/admin`}>
           <AdminIcon />
           <span>Admin</span>
@@ -55,17 +55,17 @@ const MobileNavigation = (): JSX.Element => {
         >
           Users
         </NavLink>
-      </Guard.Admin>
+      </OnlyAdmin>
 
       <footer className={csx.footer}>
-        <Guard.Protected>
+        <OnlyAuthorized>
           <Route path={`${path}/templates`} component={CreateTemplateMobileButton} />
-        </Guard.Protected>
+        </OnlyAuthorized>
 
-        <Guard.Admin>
+        <OnlyAdmin>
           <Route path={`${path}/admin/dictionaries`} component={CreatePatternMobileButton} />
           <Route path={`${path}/admin/dictionaries`} component={CreateTechnologyMobileButton} />
-        </Guard.Admin>
+        </OnlyAdmin>
       </footer>
     </UIMobileNavigation>
   );
