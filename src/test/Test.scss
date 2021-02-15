@@ -1,0 +1,9 @@
+@import 'styles/mixins';
+
+.test {
+  height: 100vh;
+
+  & > div {
+    height: 100%;
+  }
+}
