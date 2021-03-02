@@ -11,6 +11,7 @@ const Templates = withLazy(() => import('./templates'));
 const TemplateDetails = withLazy(() => import('./template-details'));
 const TemplateDocumentation = withLazy(() => import('./template-documentation'));
 const TemplateManagement = withLazy(() => import('./template-management'));
+const Dashboard = withLazy(() => import('./dashboard'));
 
 const MainModuleRouter = (): JSX.Element => {
   const match = useRouteMatch();
@@ -29,6 +30,8 @@ const MainModuleRouter = (): JSX.Element => {
         path={`${match.path}/templates/management/:id?`}
         component={TemplateManagement}
       />
+
+      <Route exact path={`${match.path}/dashboard`} component={Dashboard} />
 
       <Route
         exact

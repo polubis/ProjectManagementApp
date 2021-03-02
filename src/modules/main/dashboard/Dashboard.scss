@@ -1,0 +1,8 @@
+@import 'styles/mixins';
+
+.dashboard {
+    @include col;
+    @include space;
+    height: 100%;
+}
+
