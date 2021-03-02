@@ -1,21 +1,13 @@
 @import 'styles/mixins';
 
-.tile {
+@mixin tile {
   @include col;
-  border: 1px solid rgba($primary, 0.43);
-  padding: 12px 10px 16px 24px;
+  padding: 20px 10px 16px 24px;
   border-radius: 4px;
   background: $surfacePrimary;
 
   & > header {
-    @include rowBetween;
-    margin-bottom: 12px;
-
-    .title {
-      @include dottedText;
-      @include headingSmall;
-      padding-right: 4px;
-    }
+    margin-bottom: 16px;
   }
 
   & > footer {
@@ -24,5 +16,39 @@
     & > * {
       margin: 0 6px 8px 0;
     }
+  }
+}
+
+.tile {
+  @include tile;
+  border: 1px solid rgba($primary, 0.43);
+  cursor: pointer;
+
+  & > header {
+    @include rowBetween;
+
+    .title {
+      @include dottedText;
+      @include headingSmall;
+      padding-right: 4px;
+    }
+  }
+}
+
+.loader {
+  @include tile;
+
+  & > header {
+    background: rgba($primary, 0.04);
+    width: 60%;
+    height: 26px;
+    border-radius: 4px;
+  }
+
+  & > footer > * {
+    background: rgba($primary, 0.04);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
   }
 }

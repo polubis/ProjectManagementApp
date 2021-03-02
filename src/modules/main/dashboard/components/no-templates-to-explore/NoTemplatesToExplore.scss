@@ -1,0 +1,16 @@
+@import 'styles/mixins';
+
+.noTemplatesToExplore {
+  @include colCenter;
+  max-width: 340px;
+  padding: 48px;
+  background: $surfacePrimary;
+  border: 1px solid rgba($primary, 0.43);
+  border-radius: 4px;
+
+  .checkIcon {
+    font-size: 60px;
+    color: $ok;
+    margin: 42px 0 62px 0;
+  }
+}

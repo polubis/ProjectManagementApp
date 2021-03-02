@@ -1,3 +1,4 @@
+export * from './action';
 export * from './alert';
 export * from './alerts';
 export * from './backdrop';
@@ -6,6 +7,7 @@ export * from './checkbox';
 export * from './date-picker';
 export * from './date-field';
 export * from './disclaimer';
+export * from './error-action';
 export * from './field-base';
 export * from './file-field';
 export * from './input-field';

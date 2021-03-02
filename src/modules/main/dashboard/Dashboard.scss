@@ -1,8 +1,9 @@
 @import 'styles/mixins';
 
 .dashboard {
-    @include col;
-    @include space;
-    height: 100%;
+  @include space;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
 }
-

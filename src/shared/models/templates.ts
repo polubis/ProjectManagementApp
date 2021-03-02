@@ -72,3 +72,9 @@ export interface TemplateDocumentation {
   headings: TemplateDocumentationHeading[];
   readmeLines: TemplateDocumentationItem[];
 }
+
+export interface LastAddedTemplatesParams {
+  limit: number;
+  page: number;
+  query: string;
+}

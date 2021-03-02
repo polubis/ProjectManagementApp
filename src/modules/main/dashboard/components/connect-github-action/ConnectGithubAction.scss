@@ -1,0 +1,13 @@
+@import 'styles/mixins';
+
+.title {
+  & > span {
+    &:first-of-type {
+      color: $error;
+    }
+
+    &:last-of-type {
+      color: $primary;
+    }
+  }
+}

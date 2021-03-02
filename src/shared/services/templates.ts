@@ -3,6 +3,7 @@ import {
   ForkTemplatePayload,
   Template,
   TemplateDocumentation,
+  LastAddedTemplatesParams,
 } from 'shared/models';
 
 import { core } from 'shared/instances';
@@ -28,3 +29,6 @@ export const deleteTemplate = (id: string): Promise<null> => core.delete<null>(`
 
 export const forkTemplate = (payload: ForkTemplatePayload): Promise<null> =>
   core.post<ForkTemplatePayload, null>(`${PATH}/Fork`, payload);
+
+export const getLastAddedTemplates = (params?: LastAddedTemplatesParams): Promise<Template[]> =>
+  core.get<Template[]>(`${PATH}/GetLastAdded`, { params });
