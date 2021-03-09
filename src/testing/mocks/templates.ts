@@ -1,6 +1,6 @@
 import { Template } from 'shared/models';
 
-export const template: Template = {
+export const _TEMPLATE_: Template = {
   id: '81f452ed-c07b-4244-aca2-c226045fc16c',
   name: 'My template',
   description: 'Template description',
