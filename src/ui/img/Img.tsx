@@ -20,4 +20,8 @@ const Img = ({ className, size, src, children, ...imgProps }: Img.Props): JSX.El
   );
 };
 
+Img.defaultProps = {
+  className: '',
+};
+
 export default Img;

@@ -1,0 +1,28 @@
+@import 'styles/mixins';
+
+.tile {
+  @include col;
+  border: 1px solid rgba($primary, 0.43);
+  padding: 12px 10px 16px 24px;
+  border-radius: 4px;
+  background: $surfacePrimary;
+
+  & > header {
+    @include rowBetween;
+    margin-bottom: 12px;
+
+    .title {
+      @include dottedText;
+      @include headingSmall;
+      padding-right: 4px;
+    }
+  }
+
+  & > footer {
+    @include wrap;
+
+    & > * {
+      margin: 0 6px 8px 0;
+    }
+  }
+}
