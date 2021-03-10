@@ -9,8 +9,8 @@ export const enhanceGridChildren = (
   mask: Mask
 ): EnhancedGridChildren[] => {
   const enhancedChildren = Children.map(children, (child: ReactElement<GridItemProps>) => {
-    const cells = createCells(child.props.cellsIds, mask);
-    const childrenStyle = createGridChildrenStyle(cells, child.props.groupId);
+    const cells = createCells(child.props.cellsIds, mask, child.props.groupId);
+    const childrenStyle = createGridChildrenStyle(cells);
 
     return cloneElement(child, {
       ...child.props,

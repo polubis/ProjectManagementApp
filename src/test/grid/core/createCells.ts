@@ -1,31 +1,48 @@
-import { Cells, Mask } from '../models/core';
+import { Cell, Cells, Mask } from '../models/core';
 import { getEdgeItems } from '../utils/getEdgeItems';
 import { toNumericArray } from '../utils/toNumericArray';
 
-const validate = (fromCellId: number, toCellId: number, mask: Mask): void => {
-  if (fromCellId > toCellId) {
-    throw new Error(
-      'Invalid parameters. Attribute fromCellId must have same or lower value than toCellId'
-    );
+const validate = (fromId: number, toId: number, mask: Mask, groupId: number): void => {
+  if (fromId > toId || !mask[fromId] || !mask[toId]) {
+    throw new Error('Cannot find cell in mask');
   }
 
-  if (!mask[fromCellId]) {
-    throw new Error('Invalid fromCellId value. Cannot find cell in mask');
-  }
-
-  if (!mask[toCellId]) {
-    throw new Error('Invalid toCellId value. Cannot find cell in mask');
+  if (groupId < 0) {
+    throw new Error('Invalid groupId parameter');
   }
 };
 
-export const createCells = (cellsIds: string, mask: Mask): Cells => {
+const createRange = (mask: Mask, from: Cell, to: Cell): number[] => {
+  const values = Object.values(mask);
+
+  const range = values.reduce((acc, { id, cords }): number[] => {
+    const isInRowRange = cords.row >= from.cords.row && cords.row <= to.cords.row;
+    const isInColRange = cords.col >= from.cords.col && cords.col <= to.cords.col;
+
+    return isInRowRange && isInColRange ? [...acc, id] : acc;
+  }, [] as number[]);
+
+  return range;
+};
+
+export const createCells = (cellsIds: string, mask: Mask, groupId = 0): Cells => {
   const numericCellsIds = toNumericArray(cellsIds.split(','));
   const [fromCellId, toCellId] = getEdgeItems(numericCellsIds);
 
-  validate(fromCellId, toCellId, mask);
+  validate(fromCellId, toCellId, mask, groupId);
+
+  const from = mask[fromCellId];
+  const to = mask[toCellId];
 
   return {
-    from: mask[fromCellId],
-    to: mask[toCellId],
+    from,
+    to,
+    groupId,
+    get range(): number[] {
+      return createRange(mask, from, to);
+    },
+    get stringRange(): string {
+      return createRange(mask, from, to).join(',');
+    },
   };
 };

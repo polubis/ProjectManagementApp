@@ -72,17 +72,9 @@ describe('createGridChildrenStyle()', () => {
     });
   });
 
-  it('throws for invalid groupId', () => {
-    expect(() => createGridChildrenStyle(createCells('4,5', _MASK_)).zIndex).not.toThrow();
-    expect(() => createGridChildrenStyle(createCells('4,5', _MASK_), 0).zIndex).not.toThrow();
-    expect(() => createGridChildrenStyle(createCells('4,5', _MASK_), 1).zIndex).not.toThrow();
-
-    expect(() => createGridChildrenStyle(createCells('4,5', _MASK_), -1).zIndex).toThrow();
-  });
-
   it('adds zIndex property', () => {
     expect(createGridChildrenStyle(createCells('4,5', _MASK_)).zIndex).toBe(0);
-    expect(createGridChildrenStyle(createCells('4,5', _MASK_), 0).zIndex).toBe(0);
-    expect(createGridChildrenStyle(createCells('4,5', _MASK_), 1).zIndex).toBe(1);
+    expect(createGridChildrenStyle(createCells('4,5', _MASK_, 0)).zIndex).toBe(0);
+    expect(createGridChildrenStyle(createCells('4,5', _MASK_, 1)).zIndex).toBe(1);
   });
 });
