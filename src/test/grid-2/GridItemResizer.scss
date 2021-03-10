@@ -1,0 +1,44 @@
+$size: 10px;
+$shift: -5px;
+
+.resizer {
+  position: absolute;
+  background: #1b7640;
+  cursor: pointer;
+
+  .handler {
+    position: absolute;
+
+    &.top {
+      top: $shift;
+      left: 0;
+      width: 100%;
+      height: $size;
+      cursor: n-resize;
+    }
+
+    &.right {
+      top: 0;
+      right: $shift;
+      width: $size;
+      height: 100%;
+      cursor: ew-resize;
+    }
+
+    &.bottom {
+      bottom: $shift;
+      left: 0;
+      width: 100%;
+      height: $size;
+      cursor: n-resize;
+    }
+
+    &.left {
+      left: $shift;
+      top: 0;
+      width: $size;
+      height: 100%;
+      cursor: ew-resize;
+    }
+  }
+}

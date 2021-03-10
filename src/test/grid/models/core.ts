@@ -38,6 +38,9 @@ export type ColsCreator = (acc: number) => string;
 export interface Cells {
   from: Cell;
   to: Cell;
+  groupId: number;
+  range: number[];
+  stringRange: string;
 }
 
 export interface GridChildrenStyle {
@@ -48,9 +51,19 @@ export interface GridChildrenStyle {
 
 export type EnhancedGridChildren = ReactElement<{ style: GridChildrenStyle }>;
 
-export interface GridProps
-  extends Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'children'> {
-  children: ReactElement | ReactElement[];
+export interface Position<T = null> {
+  cellsIds: string;
+  groupId?: number;
+  data?: T | null;
+}
+
+export type PositionKeys<T = null> = keyof Position<T>;
+
+export type Positions<T = null> = Position<T>[];
+
+export type PositionsDictionary<T = null> = Record<string, Position<T>>;
+
+export interface GridConfig {
   rows: number;
   cols: number;
   rowGap?: number;
@@ -58,6 +71,13 @@ export interface GridProps
   rowsCreator?: RowsCreator;
   colsCreator?: ColsCreator;
 }
+
+export type GridProps = Omit<
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  'children'
+> & {
+  children: ReactElement | ReactElement[];
+} & GridConfig;
 
 export interface GridItemProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
