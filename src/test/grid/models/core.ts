@@ -43,6 +43,7 @@ export interface Cells {
 export interface GridChildrenStyle {
   gridColumn: string;
   gridRow: string;
+  zIndex: number;
 }
 
 export type EnhancedGridChildren = ReactElement<{ style: GridChildrenStyle }>;
@@ -61,4 +62,5 @@ export interface GridProps
 export interface GridItemProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   cellsIds: string;
+  groupId?: number;
 }

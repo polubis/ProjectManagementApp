@@ -20,6 +20,7 @@ const Test = () => {
       >
         <GridItem cellsIds="1,3" style={{ background: 'red' }} />
         <GridItem cellsIds="4,5" style={{ background: 'red' }} />
+        <GridItem cellsIds="4,5" groupId={1} style={{ background: 'blue' }} />
         <GridItem cellsIds="7,8" style={{ background: 'red' }} />
         <GridItem cellsIds="6,9" style={{ background: 'red' }} />
       </Grid>

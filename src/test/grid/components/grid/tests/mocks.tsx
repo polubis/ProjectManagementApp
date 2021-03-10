@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
-import { GridItemProps } from 'src/test/grid/models/core';
+import { GridItemProps } from '../../../models/core';
 
-export const _GridItem_: FC<GridItemProps> = ({ cellsIds, ...props }) => <div {...props} />;
+export const _GridItem_: FC<GridItemProps> = ({ cellsIds, groupId, ...props }) => (
+  <div {...props} />
+);
