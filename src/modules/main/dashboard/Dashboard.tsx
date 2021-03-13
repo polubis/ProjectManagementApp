@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { useAuthProvider } from 'shared/providers/auth';
 
-import { Actions, RecentTemplates, TemplatesToExplore } from './sections';
+import { Actions, HallOfFame, RecommendedTemplates } from './sections';
 
 import csx from './Dashboard.scss';
 
@@ -14,8 +14,8 @@ const Dashboard: FC = () => {
       {pending || (
         <>
           <Actions />
-          <RecentTemplates />
-          <TemplatesToExplore />
+          <HallOfFame />
+          <RecommendedTemplates />
         </>
       )}
     </div>

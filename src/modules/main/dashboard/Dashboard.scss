@@ -4,6 +4,9 @@
   @include space;
   display: grid;
   gap: 32px;
-  grid-template-columns: 1fr 1fr 1fr;
   height: 100%;
+
+  @include laptop-up {
+    grid-template-columns: 1.3fr 2fr 1.3fr;
+  }
 }

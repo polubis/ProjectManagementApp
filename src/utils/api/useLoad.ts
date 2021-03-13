@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { from } from 'rxjs';
 
 interface State<T> {
@@ -7,37 +7,31 @@ interface State<T> {
   loading: boolean;
 }
 
-const STATE: State<unknown> = {
-  data: null,
-  error: false,
-  loading: true,
-};
+export const useLoad = <T>(source: () => Promise<T>): [T | null, boolean, boolean, () => void] => {
+  const [state, setState] = useState<State<T>>({ data: null, error: false, loading: true });
 
-export const useLoad = <T>(source: Promise<T>): [T | null, boolean, boolean] => {
-  const [state, setState] = useState(STATE as State<T>);
-
-  const { data, loading, error } = state;
+  const handleLoad = useCallback(() => {
+    if (!state.loading) {
+      setState({ data: null, error: false, loading: true });
+    }
+  }, [state]);
 
   useEffect(() => {
-    if (!loading) {
-      setState(STATE as State<T>);
-    }
+    if (state.loading) {
+      const sub = from(source()).subscribe(
+        (data) => {
+          setState({ loading: false, error: false, data });
+        },
+        () => {
+          setState({ loading: false, error: true, data: null });
+        }
+      );
 
-    const sub = from(source).subscribe(
-      (data) => {
-        setState({ loading: false, error: false, data });
-      },
-      () => {
-        setState({ loading: false, error: true, data: null });
-      }
-    );
-
-    return () => {
-      if (sub) {
+      return () => {
         sub.unsubscribe();
-      }
-    };
-  }, [source]);
+      };
+    }
+  }, [state]);
 
-  return [data, loading, error];
+  return [state.data, state.loading, state.error, handleLoad];
 };

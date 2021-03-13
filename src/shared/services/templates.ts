@@ -13,7 +13,7 @@ const PATH = 'Templates';
 export const getTemplateDocumentation = (url: string): Promise<TemplateDocumentation> =>
   core.get<TemplateDocumentation>(`TestData/ConvertFromMarkdown?url=${url}`);
 
-export const getTemplates = (query: string): Promise<Template[]> =>
+export const getTemplates = (query = ''): Promise<Template[]> =>
   core.get<Template[]>(`${PATH}/Search${query}`);
 
 export const getTemplateDetails = (id: string): Promise<Template> =>
@@ -32,3 +32,8 @@ export const forkTemplate = (payload: ForkTemplatePayload): Promise<null> =>
 
 export const getLastAddedTemplates = (params?: LastAddedTemplatesParams): Promise<Template[]> =>
   core.get<Template[]>(`${PATH}/GetLastAdded`, { params });
+
+export const getRandomTemplate = (): Promise<Template> => core.get<Template>(`${PATH}/GetRandom`);
+
+export const getRandomTemplateByTechnologies = (): Promise<Template> =>
+  core.get<Template>(`${PATH}/GetRandomByTechnologies`);

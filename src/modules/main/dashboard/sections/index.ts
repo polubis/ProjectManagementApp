@@ -1,3 +1,3 @@
 export * from './actions';
-export * from './recent-templates';
-export * from './templates-to-explore';
+export * from './hall-of-fame';
+export * from './recommended-templates';

@@ -26,13 +26,14 @@ const TemplateTileSmall: FC<Props> = ({ className, children, template, ...props 
 
         {children && (
           <More
-            children={children}
             trigger={(open) => (
               <Button title="More" onClick={open} theme="primaryTransparent" variant="icon">
                 <MoreVertIcon />
               </Button>
             )}
-          />
+          >
+            {children}
+          </More>
         )}
       </header>
 
