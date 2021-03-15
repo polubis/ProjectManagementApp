@@ -1,0 +1,66 @@
+@import 'styles/mixins';
+
+.templateDetails {
+  @include col;
+  padding: 42px;
+  border-radius: 4px;
+  background: $surfacePrimary;
+  border: 1px solid rgba($primary, 0.43);
+
+  .tags {
+    margin: 32px 0 18px 0;
+  }
+
+  .date {
+    @include labelSmall;
+    margin: 22px 0 18px 0;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  .name {
+    @include headingBig;
+    word-break: break-word;
+  }
+
+  .description {
+    @include descriptionMedium;
+    display: block;
+    margin: 32px 0 52px 0;
+    word-break: break-word;
+  }
+
+  .technologies,
+  .patterns {
+    @include col;
+
+    h5 {
+      @include heading;
+      margin-bottom: 26px;
+    }
+  }
+
+  .technologies > div {
+    @include row;
+    flex-flow: wrap;
+
+    & > div {
+      margin: 0 24px 24px 0;
+    }
+  }
+
+  .patterns {
+    margin: 18px 0 32px 0;
+  }
+
+  & > footer {
+    @include row;
+    margin-top: 24px;
+
+    & > button:first-of-type {
+      margin-right: 28px;
+    }
+  }
+}

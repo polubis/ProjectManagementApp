@@ -24,3 +24,6 @@ export const changePassword = (payload: ChangePasswordPayload): Promise<null> =>
 
 export const updateUserData = (payload: UpdateUserDataPayload): Promise<null> =>
   core.put<UpdateUserDataPayload, null>(`${PATH}/UpdateUserData`, payload);
+
+export const markLastAddedReadTime = (): Promise<null> =>
+  core.get<null>(`${PATH}/MarkLastAddedReadTime`);

@@ -1,0 +1,76 @@
+@import 'styles/mixins';
+
+@mixin colored {
+  background: rgba($primary, 0.04);
+  border-radius: 4px;
+}
+
+.templateDetailsLoader {
+  @include col;
+  padding: 42px;
+  border-radius: 4px;
+  background: $surfacePrimary;
+
+  & > * {
+    @include row;
+    flex-flow: wrap;
+
+    & > * {
+      @include colored;
+    }
+  }
+
+  .tags {
+    div {
+      height: 24px;
+      width: 70px;
+
+      &:not(:last-of-type) {
+        margin: 0 16px 0 0;
+      }
+    }
+  }
+
+  .stats {
+    margin: 18px 0 22px 0;
+
+    div {
+      height: 24px;
+      width: 32px;
+
+      &:not(:last-of-type) {
+        margin: 0 12px 0 0;
+      }
+
+      &:nth-of-type(even) {
+        width: 12px;
+      }
+    }
+  }
+
+  .title {
+    @include colored;
+    height: 38px;
+    width: 100%;
+  }
+
+  .description {
+    @include colored;
+    width: 100%;
+    height: 100px;
+    margin: 32px 0 52px 0;
+  }
+
+  .technologies {
+    @include colored;
+    width: 100%;
+    height: 40px;
+  }
+
+  .patterns {
+    @include colored;
+    margin: 18px 0 32px 0;
+    width: 100%;
+    height: 40px;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 
 import AdminIcon from '@material-ui/icons/SupervisorAccount';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { Guard } from 'shared/guards';
@@ -16,6 +17,16 @@ const SidebarLinks = (): JSX.Element => {
 
   return (
     <div className={csx.links}>
+      <NavLink
+        activeClassName={pathname.includes('dashboard') ? csx.active : ''}
+        to={`${path}/dashboard`}
+      >
+        <Button theme="primaryTransparent">
+          <DashboardIcon />
+          <span>Dashboard</span>
+        </Button>
+      </NavLink>
+
       <NavLink
         activeClassName={pathname.includes('templates') ? csx.active : ''}
         to={`${path}/templates`}

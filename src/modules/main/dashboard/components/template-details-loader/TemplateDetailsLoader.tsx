@@ -1,17 +1,11 @@
-import React from 'react';
+import React, { FC, memo } from 'react';
 
-import csx from './ContentLoader.scss';
+import csx from './TemplateDetailsLoader.scss';
 
-const ContentLoader = (): JSX.Element => {
-  return (
-    <div className={csx.contentLoader}>
-      <header className={csx.actions}>
-        <div />
-        <div />
-        <div />
-      </header>
-
-      <section>
+const TemplateDetailsLoader: FC = memo(
+  () => {
+    return (
+      <div className={csx.templateDetailsLoader}>
         <div className={csx.tags}>
           <div />
           <div />
@@ -36,15 +30,10 @@ const ContentLoader = (): JSX.Element => {
         <div className={csx.technologies} />
 
         <div className={csx.patterns} />
+      </div>
+    );
+  },
+  () => true
+);
 
-        <div className={csx.authors}>
-          <div />
-          <div />
-          <div />
-        </div>
-      </section>
-    </div>
-  );
-};
-
-export default ContentLoader;
+export default TemplateDetailsLoader;

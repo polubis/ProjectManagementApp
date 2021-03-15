@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.dashboard {
+  @include space;
+  display: grid;
+  gap: 32px;
+  height: 100%;
+
+  @include laptop-up {
+    grid-template-columns: 1.3fr 2fr 1.3fr;
+  }
+}

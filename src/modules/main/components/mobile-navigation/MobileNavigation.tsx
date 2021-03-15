@@ -3,6 +3,7 @@ import { useRouteMatch, Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
 import AdminIcon from '@material-ui/icons/SupervisorAccount';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { MobileNavigation as UIMobileNavigation } from 'ui';
@@ -21,6 +22,11 @@ const MobileNavigation = (): JSX.Element => {
 
   return (
     <UIMobileNavigation>
+      <NavLink activeClassName={csx.active} className={csx.link} to={`${path}/dashboard`}>
+        <DashboardIcon />
+        <span>Dashboard</span>
+      </NavLink>
+
       <NavLink activeClassName={csx.active} className={csx.link} to={`${path}/templates`}>
         <TemplatesIcon />
         <span>Templates</span>

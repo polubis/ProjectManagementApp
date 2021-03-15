@@ -1,0 +1,94 @@
+@import 'styles/mixins';
+
+.templateDetailsContent {
+  @include col;
+  align-self: center;
+  padding: 62px 0;
+  width: 740px;
+
+  @include laptop-down {
+    width: 100%;
+  }
+
+  .tags {
+    margin: 32px 0 18px 0;
+  }
+
+  .date {
+    @include labelSmall;
+    margin: 22px 0 18px 0;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  .name {
+    @include headingBig;
+    word-break: break-word;
+  }
+
+  .description {
+    @include descriptionMedium;
+    display: block;
+    margin: 32px 0 52px 0;
+    word-break: break-word;
+  }
+
+  .technologies,
+  .patterns,
+  .contributors {
+    @include col;
+
+    h5 {
+      @include heading;
+      margin-bottom: 26px;
+    }
+  }
+
+  .technologies > div {
+    @include row;
+    flex-flow: wrap;
+
+    & > div {
+      margin: 0 24px 24px 0;
+    }
+  }
+
+  .patterns {
+    margin: 18px 0 32px 0;
+  }
+
+  .contributors {
+    & > div {
+      @include row;
+      flex-flow: wrap;
+
+      a {
+        margin: 0 22px 22px 0;
+        cursor: pointer;
+        text-decoration: none;
+
+        .contributorAvatar {
+          @include heading;
+          border-radius: 50%;
+          box-shadow: $shadowPrimary;
+          border: 1px solid rgba($primary, 0.43);
+          background: $surface;
+          color: $white;
+          text-transform: uppercase;
+
+          img {
+            border-radius: 50%;
+          }
+        }
+
+        & > div {
+          width: 50px;
+          height: 50px;
+          box-shadow: $shadowPrimary;
+        }
+      }
+    }
+  }
+}

@@ -18,7 +18,7 @@ const TemplateTileSmall: FC<Props> = ({ className, children, template, ...props 
   const { name, technologies } = template;
 
   return (
-    <div className={`${csx.tile} ${className}`} {...props}>
+    <div {...props} className={`${csx.tile} ${className}`}>
       <header>
         <span className={csx.title} title={name}>
           {name}
@@ -26,13 +26,14 @@ const TemplateTileSmall: FC<Props> = ({ className, children, template, ...props 
 
         {children && (
           <More
-            children={children}
             trigger={(open) => (
               <Button title="More" onClick={open} theme="primaryTransparent" variant="icon">
                 <MoreVertIcon />
               </Button>
             )}
-          />
+          >
+            {children}
+          </More>
         )}
       </header>
 

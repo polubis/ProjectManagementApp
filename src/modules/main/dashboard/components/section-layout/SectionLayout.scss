@@ -1,0 +1,15 @@
+@import 'styles/mixins';
+
+.sectionLayout {
+  @include col;
+
+  & > h3 {
+    @include heading;
+  }
+
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 32px;
+    }
+  }
+}

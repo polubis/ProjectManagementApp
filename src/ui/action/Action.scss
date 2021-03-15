@@ -1,0 +1,19 @@
+@import 'styles/mixins';
+
+.action {
+  @include col;
+  border-radius: 4px;
+  padding: 32px;
+  background: $surfacePrimary;
+  border: 1px solid rgba($primary, 0.43);
+
+  & > h3 {
+    @include heading;
+  }
+
+  & > span {
+    @include description;
+    display: block;
+    margin: 16px 0 32px 0;
+  }
+}

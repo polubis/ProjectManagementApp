@@ -1,0 +1,30 @@
+@import 'styles/mixins';
+
+.list {
+  @include col;
+  padding: 32px;
+  border-radius: 4px;
+  background: $surfacePrimary;
+  border: 1px solid rgba($primary, 0.43);
+
+  & > h3 {
+    @include heading;
+    margin-bottom: 32px;
+
+    & > span {
+      color: $ok;
+    }
+  }
+
+  .items {
+    max-height: 550px;
+    padding-right: 12px;
+    overflow-y: auto;
+
+    .item {
+      &:not(:last-of-type) {
+        margin-bottom: 18px;
+      }
+    }
+  }
+}
