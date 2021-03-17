@@ -1,10 +1,9 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-
-import { Modal, Button } from 'ui';
+import React, { Component, ErrorInfo, ReactNode, ComponentType } from 'react';
 
 namespace ErrorBoundary {
   export interface Props {
     children: ReactNode;
+    fallback: ComponentType<unknown>;
   }
 
   export interface Error {
@@ -32,7 +31,7 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, typeof STATE> {
     return { hasError: true };
   }
 
-  componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo) {
+  componentDidCatch({ name, message }: Error, { componentStack }: ErrorInfo): void {
     const error: ErrorBoundary.Error = {
       name,
       message,
@@ -43,18 +42,11 @@ class ErrorBoundary extends Component<ErrorBoundary.Props, typeof STATE> {
     this.errors.push(error);
   }
 
-  handleReload = () => {
-    window.location.reload();
-  };
-
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
-      return (
-        <Modal>
-          <h5>Oops, something went wrong.</h5>
-          <Button onClick={this.handleReload}>RELOAD</Button>
-        </Modal>
-      );
+      const Fallback = this.props.fallback;
+
+      return <Fallback />;
     }
 
     return this.props.children;

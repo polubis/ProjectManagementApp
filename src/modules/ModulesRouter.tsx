@@ -20,6 +20,8 @@ const ModulesRouter = (): JSX.Element => {
     getTechnologies();
   }, []);
 
+  throw new Error();
+
   return (
     <Switch>
       <Guard.ProtectedRoute path="/account" redirect="/app" component={AccountModule} />

@@ -1,0 +1,33 @@
+@import 'styles/mixins';
+
+.exceptionScreen {
+  @include centered;
+  @include page;
+
+  .action {
+    border: none;
+    background: none;
+    align-items: center;
+    max-width: 480px;
+
+    & > h3,
+    & > span {
+      text-align: center;
+    }
+
+    & > footer {
+      @include colCenter;
+
+      .image {
+        margin: 52px 0 92px 0;
+        width: 320px;
+        height: 212px;
+
+        @include mobile {
+          width: 100%;
+          height: 80%;
+        }
+      }
+    }
+  }
+}
