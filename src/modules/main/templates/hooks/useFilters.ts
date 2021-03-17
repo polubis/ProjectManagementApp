@@ -1,34 +1,29 @@
 import { useMemo } from 'react';
 import { useRouteMatch } from 'react-router';
-import { pipe } from 'ramda';
 
 import { useQueryParams, isJsonString } from 'utils';
 
 import { TemplateCategory } from 'shared/models';
 
-import { LIMIT, FILTERS, isValidCategory, TemplatesSearchFilters, TemplatesRouteProps } from '..';
+import { LIMIT, FILTERS, isValidCategory, TemplatesRouteProps } from '..';
 
-const parseLimit = (limit: string) => (filters: TemplatesSearchFilters) =>
-  !limit || Number.isNaN(+limit) || +limit < LIMIT ? filters : { ...filters, limit };
+const parseLimit = (limit: string): string =>
+  !limit || Number.isNaN(+limit) || +limit < LIMIT ? FILTERS.limit : limit;
 
-const parsePage = (page: string) => (filters: TemplatesSearchFilters): TemplatesSearchFilters =>
-  !page || Number.isNaN(+page) ? filters : { ...filters, page };
+const parsePage = (page: string): string => (!page || Number.isNaN(+page) ? FILTERS.page : page);
 
-const parseQuery = (query: string) => (filters: TemplatesSearchFilters) => ({
-  ...filters,
-  query,
-});
+const parseCategory = (category: TemplateCategory): TemplateCategory =>
+  isValidCategory(category) ? category : FILTERS.category;
 
-const parseCategory = (category: TemplateCategory) => (
-  filters: TemplatesSearchFilters
-): TemplatesSearchFilters => (isValidCategory(category) ? { ...filters, category } : filters);
-
-const parseDictionary = (key: 'patternsIds' | 'technologiesIds') => (value: string) => (
-  filters: TemplatesSearchFilters
-) =>
+const parsePatterns = (value: string): string =>
   !isJsonString(value) || (JSON.parse(value) as string[]).some((id) => Number.isNaN(+id))
-    ? filters
-    : { ...filters, [key]: value };
+    ? FILTERS.patternsIds
+    : value;
+
+const parseTechnologies = (value: string): string =>
+  !isJsonString(value) || (JSON.parse(value) as string[]).some((id) => Number.isNaN(+id))
+    ? FILTERS.technologiesIds
+    : value;
 
 export const useFilters = () => {
   const {
@@ -40,15 +35,14 @@ export const useFilters = () => {
   const [limit, page, query, technologiesIds, patternsIds] = queryParams;
 
   return useMemo(
-    () =>
-      pipe(
-        parseLimit(limit),
-        parsePage(page),
-        parseCategory(category),
-        parseQuery(query),
-        parseDictionary('patternsIds')(patternsIds),
-        parseDictionary('technologiesIds')(technologiesIds)
-      )(FILTERS),
+    () => ({
+      page: parsePage(page),
+      limit: parseLimit(limit),
+      category: parseCategory(category),
+      technologiesIds: parseTechnologies(technologiesIds),
+      patternsIds: parsePatterns(patternsIds),
+      query,
+    }),
     [category, ...queryParams]
   );
 };
