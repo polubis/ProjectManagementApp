@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+
+.navigationHeader {
+  @include col;
+
+  & > h3 {
+    @include headingMedium;
+    margin: 0 0 10px 0;
+  }
+
+  & > span {
+    @include description;
+  }
+}

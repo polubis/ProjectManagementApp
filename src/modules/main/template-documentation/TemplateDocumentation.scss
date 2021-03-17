@@ -2,4 +2,6 @@
 
 .templateDocumentation {
   @include page;
+  position: relative;
+  display: flex;
 }

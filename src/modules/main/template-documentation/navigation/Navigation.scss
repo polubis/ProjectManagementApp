@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.navigation {
+  @include col;
+  padding: 54px 42px;
+  position: sticky;
+  height: 100vh;
+  top: 0;
+  min-width: 338px;
+  background: $surfacePrimary;
+  overflow-y: auto;
+}
