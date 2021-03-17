@@ -11,16 +11,20 @@ const AddTemplateAction: FC = memo(
   () => {
     return (
       <Guard.Protected>
-        <Action
-          description="We know how important it is to start a project quickly. 
+        {({ user: { connectedWithGithub } }) =>
+          connectedWithGithub && (
+            <Action
+              description="We know how important it is to start a project quickly. 
           Create your own template and share with others"
-          operations={<CreateTemplateButton />}
-          title={
-            <>
-              Create your own <span className={csx.templates}>templates</span>
-            </>
-          }
-        />
+              operations={<CreateTemplateButton />}
+              title={
+                <>
+                  Create your own <span className={csx.templates}>templates</span>
+                </>
+              }
+            />
+          )
+        }
       </Guard.Protected>
     );
   },

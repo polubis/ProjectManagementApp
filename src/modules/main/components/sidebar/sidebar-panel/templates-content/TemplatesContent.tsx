@@ -12,7 +12,7 @@ const TemplatesContent = (): JSX.Element => {
     <div className={csx.templatesContent}>
       <ContentHeader description="Use filters and find template" title="Templates" />
       <Guard.Protected>
-        <CreateTemplateButton />
+        {({ user: { connectedWithGithub } }) => connectedWithGithub && <CreateTemplateButton />}
       </Guard.Protected>
     </div>
   );

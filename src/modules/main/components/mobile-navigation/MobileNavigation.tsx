@@ -65,7 +65,11 @@ const MobileNavigation = (): JSX.Element => {
 
       <footer className={csx.footer}>
         <Guard.Protected>
-          <Route path={`${path}/templates`} component={CreateTemplateMobileButton} />
+          {({ user: { connectedWithGithub } }) =>
+            connectedWithGithub && (
+              <Route path={`${path}/templates`} component={CreateTemplateMobileButton} />
+            )
+          }
         </Guard.Protected>
 
         <Guard.Admin>
