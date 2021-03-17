@@ -7,6 +7,7 @@ export * from './create-technology-button';
 export * from './create-template-button';
 export * from './error-boundary';
 export * from './email-sent';
+export * from './exception-screen';
 export * from './form-steps';
 export * from './github-connect';
 export * from './patterns-select';
