@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { GithubConnect, AddSurvey } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
+import TemplatesHistoryProvider from 'shared/providers/templates-history';
 
 import { MobileNavigation, Navbar, Sidebar } from './components';
 import MainModuleRouter from './MainModuleRouter';
 
 import csx from './MainModule.scss';
 
-const MainModule = () => {
+const MainModule: FC = () => {
   return (
     <NotificationsProvider>
-      <div className={csx.mainModule}>
-        <Navbar />
+      <TemplatesHistoryProvider>
+        <div className={csx.mainModule}>
+          <Navbar />
 
-        <Sidebar />
+          <Sidebar />
 
-        <MobileNavigation />
+          <MobileNavigation />
 
-        <GithubConnect />
+          <GithubConnect />
 
-        <AddSurvey />
+          <AddSurvey />
 
-        <main>
-          <MainModuleRouter />
-        </main>
-      </div>
+          <main>
+            <MainModuleRouter />
+          </main>
+        </div>
+      </TemplatesHistoryProvider>
     </NotificationsProvider>
   );
 };

@@ -4,6 +4,7 @@
   @include col;
 
   & > h3 {
+    @include headingMedium;
     margin-bottom: 80px;
   }
 
