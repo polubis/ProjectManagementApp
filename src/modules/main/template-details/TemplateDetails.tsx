@@ -14,6 +14,7 @@ import { TemplateAuthorGuard, Guard } from 'shared/guards';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider,
 } from 'shared/providers/template-details';
+import { useTemplatesHistoryProvider } from 'shared/providers/templates-history';
 
 import ConfirmTemplateDelete from './confirm-template-delete';
 import ForkTemplate from './fork-template';
@@ -27,6 +28,8 @@ namespace TemplateDetails {
 }
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
+  const { addToHistory } = useTemplatesHistoryProvider();
+
   const { replace } = useHistory();
 
   const [forkOpen, setForkOpen] = useState(false);
@@ -43,6 +46,12 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
   useEffect(() => {
     getTemplateDetails(match.params.id);
   }, [match.params.id]);
+
+  useEffect(() => {
+    if (template) {
+      addToHistory(template);
+    }
+  }, [template]);
 
   const openConfirmDelete = useCallback(() => {
     setConfirmDeleteOpen(true);

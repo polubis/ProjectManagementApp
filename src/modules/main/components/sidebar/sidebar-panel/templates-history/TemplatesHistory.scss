@@ -1,0 +1,18 @@
+@import 'styles/mixins';
+
+.templatesHistory {
+  @include col;
+  height: 100%;
+
+  .label {
+    @include label;
+    color: $grey;
+    margin-bottom: 18px;
+  }
+
+  .template {
+    &:not(:last-of-type) {
+      margin-bottom: 18px;
+    }
+  }
+}
