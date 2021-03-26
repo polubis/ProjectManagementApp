@@ -6,6 +6,7 @@ namespace TemplatesHistoryProvider {
   export interface State {
     templates: Template[];
     addToHistory(template: Template): void;
+    removeTemplateFromHistory(templateId: string): void;
   }
 
   export interface Props {
@@ -16,6 +17,7 @@ namespace TemplatesHistoryProvider {
 const STATE: TemplatesHistoryProvider.State = {
   templates: [],
   addToHistory: () => {},
+  removeTemplateFromHistory: () => {},
 };
 
 const Context = createContext(STATE);
@@ -35,9 +37,16 @@ class Provider extends React.Component<TemplatesHistoryProvider.Props, typeof ST
     }));
   };
 
+  removeTemplateFromHistory = (templateId: string): void => {
+    this.setState(({ templates }) => ({
+      templates: templates.filter((template) => template.id !== templateId),
+    }));
+  };
+
   readonly state: typeof STATE = {
     ...STATE,
     addToHistory: this.addToHistory,
+    removeTemplateFromHistory: this.removeTemplateFromHistory,
   };
 
   render = (): JSX.Element => (

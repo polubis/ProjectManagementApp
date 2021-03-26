@@ -47,6 +47,10 @@ export interface TemplatesPayload {
   query: string;
 }
 
+export interface FavouriteTemplate extends Template {
+  isFavourite: boolean;
+}
+
 export interface ForkTemplatePayload {
   templateId: string;
 }

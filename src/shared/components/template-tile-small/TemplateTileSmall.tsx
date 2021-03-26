@@ -4,6 +4,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Button, Img, More } from 'ui';
 
+import { Palette } from 'styles';
+
 import { Template } from 'shared/models';
 
 import csx from './TemplateTileSmall.scss';
@@ -18,7 +20,7 @@ const TemplateTileSmall: FC<Props> = ({ className, children, template, ...props 
   const { name, technologies } = template;
 
   return (
-    <div {...props} className={`${csx.tile} ${className}`}>
+    <div {...props} className={`${csx.tile} ${className} ${children ? csx.parent : ''}`}>
       <header>
         <span className={csx.title} title={name}>
           {name}
@@ -26,8 +28,17 @@ const TemplateTileSmall: FC<Props> = ({ className, children, template, ...props 
 
         {children && (
           <More
+            background={Palette.surface}
             trigger={(open) => (
-              <Button title="More" onClick={open} theme="primaryTransparent" variant="icon">
+              <Button
+                title="More"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  open(e);
+                }}
+                theme="primaryTransparent"
+                variant="icon"
+              >
                 <MoreVertIcon />
               </Button>
             )}
