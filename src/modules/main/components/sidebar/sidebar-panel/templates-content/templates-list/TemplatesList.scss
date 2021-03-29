@@ -1,14 +1,8 @@
 @import 'styles/mixins';
 
-.templatesHistory {
+.templatesList {
   @include col;
   height: 100%;
-
-  .label {
-    @include label;
-    color: $grey;
-    margin-bottom: 18px;
-  }
 
   .template {
     &:not(:last-of-type) {

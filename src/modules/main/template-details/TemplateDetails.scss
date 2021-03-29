@@ -8,21 +8,38 @@
   & > header {
     @include laptop-down {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
       grid-gap: 24px;
+      grid-template-columns: 1fr 1fr;
 
-      button {
+      & > * {
         width: 100%;
+
+        & > * {
+          width: 100%;
+        }
+      }
+    }
+
+    @include mobile {
+      display: grid;
+      grid-gap: 24px;
+      grid-template-columns: 1fr;
+
+      & > * {
+        width: 100%;
+
+        & > * {
+          width: 100%;
+        }
       }
     }
 
     @include laptop-up {
-      @include wrap;
+      display: flex;
       justify-content: flex-end;
 
       & > *:not(:last-child) {
-        margin: 0 28px 0 0;
+        margin-right: 24px;
       }
     }
   }

@@ -24,6 +24,10 @@
   border: 1px solid rgba($primary, 0.43);
   cursor: pointer;
 
+  &.parent {
+    padding: 14px 10px 16px 24px;
+  }
+
   & > header {
     @include rowBetween;
 

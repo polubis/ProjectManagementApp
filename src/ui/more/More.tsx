@@ -11,6 +11,7 @@ namespace More {
 
   export type Props = {
     children: ReactElement | ReactElement[];
+    background?: string;
     trigger?: Trigger;
   };
 
@@ -30,7 +31,7 @@ const Trigger: More.Trigger = (openMenu) => (
   </Button>
 );
 
-const More = ({ children, trigger = Trigger }: More.Props) => {
+const More = ({ children, background, trigger = Trigger }: More.Props) => {
   const [anchorEl, menuOpen, openMenu, closeMenu] = useMenu();
 
   const enhancedChildren = React.Children.map(children, (child: ReactElement<More.InjectedProps>) =>
@@ -50,7 +51,7 @@ const More = ({ children, trigger = Trigger }: More.Props) => {
       {trigger(openMenu)}
 
       {menuOpen && (
-        <Menu anchorEl={anchorEl} width={160} onClose={closeMenu}>
+        <Menu background={background} anchorEl={anchorEl} width={160} onClose={closeMenu}>
           {enhancedChildren.map((children, idx) => (
             <Button key={idx} theme="primaryTransparent" className={csx.item}>
               {children}

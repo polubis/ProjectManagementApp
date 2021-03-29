@@ -1,5 +1,6 @@
 export * from './account';
 export * from './auth';
+export * from './favouriteTemplates';
 export * from './notifications';
 export * from './patterns';
 export * from './surveys';

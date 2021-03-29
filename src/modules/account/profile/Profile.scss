@@ -2,6 +2,7 @@
 
 .profile {
   & > header {
+    position: relative;
     @include row;
 
     & > span {
@@ -10,7 +11,8 @@
     }
 
     & > a {
-      margin-left: auto;
+      position: absolute;
+      right: 0;
     }
   }
 

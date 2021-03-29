@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+import { from, Subscription } from 'rxjs';
 
 import { getTemplateDetails } from 'shared/services';
 import { Template } from 'shared/models';
@@ -8,7 +9,8 @@ namespace TemplateDetailsProvider {
     loading: boolean;
     error: string;
     template: Template;
-    getTemplateDetails?(id: string): void;
+    getTemplateDetails(id: string): void;
+    updateTemplate(template: Partial<Template>): void;
   }
 }
 
@@ -16,28 +18,49 @@ const STATE: TemplateDetailsProvider.State = {
   loading: true,
   error: '',
   template: null,
+  getTemplateDetails: () => {},
+  updateTemplate: () => {},
 };
 
 const Context = createContext(STATE);
 
 class Provider extends React.Component<any, typeof STATE> {
-  getTemplateDetails = async (id: string) => {
+  private _subs = new Subscription();
+
+  componentWillUnmount(): void {
+    this._subs.unsubscribe();
+  }
+
+  getTemplateDetails = (id: string): void => {
     if (!this.state.loading) {
-      this.setState({ ...STATE });
+      this.setState({ loading: true, error: '', template: null });
     }
 
-    try {
-      const template = await getTemplateDetails(id);
+    const load$ = from(getTemplateDetails(id));
 
-      this.setState({ ...STATE, loading: false, template });
-    } catch (error) {
-      this.setState({ ...STATE, loading: false, error });
-    }
+    load$.subscribe(
+      (template) => {
+        this.setState({ loading: false, error: '', template });
+      },
+      (error) => {
+        this.setState({ loading: false, template: null, error });
+      }
+    );
+  };
+
+  updateTemplate = (template: Partial<Template>): void => {
+    this.setState((prevState) => ({
+      template: {
+        ...prevState.template,
+        ...template,
+      },
+    }));
   };
 
   readonly state: typeof STATE = {
     ...STATE,
     getTemplateDetails: this.getTemplateDetails,
+    updateTemplate: this.updateTemplate,
   };
 
   render = () => <Context.Provider value={this.state}>{this.props.children}</Context.Provider>;

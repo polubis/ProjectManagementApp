@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { GithubConnect, AddSurvey } from 'shared/components';
 import NotificationsProvider from 'shared/providers/notifications';
 import TemplatesHistoryProvider from 'shared/providers/templates-history';
+import FavouriteTemplatesProvider from 'shared/providers/favourite-templates';
 
 import { MobileNavigation, Navbar, Sidebar } from './components';
 import MainModuleRouter from './MainModuleRouter';
@@ -13,21 +14,23 @@ const MainModule: FC = () => {
   return (
     <NotificationsProvider>
       <TemplatesHistoryProvider>
-        <div className={csx.mainModule}>
-          <Navbar />
+        <FavouriteTemplatesProvider>
+          <div className={csx.mainModule}>
+            <Navbar />
 
-          <Sidebar />
+            <Sidebar />
 
-          <MobileNavigation />
+            <MobileNavigation />
 
-          <GithubConnect />
+            <GithubConnect />
 
-          <AddSurvey />
+            <AddSurvey />
 
-          <main>
-            <MainModuleRouter />
-          </main>
-        </div>
+            <main>
+              <MainModuleRouter />
+            </main>
+          </div>
+        </FavouriteTemplatesProvider>
       </TemplatesHistoryProvider>
     </NotificationsProvider>
   );
