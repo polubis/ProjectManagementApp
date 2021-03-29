@@ -16,3 +16,34 @@ export const core = createInstance<Core<unknown>, string>({
   parseError: ({ response: { data, statusText } }) =>
     data && data.hasErrors ? data.errors[0] : statusText,
 });
+
+import { Mapper, Events, Source } from 'rest-source';
+
+const Kaltura = Events(
+  Mapper<null, string>(
+    Source<{ data: null }>({ config }),
+    () => {},
+    () => {}
+  ),
+  () => {},
+  () => {}
+);
+
+// Kaltura.headers = {
+//   ...newHeaders,
+//   url: newUrl
+// }
+
+Kaltura.get('/users').on(
+  () => {},
+  () => {},
+  () => {}
+);
+
+Kaltura.post('/', {}).on(
+  () => {},
+  () => {},
+  () => {}
+);
+
+// Kaltura.post<MyResponse, MyPayload>()
