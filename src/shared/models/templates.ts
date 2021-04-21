@@ -55,28 +55,6 @@ export interface ForkTemplatePayload {
   templateId: string;
 }
 
-export interface TemplateDocumentationHeading {
-  childrenCount: number;
-  id: number;
-  parentId: number;
-  text: string;
-  type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
-}
-
-export interface TemplateDocumentationItem {
-  lineItems: {
-    type: string;
-    content: string;
-  };
-  children: TemplateDocumentationItem[];
-  type: null | string;
-}
-
-export interface TemplateDocumentation {
-  headings: TemplateDocumentationHeading[];
-  readmeLines: TemplateDocumentationItem[];
-}
-
 export interface LastAddedTemplatesParams {
   limit: number;
   page: number;

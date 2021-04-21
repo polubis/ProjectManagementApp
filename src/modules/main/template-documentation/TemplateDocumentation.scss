@@ -1,6 +1,7 @@
 @import 'styles/mixins';
 
 .templateDocumentation {
+  @include page;
+  position: relative;
   display: flex;
-  height: 100%;
 }

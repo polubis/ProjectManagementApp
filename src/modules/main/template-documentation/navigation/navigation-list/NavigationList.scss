@@ -1,0 +1,63 @@
+@import 'styles/mixins';
+
+$highlight: #0f2c4e;
+
+.navigationList {
+  @include col;
+
+  .parent,
+  .children {
+    @include row;
+    @include noSelect;
+    cursor: pointer;
+  }
+
+  .parent {
+    &.active {
+      .icon,
+      .label {
+        color: $ok;
+      }
+    }
+
+    .icon {
+      @include centered;
+      position: relative;
+      color: $primary;
+
+      & > svg,
+      .iconHighlight {
+        position: absolute;
+      }
+
+      & > svg {
+        z-index: 1;
+      }
+
+      .iconHighlight {
+        border-radius: 50%;
+        background: $highlight;
+      }
+    }
+
+    .label {
+      @include headingSmall;
+      @include dottedText;
+      color: $primary;
+    }
+  }
+
+  .children {
+    &.active {
+      .label {
+        color: $ok;
+      }
+    }
+
+    .label {
+      @include label;
+      @include dottedText;
+      color: $primary;
+    }
+  }
+}
