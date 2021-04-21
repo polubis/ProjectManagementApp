@@ -4,6 +4,8 @@ import ChevronIcon from '@material-ui/icons/ChevronRight';
 
 import { Button, Logo } from 'ui';
 
+import { Guard } from 'shared/guards';
+
 import SidebarLinks from './sidebar-links';
 import SidebarPanel from './sidebar-panel';
 
@@ -26,9 +28,11 @@ const Sidebar = (): JSX.Element => {
 
           <SidebarLinks />
 
-          <Button className={csx.toggleBtn} variant="icon" onClick={toggleOpen}>
-            <ChevronIcon />
-          </Button>
+          <Guard.Protected>
+            <Button className={csx.toggleBtn} variant="icon" onClick={toggleOpen}>
+              <ChevronIcon />
+            </Button>
+          </Guard.Protected>
         </div>
       </aside>
 

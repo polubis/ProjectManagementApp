@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+
+.dashboardContent {
+  @include col;
+
+  & > a {
+    width: 100%;
+    margin-bottom: 28px;
+
+    & > button {
+      width: 100%;
+    }
+  }
+}

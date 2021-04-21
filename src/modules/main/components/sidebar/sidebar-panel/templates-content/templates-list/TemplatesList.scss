@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.templatesList {
+  @include col;
+  height: 100%;
+
+  .template {
+    &:not(:last-of-type) {
+      margin-bottom: 18px;
+    }
+  }
+}

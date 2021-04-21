@@ -17,13 +17,14 @@ $offset: 100px;
   top: 0;
   left: 0;
   width: $width;
-  height: 100vh;
   padding: 28px;
+  height: 100vh;
   background: $surface;
   z-index: $sidebarPanelIndex;
   box-shadow: 4px 0 6px rgba($black, 0.42);
   animation: animate-in 0.3s forwards;
   will-change: transform;
+  overflow-y: auto;
 
   @keyframes animate-in {
     from {

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, FC } from 'react';
+import React, { useEffect, useCallback, useState, FC, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouteChildrenProps, useHistory } from 'react-router';
 
@@ -14,6 +14,8 @@ import { TemplateAuthorGuard, Guard } from 'shared/guards';
 import TemplateDetailsProvider, {
   useTemplateDetailsProvider,
 } from 'shared/providers/template-details';
+import { useTemplatesHistoryProvider } from 'shared/providers/templates-history';
+import { useFavouriteTemplatesProvider } from 'shared/providers/favourite-templates';
 
 import ConfirmTemplateDelete from './confirm-template-delete';
 import ForkTemplate from './fork-template';
@@ -27,6 +29,16 @@ namespace TemplateDetails {
 }
 
 const TemplateDetails = ({ match }: TemplateDetails.Props) => {
+  const {
+    templates,
+    addTemplateToFavourites,
+    removeTemplateFromFavourites,
+    pendingTemplates,
+    isFavouriteTemplate,
+  } = useFavouriteTemplatesProvider();
+
+  const { addToHistory } = useTemplatesHistoryProvider();
+
   const { replace } = useHistory();
 
   const [forkOpen, setForkOpen] = useState(false);
@@ -44,6 +56,12 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     getTemplateDetails(match.params.id);
   }, [match.params.id]);
 
+  useEffect(() => {
+    if (template) {
+      addToHistory(template);
+    }
+  }, [template]);
+
   const openConfirmDelete = useCallback(() => {
     setConfirmDeleteOpen(true);
   }, []);
@@ -60,6 +78,19 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
     setForkOpen(false);
   }, []);
 
+  const handleAddToFavourites = useCallback(() => {
+    addTemplateToFavourites(template);
+  }, [template]);
+
+  const handleRemoveFromFavourites = useCallback(() => {
+    removeTemplateFromFavourites(template.id);
+  }, [template]);
+
+  const isInFavourites = useMemo(() => template && isFavouriteTemplate(template.id), [
+    template,
+    templates,
+  ]);
+
   return (
     <div className={csx.templateDetails}>
       {loading ? (
@@ -74,6 +105,15 @@ const TemplateDetails = ({ match }: TemplateDetails.Props) => {
             {forkOpen && <ForkTemplate template={template} onClose={closeFork} />}
 
             <header>
+              <Guard.Protected>
+                <Button
+                  disabled={pendingTemplates[template.id]}
+                  onClick={isInFavourites ? handleRemoveFromFavourites : handleAddToFavourites}
+                >
+                  {isInFavourites ? 'SAVED IN FAVOURITES' : 'SAVE'}
+                </Button>
+              </Guard.Protected>
+
               <NavLink to={`${match.url}/documentation`}>
                 <Button>
                   <MenuBookIcon /> DOCS
