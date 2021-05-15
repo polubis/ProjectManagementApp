@@ -10,17 +10,22 @@ namespace TemplatesList {
   export interface Props {
     templates: Template[];
     onDelete(templateId: string): void;
+    onTemplateClick?(): void;
   }
 }
 
-const TemplatesList: FC<TemplatesList.Props> = ({ templates, onDelete }) => {
+const TemplatesList: FC<TemplatesList.Props> = ({ templates, onDelete, onTemplateClick }) => {
   const { push } = useHistory();
 
-  const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const { id } = e.currentTarget.dataset;
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const { id } = e.currentTarget.dataset;
 
-    push(`/app/templates/${TemplateCategory.ALL}/${id}`);
-  }, []);
+      onTemplateClick();
+      push(`/app/templates/${TemplateCategory.ALL}/${id}`);
+    },
+    [onTemplateClick]
+  );
 
   const handleDelete = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

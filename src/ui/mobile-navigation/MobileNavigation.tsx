@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { FC } from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -6,6 +6,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Button, Backdrop } from 'ui';
 
 import { usePortal } from 'utils';
+
+import MobileNavigationProvider, { useMobileNavigationProvider } from './MobileNavigationProvider';
 
 import csx from './MobileNavigation.scss';
 
@@ -17,18 +19,14 @@ namespace MobileNavigation {
   }
 }
 
-const MobileNavigation = ({
+const MobileNavigation: FC<MobileNavigation.Props> = ({
   className = '',
   children,
   viewport = 'mobile',
-}: MobileNavigation.Props): JSX.Element => {
+}) => {
+  const { open, toggleOpen } = useMobileNavigationProvider();
+
   const render = usePortal();
-
-  const [open, setOpen] = useState(false);
-
-  const toggleOpen = useCallback(() => {
-    setOpen((prevOpen) => !prevOpen);
-  }, []);
 
   return (
     <>
@@ -53,4 +51,10 @@ const MobileNavigation = ({
   );
 };
 
-export default MobileNavigation;
+const ConnectedMobileNavigation: FC<MobileNavigation.Props> = (props) => (
+  <MobileNavigationProvider>
+    <MobileNavigation {...props} />
+  </MobileNavigationProvider>
+);
+
+export default ConnectedMobileNavigation;

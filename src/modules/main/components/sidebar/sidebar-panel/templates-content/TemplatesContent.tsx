@@ -9,6 +9,7 @@ import { useFavouriteTemplatesProvider } from 'shared/providers/favourite-templa
 
 import ContentHeader from '../content-header';
 import TemplatesList from './templates-list';
+import { useSidebarProvider } from '../../SidebarProvider';
 
 import csx from './TemplatesContent.scss';
 
@@ -28,6 +29,8 @@ const TABS_DESCRIPTIONS = {
 };
 
 const TemplatesContent = (): JSX.Element => {
+  const { toggleOpen } = useSidebarProvider();
+
   const [activeTab, setActiveTab] = useState(TABS.SAVED);
 
   const {
@@ -62,7 +65,7 @@ const TemplatesContent = (): JSX.Element => {
       <Guard.Protected>
         {({ user: { connectedWithGithub } }) => (
           <>
-            {connectedWithGithub && <CreateTemplateButton />}
+            {connectedWithGithub && <CreateTemplateButton onClick={toggleOpen} />}
 
             <div className={csx.navigation}>
               <span
@@ -81,7 +84,11 @@ const TemplatesContent = (): JSX.Element => {
               </span>
             </div>
             {templates.length > 0 ? (
-              <TemplatesList templates={templates} onDelete={handleDelete} />
+              <TemplatesList
+                templates={templates}
+                onTemplateClick={toggleOpen}
+                onDelete={handleDelete}
+              />
             ) : (
               <Disclaimer
                 className={csx.disclaimer}

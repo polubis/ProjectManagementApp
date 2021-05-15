@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { MobileNavigation as UIMobileNavigation, Button } from 'ui';
+import { MobileNavigation as UIMobileNavigation, Button, useMobileNavigationProvider } from 'ui';
 
 import { useAuthProvider } from 'shared/providers/auth';
 
 import csx from './MobileNavigation.scss';
 
 const MobileNavigation = (): JSX.Element => {
+  const { toggleOpen } = useMobileNavigationProvider();
+
   const { logOut } = useAuthProvider();
 
   return (
-    <UIMobileNavigation className={csx.mobileNavigation} viewport="tablet">
-      <NavLink activeClassName={csx.active} className={csx.link} to="/account/general">
+    <>
+      <NavLink
+        activeClassName={csx.active}
+        className={csx.link}
+        to="/account/general"
+        onClick={toggleOpen}
+      >
         General
       </NavLink>
 
-      <NavLink activeClassName={csx.active} className={csx.link} to="/account/profile">
+      <NavLink
+        activeClassName={csx.active}
+        className={csx.link}
+        to="/account/profile"
+        onClick={toggleOpen}
+      >
         Profile
       </NavLink>
 
@@ -27,8 +39,14 @@ const MobileNavigation = (): JSX.Element => {
       <Button className={csx.logout} onClick={logOut}>
         LOGOUT
       </Button>
-    </UIMobileNavigation>
+    </>
   );
 };
 
-export default MobileNavigation;
+const ConnectedMobileNavigation: FC = () => (
+  <UIMobileNavigation className={csx.mobileNavigation} viewport="tablet">
+    <MobileNavigation />
+  </UIMobileNavigation>
+);
+
+export default ConnectedMobileNavigation;
