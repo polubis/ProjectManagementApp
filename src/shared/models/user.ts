@@ -1,7 +1,5 @@
 import { Account, Technology } from '.';
 
-export type User = Account & UserProfile;
-
 export interface UserProfile {
   firstName: string | null;
   lastName: string | null;
@@ -11,6 +9,7 @@ export interface UserProfile {
   githubAvatarUrl: string;
   yearsOfExperience: number | null;
   technologies: Technology[];
+  lastAddedTemplatesReadDateUtc: string | null;
 }
 
 export interface UpdateUserDataPayload {
@@ -20,3 +19,5 @@ export interface UpdateUserDataPayload {
   yearsOfExperience: number;
   technologiesIds: number[];
 }
+
+export type User = Account & UserProfile;

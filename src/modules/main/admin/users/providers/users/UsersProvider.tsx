@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { Subject, Subscription, throwError, from } from 'rxjs';
+import { Subject, Subscription, from, empty } from 'rxjs';
 import {
   tap,
   filter,
@@ -68,7 +68,7 @@ class Provider extends React.Component<UsersProvider.Props, typeof STATE> {
       const handleError = (error: string) => {
         this.setState({ ...STATE, pendingRequests: 0, error });
 
-        return throwError(error);
+        return empty();
       };
 
       return from(getUsers(createQuery(payload))).pipe(tap(handleSuccess), catchError(handleError));
@@ -104,7 +104,7 @@ class Provider extends React.Component<UsersProvider.Props, typeof STATE> {
           error,
         }));
 
-        return throwError(error);
+        return empty();
       };
 
       return from(getUsers(createQuery(payload))).pipe(
