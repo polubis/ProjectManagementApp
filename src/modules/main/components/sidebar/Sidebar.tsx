@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 
 import ChevronIcon from '@material-ui/icons/ChevronRight';
 
@@ -8,15 +8,12 @@ import { Guard } from 'shared/guards';
 
 import SidebarLinks from './sidebar-links';
 import SidebarPanel from './sidebar-panel';
+import SidebarProvider, { useSidebarProvider } from './SidebarProvider';
 
 import csx from './Sidebar.scss';
 
 const Sidebar = (): JSX.Element => {
-  const [open, setOpen] = useState(false);
-
-  const toggleOpen = useCallback((): void => {
-    setOpen((prevIsOpen) => !prevIsOpen);
-  }, []);
+  const { open, toggleOpen } = useSidebarProvider();
 
   return (
     <>
@@ -41,4 +38,8 @@ const Sidebar = (): JSX.Element => {
   );
 };
 
-export default Sidebar;
+export default (): JSX.Element => (
+  <SidebarProvider>
+    <Sidebar />
+  </SidebarProvider>
+);
