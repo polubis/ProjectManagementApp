@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import { useRouteMatch, Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
-import AdminIcon from '@material-ui/icons/SupervisorAccount';
+import AdminIcon from '@material-ui/icons/Security';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import GroupsIcon from '@material-ui/icons/Group';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { MobileNavigation as UIMobileNavigation, useMobileNavigationProvider } from 'ui';
@@ -43,6 +44,18 @@ const MobileNavigation: FC = () => {
         <TemplatesIcon />
         <span>Templates</span>
       </NavLink>
+
+      <Guard.Protected>
+        <NavLink
+          activeClassName={csx.active}
+          className={csx.link}
+          to={`${path}/groups`}
+          onClick={toggleOpen}
+        >
+          <GroupsIcon />
+          <span>Groups</span>
+        </NavLink>
+      </Guard.Protected>
 
       <Guard.Admin>
         <NavLink

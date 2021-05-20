@@ -7,6 +7,7 @@ import { Guard } from 'shared/guards';
 import { TemplateCategory } from 'shared/models';
 
 const AdminModule = withLazy(() => import('./admin'));
+const GroupsModule = withLazy(() => import('./groups'));
 const Templates = withLazy(() => import('./templates'));
 const TemplateDetails = withLazy(() => import('./template-details'));
 const TemplateDocumentation = withLazy(() => import('./template-documentation'));
@@ -22,6 +23,12 @@ const MainModuleRouter = (): JSX.Element => {
         redirect={`${match.path}/templates`}
         path={`${match.path}/admin`}
         component={AdminModule}
+      />
+
+      <Guard.ProtectedRoute
+        redirect={`${match.path}/templates`}
+        path={`${match.path}/groups`}
+        component={GroupsModule}
       />
 
       <Guard.ProtectedRoute

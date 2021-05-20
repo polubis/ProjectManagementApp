@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 
-import AdminIcon from '@material-ui/icons/SupervisorAccount';
+import AdminIcon from '@material-ui/icons/Security';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import GroupsIcon from '@material-ui/icons/Group';
 import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
-import { Guard } from 'shared/guards';
-
 import { Button } from 'ui';
+
+import { Guard } from 'shared/guards';
 
 import csx from './SidebarLinks.scss';
 
@@ -36,6 +37,18 @@ const SidebarLinks = (): JSX.Element => {
           <span>Templates</span>
         </Button>
       </NavLink>
+
+      <Guard.Protected>
+        <NavLink
+          activeClassName={pathname.includes('groups') ? csx.active : ''}
+          to={`${path}/groups`}
+        >
+          <Button theme="primaryTransparent">
+            <GroupsIcon />
+            <span>Groups</span>
+          </Button>
+        </NavLink>
+      </Guard.Protected>
 
       <Guard.Admin>
         <NavLink

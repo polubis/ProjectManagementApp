@@ -10,6 +10,7 @@ export * from './email-sent';
 export * from './exception-screen';
 export * from './form-steps';
 export * from './github-connect';
+export * from './group-tile';
 export * from './patterns-select';
 export * from './unreaded-icon';
 export * from './tags-field';

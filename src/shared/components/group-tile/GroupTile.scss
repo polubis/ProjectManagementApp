@@ -1,0 +1,98 @@
+@import 'styles/mixins';
+
+.groupTile {
+  @include col;
+  position: relative;
+  padding: 28px 28px 52px 28px;
+  border-radius: 4px;
+  max-width: 320px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: $black;
+    left: 0;
+    opacity: 0.6;
+  }
+
+  & > header {
+    @include col;
+    z-index: 1;
+
+    & > span {
+      @include label;
+      color: $grey;
+    }
+
+    & > h5 {
+      @include heading;
+      margin-top: 5px;
+    }
+  }
+
+  .badges {
+    @include row;
+    z-index: 1;
+
+    .badge {
+      @include col;
+      margin-top: 28px;
+
+      &:not(:last-of-type) {
+        margin-right: 28px;
+      }
+
+      & > span {
+        &:first-of-type {
+          @include label;
+        }
+
+        &:last-of-type {
+          @include labelThin;
+          color: $grey;
+        }
+      }
+    }
+  }
+
+  & > button {
+    position: absolute;
+    right: -14px;
+    bottom: 0;
+    background: $primary;
+    height: 44px;
+    border-top-left-radius: 39px;
+    box-shadow: none;
+
+    @keyframes animate-icon {
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(6px);
+      }
+
+      75% {
+        transform: translateX(-4px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    &:hover {
+      svg {
+        animation: animate-icon 1.5s ease-in-out infinite;
+      }
+    }
+  }
+}
