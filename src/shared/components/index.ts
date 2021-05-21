@@ -2,6 +2,7 @@ export * from './add-survey';
 export * from './breadcrumbs';
 export * from './cookies-consent';
 export * from './confirm-delete';
+export * from './create-group-button';
 export * from './create-pattern-button';
 export * from './create-technology-button';
 export * from './create-template-button';

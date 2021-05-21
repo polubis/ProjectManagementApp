@@ -14,6 +14,7 @@ import {
   CreateTemplateMobileButton,
   CreateTechnologyMobileButton,
   CreatePatternMobileButton,
+  CreateGroupMobileButton,
 } from 'shared/components';
 
 import csx from './MobileNavigation.scss';
@@ -106,6 +107,13 @@ const MobileNavigation: FC = () => {
               />
             )
           }
+        </Guard.Protected>
+
+        <Guard.Protected>
+          <Route
+            path={`${path}/groups`}
+            render={() => <CreateGroupMobileButton onClick={toggleOpen} />}
+          />
         </Guard.Protected>
 
         <Guard.Admin>
