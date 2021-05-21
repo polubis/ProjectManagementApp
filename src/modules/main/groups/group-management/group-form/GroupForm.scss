@@ -1,0 +1,30 @@
+@import 'styles/mixins';
+
+.groupForm {
+  @include col;
+  width: 100%;
+
+  @include mobile-up {
+    width: 400px;
+  }
+
+  & > div {
+    & > textarea {
+      min-height: 120px;
+      resize: none;
+    }
+
+    &:first-of-type {
+      margin-top: 24px;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 28px;
+    }
+  }
+
+  & > button {
+    margin: 82px auto 0 auto;
+    width: 200px;
+  }
+}
