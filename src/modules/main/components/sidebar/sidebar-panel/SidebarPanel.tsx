@@ -10,6 +10,7 @@ import { Guard } from 'shared/guards';
 
 import AdminContent from './admin-content';
 import DashboardContent from './dashboard-content';
+import GroupsContent from './groups-content';
 import TemplatesContent from './templates-content';
 
 import csx from './SidebarPanel.scss';
@@ -32,6 +33,9 @@ const SidebarPanel = ({ onClose }: SidebarPanel.Props): JSX.Element => {
           <Guard.Admin>
             <Route path="/app/admin" component={AdminContent} />
           </Guard.Admin>
+          <Guard.Protected>
+            <Route path="/app/groups" component={GroupsContent} />
+          </Guard.Protected>
           <Route path="/app/dashboard" component={DashboardContent} />
           <Route path="/app/templates" component={TemplatesContent} />
         </div>

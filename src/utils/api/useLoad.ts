@@ -33,5 +33,9 @@ export const useLoad = <T>(source: () => Promise<T>): [T | null, boolean, boolea
     }
   }, [state]);
 
+  useEffect(() => {
+    handleLoad();
+  }, [source]);
+
   return [state.data, state.loading, state.error, handleLoad];
 };

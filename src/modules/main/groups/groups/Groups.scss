@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.groups {
+  @include colCenter;
+  @include space;
+  height: 100%;
+}
