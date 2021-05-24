@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Form from 'io-form';
 
@@ -7,6 +7,9 @@ import { Button, InputField } from 'ui';
 import { Credentials } from 'shared/models';
 
 import csx from './LoginForm.scss';
+import { useForm } from 'shared/io/react-form';
+import { minLength } from 'shared/io/validation';
+import { maxLength } from 'shared/validation';
 
 namespace LoginForm {
   export interface Props {
@@ -14,41 +17,29 @@ namespace LoginForm {
   }
 }
 
+const VALIDATORS = [minLength(3), maxLength(50)];
+
 const LoginForm = ({ onSubmit }: LoginForm.Props): JSX.Element => {
-  const [{ errors, dirty, invalid, next, submit, values }, setForm] = useState(
-    Form<Credentials>(
-      {
-        password: '',
-        username: '',
-      },
-      {
-        password: [(v) => v.length < 3 || v.length > 50],
-        username: [(v) => v.length < 3 || v.length > 50],
-      }
-    )
+  const [{ dirty, errors, invalid, values }, { set, submit }] = useForm<Credentials>(
+    {
+      login: '',
+      password: '',
+    },
+    {
+      login: VALIDATORS,
+      password: VALIDATORS,
+    }
   );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const key = e.currentTarget.getAttribute('data-key') as keyof Credentials;
 
-    setForm(
-      next({
-        [key]: e.target.value,
-      })
-    );
+    set({ [key]: e.target.value });
   }, []);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
-      const checkedForm = submit(e);
-
-      setForm(checkedForm);
-
-      if (checkedForm.invalid) {
-        return;
-      }
-
-      onSubmit(values);
+      submit(e);
     },
     [values]
   );
