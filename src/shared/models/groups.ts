@@ -15,3 +15,9 @@ export interface Group {
   modifiedAtUtc: string;
   members: number;
 }
+
+export interface GetGroupsParams {
+  limit: number;
+  page: number;
+  query: string;
+}

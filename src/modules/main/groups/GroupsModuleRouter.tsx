@@ -4,9 +4,9 @@ import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 import { withLazy } from 'utils';
 
 import { GroupCategory } from 'shared/models';
-import { GroupTile } from 'shared/components';
 
 const GroupManagement = withLazy(() => import('./group-management'));
+const Groups = withLazy(() => import('./groups'));
 
 const GroupsModuleRouter: FC = () => {
   const match = useRouteMatch();
@@ -17,15 +17,7 @@ const GroupsModuleRouter: FC = () => {
 
       <Route exact path={`${match.path}/:category/:id`} render={() => <div>Details</div>} />
 
-      <Route
-        exact
-        path={`${match.path}/:category`}
-        render={() => (
-          <div>
-            <GroupTile />
-          </div>
-        )}
-      />
+      <Route exact path={`${match.path}/:category`} component={Groups} />
 
       <Route path="*" render={() => <Redirect to={`${match.path}/${GroupCategory.ALL}`} />} />
     </Switch>

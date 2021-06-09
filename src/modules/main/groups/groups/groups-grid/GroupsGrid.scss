@@ -1,0 +1,13 @@
+@import 'styles/mixins';
+
+.groupsGrid {
+  width: 100%;
+  justify-content: center;
+  display: grid;
+  grid-gap: 32px;
+  grid-template-columns: repeat(auto-fit, 320px);
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
