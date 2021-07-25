@@ -1,0 +1,31 @@
+@import 'styles/mixins';
+
+.groupTileLoader {
+  @include col;
+  position: relative;
+  padding: 28px 28px 52px 28px;
+  border-radius: 4px;
+  min-width: 320px;
+  background: $surfacePrimary;
+
+  & > div {
+    background: rgba($primary, 0.04);
+    border-radius: 4px;
+
+    &:first-of-type {
+      height: 32px;
+      width: 70%;
+      margin-bottom: 10px;
+    }
+
+    &:nth-of-type(2) {
+      height: 24px;
+      width: 30%;
+      margin-bottom: 18px;
+    }
+
+    &:last-of-type {
+      height: 40px;
+    }
+  }
+}

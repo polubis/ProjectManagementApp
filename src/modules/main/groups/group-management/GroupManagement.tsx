@@ -3,6 +3,7 @@ import { useRouteMatch } from 'react-router';
 
 import { Loader } from 'ui';
 
+import { getGroup } from 'shared/services';
 import { Group } from 'shared/models';
 
 import GroupForm from './group-form';
@@ -35,11 +36,11 @@ const GroupManagement: FC = () => {
       });
 
       try {
-        // const technology = await getTechnology(+match.params.id);
-        // setState({
-        //   pending: false,
-        //   technology,
-        // });
+        const group = await getGroup(match.params.id);
+        setState({
+          pending: false,
+          group,
+        });
       } catch {
         setState({
           pending: false,

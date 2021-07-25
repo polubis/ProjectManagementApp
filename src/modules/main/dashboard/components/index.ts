@@ -8,3 +8,4 @@ export * from './template-details-loader';
 export * from './templates-list';
 export * from './templates-list-loader';
 export * from './templates-error-action';
+export * from './add-group-action';
