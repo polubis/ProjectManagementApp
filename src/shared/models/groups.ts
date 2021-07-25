@@ -7,13 +7,18 @@ export interface AddGroupPayload {
   description: string;
 }
 
+export type EditGroupPayload = AddGroupPayload;
+
 export interface Group {
   id: string;
   name: string;
+  thumbnailUrl: string;
   description: string;
   createdAtUtc: string;
   modifiedAtUtc: string;
-  members: number;
+  membersCount: number;
+  topicsCount: number;
+  templatesCount: number;
 }
 
 export interface GetGroupsParams {

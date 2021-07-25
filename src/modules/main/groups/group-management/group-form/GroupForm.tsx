@@ -5,7 +5,7 @@ import { StepHeader, InputField, TextareaField, Button } from 'ui';
 
 import { Form, V } from 'utils';
 
-import { addGroup } from 'shared/services';
+import { addGroup, editGroup } from 'shared/services';
 import { Group, GroupCategory } from 'shared/models';
 import { useAlertsProvider } from 'shared/providers/alerts';
 
@@ -28,14 +28,14 @@ const makeConfig = (data?: Group): Form.Config => {
   return CONFIG;
 };
 
-namespace TechnologyForm {
+namespace GroupForm {
   export interface Props {
     data?: Group;
     id?: string;
   }
 }
 
-const TechnologyForm: FC<TechnologyForm.Props> = ({ data, id }) => {
+const GroupForm: FC<GroupForm.Props> = ({ data, id }) => {
   const history = useHistory();
 
   const { showAlert } = useAlertsProvider();
@@ -52,19 +52,21 @@ const TechnologyForm: FC<TechnologyForm.Props> = ({ data, id }) => {
         setPending(true);
 
         try {
-          if (id === undefined) {
-            const groupId = await addGroup({
+          if (data === undefined) {
+            await addGroup({
               name: fields[NAME].value,
               description: fields[DESCRIPTION].value,
             });
 
-            history.replace(`/app/groups/${GroupCategory.ALL}/${groupId}`);
+            showAlert({ message: 'Group has been successfully added', type: 'success' });
+            history.replace(`/app/groups/${GroupCategory.ALL}/${id}`);
           } else {
-            // await editTechnology(+id, {
-            //   name: fields[NAME].value,
-            //   description: fields[DESCRIPTION].value,
-            // });
+            await editGroup(id, {
+              name: fields[NAME].value,
+              description: fields[DESCRIPTION].value,
+            });
 
+            showAlert({ message: 'Group has been successfully edited', type: 'success' });
             history.replace(`/app/groups/${GroupCategory.ALL}/${id}`);
           }
         } catch (message) {
@@ -79,7 +81,7 @@ const TechnologyForm: FC<TechnologyForm.Props> = ({ data, id }) => {
   return (
     <form className={csx.groupForm} onSubmit={handleSubmit}>
       <StepHeader
-        label={id === undefined ? 'Add group' : 'Edit group'}
+        label={data === undefined ? 'Add group' : 'Edit group'}
         description="Fill required fields and submit"
       />
 
@@ -108,4 +110,4 @@ const TechnologyForm: FC<TechnologyForm.Props> = ({ data, id }) => {
   );
 };
 
-export default TechnologyForm;
+export default GroupForm;

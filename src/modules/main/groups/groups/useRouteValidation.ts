@@ -7,11 +7,11 @@ import { GroupCategory } from 'shared/models';
 
 import { RouteParams } from './models';
 
-const CATEGORIES = Object.values(GroupCategory.ALL).map((category) => category.toLowerCase());
+const CATEGORIES = Object.values(GroupCategory).map((category) => category.toLowerCase());
 
 const isValidCategory = (category: string): boolean => CATEGORIES.includes(category.toLowerCase());
 
-export const useRouteValidation = (): void => {
+export const useRouteValidation = () => {
   const match = useRouteMatch<RouteParams>();
 
   const { category } = match.params;
@@ -21,8 +21,7 @@ export const useRouteValidation = (): void => {
   useEffect(() => {
     if (!isValidCategory(category)) {
       const url = Url(location).replace(category, GroupCategory.ALL).value();
-
       replace(url);
     }
-  }, [category]);
+  }, []);
 };

@@ -36,7 +36,7 @@ const HallOfFame: FC = () => {
         <TemplateDetailsLoader />
       ) : error ? (
         <ErrorAction
-          description="Right now we cannot template. Please try again later"
+          description="Right now we cannot load template. Please try again later"
           operations={<Button onClick={loadTemplate}>RELOAD</Button>}
           title="Template load failed"
         />

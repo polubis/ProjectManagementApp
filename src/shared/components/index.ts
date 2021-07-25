@@ -12,6 +12,7 @@ export * from './exception-screen';
 export * from './form-steps';
 export * from './github-connect';
 export * from './group-tile';
+export * from './group-tile-loader';
 export * from './patterns-select';
 export * from './unreaded-icon';
 export * from './tags-field';
