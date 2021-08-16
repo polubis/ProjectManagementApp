@@ -2,7 +2,7 @@ import { Form, V } from 'utils';
 
 export const [BASIC_INFO, GITHUB_CONNECTION, TECH_DETAILS] = [0, 1, 2];
 export const [NAME, DESCRIPTION] = [0, 1];
-export const [GITHUB_LINK, PUBLIC_ACCESS, PRIVATE_ACCESS] = [0, 1, 2];
+export const [GITHUB_LINK, ACCESSIBILITY] = [0, 1];
 export const [TECHNOLOGIES, PATTERNS, TAGS] = [0, 1, 2];
 
 export const BASE_CONFIG: Form.Config[] = [
@@ -19,11 +19,7 @@ export const BASE_CONFIG: Form.Config[] = [
       fns: [V.req, V.githubUrl],
     },
     {
-      label: 'Public access',
-      value: true,
-    },
-    {
-      label: 'Private access',
+      label: 'Accessibility',
       value: false,
     },
   ],

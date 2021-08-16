@@ -18,6 +18,7 @@ export * from './menu';
 export * from './mobile-navigation';
 export * from './modal';
 export * from './more';
+export * from './radio-group';
 export * from './select-base';
 export * from './select-control';
 export * from './simple-select';
