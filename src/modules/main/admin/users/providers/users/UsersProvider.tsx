@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { Subject, Subscription, from, empty } from 'rxjs';
+import { Subject, Subscription, from, EMPTY } from 'rxjs';
 import {
   tap,
   filter,
@@ -68,7 +68,7 @@ class Provider extends React.Component<UsersProvider.Props, typeof STATE> {
       const handleError = (error: string) => {
         this.setState({ ...STATE, pendingRequests: 0, error });
 
-        return empty();
+        return EMPTY;
       };
 
       return from(getUsers(createQuery(payload))).pipe(tap(handleSuccess), catchError(handleError));
@@ -104,7 +104,7 @@ class Provider extends React.Component<UsersProvider.Props, typeof STATE> {
           error,
         }));
 
-        return empty();
+        return EMPTY;
       };
 
       return from(getUsers(createQuery(payload))).pipe(
@@ -150,6 +150,10 @@ const UsersProvider = Provider;
 
 export const useUsersProvider = () => {
   const context = useContext(Context);
+
+  if (!context) {
+    throw new Error('Lack of ContextProvider');
+  }
 
   return context;
 };
